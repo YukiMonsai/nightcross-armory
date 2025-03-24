@@ -1,0 +1,55 @@
+{
+	"id":"na_corrosion_torpedo",
+	"specClass":"missile",	
+	"missileType":"MISSILE",
+	"sprite":"graphics/missiles/na_corrosion_missile.png",
+	#"onHitEffect":"data.scripts.weapons.NA_CorrosionHit",
+	"onFireEffect":"data.scripts.weapons.NA_CorrosionOnFire",
+	"size":[10,32],	
+	"center":[5,16],
+	"collisionRadius":16,
+	"collisionClass":"MISSILE_NO_FF",
+	"explosionColor":[255,75,100,195],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":400, # purely visual
+	"engineSpec":{"turnAcc":300,
+				  "turnRate":100,
+				  "acc":250,
+				  "dec":250},
+	"engineSlots":[{"id":"ES1",
+					"loc":[-15, 0],
+				    #"style":"MISSILE_MIDLINE",
+				    "style":"CUSTOM",
+					"styleSpec":{
+						"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
+						#"engineColor":[255,145,75,255],
+						"engineColor":[255,75,100,195],
+						"contrailDuration":2,
+						"contrailWidthMult":1,
+						"contrailWidthAddedFractionAtEnd":2,  # can be negative. makes trail spread out/narrow at the end
+						"contrailMinSeg":7, # min segment length, in pixels
+						"contrailMaxSpeedMult":.0f,
+						"contrailAngularVelocityMult":0.0f,
+						"contrailSpawnDistMult":.5, # how far away from engine it starts
+						"contrailColor":[200,25,125,150],
+				    	"glowSizeMult":1.5,
+						"type":"SMOKE" # GLOW or SMOKE; additive or regular blend mode
+					},
+				    "width":8.0,
+				    "length":20.0,
+				    "angle":180.0}],
+	
+	"explosionSpec": {
+      "duration": 0.3f,
+      "radius": 100,
+      "coreRadius": 50, # full damage within core radius - also equal to proximity fuse range
+      "collisionClass": PROJECTILE_FF,
+      "collisionClassByFighter": PROJECTILE_FIGHTER,
+      "particleSizeMin": 3.0,
+      "particleSizeRange": 6.0,
+      "particleDuration": 0.6,
+      "particleCount": 50,
+      "particleColor": [255,75,100,195],
+    },	
+	
+}
+

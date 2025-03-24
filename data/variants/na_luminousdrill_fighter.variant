@@ -1,0 +1,22 @@
+{
+  "variantId": "na_luminousdrill_fighter",
+  "hullId": "na_luminousdrill",
+  "displayName": "Utility Drone",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "na_drill"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,53 @@
+{
+  "id": "na_wavefront",
+  "specClass": "projectile",
+  "projectileSpecId": "na_wavefront_mrm",
+  "type": "MISSILE",
+  "size": "SMALL",
+  "displayArcRadius": 300,
+  "turretSprite": "graphics/weapons/na_missile_rack_m_2x_turret_base.png",
+  "hardpointSprite": "graphics/weapons/na_missile_rack_m_2x_hardpoint_base.png",
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "turretOffsets": [
+    1.5,
+    -5,
+    1.5,
+    5
+  ],
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    9,
+    -5,
+    9,
+    5
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "SMOKE",
+  "smokeSpec": {
+    "particleSizeMin": 20,
+    "particleSizeRange": 20,
+    "cloudParticleCount": 3,
+    "cloudDuration": 1,
+    "cloudRadius": 10,
+    "blowbackParticleCount": 3,
+    "blowbackDuration": 2,
+    "blowbackLength": 30,
+    "blowbackSpread": 10,
+    "particleColor": [
+      100,
+      100,
+      100,
+      200
+    ]
+  },
+  "fireSoundTwo": "na_wavefront_fire"
+}

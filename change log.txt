@@ -1,0 +1,31 @@
+Version 0.1.3:
+- New beams cost more flux
+- Corrosion beam damage increased a lot
+- Losulci ship system no longer sucks in friendly missiles
+- RKKV arming time reduced
+- RKKV homing make more reliable
+- HPF homing made more reliable
+
+Version 0.1.2:
+- Added Ionic Plasma Decimator beam
+- Added Corrosion Beam
+
+Version 0.1.1:
+- Pyrokinetic streamer damage flux cost 48 -> 50, burst reduced 12 -> 8
+- Stunpulse description updated, damage 52 -> 28, flux 47 -> 45
+- Silence Combat laser beam DPS 900 -> 700, flux 275 -> 225
+- Haas beamer cooldown increased 1.4 -> 2.0, range 800 -> 750
+- AMP cannon range 800 -> 700 (heavy particle cannon unchanged)
+- Mini electron laser range 800 -> 700
+- Wavefront ammo doubled (single -> double, rack 2 -> 4 ammo, pod 6 -> 12)
+- Plasma Autoforge (Elyurias) flux cost 0.75xbase -> 0.4xbase
+- HPFs: reworked
+Much lower flux cost
+Longer range
+slower projectiles
+Small HPF faster but does less damage
+Deals less damage to shields unless target has hard flux
+
+Version 0.1.0:
+- Initial release
+

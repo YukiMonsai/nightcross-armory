@@ -1,0 +1,56 @@
+{
+  "id": "na_plasmabeam_med",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "MEDIUM",
+  "beamEffect":"data.scripts.weapons.NA_DecimatorEffect",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_plasmabeam_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_plasmabeam_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_plasmabeam_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_plasmabeam_hardpoint_glow.png",
+  "glowColor": [
+    100,
+    185,
+    255,
+    255
+  ],
+  "hitGlowRadius": 50,
+  "turretOffsets": [
+    17,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    25,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    75,
+    0,
+    155,
+    255
+  ],
+  "coreColor": [
+    125,
+    175,
+    255,
+    255
+  ],
+  "width": 34,
+  "textureType": ["graphics/trails/na_particlebeamtrail.png", "graphics/trails/na_plasmabeamcore.png"],
+  "textureScrollSpeed": 150,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "na_plasmabeam_med"
+}

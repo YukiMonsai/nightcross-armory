@@ -1,0 +1,39 @@
+{
+	"companies":{
+
+		"na_nightcross_merc":{
+			"name":"Nightcross Expeditionary Force",
+			"desc":"The downfall of the Nightcross planetary goverment left a number of task forces without orders. Knowing full well the gravity of the situation, one task force sought sponsors in the market for mercenary services, and has been functioning as a private military contractor ever since.",
+			"logo":"graphics/nightcross/factions/crest_nightcross.png",
+			"feeUpfront":80000,
+			"feeMonthly":2000,
+			"faction":"independent",
+			"minRep":"WELCOMING",
+			"minLevel":4,
+			"ships":[
+				["na_echo_assault"],
+				["na_elyurias_elite"],
+				["na_fossa_overdriven"],
+				["na_losulci_offense"],
+				["na_macula_overdriven"],
+				["na_mare_exp"],
+				["na_sop_elite"],
+			],
+			"officers":[
+				{
+					"level":5,
+					"rankId":"spaceCommander"
+				},
+				{
+					"level":4
+				},
+				{
+					"level":3
+				}
+			],
+			"averageSMods":2,
+			"pickChance":0.75
+		},
+	
+	}
+}

@@ -1,0 +1,56 @@
+{
+  "id": "na_drill",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_lasermini_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_lasermini_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_lasermini_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_lasermini_hardpoint_glow.png",
+  "glowColor": [
+    175,
+    127,
+    255,
+    255
+  ],
+  "hitGlowRadius": 25.0,
+  "hitGlowBrightenDuration":0.8,
+  "turretOffsets": [
+    9,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    17,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    75,
+    0,
+    255,
+    255
+  ],
+  "coreColor": [
+    225,
+    175,
+    120,
+    255
+  ],
+  "width": 16,
+  "textureType": LASER,
+  "textureScrollSpeed": 256,
+  "pixelsPerTexel": 8,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "na_beam_drill"
+}

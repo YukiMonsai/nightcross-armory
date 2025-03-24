@@ -1,0 +1,23 @@
+{
+
+	# multiplier for how often hulls show up in the faction's fleets
+    "hullFrequency":{
+        "hulls":{
+			"na_echo":0.3, #rare
+			"na_sop":0.2, #rare
+			"na_mare":0.2, #rare
+			"na_macula":0.1, #rare
+			"na_fossa":0.1, #rare
+        },
+    },
+	
+	"knownShips":{
+        "hulls":[
+            "na_echo",		
+            "na_sop",
+            "na_macula",		
+            "na_mare",	
+			"na_fossa", #rare
+        ],
+    },
+},

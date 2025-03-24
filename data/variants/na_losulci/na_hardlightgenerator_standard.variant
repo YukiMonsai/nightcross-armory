@@ -1,0 +1,22 @@
+{
+  "variantId": "na_hardlightgenerator_standard",
+  "hullId": "na_hardlightgenerator",
+  "displayName": "Standard",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "na_hardlightgenerator"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

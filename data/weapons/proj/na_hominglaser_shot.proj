@@ -1,0 +1,87 @@
+{
+	"id":"na_hominglaser_shot",
+	"specClass":"missile",	
+	"missileType":"MISSILE",
+	"collisionClassByFighter":"MISSILE_NO_FF",
+	
+	"onHitEffect":"data.scripts.weapons.NA_AriaHit",
+	
+	
+	"glowColor":[205,75,255,150],
+	"spawnType":"BALLISTIC_AS_BEAM",
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+	"passThroughFightersOnlyWhenDestroyed":true,
+	
+	
+	"size":[12,32],	
+	"center":[6,14],
+	"collisionRadius":22,
+	"collisionClass":"MISSILE_NO_FF",
+	"explosionColor":[75,100,255,235],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":50, # purely visual
+	"engineSpec":{"turnAcc":800,
+				  "turnRate":600,
+				  "acc":2400,
+				  "dec":1900},	
+	#"length":0,
+	"hitGlowRadius":50,
+	"fringeColor":[125,75,255,75],
+	"coreColor":[75,100,225,255],	
+	"sprite":"graphics/missiles/na_null.png",
+	
+	"explosionSpec": {
+      "duration": 0.1f,
+      "radius": 40,
+      "coreRadius": 20, # full damage within core radius - also equal to proximity fuse range
+      "collisionClass": PROJECTILE_FF,
+      "collisionClassByFighter": PROJECTILE_FIGHTER,
+      "particleSizeMin": 3.0,
+      "particleSizeRange": 6.0,
+      "particleDuration": 0.6,
+      "particleCount": 50,
+      "particleColor": [75, 100, 255, 255],
+      "sound": "system_emp_emitter_impact",
+    },
+	
+    "renderTargetIndicator":true,
+	"engineSlots":[
+			{"id":"ES1",
+                "loc":[8, 0],
+                "style":"CUSTOM",
+                "styleSpec":{
+                        "mode":"QUAD_STRIP",
+                        "engineColor":[80,125,255,0],
+                        "contrailDuration":1.4,
+                        "contrailWidthMult":50,
+                        "contrailWidthAddedFractionAtEnd":0.1,
+                        "contrailMinSeg":8,
+                        "contrailMaxSpeedMult":0.0f,
+                        "contrailAngularVelocityMult":0.0f,
+                        "contrailColor":[145,175,255,255],
+                        "type":"GLOW"
+                },
+                "width":0.1,
+                "length":0.1,
+                "angle":180.0
+                }, {"id":"ES2",
+                "loc":[8, 0],
+                "style":"CUSTOM",
+                "styleSpec":{
+                        "mode":"QUAD_STRIP",
+                        "engineColor":[80,125,255,0],
+                        "contrailDuration":1.4,
+                        "contrailWidthMult":20,
+                        "contrailWidthAddedFractionAtEnd":1,
+                        "contrailMinSeg":8,
+                        "contrailMaxSpeedMult":0.0f,
+                        "contrailAngularVelocityMult":0.0f,
+                        "contrailColor":[225,225,255,255],
+                        "type":"GLOW"
+                },
+                "width":0.1,
+                "length":0.1,
+                "angle":180.0
+                }],
+}

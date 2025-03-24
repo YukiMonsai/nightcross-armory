@@ -1,0 +1,61 @@
+{
+  "id": "na_corrosionbeam",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "LARGE",
+  "beamEffect": "data.scripts.weapons.NA_CorrosionBeamEffect",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_corrosionbeam_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_corrosionbeam_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_corrosionbeam_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_corrosionbeam_hardpoint_glow.png",
+  "glowColor": [
+    100,
+    185,
+    255,
+    255
+  ],
+  "hitGlowRadius": 50,
+  "turretOffsets": [
+    35,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    50,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    255,
+    0,
+    53,
+    255
+  ],
+  "coreColor": [
+    150,
+    175,
+    255,
+    255
+  ],
+  "width": 25,
+  "textureType": [
+    "graphics/fx/slipstream.png",
+    "graphics/fx/beam_laser_fringe.png"
+  ],
+  "textureScrollSpeed": 150,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "na_corrosionbeam_charge",
+  "fireSoundTwo": "na_corrosionbeam",
+  
+}

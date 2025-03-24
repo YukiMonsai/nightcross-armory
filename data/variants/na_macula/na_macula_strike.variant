@@ -1,0 +1,57 @@
+{
+  "variantId": "na_macula_strike",
+  "hullId": "na_macula",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 2,
+  "fluxVents": 17,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "advancedoptics",
+    "missile_autoloader"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "phasebeam",
+        "WS0018": "phasebeam"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "na_wavefront_single",
+        "WS0004": "na_wavefront_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_lasermini",
+        "WS0009": "na_lasermini"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "treble_ciws",
+        "WS0002": "treble_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "na_particlecannon"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

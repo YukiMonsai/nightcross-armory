@@ -1,0 +1,92 @@
+{
+  "variantId": "na_losulci_offense",
+  "hullId": "na_losulci",
+  "displayName": "Offense",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 47,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit",
+    "stabilizedshieldemitter",
+    "defensive_targeting_array"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0026": "na_superblaster_large",
+        "WS0027": "na_superblaster_large"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0030": "typhoon",
+        "WS0031": "typhoon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0028": "na_wavefront_pod",
+        "WS0029": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_pyrokinetic",
+        "WS0003": "na_pyrokinetic"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "na_laser",
+        "WS0006": "na_laser",
+        "WS0032": "na_hominglaser",
+        "WS0033": "na_hominglaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_metahelium",
+        "WS0010": "na_metahelium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "pdburst",
+        "WS0017": "pdburst",
+        "WS0022": "treble_ciws",
+        "WS0023": "treble_ciws",
+        "WS0024": "vulcan",
+        "WS0025": "vulcan"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "GEN_L": "na_hardlightgenerator_standard"
+    },
+    {
+      "GEN_R": "na_hardlightgenerator_standard"
+    }
+  ],
+  "wings": [
+    "na_magicmissile_wing",
+    "na_magicmissile_wing"
+  ]
+}

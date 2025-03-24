@@ -1,0 +1,56 @@
+{
+  "id": "detuned_haas_beamer",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/detuned_haas_beamer_turret.png",
+  "turretGlowSprite": "graphics/weapons/haas_beamer_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/detuned_haas_beamer_hardpoint.png",
+  "hardpointGlowSprite": "graphics/weapons/haas_beamer_hardpoint_glow.png",
+  "glowColor": [
+    145,
+    255,
+    125,
+    255
+  ],
+  "hitGlowRadius": 25.0,
+  "hitGlowBrightenDuration":0.25,
+  "turretOffsets": [
+    9,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    17,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    35,
+    225,
+    0,
+    255
+  ],
+  "coreColor": [
+    200,
+    255,
+    200,
+    255
+  ],
+  "width": 12,
+  "textureType": LASER,
+  "textureScrollSpeed": 256,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "na_silence"
+}

@@ -1,0 +1,56 @@
+{
+  "variantId": "na_nammu_support",
+  "hullId": "na_nammu",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 0,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "gravitonbeam",
+        "WS0009": "gravitonbeam"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0017": "na_rkkv_medium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heatseeker",
+        "WS0004": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pdburst",
+        "WS0002": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

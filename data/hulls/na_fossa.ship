@@ -1,0 +1,325 @@
+{
+  "hullName": "Fossa Magura",
+  "hullId": "na_fossa",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/na/fossamagura/na_fossa.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 214,
+  "width": 200,
+  "center": [100, 103],
+  "collisionRadius": 109,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 119.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "nightcrosstargeting",
+    "nightcrossengines",
+    "na_rcs"
+  ],
+  "builtInWeapons": {
+    "WS0001": "na_fossa_deco",
+    "WS0004": "na_fossa_frontL",
+    "WS0005": "blinker_na_cyan",
+    "WS0006": "na_fossa_frontR",
+    "WS0007": "blinker_na_cyan",
+    "WS0008": "blinker_na_red",
+    "WS0009": "na_reactor",
+    "WS0011": "blinker_na_red",
+    "WS0012": "blinker_na_cyan",
+    "WS0013": "blinker_na_cyan",
+    "WS0014": "blinker_na_red",
+    "WS0015": "blinker_na_red"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-25.5, 56.5]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-25.5, -56.5]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -1.5,
+      "locations": [-34, 56]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 1.5,
+      "locations": [-34, -56]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [45.5, 34.5]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [45.5, -34.5]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [40, 33.5]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [40, -33.5]
+    },
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-61, 0],
+      "renderOrderMod": 500
+    },
+    {
+      "id": "WS0022",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": 127.5,
+      "locations": [-38, 18]
+    },
+    {
+      "id": "WS0023",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": -127.5,
+      "locations": [-38, -18]
+    },
+    {
+      "id": "WS0024",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 135,
+      "angle": 34.5,
+      "locations": [3, 29]
+    },
+    {
+      "id": "WS0025",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 135,
+      "angle": -34.5,
+      "locations": [3, -29]
+    },
+    {
+      "id": "WS0028",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [84, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 90,
+      "locations": [26, 17]
+    },
+    {
+      "id": "WS0003",
+      "size": "MEDIUM",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -90,
+      "locations": [26, -17]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 30,
+      "angle": 0,
+      "locations": [45, 9],
+      "renderOrderMod": 600
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 30,
+      "angle": -0,
+      "locations": [45, -9],
+      "renderOrderMod": 600
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 135,
+      "angle": 0,
+      "locations": [-11, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [78, 15.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 83.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [78, -15.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -83.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [55, 21],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 95.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [55, -21],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -95.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-12.5, 41.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 94,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-12.5, -41.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -94,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-32, 37.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 121.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-32, -37.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -121.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-72, 14],
+      "length": 117.5,
+      "width": 27,
+      "angle": 180,
+      "contrailSize": 27,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-72, -14],
+      "length": 117.5,
+      "width": 27,
+      "angle": -180,
+      "contrailSize": 27,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-47, 29],
+      "length": 95,
+      "width": 18,
+      "angle": 180,
+      "contrailSize": 18,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-47, -29],
+      "length": 95,
+      "width": 18,
+      "angle": -180,
+      "contrailSize": 18,
+      "style": "NIGHTCROSS"
+    }
+  ],
+  "bounds": [
+    101.5, -9,
+    63.5, -26,
+    13.5, -27,
+    -12.5, -41.5,
+    -33.5, -36.5,
+    -51, -35.5,
+    -68, -17,
+    -97.5, -3,
+    -97.5, 3,
+    -68, 17,
+    -51, 35.5,
+    -33.5, 36.5,
+    -12.5, 41.5,
+    13.5, 27,
+    63.5, 26,
+    101.5, 9
+  ]
+}

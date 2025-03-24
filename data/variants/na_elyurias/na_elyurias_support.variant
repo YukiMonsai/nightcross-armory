@@ -1,0 +1,74 @@
+{
+  "variantId": "na_elyurias_support",
+  "hullId": "na_elyurias",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 29,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0002": "squall",
+        "WS0003": "squall"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0018": "na_corrosion",
+        "WS0019": "na_corrosion"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0004": "na_wavefront_pod",
+        "WS0006": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "heatseeker",
+        "WS0017": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0026": "heavyburst",
+        "WS0027": "heavyburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0020": "na_pyrowisp",
+        "WS0021": "na_pyrowisp",
+        "WS0028": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "treble_ciws",
+        "WS0023": "treble_ciws",
+        "WS0024": "lrpdlaser",
+        "WS0025": "lrpdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

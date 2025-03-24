@@ -1,0 +1,219 @@
+{
+	"music":{
+		"nightcross_enc_friendly":[
+			{"file":"nightcross_enc_friendly.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_enc_hostile":[
+			{"file":"nightcross_enc_hostile.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_enc_neutral":[
+			{"file":"nightcross_enc_neutral.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_market_friendly":[
+			{"file":"nightcross_market_friendly.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_market_hostile":[
+			{"file":"nightcross_market_hostile.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_market_neutral":[
+			{"file":"nightcross_market_neutral.ogg","source":"sounds/music/factions","volume":0.25}, 
+		],
+		"nightcross_pascal_music":[
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+		],
+	},
+
+#collapseopen WEAPONS	
+	
+	
+	# TREBLE CIWS
+	"ionflak":
+	[
+		{"file":"sounds/wpn/IonFlak_01.ogg","pitch":1.7,"volume":0.04},
+		{"file":"sounds/wpn/IonFlak_02.ogg","pitch":1.3,"volume":0.04},
+		{"file":"sounds/wpn/IonFlak_03.ogg","pitch":1.5,"volume":0.04},
+	],
+	"na_superblaster_impact":
+	[
+		{"file":"sounds/wpn/IonFlak_01.ogg","pitch":1.1,"volume":0.2},
+		{"file":"sounds/wpn/IonFlak_02.ogg","pitch":1.0,"volume":0.2},
+		{"file":"sounds/wpn/IonFlak_03.ogg","pitch":1.05,"volume":0.2},
+	],
+	# STUNPULSE
+	"stunpulse":
+	[
+		{"file":"sounds/wpn/stunpulse_01.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/stunpulse_02.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/stunpulse_03.ogg","pitch":1,"volume":0.5},
+	],
+	# HARDLIGHT RIFLE
+	"hardlight_rifle":
+	[
+		{"file":"sounds/wpn/hardlight_rifle_1.ogg","pitch":1,"volume":1.1},
+	],
+	"hardlight_charge":
+	[
+		{"file":"sounds/wpn/hardlight_charge_1.ogg","pitch":1,"volume":1.1},
+	],
+	"na_plasmabeam_med":
+	[
+		{"file":"sounds/wpn/na_plasmabeam_med.ogg","pitch":1,"volume":0.8},
+	],
+	"na_corrosionbeam":
+	[
+		{"file":"sounds/wpn/na_corrosionbeam.ogg","pitch":1,"volume":0.8},
+	],
+	"na_corrosionbeam_charge":
+	[
+		{"file":"sounds/wpn/na_corrosionbeam_charge.ogg","pitch":1,"volume":1.2},
+	],
+	"na_chargeup":
+	[
+		{"file":"sounds/wpn/na_chargeup.ogg","pitch":1,"volume":1.0},
+	],
+	# PYROWISP
+	"pyrowisp":
+	[
+		{"file":"sounds/wpn/pyrowisp_01.ogg","pitch":1.05,"volume":0.35},
+		{"file":"sounds/wpn/pyrowisp_02.ogg","pitch":1,"volume":0.35},
+		{"file":"sounds/wpn/pyrowisp_03.ogg","pitch":0.95,"volume":0.35},
+	],
+	"na_wavefront_fire":
+	[
+		{"file":"sounds/wpn/na_wavefront.ogg","pitch":1,"volume":0.9},
+	],
+	"na_wavefront_expl":
+	[
+		{"file":"sounds/wpn/na_wavefront_expl.ogg","pitch":1,"volume":0.8},
+	],
+	"na_laser":
+	[
+		{"file":"sounds/wpn/na_laser_01.ogg","pitch":1,"volume":0.8},
+		{"file":"sounds/wpn/na_laser_02.ogg","pitch":1,"volume":0.8},
+	],
+	"na_hardflux_charge": 
+	[
+		{"file":"sounds/wpn/na_hardflux_charge.ogg","pitch":1,"volume":0.9},
+	],
+	"na_ion":
+	[
+		{"file":"sounds/wpn/na_ion_01.ogg","pitch":1,"volume":0.8},
+		{"file":"sounds/wpn/na_ion_02.ogg","pitch":1,"volume":0.8},
+	],
+	"na_gigacannon_charge":
+	[
+		{"file":"sounds/wpn/na_gigacannon_charge_01.ogg","pitch":1,"volume":0.6},
+	],
+	"na_steamoff":
+	[
+		{"file":"sounds/wpn/na_steamoff.ogg","pitch":1,"volume":0.6},
+	],
+	"na_pyrokinetic_fire":
+	[
+		{"file":"sounds/wpn/na_pyrokinetic_fire_01.ogg","pitch":1,"volume":0.7},
+	],
+	
+	"na_minirazor":
+	[
+		{"file":"sounds/wpn/na_minirazor.ogg","pitch":1,"volume":0.7},
+	],
+	
+	"na_hominglaser":
+	[
+		#{"file":"sounds/wpn/na_hominglaser.ogg","pitch":1,"volume":0.8},
+		#{"file":"sounds/wpn/na_hominglaser1.ogg","pitch":0.7,"volume":0.4},
+		#{"file":"sounds/wpn/na_hominglaser2.ogg","pitch":1,"volume":0.99},
+		{"file":"sounds/wpn/na_hominglaser3.ogg","pitch":0.8,"volume":0.5},
+	],
+	"na_hominglaser_big":
+	[
+		{"file":"sounds/wpn/na_hominglaser_big.ogg","pitch":1,"volume":0.45},
+	],
+	"na_hominglaser_big2":
+	[
+		{"file":"sounds/wpn/na_hominglaser_big.ogg","pitch":1,"volume":0.55},
+	],
+	"na_metahelium_impact":
+	[
+		{"file":"sounds/wpn/na_metahelium_impact.ogg","pitch":1,"volume":0.7},
+	],
+	"na_metahelium_fire":
+	[
+		# {"file":"sounds/wpn/na_metahelium_fire_01.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/na_metahelium_fire_02.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/na_metahelium_fire_03.ogg","pitch":1,"volume":0.5},
+	],
+	"na_superblaster_fire":
+	[
+		{"file":"sounds/wpn/na_superblaster_fire.ogg","pitch":1,"volume":0.7},
+	],
+	"na_beam":
+	[
+		{"file":"sounds/wpn/na_beam.ogg","pitch":1,"volume":1},
+	],
+	"na_beam_drill":
+	[
+		{"file":"sounds/wpn/na_beam_drill.ogg","pitch":1,"volume":1},
+		{"file":"sounds/wpn/na_beam_drill.ogg","pitch":1.05,"volume":1},
+		{"file":"sounds/wpn/na_beam_drill.ogg","pitch":0.95,"volume":1},
+	],
+	"na_silence":
+	[
+		{"file":"sounds/wpn/na_silence.ogg","pitch":1,"volume":1},
+	],
+	
+	
+	"pyrowisp_medium":
+	[
+		{"file":"sounds/wpn/pyrowisp_01.ogg","pitch":1,"volume":0.6},
+		{"file":"sounds/wpn/pyrowisp_02.ogg","pitch":1.1,"volume":0.6},
+		{"file":"sounds/wpn/pyrowisp_03.ogg","pitch":0.9,"volume":0.6},
+	],
+	# HAAS_BEAMER
+	"haas_beamer":
+	[
+		{"file":"sounds/wpn/haasbeam_01.ogg","pitch":1,"volume":0.3},
+		{"file":"sounds/wpn/haasbeam_02.ogg","pitch":1,"volume":0.3},
+		{"file":"sounds/wpn/haasbeam_01.ogg","pitch":1.1,"volume":0.27},
+		{"file":"sounds/wpn/haasbeam_02.ogg","pitch":1.1,"volume":0.27},
+	],
+	# SYSTEM
+	
+	"na_system_relativity":
+	[
+		{"file":"sounds/system/na_system_relativity.ogg","pitch":1,"volume":0.75},
+	],
+	"na_system_tidaldisruption":
+	[
+		{"file":"sounds/system/na_system_tidaldisruption.ogg","pitch":1,"volume":0.75},
+	],
+	"na_system_relativity_loop":
+	[
+		{"file":"sounds/system/na_system_relativity_loop.ogg","pitch":1,"volume":7},
+	],
+	"na_blackhole_loop":
+	[
+		{"file":"sounds/system/na_system_relativity_loop.ogg","pitch":0.5,"volume":15},
+	],
+	"na_system_relativity_loop_old":
+	[
+		{"file":"sounds/system/na_system_relativity_loop_old.ogg","pitch":1,"volume":5.5},
+	],
+	
+	"na_plasmasurge":
+	[
+		{"file":"sounds/system/na_plasmasurge.ogg","pitch":1.0,"volume":0.95},
+	],
+	
+	
+	"na_system_catapult":
+	[
+		{"file":"sounds/system/na_system_catapult.ogg","pitch":1,"volume":1.25},
+	],
+	
+	
+	
+
+}
+
+

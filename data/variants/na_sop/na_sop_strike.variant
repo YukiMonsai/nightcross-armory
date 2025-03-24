@@ -1,0 +1,40 @@
+{
+  "variantId": "na_sop_strike",
+  "hullId": "na_sop",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "amblaster",
+        "WS0004": "amblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_wavefront_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightdualmg",
+        "WS0002": "lightdualmg"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

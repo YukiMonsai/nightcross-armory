@@ -1,0 +1,59 @@
+{
+  "variantId": "na_echo_assault",
+  "hullId": "na_echo",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 6,
+  "fluxVents": 30,
+  "quality": 0.5,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "advancedshieldemitter",
+    "magazines"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_pyrowisp_large",
+        "WS0010": "na_pyrowisp_large"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "na_wavefront",
+        "WS0004": "na_wavefront"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "treble_ciws"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_stunpulse",
+        "WS0002": "na_stunpulse"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "WING_L": "na_echo_leftmodule_standard"
+    },
+    {
+      "WING_R": "na_echo_rightmodule_standard"
+    }
+  ],
+  "wings": [
+    "na_magura_wing"
+  ]
+}

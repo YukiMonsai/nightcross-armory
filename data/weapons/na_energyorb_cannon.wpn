@@ -1,0 +1,28 @@
+{
+	"id":"na_energyorb_cannon",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	"type":"ENERGY",
+	"size":"SMALL",
+	"displayArcRadius":450,
+	"turretSprite":"graphics/weapons/na_stunpulse_turret.png",
+	"turretGlowSprite":"graphics/weapons/na_stunpulse_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/na_stunpulse_hardpoint.png",
+	"hardpointGlowSprite":"graphics/weapons/na_stunpulse_hardpoint_glow.png",
+	"visualRecoil":0,  # the gun sprites are only used if this is non-0
+	"turretOffsets":[22, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[22, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"LINKED", # or LINKED.  whether barrels fire at the same time or alternate.
+	"animationType":"GLOW_AND_FLASH",
+	"muzzleFlashSpec":{"length":40.0,
+					   "spread":40.0,
+					   "particleSizeMin":20.0,
+					   "particleSizeRange":30.0,
+					   "particleDuration":0.22,
+					   "particleCount":7,
+					   "particleColor":[150,255,200,255]},
+	"projectileSpecId":"na_energyorb_shot",  # projectile that will be fired	
+	"fireSoundTwo":"stunpulse",
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+}

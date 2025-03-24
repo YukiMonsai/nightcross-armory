@@ -1,0 +1,67 @@
+{
+	"id":"na_corrosionbeambullet_shot",
+	"specClass":"missile",	
+	"missileType":"MISSILE",
+	"collisionClassByFighter":"MISSILE_NO_FF",
+	
+	
+	"glowColor":[205,75,255,150],
+	"spawnType":"BALLISTIC_AS_BEAM",
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+	"passThroughFightersOnlyWhenDestroyed":true,
+	
+	
+	"size":[12,32],	
+	"center":[6,14],
+	"collisionRadius":22,
+	"collisionClass":"MISSILE_NO_FF",
+	"explosionColor":[255,0,125,235],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":50, # purely visual
+	"engineSpec":{"turnAcc":1200,
+				  "turnRate":1200,
+				  "acc":800,
+				  "dec":800},	
+	#"length":0,
+	"hitGlowRadius":50,
+	"fringeColor":[255,0,0,145],
+	"coreColor":[75,0,255,255],	
+	"sprite":"graphics/missiles/na_null.png",
+	
+	"explosionSpec": {
+      "duration": 0.1f,
+      "radius": 100,
+      "coreRadius": 50, # full damage within core radius - also equal to proximity fuse range
+      "collisionClass": PROJECTILE_FF,
+      "collisionClassByFighter": PROJECTILE_FIGHTER,
+      "particleSizeMin": 3.0,
+      "particleSizeRange": 6.0,
+      "particleDuration": 0.6,
+      "particleCount": 50,
+      "particleColor": [255, 0, 75, 255],
+      "sound": "system_emp_emitter_impact",
+    },
+	
+    "renderTargetIndicator":true,
+	"engineSlots":[
+			{"id":"ES1",
+                "loc":[8, -10],
+                "style":"CUSTOM",
+                "styleSpec":{
+                        "mode":"QUAD_STRIP",
+                        "engineColor":[255,75,175,235],
+                        "contrailDuration":1.4,
+                        "contrailWidthMult":0.3,
+                        "contrailWidthAddedFractionAtEnd":1,
+                        "contrailMinSeg":8,
+                        "contrailMaxSpeedMult":0.0f,
+                        "contrailAngularVelocityMult":0.0f,
+                        "contrailColor":[255,0,125,235],
+                        "type":"GLOW"
+                },
+                "width":20.0,
+                "length":20.0,
+                "angle":180.0
+                }],
+}

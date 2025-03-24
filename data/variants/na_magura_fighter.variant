@@ -1,0 +1,23 @@
+{
+  "variantId": "na_magura_fighter",
+  "hullId": "na_magura",
+  "displayName": "Space Superiority Fighter",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "na_pulsecannon_fighter",
+        "WS0001": "na_minirazor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

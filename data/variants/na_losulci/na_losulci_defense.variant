@@ -1,0 +1,96 @@
+{
+  "variantId": "na_losulci_defense",
+  "hullId": "na_losulci",
+  "displayName": "Defensive",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 45,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit",
+    "turretgyros",
+    "stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0026": "na_heavyparticlecannon",
+        "WS0027": "na_heavyparticlecannon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0028": "na_rkkv_medium",
+        "WS0029": "na_rkkv_medium"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0030": "na_corrosion_pod",
+        "WS0031": "na_corrosion_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "hveldriver",
+        "WS0006": "hveldriver",
+        "WS0009": "hveldriver",
+        "WS0010": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "na_lasermini",
+        "WS0017": "na_lasermini"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0032": "heatseeker",
+        "WS0033": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_interceptor",
+        "WS0003": "na_interceptor",
+        "WS0018": "pdlaser",
+        "WS0019": "pdlaser",
+        "WS0020": "pdlaser",
+        "WS0021": "pdlaser",
+        "WS0022": "treble_ciws",
+        "WS0023": "treble_ciws",
+        "WS0024": "vulcan",
+        "WS0025": "vulcan"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "GEN_L": "na_hardlightgenerator_standard"
+    },
+    {
+      "GEN_R": "na_hardlightgenerator_standard"
+    }
+  ],
+  "wings": [
+    "na_energyorb_wing",
+    "na_energyorb_wing"
+  ]
+}

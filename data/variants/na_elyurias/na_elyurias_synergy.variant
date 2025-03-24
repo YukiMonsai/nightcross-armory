@@ -1,0 +1,76 @@
+{
+  "variantId": "na_elyurias_synergy",
+  "hullId": "na_elyurias",
+  "displayName": "Synergy",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 6,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "na_plasmaaggregator"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0016": "na_wavefront_single"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0017": "na_corrosion"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0002": "na_rkkv_large",
+        "WS0003": "na_rkkv_large"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "na_pyrowisp_medium",
+        "WS0006": "na_pyrowisp_medium",
+        "WS0026": "na_pyrowisp_medium",
+        "WS0027": "na_pyrowisp_medium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0018": "na_hominglaser",
+        "WS0019": "na_hominglaser",
+        "WS0022": "na_hominglaser",
+        "WS0023": "na_hominglaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0020": "pdburst",
+        "WS0021": "pdburst",
+        "WS0024": "pdburst",
+        "WS0025": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0028": "hveldriver"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

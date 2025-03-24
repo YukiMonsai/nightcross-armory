@@ -1,0 +1,31 @@
+{
+ "graphics":{
+		"blueprint_packages":{
+			"nightcross_package_fast":"graphics/icons/package_na_fast.png",
+			"nightcross_package_heavy":"graphics/icons/package_na_heavy.png",
+			"nightcross_package_rare":"graphics/icons/package_na_rare.png",
+			
+		},
+		"misc":{
+			"rings_debris":"graphics/planets/rings_debris.png",
+		}, 
+ 			
+        "na_trails":{
+            "na_particletrail":"graphics/trails/na_particletrail.png",
+            "na_particletrailcore":"graphics/trails/na_particletrailcore.png",
+			"na_smoketrail":"graphics/trails/na_smoketrail.png",
+        },
+		
+		"na_hq": {
+			"nightcross_armory_hq":"graphics/icons/industry/nightcross_armory_hq.png",
+		},
+		
+		"na_characters":{
+			"blackcat":"graphics/portraits/characters/na_blackcat.png",
+			"teto":"graphics/portraits/characters/na_officer_teto.png",
+			"teto_mini":"graphics/icons/cargo/na_ai_core_teto.png",
+			"rei":"graphics/portraits/characters/na_rei.png",
+			"rei_mini":"graphics/icons/cargo/na_rei.png",
+		},
+	},
+}

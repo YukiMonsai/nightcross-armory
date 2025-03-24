@@ -1,0 +1,5 @@
+id,type,category,frequency,habOffsetMin,habOffsetMax,habOffsetYOUNG,habOffsetAVERAGE,habOffsetOLD,tags,probOrbits,minOrbits,maxOrbits,minRadius,maxRadius,minColor,maxColor,YOUNG,AVERAGE,OLD,star_orange_giant,star_red_giant,star_red_supergiant,star_red_dwarf,star_orange,star_yellow,star_browndwarf,star_white,star_blue_giant,star_blue_supergiant,star_neutron,black_hole,binary,trinary,cat_giant,cat_frozen,cat_cryovolcanic,cat_hab1,cat_hab2,cat_hab3,cat_hab4,cat_hab5,cat_barren,cat_toxic,lagrange,in_asteroids,is_moon
+na_cenotaph,PLANET,cat_barren,0,-100,100,,,,,0.05,1,1,90,150,220220220,255255255,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+na_graveyard,PLANET,cat_barren,0,-100,100,,,,,0.05,1,1,90,150,220220220,255255255,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+na_fragment,PLANET,cat_barren,0,-100,100,,,,,0.05,1,1,90,150,220220220,255255255,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+na_nightcross,PLANET,cat_hab4,0,-100,100,,,,,0.05,1,1,90,150,220220220,255255255,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

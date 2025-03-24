@@ -1,0 +1,52 @@
+{
+  "id": "na_superblaster",
+  "specClass": "projectile",
+  "projectileSpecId": "na_superblaster_shot",
+  "type": "ENERGY",
+  "size": "MEDIUM",
+  "turretSprite": "graphics/weapons/na_superblaster_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_superblaster_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_superblaster_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_superblaster_hardpoint_glow.png",
+  "glowColor": [
+    205,
+    25,
+    255,
+    225
+  ],
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "turretOffsets": [
+    20.5,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    32.5,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "muzzleFlashSpec": {
+    "length": 20,
+    "spread": 25,
+    "particleSizeMin": 40,
+    "particleSizeRange": 30,
+    "particleDuration": 0.75,
+    "particleCount": 20,
+    "particleColor": [
+      50,
+      175,
+      255,
+      175
+    ]
+  },
+  "fireSoundTwo": "na_superblaster_fire"
+}

@@ -1,0 +1,120 @@
+{
+    "playableFaction":false,
+	"startingFaction":true,
+    "corvusCompatible":true,
+    "freeStart":true,
+	"spawnAsFactionId":"player",	# transfer to this faction at start (after new game time pass)
+    "ngcTooltip":"Start as a Nightcross Armory Corporation insider",
+    
+	"startSpecialItems":[
+        [["nightcross_package_fast",""]], [["nightcross_package_heavy",""]], [["nightcross_package_advanced",""]],
+    ],
+
+    "rebelFleetSuffix":"Rogue",
+    
+    "directoryUseShortName":false,
+	
+     
+	"factionsLiked":[
+			"nightcross",
+    		"shadow_industry"], # String array
+    "factionsDisliked":[
+			"tiandong",
+    		"hegemony",
+    		"persean",
+    		"interstellarimperium",
+    		"luddic_path",
+    		"persean",
+    		"hegemony",
+    		"luddic_church"], # String array
+	 
+    "startRelationships":{
+		"independent": 0.5,
+		"nightcross":0.6,
+		"remnant":-0.6,
+		"hegemony": -0.2,
+		"luddic_church":-0.2,
+		"persean": 0.1,
+		"tritachyon": -0.1,
+		
+		# Mod factions
+		"blackrock_driveyards":0.2,
+		"br_consortium":0,
+		"dassault_mikoyan":-0.2,
+		"blade_breakers":-0.5,
+		"diableavionics":-0.15,
+		"gmda":-0.3,
+		"gmda_patrol":-0.3,
+		"draco":-0.6,
+		"fang":-0.6,
+		"HMI":0.4,
+		"interstellarimperium":0.2,
+		"ii_imperial_guard":0,
+		"junk_pirates":-0.6,
+		"junk_pirates_hounds":-0.6,
+		"junk_pirates_junkboys":-0.6,
+		"junk_pirates_technicians":-0.6,
+		"pack":0.1,
+		"syndicate_asp":-0.35,
+		"syndicate_asp_familia":-0.35,
+		"mayorate":0.0,
+		"SCY":0.0,
+		"sylphon":0.1,
+		"Coalition":-0.3,
+		"cabal":0.0,
+		"kadur_remnant":0.25,
+		},
+    "morality":"amoral",
+    
+    "alignments":{
+		"corporate":1.0,
+		"technocratic":0.5,
+		"militarist":-1.0,
+		"diplomatic":0.25,
+		"ideological":-0.5,
+    },
+    
+    
+    # chance of the faction being picked to send a colony expedition. Default 0 (disabled)
+    "colonyExpeditionChance":0.4,
+    "colonyTargetValuator":"exerelin.campaign.colony.IndustrialColonyTargetValuator",
+        
+    "startShipsSolo":[["na_sop_elite"]],
+    "startShipsCombatSmall":[
+      ["na_macula_elite", "na_mare_strike", "na_sop_strike"],
+      ["na_tessera_saturation", "na_mare_exp", "na_sop_escort"],
+    ],
+    "startShipsTradeSmall":[
+      ["na_nammu_support", "na_mare_strike", "ssp_nautilus_sta"],
+      ["na_nammu_support", "na_mare_exp", "mercury_Standard"],
+    ],
+    "startShipsCombatLarge":[
+      ["na_echo_standard", "na_macula_missile", "na_sop_escort"],
+      ["na_elyurias_elite", "na_macula_strike", "na_sop_escort"],
+    ],
+    "startShipsTradeLarge":[
+      ["ssp_circe_fis", "na_nammu_support", "ssp_nautilus_str"],
+      ["starliner_Standard", "na_nammu_support", "na_sop_escort"],
+    ],
+    "startShipsCarrierSmall":[["na_nammu_support", "na_sop_strike", "na_sop_escort"]],
+    "startShipsCarrierLarge":[["swp_eos_sta", "na_macula_missile", "na_mare_exp"]],
+    "startShipsSuper":[["na_echo_standard", "na_sop_elite", "na_mare_exp"]],
+    
+    
+    "defenceStations":[
+        {"ids":["orbitalstation_high", "battlestation_high", "starfortress_high"]},
+    ],
+    
+    "industrySeeds":[
+        {"id":"orbitalworks", "mult":0.4},
+        {"id":"lightindustry", "mult":0.1},
+    ],
+    
+    "bonusSeeds":[
+        {"id":"nanoforge_corrupted", "count":0.5},
+        {"id":"aiCore_station", "count":2, "mult":1.0},
+        {"id":"aiCore_military", "mult":0.5},
+        {"id":"aiCore_heavyindustry", "count":1.0},
+        {"id":"aiCore_any", "mult":0.1},
+    ],
+}

@@ -1,0 +1,14 @@
+{
+	"id":"na_forgevats",
+	"type":"STAT_MOD",
+	"statsScript":"data.scripts.NA_ForgeVats",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_ForgeVatsAI",
+	
+	"weaponTypes":[MISSILE],
+	"minFractionToReload":0.5,
+	"reloadBaseAmmoAmountOnly":true,
+	
+	"useSound":"system_forgevats",
+	"outOfUsesSound":"gun_out_of_ammo",
+}

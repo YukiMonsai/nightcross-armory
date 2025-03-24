@@ -1,0 +1,33 @@
+{
+  "variantId": "na_mare_beam",
+  "hullId": "na_mare",
+  "displayName": "Beam",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 2,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "advancedoptics"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_heavy_beamer",
+        "WS0002": "na_heavy_beamer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_interceptor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

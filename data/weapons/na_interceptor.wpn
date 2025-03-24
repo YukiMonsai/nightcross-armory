@@ -1,0 +1,53 @@
+{
+  "id": "na_interceptor",
+  "specClass": "projectile",
+  "projectileSpecId": "na_interceptor_shot",
+	"type": "MISSILE",
+	"mountTypeOverride": "SYNERGY",
+  "size": "MEDIUM",
+  "turretSprite": "graphics/weapons/na_interceptor_turret.png",
+  "turretGlowSprite": "graphics/weapons/na_interceptor_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_interceptor_hardpoint.png",
+  "hardpointGlowSprite": "graphics/weapons/na_interceptor_hardpoint_glow.png",
+  "glowColor": [
+    0,
+    255,
+    255,
+    255
+  ],
+  "turretOffsets": [
+    8.5,
+    6,
+    9,
+    -2,
+    8.5,
+    -6,
+    9,
+    2
+  ],
+  "turretAngleOffsets": [
+    57.5,
+    -32.5,
+    -57.5,
+    32.5
+  ],
+  "hardpointOffsets": [
+    12.5,
+    6,
+    12.5,
+    -6,
+    12.5,
+    -2,
+    12.5,
+    2
+  ],
+  "hardpointAngleOffsets": [
+    61,
+    -61,
+    -41,
+    41
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "GLOW",
+  "fireSoundTwo": "ion_cannon_fire"
+}

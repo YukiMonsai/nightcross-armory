@@ -1,0 +1,22 @@
+{
+	"id":"na_hardfluxcannon_shot",
+	"specClass":"projectile",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"length":100.0,
+	"width":20,
+	"fadeTime":0.8,
+	"fringeColor":[75,25,255,175],
+	"coreColor":[255,255,255,255],
+	"glowColor":[75,205,255,150],
+	"spawnType":"BALLISTIC_AS_BEAM",
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+	"passThroughFightersOnlyWhenDestroyed":true,
+	"glowRadius":80,
+	"hitGlowRadius":160,
+	"passThroughMissiles":true,
+	"passThroughFighters":true,
+	#"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+}

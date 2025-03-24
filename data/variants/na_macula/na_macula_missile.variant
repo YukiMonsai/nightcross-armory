@@ -1,0 +1,58 @@
+{
+  "variantId": "na_macula_missile",
+  "hullId": "na_macula",
+  "displayName": "Missile",
+  "goalVariant": true,
+  "fluxCapacitors": 9,
+  "fluxVents": 0,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "missile_autoloader",
+    "hardenedshieldemitter",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "reaper",
+        "WS0004": "reaper"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0017": "harpoonpod",
+        "WS0018": "harpoonpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "treble_ciws",
+        "WS0002": "treble_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_lasermini",
+        "WS0009": "na_lasermini"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

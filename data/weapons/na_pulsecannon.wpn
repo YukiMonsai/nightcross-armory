@@ -1,0 +1,59 @@
+{
+  "id": "na_pulsecannon",
+  "specClass": "projectile",
+  "projectileSpecId": "na_pulsecannon_shot",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "turretSprite": "graphics/weapons/na_pulsecannon_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_pulsecannon_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_pulsecannon_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_pulsecannon_hardpoint_glow.png",
+  "glowColor": [
+    50,
+    150,
+    255,
+    255
+  ],
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "turretOffsets": [
+    11,
+    -2,
+    11,
+    2
+  ],
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    19,
+    -2,
+    19,
+    2
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "muzzleFlashSpec": {
+    "length": 60,
+    "spread": 5,
+    "particleSizeMin": 20,
+    "particleSizeRange": 20,
+    "particleDuration": 0.25,
+    "particleCount": 4,
+    "particleColor": [
+      25,
+      175,
+      255,
+      255
+    ]
+  },
+  "fireSoundOne": "na_gigacannon_charge",
+  "fireSoundTwo": "na_ion"
+}

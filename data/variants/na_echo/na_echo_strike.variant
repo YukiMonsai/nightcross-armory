@@ -1,0 +1,57 @@
+{
+  "variantId": "na_echo_strike",
+  "hullId": "na_echo",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 30,
+  "fluxVents": 16,
+  "quality": 0.5,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_heavyparticlecannon",
+        "WS0010": "na_heavyparticlecannon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "na_wavefront",
+        "WS0004": "na_wavefront"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0001": "na_pulsecannon",
+        "WS0002": "na_pulsecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "treble_ciws"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "WING_L": "na_echo_leftmodule_standard"
+    },
+    {
+      "WING_R": "na_echo_rightmodule_standard"
+    }
+  ],
+  "wings": [
+    "na_luminousdrill_wing"
+  ]
+}

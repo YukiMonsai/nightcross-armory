@@ -1,0 +1,39 @@
+{
+	"NIGHTCROSS":{
+		#"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
+		#"engineColor":[100,165,255,255],
+		#"contrailDuration":2,
+		#"contrailWidthMult":3,
+		#"contrailWidthAddedFractionAtEnd":3,  # can be negative. makes trail spread out/narrow at the end
+		#"contrailMinSeg":10, # min segment length, in pixels
+		#"contrailMaxSpeedMult":0.5f,
+		#"contrailAngularVelocityMult":1f,
+		#"contrailColor":[100,165,255,50],
+		#"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
+						
+		"mode":"PARTICLES",
+		"engineColor":[75,100,255,255],
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":1.5,
+		"contrailParticleFinalSizeMult":0.5,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0f,
+		"contrailColor":[80,210,255,25],
+		"contrailCampaignColor":[80,210,255,75],
+		"type":"GLOW", # GLOW or SMOKE
+		"glowSizeMult":0.75
+	},
+	"NIGHTCROSS_PROTO":{
+		"mode":"PARTICLES",
+		"engineColor":[150,25,255,255],
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":1.5,
+		"contrailParticleFinalSizeMult":0.5,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0f,
+		"contrailColor":[175,125,255,25],
+		"contrailCampaignColor":[175,125,255,75],
+		"type":"GLOW", # GLOW or SMOKE
+		"glowSizeMult":0.75
+	},
+}

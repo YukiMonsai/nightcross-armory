@@ -1,0 +1,3 @@
+name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnit,iconWidthMult,plugin,desc
+# only used for her officer,,,,,,,,,,,,,,,,,,,
+Teto Core,na_core_teto,survey_data,100000,,,200,,"nonecon, no_loss_from_combat",1000,1,graphics/icons/cargo/na_ai_core_teto.png,ai_core_pickup,ui_fighter_drop,53,,,1,,

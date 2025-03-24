@@ -1,0 +1,54 @@
+{
+  "hullName": "Plasma Cutter",
+  "hullId": "na_luminousdrill",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/na/wings/na_luminousdrill.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 32,
+  "width": 32,
+  "center": [16, 16],
+  "collisionRadius": 18,
+  "shieldCenter": [1, -1],
+  "shieldRadius": 18,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0001": "blinker_na_red"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [8, -0]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-0.5, -2.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-9, -0],
+      "length": 20.5,
+      "width": 6,
+      "angle": 180,
+      "contrailSize": 6,
+      "style": "HIGH_TECH"
+    }
+  ],
+  "bounds": [
+    8, 7,
+    -7, -8,
+    -7, 7,
+    9, -8,
+    4, -1
+  ]
+}

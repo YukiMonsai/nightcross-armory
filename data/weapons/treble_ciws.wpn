@@ -1,0 +1,47 @@
+{
+  "id": "treble_ciws",
+  "specClass": "projectile",
+  "projectileSpecId": "treble_ciws_shot",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "displayArcRadius": 550,
+  "turretSprite": "graphics/weapons/treble_ciws_turret_base.png",
+  "turretGunSprite": "graphics/weapons/treble_ciws_recoil.png",
+  "hardpointSprite": "graphics/weapons/treble_ciws_hardpoint_base.png",
+  "hardpointGunSprite": "graphics/weapons/treble_ciws_recoil.png",
+  "visualRecoil": 4,
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "turretOffsets": [
+    10,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    18,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "MUZZLE_FLASH",
+  "muzzleFlashSpec": {
+    "length": 10,
+    "spread": 30,
+    "particleSizeMin": 16,
+    "particleSizeRange": 18,
+    "particleDuration": 0.3,
+    "particleCount": 46,
+    "particleColor": [
+      75,
+      155,
+      255,
+      225
+    ]
+  },
+  "fireSoundTwo": "ion_cannon_fire"
+}

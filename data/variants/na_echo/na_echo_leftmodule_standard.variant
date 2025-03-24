@@ -1,0 +1,24 @@
+{
+  "variantId": "na_echo_leftmodule_standard",
+  "hullId": "na_echo_leftmodule",
+  "displayName": "Standard",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "treble_ciws",
+        "WS0011": "treble_ciws"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

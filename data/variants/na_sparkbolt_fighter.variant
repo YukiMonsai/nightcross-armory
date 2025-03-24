@@ -1,0 +1,22 @@
+{
+  "variantId": "na_sparkbolt_fighter",
+  "hullId": "na_sparkbolt",
+  "displayName": "Fire Support",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "na_lasermini_fighter"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,3 @@
+id,name,faction,desc,script,icon,order
+na_market_nca,NCA Vendor,nightcross,"The Nightcross planetary government is a shadow of its former self, but Nightcross Armory itself stands to gain much from selling weapons to the well-funded mercenary. And perhaps a warlord or two.",data.scripts.campaign.submarkets.NA_NightcrossArmoryMarketPlugin,,800
+na_market_aria,Backchannels,nightcross,Amazing how classified technology always seems to find its way around.,data.scripts.campaign.submarkets.NA_NightcrossAriaMarketPlugin,,800

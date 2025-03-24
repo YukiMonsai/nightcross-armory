@@ -1,0 +1,60 @@
+{
+	"id":"na_interceptor_shot",
+	"specClass":"missile",	
+	"missileType":"MISSILE",
+	"collisionClassByFighter":"MISSILE_NO_FF",
+	"onFireEffect":"data.scripts.weapons.NA_StunpulseHoming",
+	
+	"size":[12,32],	
+	"center":[6,14],
+	"collisionRadius":35,
+	"collisionClass":"MISSILE_NO_FF",
+	"explosionColor":[0,255,255,235],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":80, # purely visual
+	"engineSpec":{"turnAcc":100,
+				  "turnRate":265,
+				  "acc":250,
+				  "dec":150},
+	#"length":0,
+	"hitGlowRadius":40,
+	"fringeColor":[125,0,255,75],
+	"coreColor":[255,225,225,255],	
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"sprite":"graphics/missiles/na_interceptor_missile.png",
+	
+    "renderTargetIndicator":false,
+	"engineSlots":[
+			{"id":"ES1",
+                "loc":[-3, 0],
+                "style":"CUSTOM",
+                "styleSpec":{
+                        "mode":"QUAD_STRIP",
+                        "engineColor":[180,71,71,255],
+                        "contrailDuration":1.0,
+                        "contrailWidthMult":2,
+                        "contrailWidthAddedFractionAtEnd":1,
+                        "contrailMinSeg":5,
+                        "contrailMaxSpeedMult":0.75f,
+                        "contrailAngularVelocityMult":0.1f,
+                        "contrailColor":[175,75,255,165],
+                        "type":"SMOKE"
+                },
+                "width":8.0,
+                "length":20.0,
+                "angle":180.0
+                }],
+	"explosionSpec": {
+      "duration": 0.1f,
+      "radius": 100,
+      "coreRadius": 50, # full damage within core radius - also equal to proximity fuse range
+      "collisionClass": PROJECTILE_FF,
+      "collisionClassByFighter": PROJECTILE_FIGHTER,
+      "particleSizeMin": 3.0,
+      "particleSizeRange": 6.0,
+      "particleDuration": 0.6,
+      "particleCount": 50,
+      "particleColor": [255, 45, 175, 255],
+      "sound": "system_emp_emitter_impact",
+    },
+}

@@ -1,0 +1,9 @@
+{
+	"portraits":{
+	       "standard_male":[
+		],
+		"standard_female":[
+			"graphics/portraits/characters/na_rei.png", 
+		],
+	},
+},

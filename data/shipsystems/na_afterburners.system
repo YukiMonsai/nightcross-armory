@@ -1,0 +1,26 @@
+{
+	"id":"na_afterburners",
+	"type":"ENGINE_MOD",
+	"aiType":"MANEUVERING_JETS",
+	"aiHints":{
+		"activeSpeedIncrease":300,
+		"burstMovementPotential":300,
+		"averageSpeedIncrease":200,
+	},
+	
+	"statsScript":"data.scripts.AfterburnerStats",
+	
+	"engineGlowLengthMult":1.25,
+	"engineGlowWidthMult":1.5,
+	"engineGlowGlowMult":2,
+	
+	"flameoutOnImpactChance":0.0,
+
+	"clampTurnRateAfter":true,
+	"clampMaxSpeedAfter":false,
+
+	"useSound":"system_plasma_jets",
+	"loopSound":"system_plasma_jets_loop",
+	"outOfUsesSound":"engine_disabled"
+	
+}

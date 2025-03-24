@@ -1,0 +1,3 @@
+id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order
+na_armory_hq,NCA Headquarters,90,60,,5,,,"military, unraidable, tactical_bombardment",,graphics/icons/industry/nightcross_armory_hq.png,data.scripts.campaign.fleets.NA_DefenseHQ,"Headquarters of the Nightcross Armory Corporation, the leading supplier of warships and weapons in the Pascal system.",2500
+na_aria_hq,Aria Research Complex,90,60,,5,,,"military, unraidable, tactical_bombardment",,graphics/icons/industry/nightcross_armory_hq.png,data.scripts.campaign.fleets.NA_AriaHQ,Aria Station was the center of Nightcross Armory Corporation's weapons research program. To this day it remains fortified by virtue of its numerous facilities.,2500

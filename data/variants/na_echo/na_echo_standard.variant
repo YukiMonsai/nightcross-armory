@@ -1,0 +1,59 @@
+{
+  "variantId": "na_echo_standard",
+  "hullId": "na_echo",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 8,
+  "fluxVents": 23,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "fluxbreakers",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_superblaster_large",
+        "WS0010": "na_superblaster_large"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "na_wavefront",
+        "WS0004": "na_wavefront"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_lasermini",
+        "WS0002": "na_lasermini"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "treble_ciws"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "WING_L": "na_echo_leftmodule_standard"
+    },
+    {
+      "WING_R": "na_echo_rightmodule_standard"
+    }
+  ],
+  "wings": [
+    "na_energyorb_wing"
+  ]
+}

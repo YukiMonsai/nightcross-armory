@@ -1,0 +1,76 @@
+{
+  "variantId": "na_elyurias_elite",
+  "hullId": "na_elyurias",
+  "displayName": "Elite",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 3,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "advancedoptics"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0004": "na_wavefront_pod",
+        "WS0006": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0016": "na_corrosion",
+        "WS0017": "na_corrosion"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0002": "na_rkkv_large",
+        "WS0003": "na_rkkv_large"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0020": "lrpdlaser",
+        "WS0021": "lrpdlaser",
+        "WS0022": "lrpdlaser",
+        "WS0023": "lrpdlaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0018": "swarmer",
+        "WS0019": "swarmer",
+        "WS0024": "pdburst",
+        "WS0025": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0026": "gravitonbeam",
+        "WS0027": "gravitonbeam",
+        "WS0028": "gravitonbeam"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

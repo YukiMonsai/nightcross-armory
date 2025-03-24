@@ -1,0 +1,29 @@
+{
+	"id":"na_pyrowisp_large_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"onFireEffect":"data.scripts.weapons.NA_TrailHomingWeapon",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":16.0,
+	"explosionColor":[255,125,80,255],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":140, # purely visual
+	"explosionSpec":{"duration":0.1f, # not visual
+					 "radius":75,
+					 "coreRadius":35, # full damage within core radius
+					 "collisionClass":HITS_SHIPS_AND_ASTEROIDS,
+					 "collisionClassByFighter":HITS_SHIPS_AND_ASTEROIDS,
+					 "particleSizeMin":5.0,
+					 "particleSizeRange":3.0,
+					 "particleDuration":1,
+					 "particleCount":32,
+					 "particleColor":[255,165,75,255]},
+	"width":36,
+	"fadeTime":0.1,
+	"fringeColor":[125,0,255,75],
+	"coreColor":[205,175,255,255],	
+
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/na_pyrowisp_medium.png",
+}

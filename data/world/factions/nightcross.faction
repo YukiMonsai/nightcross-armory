@@ -1,0 +1,300 @@
+{
+    "id":"nightcross",
+    "color":[72,74,126,255],
+
+    "baseUIColor":[95,98,205,255],
+    "darkUIColor":[70,80,110,175],
+    "gridUIColor":[75,80,160,75],
+    "secondaryUIColor":[24,39,124,255],
+    "secondarySegments":4,
+
+    "displayName":"Nightcross Armory",
+    "displayNameWithArticle":"the Nightcross Armory",
+    "displayNameLong":"Nightcross Armory Corporation",
+    "displayNameLongWithArticle":"the Nightcross Armory Corporation",
+    "displayNameIsOrAre":"is",
+    "logo":"graphics/nightcross/factions/nightcross_armory.png",
+    "crest":"graphics/nightcross/factions/crest_nightcross.png",
+    "shipNamePrefix":"NCA",
+    "shipNameSources":{
+		"world":1,
+		"myth":1,		
+		"future":1,	
+		"nightcross":10,
+    },
+    # variantOverrides restricts hulls to listed variants and adjusts their probability
+    "variantOverrides":{
+    },
+    # multiplier for how often hulls show up in the faction's fleets
+    "hullFrequency":{
+        "tags":{
+			"nightcross_bp_fast":1.5,
+			"nightcross_bp_heavy":1.5,
+			"nightcross_bp_rare":0.5,
+        },
+        "hulls":{
+			"na_echo": 3,
+			"na_sop": 4,
+			"na_mare": 4,
+			"na_macula": 3,
+			"na_losulci": 2,
+			"na_elyurias": 2,
+			"na_tessera": 3,
+        },
+    },
+    # ships the faction gets access to when importing S&W out-of-faction
+    "shipsWhenImporting":{
+        "tags":["base_bp", "hightech_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
+        "hulls":[
+			"vulture", # SW pack
+			"zenith", # SW pack
+			"defiance", # Tahlan
+			"kodai", # Tahlan
+        ],
+    },
+    "knownShips":{
+        "tags":["base_bp", "hightech_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
+        "hulls":[
+            "prometheus",
+            "valkyrie",
+			"aurora",
+			"sunder",
+			"na_echo",
+			"na_elyurias",
+			"na_losulci",
+			"na_sop",
+			"na_mare",
+			"na_macula","na_fossa","na_nammu",
+			"shade",
+			"afflictor",
+			"harbinger",
+			"na_tessera",
+			
+        ],
+    },
+    # listing ships here will make the faction mostly use them even if other hulls become available
+    "priorityShips":{
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy"],
+        "hulls":[
+			"na_echo",
+			"na_elyurias",
+			"na_losulci",
+			"na_sop",
+			"na_mare",
+			"na_macula",
+			"na_fossa","na_nammu",
+			"shade",
+			"na_tessera",
+        ],
+    },
+    "knownFighters":{
+        "tags":["base_bp", "midline_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
+        "fighters":[
+        ],
+    },
+    "priorityFighters":{
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy"],
+        "fighters":[
+        ],
+    },
+    "knownWeapons":{
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare", "nightcross_bp_restricted"],
+        "weapons":[
+			"taclaser",
+			"lrpdlaser",
+			"pdburst",
+			"amblaster",
+			
+			"phasebeam",
+			"gravitonbeam",
+			"ionbeam",
+			
+			"hil",
+			"guardian",
+			
+			"reaper",
+			"atropos",
+			"atropos_single",
+			"harpoon",
+			"harpoon_single",
+			"breach",
+			
+			"harpoonpod",
+			"breachpod",
+			"sabotpod",
+			"phasecl",
+			"typhoon",
+			
+			"cyclone",
+			"hurricane",
+			"locust",
+			
+			"railgun",
+			"lightneedler",
+			"hveldriver",
+			"heavyneedler",
+			"mjolnir",
+			
+			"na_hardlightrifle",
+        ],
+    },
+    "priorityWeapons":{
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare", "nightcross_bp_restricted"],
+        "weapons":[
+			"treble_ciws",
+			"na_heavyparticlecannon",
+			"haas_beamer",
+			"na_lasermini",
+			"na_pulsecannon",
+			"na_laser",
+			"na_pyrokinetic",
+			"na_particlecannon",
+			"na_stunpulse",
+			"na_pyrowisp",
+			"na_pyrowisp_medium",
+			"na_wavefront",
+			"na_hardlightrifle",
+        ],
+    },
+    "knownHullMods":{
+        "tags":["base_bp","nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
+        "hullMods":[
+            "advancedshieldemitter", # accelerated
+			"turretgyros",
+			"armoredweapons",
+			"augmentedengines",
+			"autorepair",
+			"converted_hangar",
+			"eccm",
+			"ecm",
+			"expanded_deck_crew",
+			"magazines",
+			"missleracks",
+			"extendedshieldemitter",
+			"frontemitter",
+			"frontshield",  # makeshift
+			"hardenedshieldemitter",
+			"heavyarmor",
+			"insulatedengine",
+			"targetingunit",
+			"nav_relay",
+			"adaptiveshields", # omni
+			"operations_center",
+			"recovery_shuttles",
+			"fluxbreakers",
+			"stabilizedshieldemitter",
+			"surveying_equipment",
+			"hiressensors",
+			"efficiency_overhaul",
+        ],
+    },
+    "factionDoctrine":{
+        "warships":4,
+        "carriers":1,
+        "phaseShips":2,
+
+        "officerQuality":2,
+        "shipQuality":3,
+        "numShips":2,
+
+        "shipSize":3,
+
+        "aggression":3,
+
+        "combatFreighterProbability":0.85,                   # instead of some portion of the freighters in a fleet
+        "combatFreighterCombatUseFraction":0.15,               # as part of the normal combat lineup
+        "combatFreighterCombatUseFractionWhenPriority":0.35, # as part of normal combat lineup, when marked as priority ship
+        "autofitRandomizeProbability":0.1,
+
+        "commanderSkillsShuffleProbability":0,
+        "commanderSkills":[
+			"officer_management",
+			"coordinated_maneuvers",
+			"fighter_doctrine",
+			"impact_mitigation",
+			"electronic_warfare",
+			"gunnery_implants"
+        ],
+    },
+    "illegalCommodities":[
+        "organs",
+    ],
+    "names":{
+        "world":1,
+        "future":1,
+        "myth":1,
+    },
+    "custom":{
+        "offersCommissions":false,
+        "engagesInHostilities":false,
+        "buysAICores":true,
+        "AICoreValueMult":2.0,
+        "AICoreRepMult":0.1,
+        "buysSurveyData":true,
+        "hostilityImpactOnGrowth":false,
+        "caresAboutAtrocities":false,
+        "punitiveExpeditionData":{
+            "vsCompetitors":false,
+            "vsFreePort":false,
+            "canBombard":false,
+            "territorial":false,
+        },
+    },
+    "fleetTypeNames":{
+		"trade":"Supplier",
+		"tradeLiner":"Employee Shuttle",
+		"tradeSmuggler":"Third-Party Vendor",
+		"smallTrader":"Advertisers",
+		
+		"patrolSmall":"Security Patrol",
+		"patrolMedium":"Corporate Security",
+		"patrolLarge":"Security Operation",
+		
+		"inspectionFleet":"Specialist Task Force",
+		"taskForce":"Specialist Task Force",
+		
+		"foodReliefFleet":"Emergency Shipment",
+		
+        "mercScout":"Inspectors",
+        "mercBountyHunter":"Private Security",
+        "mercPrivateer":"Product Research",
+        "mercPatrol":"Private Security",
+        "mercArmada":"Independent Task Force",
+    },
+    "portraits":{
+        "standard_male":[
+            "graphics/portraits/portrait_diktat01.png",
+            "graphics/portraits/portrait_diktat03.png",
+            "graphics/portraits/portrait_diktat04.png",
+            "graphics/portraits/portrait_diktat07.png",
+            "graphics/portraits/portrait_mercenary01.png",
+            "graphics/portraits/portrait_mercenary03.png",
+            "graphics/portraits/portrait13.png",
+            "graphics/portraits/portrait15.png",
+            "graphics/portraits/portrait23.png",
+        ],
+        "standard_female":[
+            "graphics/portraits/portrait_diktat02.png",
+            "graphics/portraits/portrait_diktat05.png",
+            "graphics/portraits/portrait_diktat06.png",
+            "graphics/portraits/portrait_diktat08.png",
+            "graphics/portraits/portrait_hegemony03.png",
+            "graphics/portraits/portrait_hegemony04.png",
+            "graphics/portraits/portrait_mercenary02.png",
+            "graphics/portraits/portrait16.png",
+        ],
+    },
+	"music":{
+		"battle_advantage":"nightcross_pascal_music",
+        "battle_retreat":"nightcross_pascal_music",
+        "battle_losing":"nightcross_pascal_music",
+        "battle":"nightcross_pascal_music",
+		"theme":"nightcross_market_friendly",
+		"market_neutral":"nightcross_enc_friendly",
+		"market_hostile":"nightcross_market_hostile",
+		"market_friendly":"nightcross_market_friendly",
+		"encounter_neutral":"nightcross_enc_neutral",
+		"encounter_hostile":"nightcross_enc_hostile",
+		"encounter_friendly":"nightcross_enc_friendly",
+	},	
+}

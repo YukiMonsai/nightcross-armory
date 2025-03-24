@@ -1,0 +1,48 @@
+{
+  "variantId": "na_fossa_overdriven",
+  "hullId": "na_fossa",
+  "displayName": "Overdriven",
+  "goalVariant": true,
+  "fluxCapacitors": 6,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0028": "heavyblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "sabotpod",
+        "WS0003": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0024": "na_pulsecannon",
+        "WS0025": "na_pulsecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "pdburst",
+        "WS0023": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

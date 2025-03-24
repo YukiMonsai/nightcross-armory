@@ -1,0 +1,51 @@
+{
+  "variantId": "na_tessera_synergy",
+  "hullId": "na_tessera",
+  "displayName": "Pyrowisp",
+  "goalVariant": false,
+  "fluxCapacitors": 36,
+  "fluxVents": 1,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightneedler",
+        "WS0002": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "na_hominglaser_medium",
+        "WS0018": "na_hominglaser_medium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_pyrowisp",
+        "WS0024": "pdburst",
+        "WS0025": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_pyrowisp",
+        "WS0004": "na_pyrowisp",
+        "WS0006": "na_pyrowisp"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

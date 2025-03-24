@@ -1,0 +1,52 @@
+{
+  "variantId": "na_sop_elite",
+  "hullId": "na_sop",
+  "displayName": "Elite",
+  "goalVariant": true,
+  "fluxCapacitors": 8,
+  "fluxVents": 3,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "detuned_haas_beamer"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_wavefront_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "haas_beamer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "treble_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "ioncannon"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

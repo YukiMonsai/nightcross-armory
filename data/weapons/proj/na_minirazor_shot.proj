@@ -1,0 +1,23 @@
+{
+	"id":"na_minirazor_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC_AS_BEAM",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"length":24.0,
+	"width":14,
+	"fadeTime":0.3,
+	"fringeColor":[255,25,25,255],
+	"coreColor":[225,175,125,255],
+	"glowColor":[225,75,125,75],
+	"glowRadius":42,
+	"hitGlowRadius":80,
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"passThroughMissiles":true,
+	"passThroughFighters":true,
+	"passThroughFightersOnlyWhenDestroyed":true,
+	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+}

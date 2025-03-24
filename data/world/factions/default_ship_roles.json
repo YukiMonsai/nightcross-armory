@@ -1,0 +1,100 @@
+{
+	# should be a copy of "combatSmall", minus variants that are annoying to fight in low numbers
+	# for example, no Hyperions or fast beam-based kiting loadouts, or ships with damper field
+	"combatSmallForSmallFleet":{
+		"na_sop_strike":5,
+		"na_mare_strike":5,
+		"na_mare_standard":5,
+		"na_mare_exp":5,
+	},
+	"combatSmall":{
+		"na_sop_elite":4,
+		"na_sop_escort":6,
+		"na_sop_strike":5,
+		"na_mare_strike":5,
+		"na_mare_standard":5,
+		"na_mare_exp":5,
+		"na_mare_beam":5,
+	},
+	"combatMedium":{
+		"na_macula_overdriven":5,
+		"na_macula_strike":5,
+		"na_macula_elite":5,
+		"na_macula_missile":5,
+		"na_fossa_overdriven":5,
+		"na_fossa_sniper":2,
+		"na_fossa_escort":8,
+		"na_fossa_support":6,
+		"na_nammu_support":2,
+	},
+	"combatLarge":{
+		"na_echo_strike":4,
+		"na_echo_beam":5,
+		"na_echo_standard":6,
+		"na_echo_assault":5,
+		"na_elyurias_elite":3,
+		"na_elyurias_support":5,
+		"na_elyurias_synergy":1,
+		"na_tessera_assault":6,
+		"na_tessera_beam":2,
+		"na_tessera_saturation":1,
+		
+	},
+	"combatCapital":{
+		"na_losulci_offense":3,
+		"na_losulci_defense":5,
+	},
+	
+	
+	# hybrid ships with good combat and cargo capacity
+	"combatFreighterSmall":{
+	},
+	"combatFreighterMedium":{
+		"na_nammu_support":5,
+	},
+	"combatFreighterLarge":{
+		
+	},
+	
+	"civilianRandom":{
+	},
+
+	# carriers
+	"carrierSmall":{
+	},
+	"carrierMedium":{
+	},
+	"carrierLarge":{
+	},
+
+
+	# freighters and such
+	"freighterSmall":{
+		
+	},
+	"freighterMedium":{
+	},
+	"freighterLarge":{
+	},
+	
+	"tankerSmall":{
+	},
+	"tankerMedium":{
+	},
+	"tankerLarge":{
+	},
+	
+	"personnelSmall":{
+	},
+	"personnelMedium":{
+	},
+	"linerSmall":{
+	},
+	"linerMedium":{
+	},
+	"linerLarge":{
+	},
+
+
+
+}

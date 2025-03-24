@@ -1,0 +1,23 @@
+{
+	"id":"na_plasmasurge",
+	"type":"ENGINE_MOD",
+	"aiType":"MANEUVERING_JETS",
+	"aiHints":{
+		"activeSpeedIncrease":120,
+		"burstMovementPotential":50,
+		"averageSpeedIncrease":90,
+	},
+	
+	"statsScript":"data.scripts.NA_PlasmaSurge",
+	
+	"runScriptWhileIdle":true, # unapply() never gets called
+		
+	"fadeActivationSoundOnChargedown":true,
+	"outOfUsesSound":"gun_out_of_ammo"
+	
+	
+}
+
+
+
+

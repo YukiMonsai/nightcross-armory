@@ -1,0 +1,26 @@
+{
+	"id":"na_relativitydrive",
+	"type":"ENGINE_MOD",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_RELATIVITYDRIVEAI",
+	
+	"statsScript":"data.scripts.NA_RelativityDrive",
+
+	"clampTurnRateAfter":true,
+	"clampMaxSpeedAfter":false,
+
+	"fadeActivationSoundOnChargedown":true,
+	"useSound":"na_system_relativity",
+	"loopSound":"na_system_relativity_loop",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"soundFilterType":"LOWPASS",
+	"soundFilterGain":0.75,
+	"soundFilterGainHF":0.5,
+	
+	"aiHints":{
+		"activeSpeedIncrease":100,  # not right since it's ship-dependent, but hopefully close enough
+		"burstMovementPotential":0,
+		"averageSpeedMult":5,
+	}
+}

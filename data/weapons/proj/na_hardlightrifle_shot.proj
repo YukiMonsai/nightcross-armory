@@ -1,0 +1,21 @@
+{
+	"id":"na_hardlightrifle_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC_AS_BEAM",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"length":20.0,
+	"width":3,
+	"fadeTime":0.3,
+	"fringeColor":[25,175,255,255],
+	"coreColor":[225,225,255,255],
+	"glowColor":[75,225,255,75],
+	"glowRadius":25,
+	"hitGlowRadius":45,
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"passThroughFightersOnlyWhenDestroyed":true,
+	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+}

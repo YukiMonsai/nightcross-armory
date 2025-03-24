@@ -1,0 +1,113 @@
+{
+  "hullName": "Left Wing",
+  "hullId": "na_echo_leftmodule",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/na/na_echo_leftmodule.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 117,
+  "width": 120,
+  "center": [60, 57],
+  "collisionRadius": 50,
+  "shieldCenter": [-4, -6],
+  "shieldRadius": 75,
+  "viewOffset": 0,
+  "moduleAnchor": [
+    0,
+    0
+  ],
+  "builtInMods": [
+    "reduced_explosion",
+    "always_detaches",
+    "na_overloadweapons",
+    "na_fakemodule"
+  ],
+  "builtInWeapons": {
+    "WS0001": "blinker_na_cyan",
+    "WS0002": "blinker_na_red",
+    "WS0003": "blinker_na_cyan",
+    "WS0004": "blinker_na_red",
+    "WS0007": "treble_ciws",
+    "WS0011": "treble_ciws"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 230,
+      "angle": 128,
+      "locations": [16, 47],
+      "renderOrderMod": 200
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-16.5, 4],
+      "renderOrderMod": 400
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 230,
+      "angle": 0,
+      "locations": [36, 34]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 230,
+      "angle": 0,
+      "locations": [-39.5, -3]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 230,
+      "angle": 0,
+      "locations": [-32.5, -3]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 230,
+      "angle": 0,
+      "locations": [-9, 35.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-24, -8],
+      "length": 120,
+      "width": 22,
+      "contrailSize": 22,
+      "angle": 180,
+      "style": "NIGHTCROSS"
+    }
+  ],
+  "bounds": [
+    -26, -24.5,
+    -20, -34,
+    4.5, -38,
+    42, -29,
+    21.5, 6,
+    36.5, 30.5,
+    33.5, 42.5,
+    19, 40,
+    17.5, 54.5,
+    -4, 34,
+    -24.5, 11.5
+  ]
+}

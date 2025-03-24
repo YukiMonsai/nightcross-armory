@@ -1,0 +1,30 @@
+{
+  "variantId": "na_mare_standard",
+  "hullId": "na_mare",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 6,
+  "fluxVents": 10,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "hveldriver",
+        "WS0002": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_interceptor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

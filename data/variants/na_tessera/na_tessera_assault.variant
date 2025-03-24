@@ -1,0 +1,58 @@
+{
+  "variantId": "na_tessera_assault",
+  "hullId": "na_tessera",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 8,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "magazines"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "ionpulser",
+        "WS0018": "ionpulser"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "amblaster",
+        "WS0004": "amblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightneedler",
+        "WS0002": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "pdburst",
+        "WS0009": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0024": "pdburst",
+        "WS0025": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

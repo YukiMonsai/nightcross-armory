@@ -1,0 +1,43 @@
+{
+  "variantId": "na_fossa_support",
+  "hullId": "na_fossa",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 7,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks",
+    "escort_package"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "treble_ciws",
+        "WS0024": "pdburst",
+        "WS0025": "pdburst",
+        "WS0028": "na_heavy_beamer"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_wavefront_pod",
+        "WS0003": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0023": "treble_ciws"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,58 @@
+{
+  "variantId": "na_echo_beam",
+  "hullId": "na_echo",
+  "displayName": "Beam",
+  "goalVariant": true,
+  "fluxCapacitors": 22,
+  "fluxVents": 30,
+  "quality": 0.75,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "advancedoptics"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "hil",
+        "WS0010": "hil"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "na_rkkv",
+        "WS0004": "na_rkkv"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "treble_ciws"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser"
+      }
+    }
+  ],
+  "modules": [
+    {
+      "WING_L": "na_echo_leftmodule_standard"
+    },
+    {
+      "WING_R": "na_echo_rightmodule_standard"
+    }
+  ],
+  "wings": [
+    "na_sparkbolt_wing"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+	"id":"na_tidaldisruption",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_TIDALDISRUPTIONAI",
+	
+	"statsScript":"data.scripts.NA_TidalDisruptionStats",
+
+	#"runScriptWhilePaused":true, # only for the player's ship
+	"runScriptWhileIdle":true, # unapply() never gets called
+		
+	"fadeActivationSoundOnChargedown":true,
+	"useSound":"na_system_tidaldisruption",
+	"loopSound":"na_system_relativity_loop_old",
+	"deactivateSound":"system_entropy_off",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	
+	"aiHints":{
+	}
+}
+
+
+
+

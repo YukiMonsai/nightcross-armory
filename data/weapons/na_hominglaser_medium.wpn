@@ -1,0 +1,39 @@
+{
+  "id": "na_hominglaser_medium",
+  "specClass": "projectile",
+  "projectileSpecId": "na_hominglaser_medium_shot",
+  "type": "ENERGY",
+  "mountTypeOverride": "SYNERGY",
+  "typeOverride": "MISSILE",
+  "size": "MEDIUM",
+  "turretSprite": "graphics/weapons/na_hominglaser_medium_turret.png",
+  "turretGlowSprite": "graphics/weapons/na_hominglaser_medium_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_hominglaser_medium_hardpoint.png",
+  "hardpointGlowSprite": "graphics/weapons/na_hominglaser_medium_hardpoint_glow.png",
+  "glowColor": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "turretOffsets": [
+    24,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    18,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "LINKED",
+  "animationType": "GLOW",
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"interruptibleBurst":false,
+  "fireSoundTwo": "na_hominglaser_big2"
+  
+}
