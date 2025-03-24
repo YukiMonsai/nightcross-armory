@@ -1,1 +1,1 @@
-# Nightcross
+Contains the remnants of the Nightcross Armory Corporation. LazyLib, GraphicsLib and MagicLib Required.
