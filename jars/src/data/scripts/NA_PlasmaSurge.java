@@ -153,7 +153,8 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         //boolean first = true;
         for (UnfurlDecoData data : dishData) {
             float arc = data.w.getArc();
-            boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir);
+            boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir)
+                    && Math.abs(data.w.getShip().getAngularVelocity()) > 0.4f;
             if (data.w.getShip().getEngineController().isStrafingLeft()) vector = data.turnDir > 0;
             else if (data.w.getShip().getEngineController().isStrafingRight()) vector = data.turnDir < 0;
             float desired = (active || vector) ? arc * data.turnDir : 0f;

@@ -123,7 +123,7 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                         weight += 0.5f;
                     } else if (target.getShield() != null && target.getShield().isOn()) {
                         // stay behind!
-                        weight -= 1.0f;
+                        weight -= 1.75f;
                     }
                 }
             }
