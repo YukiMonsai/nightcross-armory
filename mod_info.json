@@ -2,9 +2,9 @@
     "id":"Nightcross",
 	"name":"Nightcross Armory",
 	"author":"ChoirOfAngles & others",
-	"version":"0.1.0",
+	"version":"0.1.4",
 	"description":"Contains the remnants of the Nightcross Armory Corporation. LazyLib, GraphicsLib and MagicLib Required.",
-	"gameVersion":"0.97a",
+	"gameVersion":"0.98a",
 	"jars":["jars/nightcross.jar"],
     "modPlugin":"data.scripts.NAModPlugin",
 }

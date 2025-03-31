@@ -1,11 +1,11 @@
 {
-    "masterVersionFile":"",
+    "masterVersionFile":"https://raw.githubusercontent.com/YukiMonsai/nightcross-armory/main/Nightcross.version",
     "modName":"Nightcross Armory",
     "modThreadId":8007,
     "modVersion":
     {
         "major":1,
         "minor":1,
-        "patch":3
+        "patch":5
     },
 }

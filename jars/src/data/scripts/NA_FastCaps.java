@@ -12,7 +12,6 @@ import com.fs.starfarer.api.impl.combat.LidarArrayStats;
 import com.fs.starfarer.api.impl.hullmods.BallisticRangefinder;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.coreui.V;
 import data.scripts.everyframe.Nightcross_Trails;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;

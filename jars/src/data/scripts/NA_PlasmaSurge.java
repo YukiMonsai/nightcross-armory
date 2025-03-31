@@ -7,7 +7,6 @@ import com.fs.starfarer.api.combat.listeners.WeaponBaseRangeModifier;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.sun.xml.internal.ws.api.pipe.Engine;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -153,7 +152,8 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         //boolean first = true;
         for (UnfurlDecoData data : dishData) {
             float arc = data.w.getArc();
-            boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir);
+            boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir)
+                    && Math.abs(data.w.getShip().getAngularVelocity()) > 0.4f;
             if (data.w.getShip().getEngineController().isStrafingLeft()) vector = data.turnDir > 0;
             else if (data.w.getShip().getEngineController().isStrafingRight()) vector = data.turnDir < 0;
             float desired = (active || vector) ? arc * data.turnDir : 0f;

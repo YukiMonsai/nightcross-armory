@@ -8,7 +8,6 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.combat.entities.Ship;
-import org.jetbrains.annotations.ApiStatus;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;

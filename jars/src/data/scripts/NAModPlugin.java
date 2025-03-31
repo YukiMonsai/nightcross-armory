@@ -115,7 +115,7 @@ public class NAModPlugin extends BaseModPlugin {
 
         NightcrossPeople.create();
 
-        if (!isExerelin || SectorManager.getManager().isCorvusMode()) {
+        if (!isExerelin || SectorManager.getManager().isCorvusMode()) { // Till Nex
             if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZED)) {
                 addToOngoingGame();
                 Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
@@ -133,10 +133,10 @@ public class NAModPlugin extends BaseModPlugin {
     }
 
     protected void addToOngoingGame() {
-        if (!isExerelin || SectorManager.getManager().isCorvusMode()) {
+        if (!isExerelin || SectorManager.getManager().isCorvusMode()) { // tillnex
             new NAGen().generate(Global.getSector());
 
-            MarketHelpers.generateMarketsFromEconJson("na_pascal");
+            //MarketHelpers.generateMarketsFromEconJson("na_pascal");
         }
     }
 

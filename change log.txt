@@ -1,3 +1,14 @@
+V1.1.5
+- Avoid generating Pascal system on nex random sector mode
+- Saturation Cannon autofit tags removed
+- Fixed a bug where String of Pearls remains permanently invincible after using Gravitational Catapult
+- String of Pearls ship system now rotates to face the target if the target is hostile, instead of rotating 180 degrees always
+- Yet another haas beamer nerf
+
+V1.1.4
+- Updated to 0.98a
+- Improved String of Pearls ship system AI
+
 Version 0.1.3:
 - New beams cost more flux
 - Corrosion beam damage increased a lot

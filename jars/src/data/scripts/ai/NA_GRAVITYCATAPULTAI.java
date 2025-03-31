@@ -29,7 +29,7 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
     private ShipwideAIFlags flags;
     private CombatEngineAPI engine;
 
-    private final IntervalUtil timer = new IntervalUtil(0.3f, 0.8f);
+    private IntervalUtil timer = new IntervalUtil(0.3f, 0.8f);
 
     public static final float DEGREES = 50f;
     public static final float MIN_PARTIAL = 0.2f;
@@ -49,17 +49,18 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
     public static final ArrayList<AIFlags> NEG = new ArrayList<>();
     static {
         HIGH.add(AIFlags.PURSUING);
-        HIGH.add(AIFlags.HARASS_MOVE_IN);
         NEG.add(AIFlags.RUN_QUICKLY);
-        PARTIAL.add(AIFlags.TURN_QUICKLY);
         PARTIAL.add(AIFlags.NEEDS_HELP);
         NEG.add(AIFlags.BACK_OFF);
         NEG.add(AIFlags.BACK_OFF_MIN_RANGE);
+        NEG.add(AIFlags.ESCORT_OTHER_SHIP);
+        NEG.add(AIFlags.DO_NOT_USE_FLUX);
+        NEG.add(AIFlags.HARASS_MOVE_IN);
+        NEG.add(AIFlags.CAMP_LOCATION);
         HIGH.add(AIFlags.IN_CRITICAL_DPS_DANGER);
         NEG.add(AIFlags.BACKING_OFF);
         NEG.add(AIFlags.BACK_OFF);
         NEG.add(AIFlags.DO_NOT_PURSUE);
-        PARTIAL.add(AIFlags.DELAY_STRIKE_FIRE);
         PARTIAL.add(AIFlags.DO_NOT_BACK_OFF);
         NEG.add(AIFlags.SAFE_VENT);
         NEG.add(AIFlags.AUTO_BEAM_FIRING_AT_PHASE_SHIP);
@@ -87,7 +88,8 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
         if (engine.isPaused()) {
             return;
         }
-        timer.advance(amount);
+        if (!timer.intervalElapsed())
+            timer.advance(amount);
         if (timer.intervalElapsed() || flags.hasFlag(AIFlags.IN_CRITICAL_DPS_DANGER)) {
             if (!AIUtils.canUseSystemThisFrame(ship)) {
                 return;
@@ -120,10 +122,12 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                     // check if we need to get behind their shield -- if so, increase weight by 0.5 if target is bigger than us
                     if (target.getShield() != null && target.getShield().isOn()
                         && target.getShield().isWithinArc(ship.getLocation())) {
-                        weight += 0.5f;
+                        weight += 0.7f * Math.max(0, 1f - Math.abs(MathUtils.getShortestRotation(target.getFacing(),
+                                VectorUtils.getAngle(target.getLocation(), ship.getLocation())))/60f);
                     } else if (target.getShield() != null && target.getShield().isOn()) {
                         // stay behind!
-                        weight -= 1.0f;
+                        weight -= 3.0f * Math.max(0, 1f - Math.abs(MathUtils.getShortestRotation(target.getFacing() + 180f,
+                                VectorUtils.getAngle(target.getLocation(), ship.getLocation())))/90f);
                     }
                 }
             }
@@ -170,21 +174,23 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                             target.getLocation().x + (float) (Math.cos(angle)*(dist + NA_GravityCatapult.BASE_DIST)),
                             target.getLocation().y + (float) (Math.sin(angle)*(dist + NA_GravityCatapult.BASE_DIST))
                     );
-                    List<ShipAPI> shipsOnOtherSide = NAUtils.getShipsWithinRange(targetloc, NA_GravityCatapult.MAX_RANGE+300f);
+                    List<ShipAPI> shipsOnOtherSide = NAUtils.getShipsWithinRange(targetloc, NA_GravityCatapult.MAX_RANGE+400f);
                     ArrayList<ShipAPI> filtered = new ArrayList<ShipAPI>();
                     for (ShipAPI s : shipsOnOtherSide) {
                         if (s.isAlive()
                                 && s.getOwner() != ship.getOwner()
-                                && s.getFluxLevel() < 0.9f
+                                && s.getFluxTracker().getFluxLevel() < 0.9f
                                 && !s.getFluxTracker().isOverloadedOrVenting()) {
                             filtered.add(s);
                         }
                     }
-                    if (filtered.size() > 1) weight -= filtered.size() * 1.1f;
+                    if (filtered.size() > 1) weight -= filtered.size() * 1.5f;
                 }
 
-                if (weight >= 1.0f) {
+                if (weight >= 1.3f) {
                     ship.useSystem();
+                    float len = Math.min(2.5f, Math.max(0.5f, weight));
+                    timer = new IntervalUtil(len, len);
                 }
             } else if (weight < -1.0f) {
                 // we DONT want to use it, but a lot of negative reasons means we want to retreat

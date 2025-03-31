@@ -9,6 +9,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.combat.entities.Ship;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
@@ -24,13 +25,13 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
 
 
 
-    public static float TIME_JUMP = 0.25f; // ms for jump
+    public static float TIME_JUMP = 0.5f; // ms for jump
     public static float TIMEFLOW_MULT = 1f;
     public static float BASE_DIST = 500; // minimum distance to jump
     public static float BASE_DIST_ADD = 50; // added to distance
     public static float BASE_DIST_PER_SIZE = 100f; // higher for bigger
     public static float FAIL_DISTANCE = 100f;
-    public static float MAX_RANGE = 700f; // max distance from target
+    public static float MAX_RANGE = 600f; // max distance from target
     public static float SHIP_ALPHA_MULT = 0.5f;
 
     private String ID = "NA_GravityCatapult";
@@ -46,9 +47,10 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         IntervalUtil interval = new IntervalUtil(TIME_JUMP, TIME_JUMP);
         Vector2f initialLoc = null;
         Vector2f targetLoc = null;
+        float initialFacing = 0f;
+        float targetFacing = 0f;
         Vector2f velocity = null;
         float ID = 0;
-        boolean startphased = false;
         public void reset(float time) {
             interval = new IntervalUtil(time, time);
         }
@@ -149,9 +151,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                 String key = ID + "_data_" + ship.getId();
                 if (state != State.ACTIVE) {
                     NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
-                    if (data != null) {
-                        if (!data.startphased && ship.isPhased()) ship.setPhased(false);
-                    }
+                    ship.setPhased(false);
                     return;
                 }
                 // assess the jump
@@ -165,15 +165,19 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                 if (data == null) {
                     data = new NA_GravityCatapultData();
                     ship.setCustomData(key, data);
-                    data.startphased = ship.isPhased();
                     data.initialLoc = ship.getLocation();
                     data.ID = MagicTrailPlugin.getUniqueID();
                     data.targetLoc = new Vector2f(
                             ship.getLocation().x + (float) (Math.cos(jumpAngle) * jumpDist),
                             ship.getLocation().y + (float) (Math.sin(jumpAngle) * jumpDist)
                     );
+                    if (target.getOwner() != ship.getOwner())
+                        data.targetFacing = VectorUtils.getAngle(data.targetLoc, data.initialLoc);
+                    else
+                        data.targetFacing = VectorUtils.getAngle(data.initialLoc, data.targetLoc);
+                    data.initialFacing = ship.getFacing();
 
-                    // slow down the target as well
+                            // slow down the target as well
                     target.getVelocity().set(target.getVelocity().x*0.5f, target.getVelocity().y*0.5f);
 
                     ship.getVelocity().set(0, 0);
@@ -227,12 +231,15 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         ship.setPhased(true);
                         float dx = 2f*(data.targetLoc.x - data.initialLoc.x) * delta;
                         float dy = 2f*(data.targetLoc.y - data.initialLoc.y) * delta;
+
+
+                        float da = 2f*MathUtils.getShortestRotation(data.initialFacing, data.targetFacing) * delta;
                         ship.getLocation().set(new Vector2f(
                                 ship.getLocation().x + dx,
                                 ship.getLocation().y + dy
                         ));
                         ship.setFacing(ship.getFacing() +
-                                delta * 180f
+                                da
                         );
 
                         // quadratic shenanigans
@@ -299,7 +306,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         String key = ID + "_data_" + ship.getId();
         NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
         if (data != null) {
-            if (!data.startphased) ship.setPhased(false);
+            ship.setPhased(false);
             ship.getCustomData().remove(key);
         }
         ship.setExtraAlphaMult(1f);

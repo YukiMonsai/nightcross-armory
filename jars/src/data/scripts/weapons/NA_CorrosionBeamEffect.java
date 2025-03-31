@@ -31,7 +31,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 		CombatEntityAPI target = beam.getDamageTarget();
 		if (beam.getBrightness() >= 1f) {
 
-			if (shockInterval.intervalElapsed() && MathUtils.getRandomNumberInRange(0, 1f) < 0.5f) {
+			if (shockInterval.intervalElapsed() && MathUtils.getRandomNumberInRange(0, 1f) < 0.8f) {
 				for (Map.Entry<CombatEntityAPI, Integer> tt : finalTarget.entrySet()) {
 					int amtMissiles = tt.getValue();
 					if (amtMissiles > 0) {
@@ -48,7 +48,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 					if (!finalTarget.containsKey(target))
 						finalTarget.put(target, 0);
 				}
-				boolean hitShield = target.getShield() != null && target.getShield().isWithinArc(beam.getTo());
+				boolean hitShield = MathUtils.getRandomNumberInRange(0, 100) < 50 || target.getShield() != null && target.getShield().isWithinArc(beam.getTo());
 
 				float amt = Math.max(0, 1f - shockInterval.getElapsed()/shockInterval.getMaxInterval());
 				beam.setCoreColor(new Color(Math.max(amt * 0.9f, Math.max(0f, Math.min(1f, 3f - beam.getWeapon().getBurstFireTimeRemaining()))), amt * 0.8f, amt));
