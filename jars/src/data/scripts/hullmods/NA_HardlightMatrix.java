@@ -90,7 +90,7 @@ public class NA_HardlightMatrix extends BaseHullMod {
 						"graphics/icons/hullsys/high_energy_focus.png",
 						"Hardlight Matrix",
 						"Matrix offline",
-						false);
+						true);
 			}
 
 			ship.getMutableStats().getEffectiveArmorBonus().unmodify(ID);

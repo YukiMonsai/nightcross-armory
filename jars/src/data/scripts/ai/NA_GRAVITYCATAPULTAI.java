@@ -10,6 +10,7 @@ import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import com.fs.starfarer.combat.entities.Ship;
 import data.scripts.NAUtils;
 import data.scripts.NA_GravityCatapult;
 import data.scripts.NA_RelativityDrive;
@@ -163,10 +164,43 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                 }
             }
 
+            boolean panic = false;
+            List<ShipAPI> enemiesNearby = NAUtils.getEnemyShipsWithinRange(ship, ship.getLocation(), NA_GravityCatapult.MAX_RANGE, true);
 
-            if (weight >= 1.0f) {
+            float enemyWeight = 0;
+            for (ShipAPI shp: enemiesNearby) {
+                if (!shp.getFluxTracker().isOverloadedOrVenting())
+                    enemyWeight += NAUtils.shipSize(shp);
+            }
+
+            if (ship.getFluxTracker().getFluxLevel() > 0.85f ||
+                    (ship.getFluxTracker().getFluxLevel() > 0.5f
+                            && ship.getAIFlags() != null && (
+                            ship.getAIFlags().hasFlag(AIFlags.BACKING_OFF)
+                            ))) {
+                panic = true;
+            } else {
+                if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(AIFlags.BACKING_OFF)) {
+                    List<ShipAPI> friendsNearby = NAUtils.getFriendlyShipsWithinRange(ship, ship.getLocation(), NA_GravityCatapult.MAX_RANGE, true);
+
+                    float friendlyWeight = NAUtils.shipSize(ship);
+                    for (ShipAPI shp: friendsNearby) {
+                        friendlyWeight += NAUtils.shipSize(shp);
+                    }
+
+                    if (enemyWeight > friendlyWeight) {
+                        panic = true;
+                    }
+                }
+            }
+
+
+
+
+
+            if (weight >= 1.0f || panic) {
                 // dont dive into a group of enemies lol
-                if (target != null) {
+                if (target != null && !panic) {
                     float dist = MathUtils.getDistance(ship.getLocation(), target.getLocation());
                     float angle = (float) Math.atan2(target.getLocation().y - ship.getLocation().y,
                             target.getLocation().x - ship.getLocation().x);
@@ -187,19 +221,96 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                     if (filtered.size() > 1) weight -= filtered.size() * 1.5f;
                 }
 
-                if (weight >= 1.3f) {
-                    ship.useSystem();
-                    float len = Math.min(2.5f, Math.max(0.5f, weight));
-                    timer = new IntervalUtil(len, len);
+                if (weight >= 1.3f || panic) {
+                    if (panic) {
+                        // we DONT want to use it, but a lot of negative reasons means we want to retreat
+                        ShipAPI friend = NA_GravityCatapult.findTarget(ship, true);
+                        if (friend != null) {
+                            // use on friend preferentially
+                            float targetWeight = 0f;
+                            Vector2f targetPoint = NA_GravityCatapult.getJumpPoint(ship, friend);
+
+                            List<ShipAPI> trgNearby = NAUtils.getEnemyShipsWithinRange(ship, targetPoint, NA_GravityCatapult.MAX_RANGE, true);
+
+                            for (ShipAPI shp: trgNearby) {
+                                if (!shp.getFluxTracker().isOverloadedOrVenting())
+                                    targetWeight += NAUtils.shipSize(shp);
+                            }
+
+                            if (targetWeight < enemyWeight) {
+                                ShipAPI oldTarget = ship.getShipTarget();
+                                ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, friend);
+                                ship.setShipTarget(friend);
+                                ship.useSystem();
+                                ship.setShipTarget(oldTarget);
+                                return;
+                            } else {
+                                float len = 0.25f;
+                                timer = new IntervalUtil(len, len);
+                                return;
+                            }
+
+
+                        } else {
+                            // find a target in range with the least enemyweight of the point around
+                            ShipAPI bestTarget = null;
+                            float bestTargetWeight = enemyWeight;
+
+                            for (ShipAPI tmp: enemiesNearby) {
+                                if (tmp.isFighter()) continue;
+                                float targetWeight = 0f;
+                                Vector2f targetPoint = NA_GravityCatapult.getJumpPoint(ship, tmp);
+
+                                List<ShipAPI> trgNearby = NAUtils.getEnemyShipsWithinRange(ship, targetPoint, NA_GravityCatapult.MAX_RANGE, true);
+
+                                for (ShipAPI shp: trgNearby) {
+                                    if (!shp.getFluxTracker().isOverloadedOrVenting())
+                                        targetWeight += NAUtils.shipSize(shp);
+                                }
+
+                                if (targetWeight < bestTargetWeight) {
+                                    bestTargetWeight = targetWeight;
+                                    bestTarget = tmp;
+                                }
+
+
+                            }
+
+                            if (bestTarget != null) {
+
+                                ShipAPI oldTarget = ship.getShipTarget();
+                                ship.setShipTarget(bestTarget);
+                                ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, bestTarget);
+                                ship.useSystem();
+                                ship.setShipTarget(oldTarget);
+                                return;
+                            } else {
+                                float len = 0.25f;
+                                timer = new IntervalUtil(len, len);
+                                return;
+                            }
+                        }
+                    } else {
+                        ship.useSystem();
+                        float len = Math.min(2.5f, Math.max(0.5f, weight));
+                        timer = new IntervalUtil(len, len);
+                        return;
+                    }
                 }
-            } else if (weight < -1.0f) {
+            } else if (weight < -3.0f) {
                 // we DONT want to use it, but a lot of negative reasons means we want to retreat
                 ShipAPI friend = NA_GravityCatapult.findTarget(ship, true);
                 if (friend != null) {
                     ShipAPI oldTarget = ship.getShipTarget();
                     ship.setShipTarget(friend);
+                    ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, friend);
                     ship.useSystem();
                     ship.setShipTarget(oldTarget);
+                    return;
+                } else {
+                    float len = 0.25f;
+                    timer = new IntervalUtil(len, len);
+                    return;
                 }
             }
         }

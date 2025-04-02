@@ -49,6 +49,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         Vector2f targetLoc = null;
         float initialFacing = 0f;
         float targetFacing = 0f;
+        ShipAPI target;
         Vector2f velocity = null;
         float ID = 0;
         public void reset(float time) {
@@ -143,27 +144,37 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
             }
 
             // set the target
-            ShipAPI target = findTarget(ship, false);
+
+            ShipAPI target = null;
+
+
+            String key = ID + "_data_" + ship.getId();
+            NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
+            if (data != null) target = data.target;
+            else {
+                if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM)) {
+                    ShipAPI targ = (ShipAPI) ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM);
+                    if (targ != null) target = targ;
+                }
+
+                if (target == null) target = findTarget(ship, false);
+
+            }
+
+
 
 
 
             if (ship != null && target != null) {
-                String key = ID + "_data_" + ship.getId();
-                if (state != State.ACTIVE) {
-                    NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
-                    ship.setPhased(false);
-                    return;
-                }
-                // assess the jump
-                float jumpDist = getJumpDist(ship, target);
-                double jumpAngle = Math.atan2(target.getLocation().y - ship.getLocation().y,
-                        target.getLocation().x - ship.getLocation().x);
 
-
-                // Do the jump
-                NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
                 if (data == null) {
+
+                    float jumpDist = getJumpDist(ship, target);
+                    double jumpAngle = Math.atan2(target.getLocation().y - ship.getLocation().y,
+                            target.getLocation().x - ship.getLocation().x);
+
                     data = new NA_GravityCatapultData();
+                    data.target = target;
                     ship.setCustomData(key, data);
                     data.initialLoc = ship.getLocation();
                     data.ID = MagicTrailPlugin.getUniqueID();
@@ -177,12 +188,22 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         data.targetFacing = VectorUtils.getAngle(data.initialLoc, data.targetLoc);
                     data.initialFacing = ship.getFacing();
 
-                            // slow down the target as well
+                    // slow down the target as well
                     target.getVelocity().set(target.getVelocity().x*0.5f, target.getVelocity().y*0.5f);
 
                     ship.getVelocity().set(0, 0);
 
                 }
+
+                if (state != State.ACTIVE) {
+                    ship.setPhased(false);
+                    return;
+                }
+                // assess the jump
+
+
+                // Do the jump
+
                 float t1 = data.interval.getElapsed();
                 data.interval.advance(Global.getCombatEngine().getElapsedInLastFrame());
                 float t2 = data.interval.getElapsed();
@@ -233,7 +254,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         float dy = 2f*(data.targetLoc.y - data.initialLoc.y) * delta;
 
 
-                        float da = 2f*MathUtils.getShortestRotation(data.initialFacing, data.targetFacing) * delta;
+                        float da = MathUtils.getShortestRotation(data.initialFacing, data.targetFacing) * delta;
                         ship.getLocation().set(new Vector2f(
                                 ship.getLocation().x + dx,
                                 ship.getLocation().y + dy
@@ -241,6 +262,8 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         ship.setFacing(ship.getFacing() +
                                 da
                         );
+
+                        ship.setAngularVelocity(0f);
 
                         // quadratic shenanigans
                         ship.setExtraAlphaMult(0.5f);
@@ -324,20 +347,37 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
     }
 
 
+    public static Vector2f getJumpPoint(ShipAPI ship, ShipAPI target) {
+        float jumpDist = getJumpDist(ship, target);
+        double jumpAngle = Math.atan2(target.getLocation().y - ship.getLocation().y,
+                target.getLocation().x - ship.getLocation().x);
+        return new Vector2f(
+                ship.getLocation().x + ((float) Math.cos(jumpAngle) * jumpDist),
+                ship.getLocation().y + ((float) Math.sin(jumpAngle) * jumpDist)
+        );
+    }
 
     @Override
     public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
         //if (true) return true;
-        if (ship.getShipTarget() != null) {
-            ShipAPI target = ship.getShipTarget();
+        ShipAPI target = null;
+
+        if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM)) {
+            ShipAPI targ = (ShipAPI) ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM);
+            if (targ != null) target = targ;
+        }
+
+        if (target == null) target = findTarget(ship, false);
+
+        if (target != null) {
             float dist = Misc.getDistance(ship.getLocation(), target.getLocation());
             float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
             float range = getMaxRange(ship);
             if (dist > range + radSum) return false;
+            if (target.isFighter()) return false;
             return target != ship;
         }
-        ShipAPI target = findTarget(ship, false);
-        return target != null && target != ship;
+        return false;
     }
 
 
@@ -364,16 +404,21 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         float range = getMaxRange(ship);
         boolean player = ship == Global.getCombatEngine().getPlayerShip();
         ShipAPI target = ship.getShipTarget();
-
-        if (ship.getShipAI() != null && ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM)){
-            target = (ShipAPI) ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM);
+        if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM)) {
+            ShipAPI targ = (ShipAPI) ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.TARGET_FOR_SHIP_SYSTEM);
+            if (targ != null) target = targ;
         }
 
         if (target != null) {
             float dist = Misc.getDistance(ship.getLocation(), target.getLocation());
             float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
             if (dist > range + radSum) target = null;
-        } else {
+            else if (target.isFighter() || !target.isAlive()) target = null;
+        }
+        if ((!player || friendly) && (target == null
+                || (friendly && target.getOwner() != ship.getOwner()))) {
+            if (friendly && target != null && target.getOwner() != ship.getOwner()) target = null;
+            else if (!friendly && target != null && target.getOwner() == ship.getOwner()) target = null;
             if (target == null
                     || (!friendly && target.getOwner() == ship.getOwner())
                     || (friendly && target.getOwner() != ship.getOwner())) {
@@ -382,26 +427,27 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                     List<ShipAPI> ships = NAUtils.getShipsWithinRange(ship.getLocation(), MAX_RANGE);
                     float dist = MAX_RANGE;
                     for (ShipAPI s : ships) {
-                        float dd = MathUtils.getDistance(ship, s.getLocation());
-                        if (s.getOwner() == ship.getOwner() && dd < dist) {
+                        float dd = MathUtils.getDistance(ship, s);
+                        if (s.getOwner() == ship.getOwner() && s.getId() != ship.getId() && dd < dist) {
                             dist = dd;
                             target = s;
                         }
                     }
                 } else if (player) {
-                    target = Misc.findClosestShipEnemyOf(ship, ship.getMouseTarget(), ShipAPI.HullSize.FIGHTER, range, true);
+                    target = Misc.findClosestShipEnemyOf(ship, ship.getMouseTarget(), ShipAPI.HullSize.FRIGATE, range, true);
                 } else {
                     Object test = ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET);
                     if (test instanceof ShipAPI) {
                         target = (ShipAPI) test;
-                        float dist = Misc.getDistance(ship.getLocation(), target.getLocation());
+                        float dist = MathUtils.getDistance(ship, target);
                         float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
                         if (dist > range + radSum) target = null;
+                        if (target.isFighter() || !target.isAlive()) target = null;
                     }
                 }
             }
             if (!friendly && target == null) {
-                target = Misc.findClosestShipEnemyOf(ship, ship.getLocation(), ShipAPI.HullSize.FIGHTER, range, true);
+                target = Misc.findClosestShipEnemyOf(ship, ship.getLocation(), ShipAPI.HullSize.FRIGATE, range, true);
             }
         }
 

@@ -17,7 +17,6 @@ public class NightcrossEngines extends BaseHullMod {
 	
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getEngineDamageTakenMult().modifyPercent(id, DMG_MULT);
-		stats.getShieldUnfoldRateMult().modifyPercent(id, SHIELD_RATE_MULT);
 		stats.getCombatEngineRepairTimeMult().modifyPercent(id, ENG_REPAIR);
 	}
 	

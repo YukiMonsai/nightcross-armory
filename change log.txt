@@ -1,3 +1,13 @@
+V1.1.7
+- Improved AI use of String of Pearls' ship system, especially being able to target allies to escape when threatened
+- Made blinker lights on Nightcross ships alternate
+- Tweaked algorithm for the faction's vernier thrusters to make them look better in action
+- Removed Precision drives hullmod from all but the most mobile craft: String of Pearls, Moonbeam, Tessera Magu
+- Added description for Tessera Magu
+
+V1.1.6
+- Fixed a bug that made the String of Pearls rotate too much
+
 V1.1.5
 - Avoid generating Pascal system on nex random sector mode
 - Saturation Cannon autofit tags removed

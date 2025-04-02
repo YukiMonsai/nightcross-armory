@@ -21,6 +21,17 @@ public class NAUtils {
     }
 
 
+    public static float shipSize(ShipAPI ship) {
+        switch (ship.getHullSize()) {
+            case CAPITAL_SHIP: return 4f;
+            case CRUISER: return 3f;
+            case DESTROYER: return 2f;
+            case FRIGATE: return 1f;
+            case FIGHTER: return 0.1f;
+        }
+        return 0;
+    }
+
     // Does AOE damage
     public static void doDamage(Vector2f point, float radius, float dmg, float emp, DamageType damageType, boolean bypassShields, boolean softflux, Object source, boolean sound) {
         List<CombatEntityAPI> entities = getEntitiesWithinRange(point, radius);
@@ -102,6 +113,36 @@ public class NAUtils {
 
         for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
             if (MathUtils.isWithinRange(tmp, location, range)) {
+                entities.add(tmp);
+            }
+        }
+
+
+        return entities;
+    }
+    public static List<ShipAPI> getFriendlyShipsWithinRange(ShipAPI ship, Vector2f location, float range, boolean allowFighters) {
+        List<ShipAPI> entities = new ArrayList<>();
+
+        for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
+            if (MathUtils.isWithinRange(tmp, location, range)
+                    && tmp.isAlive()
+                    && (allowFighters || !tmp.isFighter())
+                    && tmp.getOwner() == ship.getOwner()) {
+                entities.add(tmp);
+            }
+        }
+
+
+        return entities;
+    }
+    public static List<ShipAPI> getEnemyShipsWithinRange(ShipAPI ship, Vector2f location, float range, boolean allowFighters) {
+        List<ShipAPI> entities = new ArrayList<>();
+
+        for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
+            if (MathUtils.isWithinRange(tmp, location, range)
+                    && tmp.isAlive()
+                    && (allowFighters || !tmp.isFighter())
+                    && tmp.getOwner() != ship.getOwner()) {
                 entities.add(tmp);
             }
         }
