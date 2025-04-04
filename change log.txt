@@ -9,6 +9,9 @@ V1.1.9
 - Discord PPC: Mounting in Ballistic, Hybrid, or Universal slot grants +200 range
 - Discord PPC: Damage 60 -> 80, deals soft flux if mounted in a ballistic slot
 - Discord PPC: Flux 60 -> 68
+- Atomic driver: flux 350 -> 250
+- Atomic driver: Now does soft flux to shields if mounted in a ballistic slot
+- Atomic driver: +300 range if mounted in a non-energy slot
 - Nightcross weapons have longer and wider trails when empowered by being in a non-ballistic slot, or by Fossa Magna's system
 - New rare bp weapon: Hardlight Rifle
 
