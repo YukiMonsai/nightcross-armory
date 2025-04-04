@@ -10,6 +10,9 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.impl.combat.LidarArrayStats;
 import com.fs.starfarer.api.impl.hullmods.BallisticRangefinder;
+import com.fs.starfarer.api.loading.BeamWeaponSpecAPI;
+import com.fs.starfarer.api.loading.ProjectileSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.everyframe.Nightcross_Trails;
@@ -43,6 +46,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
     public static final float DMG_BONUS = 0.5f;
     public static final float RANGE_BOOST = 0.5f;
+    public static final float PASSIVE_BOOST = 20f;
     public static final float AMMO_MULT = 0.5f;
     public static final float SPEED_MULT = -0.5f;
     public static final float ROF_BOOST = 1.5f;
@@ -56,6 +60,8 @@ public class NA_FastCaps extends BaseShipSystemScript {
     protected boolean playedCooledDown = false;
     protected boolean playedEnd = false;
 
+    public List<WeaponAPI> weapons;
+
 
     protected boolean inited = false;
 
@@ -63,6 +69,10 @@ public class NA_FastCaps extends BaseShipSystemScript {
     public void init(ShipAPI ship) {
         if (inited) return;
         inited = true;
+
+
+        if (weapons == null)
+            weapons = getWeapons(ship);
 
         needsUnapply = true;
 
@@ -157,6 +167,13 @@ public class NA_FastCaps extends BaseShipSystemScript {
             return;
         }
 
+        if (state == State.IDLE) {
+
+            stats.getEnergyWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
+            stats.getBallisticWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
+
+        }
+
         if (state == State.IDLE && !playedCooledDown) {
             Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
             playedCooledDown = true;
@@ -171,13 +188,11 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
         if (effectLevel > 0) {
             if (listener == null) {
-                List<WeaponAPI> weapons = getWeapons(ship);
 
                 listener = new NA_FastCapsRangeModifier(weapons, RANGE_BOOST);
                 ship.addListener(listener);
             }
             if (dmglistener == null) {
-                List<WeaponAPI> weapons = getWeapons(ship);
 
                 dmglistener = new NA_FastCapDmgBoost(weapons, DMG_BONUS);
                 ship.addListener(dmglistener);
@@ -223,10 +238,11 @@ public class NA_FastCaps extends BaseShipSystemScript {
         Color glowColor = WEAPON_GLOW;
         float time = Global.getCombatEngine().getElapsedInLastFrame();
 
+        float projChance = 0.7f;
+
         for (WeaponAPI w : ship.getAllWeapons()) {
             if (weaponEligible(w)) {
                 w.setGlowAmount(effectLevel, glowColor);
-                float projChance = 0.5f;
 
                 if (!w.isBeam() || w.isBurstBeam()) {
                     if (w.getCooldownRemaining() > 0)
@@ -244,7 +260,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
                     );
                 }
 
-                if (beamTimer.intervalElapsed() && Math.random() < 0.01) {
+                if (beamTimer.intervalElapsed() || w.isFiring()) {
 
                     /*MagicFakeBeam.spawnFakeBeam(
                             Global.getCombatEngine(),
@@ -261,30 +277,36 @@ public class NA_FastCaps extends BaseShipSystemScript {
                     );*/
                     for (DamagingProjectileAPI proj : Global.getCombatEngine().getProjectiles()) {
                         if (proj.getWeapon() != null && (!proj.isExpired() && !proj.isFading())
-                                && proj.getWeapon().getId() == w.getId() && Math.random() < projChance) {
-                            projChance *= 0.7f;
-                            /*Global.getCombatEngine().addSwirlyNebulaParticle(
-                                    proj.getLocation(), new Vector2f(proj.getVelocity().x*0.5f, proj.getVelocity().y*0.5f),
-                                    proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f, 0.5f, 0.05f, 0.5f,
-                                    1.25f,
-                                    new Color(47, 250, 114, 150), false
-                            );*/
-                            /*Global.getCombatEngine().spawnEmpArcVisual(
-                                    proj.getLocation(), proj,
-                                    MathUtils.getRandomPointInCircle(
-                                            proj.getLocation(), w.getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f
-                                    ), proj, 2f,
-                                    new Color(47, 250, 114, 150),
-                                    new Color(210, 238, 238, 150)
-                            );*/
-                            boolean trail = Math.random() < 0.5;
-                            Global.getCombatEngine().addSmoothParticle(
-                                    MathUtils.getPointOnCircumference(proj.getLocation(), proj.getCollisionRadius(), proj.getFacing()),
-                                    trail ? MathUtils.getPointOnCircumference(Misc.ZERO, 10f, 180f + proj.getFacing()) : proj.getVelocity(),
-                                    trail ? 32f : (proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f),
-                                    0.8f, 0.5f, 1.5f,
-                                    new Color(47, 250, 114, 150)
-                            );
+                                && proj.getWeapon().getId() == w.getId()) {
+                            if (proj.getCustomData() == null || !proj.getCustomData().containsKey("na_systempowerup")) {
+                                proj.setCustomData("na_systempowerup", true);
+                            }
+                            if (beamTimer.intervalElapsed() && Math.random() < projChance) {
+                                projChance *= 0.7f;
+                                /*Global.getCombatEngine().addSwirlyNebulaParticle(
+                                        proj.getLocation(), new Vector2f(proj.getVelocity().x*0.5f, proj.getVelocity().y*0.5f),
+                                        proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f, 0.5f, 0.05f, 0.5f,
+                                        1.25f,
+                                        new Color(47, 250, 114, 150), false
+                                );*/
+                                /*Global.getCombatEngine().spawnEmpArcVisual(
+                                        proj.getLocation(), proj,
+                                        MathUtils.getRandomPointInCircle(
+                                                proj.getLocation(), w.getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f
+                                        ), proj, 2f,
+                                        new Color(47, 250, 114, 150),
+                                        new Color(210, 238, 238, 150)
+                                );*/
+                                    boolean trail = Math.random() < 0.5;
+                                    Global.getCombatEngine().addSmoothParticle(
+                                            MathUtils.getPointOnCircumference(proj.getLocation(), proj.getCollisionRadius(), proj.getFacing()),
+                                            trail ? MathUtils.getPointOnCircumference(Misc.ZERO, 10f, 180f + proj.getFacing()) : proj.getVelocity(),
+                                            trail ? 32f : (proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f),
+                                            0.8f, 0.5f, 1.5f,
+                                            new Color(47, 250, 114, 150)
+                                    );
+                            }
+
                         }
                     }
                     // TBD
@@ -308,9 +330,37 @@ public class NA_FastCaps extends BaseShipSystemScript {
     }
 
 
+
+    public boolean isFFAConcern() {
+        if (weapons == null) return false;
+        if (weapons.size() == 0) return false;
+        if ((weapons.get(0) instanceof BeamWeaponSpecAPI) && ((BeamWeaponSpecAPI)weapons.get(0).getSpec()).getCollisionClass() == CollisionClass.RAY) return true;
+        if ((weapons.get(0) instanceof WeaponSpecAPI)
+                && (weapons.get(0).getSpec()).getProjectileSpec() != null) {
+            CollisionClass cc = ((ProjectileSpecAPI)(weapons.get(0).getSpec()).getProjectileSpec()).getCollisionClass();
+            switch (cc) {
+                case MISSILE_NO_FF:
+                case HITS_SHIPS_ONLY_NO_FF:
+                case PROJECTILE_NO_FF:
+                    return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public float getRange() {
+        if (weapons == null || weapons.isEmpty()) return 0f;
+        return weapons.get(0).getRange() * (0.9f + RANGE_BOOST);
+    }
+
     protected void modify(String id, MutableShipStatsAPI stats, float effectLevel) {
         stats.getEnergyAmmoRegenMult().modifyMult(DMG_ID, 1f + effectLevel*AMMO_MULT);
         stats.getMaxSpeed().modifyMult(DMG_ID, 1f + effectLevel*SPEED_MULT);
+        stats.getEnergyWeaponRangeBonus().unmodify(DMG_ID + "passive");
+        stats.getBallisticWeaponRangeBonus().unmodify(DMG_ID + "passive");
+
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
         Color color = new Color(47, 250, 114, 75);
@@ -319,6 +369,10 @@ public class NA_FastCaps extends BaseShipSystemScript {
             for (ShipAPI child: ship.getChildModulesCopy()) {
                 child.getEngineController().fadeToOtherColor(child, color, new Color(0, 0, 0, 0), effectLevel, 1.0f);
             }
+        }
+
+        if (ship.getAIFlags() != null) {
+            ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.MANEUVER_RANGE_FROM_TARGET);
         }
 
         List<ShipEngineControllerAPI.ShipEngineAPI> maneuveringThrusters = ship.getEngineController() != null ? ship.getEngineController().getShipEngines() : null;
@@ -349,7 +403,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
     public String getDisplayNameOverride(State state, float effectLevel) {
         if (state == State.IDLE) {
-            return "chroma reactor - ready";
+            return "chroma reactor - passive";
         }
         if (state == State.COOLDOWN) {
             return "reactor overheated";

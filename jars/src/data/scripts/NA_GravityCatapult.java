@@ -254,7 +254,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         float dy = 2f*(data.targetLoc.y - data.initialLoc.y) * delta;
 
 
-                        float da = MathUtils.getShortestRotation(data.initialFacing, data.targetFacing) * delta;
+                        float da = MathUtils.getShortestRotation(ship.getFacing(), data.targetFacing) * delta;
                         ship.getLocation().set(new Vector2f(
                                 ship.getLocation().x + dx,
                                 ship.getLocation().y + dy
@@ -442,7 +442,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         float dist = MathUtils.getDistance(ship, target);
                         float radSum = ship.getCollisionRadius() + target.getCollisionRadius();
                         if (dist > range + radSum) target = null;
-                        if (target.isFighter() || !target.isAlive()) target = null;
+                        else if (target.isFighter() || !target.isAlive()) target = null;
                     }
                 }
             }

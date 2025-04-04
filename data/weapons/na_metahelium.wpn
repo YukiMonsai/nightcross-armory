@@ -3,6 +3,7 @@
 	"specClass":"projectile",
 	"size":"MEDIUM",
 	"type": "ENERGY",
+	"everyFrameEffect": "data.scripts.weapons.NA_Metahelium",
 	"mountTypeOverride": "HYBRID",
 	"turretSprite":"graphics/weapons/na_metahelium_turret_base.png",
 	"turretGlowSprite":"graphics/weapons/na_metahelium_turret_glow.png",

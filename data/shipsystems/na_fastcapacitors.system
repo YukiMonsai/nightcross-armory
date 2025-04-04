@@ -1,7 +1,8 @@
 {
 	"id":"na_fastcapacitors",
 	"type":"STAT_MOD",
-	"aiType":"LIDAR_ARRAY",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_ChromaReactorAI",
 	
 	"statsScript":"data.scripts.NA_FastCaps",
 	

@@ -46,6 +46,9 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final String SUPERBLASTER_PROJ_ID = "na_superblaster_shot";
     private static final Color SUPERBLASTER_TRAIL_COLOR_START = new Color(205, 45, 255);
     private static final Color SUPERBLASTER_TRAIL_COLOR_END = new Color(0, 125, 255);
+    private static final String HARDLIGHT_PROJ_ID = "na_hardlightriflereal_shot";
+    private static final Color HARDLIGHT_TRAIL_COLOR_START = new Color(226, 255, 251);
+    private static final Color HARDLIGHT_TRAIL_COLOR_END = new Color(83, 78, 238);
 
 
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
@@ -109,6 +112,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case PYROWISP_LARGE_PROJ_ID:
                 case WAVEFRONT_SUB:
                 case SUPERBLASTER_PROJ_ID:
+                case HARDLIGHT_PROJ_ID:
+
                 case LASER_PROJ_ID:
                     if (NAUtil.isOnscreen(projectile.getLocation(), projectile.getVelocity().length() * 0.2f)) {
                         trailCount += 1f;
@@ -135,6 +140,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case META_PROJ_ID:
                 case MINIRAZOR_ID:
                 case SUPERBLASTER_PROJ_ID:
+                case HARDLIGHT_PROJ_ID:
                 case PYROWISP_LARGE_PROJ_ID:
                 case WAVEFRONT_SUB:
                 case HARDLIGHT_SHOT:
@@ -190,6 +196,20 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 spawnPosition.y += sidewaysVel.y * amount * -1.05f;
             }
 
+            float powermult = 0f;
+
+            if (proj.getCustomData() != null && proj.getCustomData().containsKey("na_systempowerup")) {
+                powermult += 1.0f;
+            }
+            if (proj.getCustomData() != null && proj.getCustomData().containsKey("na_energypowerup")) {
+                powermult += 0.5f;
+            }
+
+            if (powermult > 0) {
+                fade = Math.max(0f, Math.min(1f, (float) Math.pow(fade, (1f / (1f + powermult)))));
+            }
+
+
             switch (spec) {
                 case AMP_PROJ_ID:
                     if (data.interval == null) {
@@ -212,14 +232,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                35f, /* startSize */
-                                10f, /* endSize */
+                                powermult * 20f + 35f, /* startSize */
+                                powermult * 20f + 10f, /* endSize */
                                 AMP_TRAIL_COLOR_START, /* startColor */
                                 AMP_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0f, /* mainDuration */
-                                0.35f, /* outDuration */
+                                0.2f * powermult + 0f, /* mainDuration */
+                                0.2f * powermult + 0.35f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -240,14 +260,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing(), /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                75f, /* startSize */
-                                35f, /* endSize */
+                                powermult * 30f + 75f, /* startSize */
+                                powermult * 30f + 35f, /* endSize */
                                 AMP_TRAIL_COLOR_START, /* startColor */
                                 AMP_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0f, /* mainDuration */
-                                0.9f, /* outDuration */
+                                0.25f * powermult + 0f, /* mainDuration */
+                                0.3f * powermult + 0.9f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -281,14 +301,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                30f, /* startSize */
-                                15f, /* endSize */
+                                powermult * 20f + 35f, /* startSize */
+                                powermult * 20f + 30f, /* endSize */
                                 HARDLIGHT_SHOT_TRAIL_COLOR_START, /* startColor */
                                 HARDLIGHT_SHOT_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0.2f, /* inDuration */
-                                0.1f, /* mainDuration */
-                                0.8f, /* outDuration */
+                                0.2f * powermult + 0.1f, /* mainDuration */
+                                0.25f * powermult + 0.8f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -309,14 +329,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing(), /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                50f, /* startSize */
-                                50f, /* endSize */
+                                powermult * 20f + 50f, /* startSize */
+                                powermult * 20f + 50f, /* endSize */
                                 HARDLIGHT_SHOT_TRAIL2_COLOR_START, /* startColor */
                                 HARDLIGHT_SHOT_TRAIL2_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0f, /* mainDuration */
-                                0.9f, /* outDuration */
+                                0.2f * powermult + 0f, /* mainDuration */
+                                0.3f * powermult + 0.9f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -350,14 +370,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                15f, /* startSize */
-                                5f, /* endSize */
+                                powermult * 10f + 15f, /* startSize */
+                                powermult * 10f + 5f, /* endSize */
                                 LASER_TRAIL_COLOR_START, /* startColor */
                                 LASER_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.3f, /* mainDuration */
-                                1.1f, /* outDuration */
+                                0.2f * powermult + 0.3f, /* mainDuration */
+                                0.4f * powermult + 1.1f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -391,14 +411,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                7f, /* startSize */
-                                3f, /* endSize */
+                                powermult * 5f + 7f, /* startSize */
+                                powermult * 4f + 3f, /* endSize */
                                 PYRO_TRAIL_COLOR_START, /* startColor */
                                 PYRO_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.1f, /* mainDuration */
-                                0.25f, /* outDuration */
+                                0.05f * powermult + 0.1f, /* mainDuration */
+                                0.1f * powermult + 0.25f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -433,14 +453,56 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                8f, /* startSize */
-                                32f, /* endSize */
+                                powermult * 4f + 8f, /* startSize */
+                                powermult * 25f + 32f, /* endSize */
                                 META_TRAIL_COLOR_START, /* startColor */
                                 META_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.22f, /* mainDuration */
-                                0.35f, /* outDuration */
+                                0.1f * powermult + 0.22f, /* mainDuration */
+                                0.1f * powermult + 0.35f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                16f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                    }
+                    break;
+
+                case HARDLIGHT_PROJ_ID:
+                    if (data.interval == null) {
+                        data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
+                    }
+                    data.interval.advance(amount);
+                    if (data.interval.intervalElapsed()) {
+                        float offset = 10f;
+                        Vector2f offsetPoint = new Vector2f((float) Math.cos(Math.toRadians(proj.getFacing())) * offset, (float) Math.sin(Math.toRadians(proj.getFacing())) * offset);
+                        spawnPosition.x += offsetPoint.x;
+                        spawnPosition.y += offsetPoint.y;
+
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_hardlighttrail"), /* sprite */
+                                spawnPosition, /* position */
+                                0f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing(), /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 15f + 25f, /* startSize */
+                                powermult * 10f + 25f, /* endSize */
+                                HARDLIGHT_TRAIL_COLOR_START, /* startColor */
+                                HARDLIGHT_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.1f * powermult + 0.22f, /* mainDuration */
+                                0.1f * powermult + 0.35f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -474,14 +536,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                32f, /* startSize */
-                                8f, /* endSize */
+                                powermult * 15f + 32f, /* startSize */
+                                powermult * 5f + 8f, /* endSize */
                                 SUPERBLASTER_TRAIL_COLOR_START, /* startColor */
                                 SUPERBLASTER_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.22f, /* mainDuration */
-                                0.35f, /* outDuration */
+                                0.1f * powermult + 0.22f, /* mainDuration */
+                                0.1f * powermult + 0.35f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -515,14 +577,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                42f, /* startSize */
-                                24f, /* endSize */
+                                powermult * 10f + 42f, /* startSize */
+                                powermult * 5f + 24f, /* endSize */
                                 PYROWISP_LARGE_TRAIL_COLOR_START, /* startColor */
                                 PYROWISP_LARGE_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.1f, /* mainDuration */
-                                0.25f, /* outDuration */
+                                0.04f * powermult + 0.1f, /* mainDuration */
+                                0.08f * powermult + 0.25f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -556,14 +618,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing(), /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                10f, /* startSize */
-                                5f, /* endSize */
+                                powermult * 10f + 10f, /* startSize */
+                                powermult * 5f + 5f, /* endSize */
                                 WAVEFRONT_SUB_TRAIL_COLOR_START, /* startColor */
                                 WAVEFRONT_SUB_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.2f, /* mainDuration */
-                                0.8f, /* outDuration */
+                                0.2f * powermult + 0.2f, /* mainDuration */
+                                0.2f * powermult + 0.8f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */

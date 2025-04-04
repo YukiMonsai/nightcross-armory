@@ -47,9 +47,20 @@
 		{"file":"sounds/wpn/stunpulse_03.ogg","pitch":1,"volume":0.5},
 	],
 	# HARDLIGHT RIFLE
+	
+	"hardlightrifle_impact":
+	[
+		{"file":"sounds/wpn/hardlightrifle_impact.ogg","pitch":1,"volume":1.0},
+		{"file":"sounds/wpn/hardlightrifle_impact.ogg","pitch":1.02,"volume":1.0},
+		{"file":"sounds/wpn/hardlightrifle_impact.ogg","pitch":0.98,"volume":1.0},
+	],
 	"hardlight_rifle":
 	[
-		{"file":"sounds/wpn/hardlight_rifle_1.ogg","pitch":1,"volume":1.1},
+		{"file":"sounds/wpn/hardlightrifle_heavy.ogg","pitch":1,"volume":1.1},
+	],
+	"hardlightrifle_light":
+	[
+		{"file":"sounds/wpn/hardlightrifle_light.ogg","pitch":1,"volume":1.1},
 	],
 	"hardlight_charge":
 	[

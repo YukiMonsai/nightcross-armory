@@ -2,7 +2,7 @@
 	"id":"na_metahelium_shot",
 	"specClass":"projectile",
 	"spawnType":"BALLISTIC_AS_BEAM",
-	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeaponMeta",
 	"onHitEffect":"data.scripts.weapons.NA_ArmorAblation",
 	"collisionClass":"RAY",
 	"collisionClassByFighter":"RAY_FIGHTER",

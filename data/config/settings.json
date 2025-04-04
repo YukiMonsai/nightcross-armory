@@ -3,7 +3,7 @@
 		"blueprint_packages":{
 			"nightcross_package_fast":"graphics/icons/package_na_fast.png",
 			"nightcross_package_heavy":"graphics/icons/package_na_heavy.png",
-			"nightcross_package_rare":"graphics/icons/package_na_rare.png",
+			"nightcross_package_advanced":"graphics/icons/package_na_rare.png",
 			
 		},
 		"misc":{
@@ -14,6 +14,9 @@
             "na_particletrail":"graphics/trails/na_particletrail.png",
             "na_particletrailcore":"graphics/trails/na_particletrailcore.png",
 			"na_smoketrail":"graphics/trails/na_smoketrail.png",
+			"na_hardlighttrail":"graphics/trails/na_hardlighttrail.png",
+			"na_hardlighttrailhollow":"graphics/trails/na_hardlighttrailhollow.png",
+			
         },
 		
 		"na_hq": {

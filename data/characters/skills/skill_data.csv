@@ -1,2 +1,2 @@
 id,name,order,tier,reqPoints,reqPointsPerExtraSkill,description,author,combat officer,admiral,admin,tags,icon,Column
-na_fulldive_officer,Project: GHOST,7777,1,0,,Experimental neural interface,TWINDRILL,TRUE,,,npc_only,graphics/icons/skills/neural_link.png,
+na_fulldive_officer,Project: GHOST,7777,1,0,,"Instead of fighting like people do, fight like ships do. Fight like plastic toys do. Fight like you don't have a body, like you don't hate your body. Fight your way into a new body.",[REDACTED],TRUE,,,npc_only,graphics/icons/skills/neural_link.png,

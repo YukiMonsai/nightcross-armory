@@ -3,6 +3,7 @@
 	"specClass":"projectile",
 	"type": "ENERGY",
 	"mountTypeOverride": "HYBRID",
+	"everyFrameEffect": "data.scripts.weapons.NA_Pyrokinetic",
 	"size":"MEDIUM",
 	"turretSprite":"graphics/weapons/na_pyrokinetic_turret_base.png",
 	"turretGlowSprite":"graphics/weapons/na_pyrokinetic_turret_glow.png",

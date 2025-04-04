@@ -345,7 +345,6 @@ public class Pascal {
                             Industries.WAYSTATION,
                             Industries.MILITARYBASE,
                             Industries.GROUNDDEFENSES,
-                            Industries.REFINING,
                             "na_aria_hq",
                             Industries.BATTLESTATION)),
                     new ArrayList<>(Arrays.asList(

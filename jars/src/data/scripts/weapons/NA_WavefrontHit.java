@@ -45,7 +45,7 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
                 for (CombatEntityAPI e : nearbyObjects) {
                     float de = MathUtils.getDistance(point, e.getLocation());
                     if (de >= dist && de <= ARC_RANGE && de <= dist + ARC_RANGE_INC) {
-                        if (dist <= ARC_RANGE_FRIENDLY ||
+                        if (de <= ARC_RANGE_FRIENDLY ||
                                 !(projectile.getSource() != null
                                         && e.getOwner() != projectile.getSource().getOwner()))
                         if (!(e instanceof ShipAPI)

@@ -37,11 +37,22 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0022": "treble_ciws",
-        "WS0023": "treble_ciws",
         "WS0024": "pdburst",
         "WS0025": "pdburst"
       }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "treble_ciws",
+        "WS0023": "treble_ciws"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
     }
   ],
   "modules": [],

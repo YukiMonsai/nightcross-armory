@@ -1,3 +1,25 @@
+V1.1.9
+- Fixed a crash with String of Pearls shipsystem
+- Pyrokinetic streamer: Range 800 -> 600
+- Pyrokinetic streamer: Mounting in Ballistic, Hybrid, or Universal slot grants +200 range
+- Pyrokinetic streamer: Mounting in Energy, Hybrid, or Universal slot grants EMP damage and arc
+- Pyrokinetic streamer: Damage 55 -> 70, Flux 50 -> 65
+- Discord PPC: Range 800 -> 550
+- Discord PPC: Armor damage increased to 35, 25 if mounted in a ballistic slot
+- Discord PPC: Mounting in Ballistic, Hybrid, or Universal slot grants +200 range
+- Discord PPC: Damage 60 -> 80, deals soft flux if mounted in a ballistic slot
+- Discord PPC: Flux 60 -> 68
+- Nightcross weapons have longer and wider trails when empowered by being in a non-ballistic slot, or by Fossa Magna's system
+- New rare bp weapon: Hardlight Rifle
+
+
+V1.1.8
+- Reworked Fossa magna system AI to depend on officer--aggressive and reckless will use maneuver distance of unmodified range of weapon, while others will use the extended range
+- Fossa Magna system now boosts weapon range by 20% while idle
+- Fixed Aria station having too many industries
+- Added Elyurias description
+- Removed USE_LESS_VS_SHIELDS tag from Discord PPC--it still does hardflux damage afterall.
+
 V1.1.7
 - Improved AI use of String of Pearls' ship system, especially being able to target allies to escape when threatened
 - Made blinker lights on Nightcross ships alternate
