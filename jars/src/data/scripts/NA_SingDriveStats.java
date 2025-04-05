@@ -106,14 +106,17 @@ public class NA_SingDriveStats extends BaseShipSystemScript {
                     );
                 }
                 // 'gravitational drag'
-                float len = e.getVelocity().length();
-                float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
-                if (len > maxlen && maxlen > 1f) {
-                    e.getVelocity().set(
-                            e.getVelocity().x * len/maxlen,
-                            e.getVelocity().y + len/maxlen
-                    );
+                if (e instanceof ShipAPI) {
+                    float len = e.getVelocity().length();
+                    float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
+                    if (len > maxlen && maxlen > 1f) {
+                        e.getVelocity().set(
+                                e.getVelocity().x * len/maxlen,
+                                e.getVelocity().y * len/maxlen
+                        );
+                    }
                 }
+
             }
         }
     }
