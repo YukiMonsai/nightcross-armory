@@ -1,3 +1,7 @@
+V1.1.10
+- Corrosion torpedoes now have a cap on how fast they can drag ships
+- Fixed a crash when using Stellar Networks
+
 V1.1.9
 - Fixed a crash with String of Pearls shipsystem
 - Pyrokinetic streamer: Range 800 -> 600

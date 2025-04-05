@@ -46,10 +46,7 @@
     "shipsWhenImporting":{
         "tags":["base_bp", "hightech_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
         "hulls":[
-			"vulture", # SW pack
-			"zenith", # SW pack
-			"defiance", # Tahlan
-			"kodai", # Tahlan
+			"shade",
         ],
     },
     "knownShips":{

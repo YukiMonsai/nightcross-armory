@@ -99,10 +99,19 @@ public class NA_SingDriveStats extends BaseShipSystemScript {
                 );
                 float dist = Math.max(minradius, MathUtils.getDistance(e, ship));
                 float amt = amount/(dist*dist/(minradius*minradius));
-                if (dist > minradius && (!(e instanceof ShipAPI) || (e.getVelocity().length() < 2*((ShipAPI) e).getMaxSpeed()))) {
+                if (dist > minradius && (!(e instanceof ShipAPI))) {
                     e.getVelocity().set(
                             e.getVelocity().x + amount*closest.x*amt,
                             e.getVelocity().y + amount*closest.y*amt
+                    );
+                }
+                // 'gravitational drag'
+                float len = e.getVelocity().length();
+                float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
+                if (len > maxlen && maxlen > 1f) {
+                    e.getVelocity().set(
+                            e.getVelocity().x * len/maxlen,
+                            e.getVelocity().y + len/maxlen
                     );
                 }
             }

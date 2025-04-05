@@ -159,6 +159,15 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
                         e.getVelocity().y + amount*closest.y*amt
                 );
             }
+            // 'gravitational drag'
+            float len = e.getVelocity().length();
+            float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
+            if (len > maxlen && maxlen > 1f) {
+                e.getVelocity().set(
+                        e.getVelocity().x * len/maxlen,
+                        e.getVelocity().y + len/maxlen
+                );
+            }
         }
     }
 
