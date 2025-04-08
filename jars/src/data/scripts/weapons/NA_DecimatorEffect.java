@@ -31,7 +31,6 @@ public class NA_DecimatorEffect implements BeamEffectPlugin {
 					if (shockInterval.intervalElapsed()) {
 						shockInterval.randomize();
 
-						ShipAPI ship = (ShipAPI) target;
 						shocksLeft -= 1;
 						engine.spawnEmpArcPierceShields(
 								beam.getSource(), point, beam.getDamageTarget(), beam.getDamageTarget(),

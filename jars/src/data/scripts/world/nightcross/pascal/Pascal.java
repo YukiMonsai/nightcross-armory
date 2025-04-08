@@ -9,11 +9,7 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.MusicPlayerPluginImpl;
-import com.fs.starfarer.api.impl.campaign.ids.Items;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
-import com.fs.starfarer.api.impl.campaign.ids.Terrain;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
@@ -346,7 +342,7 @@ public class Pascal {
                             Industries.MILITARYBASE,
                             Industries.GROUNDDEFENSES,
                             "na_aria_hq",
-                            Industries.BATTLESTATION)),
+                            "battlestation_aria")),
                     new ArrayList<>(Arrays.asList(
                             Submarkets.SUBMARKET_STORAGE,
                             Submarkets.SUBMARKET_BLACK,
@@ -354,6 +350,7 @@ public class Pascal {
                             Submarkets.SUBMARKET_OPEN)),
                     0.3f);
         //}
+        naAriaMarket.getIndustry("battlestation_aria").setAICoreId(Commodities.ALPHA_CORE);
         naAriaMarket.getMemoryWithoutUpdate().set("$musicSetId","nightcross_market_hostile");
         PlanetAPI nightcross = system.addPlanet("nightcross", pascal, "Nightcross", "na_nightcross", -30, 100, 7000,
                 87269);

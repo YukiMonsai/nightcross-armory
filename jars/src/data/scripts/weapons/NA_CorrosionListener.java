@@ -151,8 +151,8 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
                     Misc.ZERO, force,
                     angle
             );
-            float dist = Math.max(minradius, MathUtils.getDistance(e, point));
-            float amt = amount/(dist*dist/(minradius*minradius));
+            float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
+            float amt = amount/(dist*dist/(minradius*minradius)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
             if (dist > minradius) {
                 e.getVelocity().set(
                         e.getVelocity().x + amount*closest.x*amt,

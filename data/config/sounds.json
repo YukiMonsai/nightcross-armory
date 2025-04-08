@@ -26,6 +26,12 @@
 #collapseopen WEAPONS	
 	
 	
+	
+	
+	"na_chirppdfire":
+	[
+		{"file":"sounds/wpn/na_chirppdfire.ogg","pitch":1.0,"volume":1.05},
+	],
 	# TREBLE CIWS
 	"ionflak":
 	[

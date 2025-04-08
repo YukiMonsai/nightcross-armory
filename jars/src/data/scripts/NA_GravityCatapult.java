@@ -254,7 +254,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         float dy = 2f*(data.targetLoc.y - data.initialLoc.y) * delta;
 
 
-                        float da = MathUtils.getShortestRotation(ship.getFacing(), data.targetFacing) * delta;
+                        float da = 2f* MathUtils.getShortestRotation(ship.getFacing(), data.targetFacing) * delta;
                         ship.getLocation().set(new Vector2f(
                                 ship.getLocation().x + dx,
                                 ship.getLocation().y + dy
@@ -382,7 +382,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
 
 
     public static float getMaxRange(ShipAPI ship) {
-        return ship.getMutableStats().getSystemRangeBonus().computeEffective(MAX_RANGE);
+        return MAX_RANGE;
     }
 
     @Override

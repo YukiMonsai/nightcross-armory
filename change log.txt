@@ -1,3 +1,20 @@
+V1.1.13
+- Corrosion beam flux cost increased 1450 -> 1750/s
+- Discord PPC ACTUALLY decreased range this time (to 550)
+
+V1.1.12
+- Made corrosion torp and Lo Sulci effects weaker on larger ships
+- Corrosion torpedo top speed reduced from 550 to 500
+
+
+V1.1.11
+- Wavefront friendlyfire -> 25% of normal damage
+- Wavefront FF radius further reduced
+- Wavefront now adds a bit of hard flux to target and scales with missile damage
+- Aria station now has a little surprise for attackers
+- Added Chirp PD (small) and Tarantella PD (medium)
+- Added speed limit to Lo Sulci's gravitational frame dragging effect
+
 V1.1.10
 - Corrosion torpedoes now have a cap on how fast they can drag ships
 - Fixed a crash when using Stellar Networks

@@ -20,9 +20,13 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
     public static float ARC_DAMAGE = 300f;
     public static float ARC_COUNT = 8f;
     public static float ARC_RANGE = 500f;
-    public static float ARC_RANGE_FRIENDLY = 250f;
+    public static float ARC_RANGE_FRIENDLY = 90f;
+    public static float ARC_FF_MULT = 0.25f;
     public static float ARC_RANGE_INC = 125f;
     public static float ARC_PROBABILITY_HARDFLUX = 1.5f; // probability at 100% hardflux
+
+    public static float ADD_FLUX = 100f;
+
 
 
     @Override
@@ -43,23 +47,24 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
                 List<ShipAPI> unshielded = new ArrayList<ShipAPI>();
                 List<ShipAPI> shielded = new ArrayList<ShipAPI>();
                 for (CombatEntityAPI e : nearbyObjects) {
-                    float de = MathUtils.getDistance(point, e.getLocation());
+                    float de = MathUtils.getDistance(e, point);
                     if (de >= dist && de <= ARC_RANGE && de <= dist + ARC_RANGE_INC) {
                         if (de <= ARC_RANGE_FRIENDLY ||
                                 !(projectile.getSource() != null
-                                        && e.getOwner() != projectile.getSource().getOwner()))
-                        if (!(e instanceof ShipAPI)
-                                || ((ShipAPI) e).getHullSize() == ShipAPI.HullSize.FIGHTER
-                                || (((ShipAPI) e).getShield() == null
-                                || ((ShipAPI) e).getShield().isWithinArc(point))) {
-                            if ((e instanceof ShipAPI) && ((ShipAPI) e).getHullSize() != ShipAPI.HullSize.FIGHTER)
-                                unshielded.add((ShipAPI) e);
-                            else if ((e instanceof CombatAsteroidAPI)
-                                    || ((e instanceof ShipAPI) && ((ShipAPI) e).getHullSize() == ShipAPI.HullSize.FIGHTER)) {
-                                misc.add(e);
+                                        && e.getOwner() != projectile.getSource().getOwner())) {
+                            if (!(e instanceof ShipAPI)
+                                    || ((ShipAPI) e).getHullSize() == ShipAPI.HullSize.FIGHTER
+                                    || (((ShipAPI) e).getShield() == null
+                                    || ((ShipAPI) e).getShield().isWithinArc(point))) {
+                                if ((e instanceof ShipAPI) && ((ShipAPI) e).getHullSize() != ShipAPI.HullSize.FIGHTER)
+                                    unshielded.add((ShipAPI) e);
+                                else if ((e instanceof CombatAsteroidAPI)
+                                        || ((e instanceof ShipAPI) && ((ShipAPI) e).getHullSize() == ShipAPI.HullSize.FIGHTER)) {
+                                    misc.add(e);
+                                }
+                            } else {
+                                shielded.add((ShipAPI) e);
                             }
-                        } else {
-                            shielded.add((ShipAPI) e);
                         }
                     }
                 }
@@ -138,13 +143,26 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
     }
 
     private void doArc(DamagingProjectileAPI projectile, Vector2f point, CombatEntityAPI target, boolean piercing) {
+        float mult = (target instanceof ShipAPI && projectile != null && target.getOwner() == projectile.getOwner())
+                ? ARC_FF_MULT : 1.0f;
+
+        ShipAPI ship = projectile.getSource();
+        if (ship != null && ship.getMutableStats() != null) {
+            mult *= ship.getMutableStats().getMissileWeaponDamageMult().getModifiedValue();
+        }
+        if (target instanceof ShipAPI) {
+            ((ShipAPI) ship).getFluxTracker().setHardFlux(Math.min(
+                    ((ShipAPI) ship).getFluxTracker().getMaxFlux(),
+                    ((ShipAPI) ship).getFluxTracker().getHardFlux() + ADD_FLUX*mult
+            ));
+        }
         if (piercing) Global.getCombatEngine().spawnEmpArcPierceShields(projectile.getSource(),
                 point,
                 new SimpleEntity(point),
                 target,
                 DamageType.ENERGY,
-                ARC_DAMAGE,
-                2.5f*ARC_DAMAGE, // emp
+                mult * ARC_DAMAGE,
+                mult * 2.5f*ARC_DAMAGE, // emp
                 100000f, // max range
                 "tachyon_lance_emp_impact",
                 20f, // thickness
@@ -156,8 +174,8 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
                 new SimpleEntity(point),
                 target,
                 DamageType.ENERGY,
-                ARC_DAMAGE,
-                2.5f*ARC_DAMAGE, // emp
+                mult * ARC_DAMAGE,
+                mult * 2.5f*ARC_DAMAGE, // emp
                 100000f, // max range
                 "tachyon_lance_emp_impact",
                 20f, // thickness

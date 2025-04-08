@@ -1,0 +1,45 @@
+{
+  "variantId": "module_hightech_lazor_naExperimental",
+  "hullId": "module_hightech_lazor",
+  "displayName": "Experimental",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxbreakers"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "na_particlecannon",
+        "WS 001": "treble_ciws",
+        "WS 002": "na_particlecannon",
+        "WS 003": "na_particlecannon",
+        "WS 004": "treble_ciws",
+        "WS 005": "na_particlecannon",
+        "WS0001": "abyssal_glare"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "na_magicmissile_wing",
+    "na_magicmissile_wing",
+    "na_magicmissile_wing",
+    "na_magicmissile_wing"
+  ]
+}

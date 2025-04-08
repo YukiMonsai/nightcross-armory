@@ -24,6 +24,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 	public final String wpn_id = "na_corrosionbeambullet";
 
 
+
 	public Map<CombatEntityAPI, Integer> finalTarget = new HashMap<>();
 
 

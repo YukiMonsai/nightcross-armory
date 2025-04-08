@@ -1,0 +1,57 @@
+{
+  "variantId": "module_hightech_attack_naExperimental",
+  "hullId": "module_hightech_attack",
+  "displayName": "Experimental",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxbreakers",
+    "na_plasmaaggregator"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "na_heavyparticlecannon",
+        "WS 001": "na_heavyparticlecannon",
+        "WS 002": "na_heavyparticlecannon",
+        "WS 003": "na_hominglaser_medium",
+        "WS 004": "na_plasmabeam_med",
+        "WS 005": "na_plasmabeam_med",
+        "WS 006": "na_hominglaser_medium",
+        "WS 007": "na_wavefront_single",
+        "WS 008": "treble_ciws",
+        "WS 009": "na_hominglaser",
+        "WS 010": "na_hominglaser",
+        "WS 011": "treble_ciws",
+        "WS 012": "na_wavefront_single"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

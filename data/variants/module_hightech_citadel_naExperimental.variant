@@ -1,0 +1,52 @@
+{
+  "variantId": "module_hightech_citadel_naExperimental",
+  "hullId": "module_hightech_citadel",
+  "displayName": "Experimental",
+  "goalVariant": false,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxbreakers"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "na_corrosionbeam",
+        "WS 001": "na_corrosionbeam",
+        "WS 002": "na_hardlightrifle",
+        "WS 003": "na_hardlightrifle",
+        "WS 004": "treble_ciws",
+        "WS 006": "na_corrosion",
+        "WS 008": "treble_ciws",
+        "WS 010": "na_hominglaser_medium",
+        "WS 012": "na_hominglaser_medium"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,160 @@
+{
+  "hullName": "Support Module",
+  "hullId": "module_hightech_lazor",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/stations/module_hightech_lazor.png",
+  "style": "HIGH_TECH",
+  "height": 220,
+  "width": 440,
+  "center": [220, 77],
+  "collisionRadius": 240,
+  "shieldCenter": [3, 0],
+  "shieldRadius": 160,
+  "viewOffset": 0,
+  "moduleAnchor": [
+    15,
+    0
+  ],
+  "builtInMods": [
+    "supercomputer",
+    "reduced_explosion",
+    "missile_reload",
+    "chassis_storage"
+  ],
+  "builtInWeapons": {
+    "WS0001": "na_arialazor"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS 000",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 140,
+      "angle": 50,
+      "locations": [-48, 187]
+    },
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": 50,
+      "locations": [7, 169]
+    },
+    {
+      "id": "WS 002",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": 45,
+      "locations": [70, 111]
+    },
+    {
+      "id": "WS 003",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": -45,
+      "locations": [69, -111]
+    },
+    {
+      "id": "WS 004",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": -50,
+      "locations": [7, -169]
+    },
+    {
+      "id": "WS 005",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 160,
+      "angle": -50,
+      "locations": [-48, -187]
+    },
+    {
+      "id": "WS 006",
+      "size": "SMALL",
+      "type": "LAUNCH_BAY",
+      "mount": "TURRET",
+      "arc": 30,
+      "angle": 0,
+      "locations": [
+        -21, 185,
+        -11, 178,
+        17, 150,
+        23, 144
+      ]
+    },
+    {
+      "id": "WS 007",
+      "size": "SMALL",
+      "type": "LAUNCH_BAY",
+      "mount": "TURRET",
+      "arc": 30,
+      "angle": 0,
+      "locations": [
+        34, 130,
+        40, 119,
+        74, 64,
+        77, 41
+      ]
+    },
+    {
+      "id": "WS 008",
+      "size": "SMALL",
+      "type": "LAUNCH_BAY",
+      "mount": "TURRET",
+      "arc": 30,
+      "angle": 0,
+      "locations": [
+        78, -40,
+        71, -63,
+        38, -117,
+        32, -127
+      ]
+    },
+    {
+      "id": "WS 009",
+      "size": "SMALL",
+      "type": "LAUNCH_BAY",
+      "mount": "TURRET",
+      "arc": 30,
+      "angle": 0,
+      "locations": [
+        23, -143,
+        16, -150,
+        -15, -177,
+        -22, -185
+      ]
+    },
+    {
+      "id": "WS0001",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "TURRET",
+      "arc": 211,
+      "angle": 0,
+      "locations": [102, -0]
+    }
+  ],
+  "engineSlots": [],
+  "bounds": [
+    -72, 188,
+    20, 0,
+    -67, -173,
+    -45, -215,
+    80, -119,
+    95, -20,
+    96, 17,
+    80, 120,
+    -40, 216
+  ]
+}

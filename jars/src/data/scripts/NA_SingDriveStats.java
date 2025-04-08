@@ -72,6 +72,7 @@ public class NA_SingDriveStats extends BaseShipSystemScript {
 
         for (CombatEntityAPI e:entities) {
             if (e.getOwner() == ship.getOwner() && (e instanceof DamagingProjectileAPI || e instanceof MissileAPI)) continue;
+            if (e == ship) continue;
             float angle = VectorUtils.getAngle(e.getLocation(), point);
             if (Math.abs(MathUtils.getShortestRotation(
                     ship.getFacing(), angle)) < 90) {
@@ -83,12 +84,24 @@ public class NA_SingDriveStats extends BaseShipSystemScript {
                 if (Math.abs(MathUtils.getShortestRotation(
                         ship.getFacing(), VectorUtils.getFacing(e.getVelocity()))) > 10
                         || e.getVelocity().length() < ship.getVelocity().length()) {
-                    float dist = Math.max(minradius, MathUtils.getDistance(e, point));
-                    float amt = amount/(dist*dist/(minradius*minradius));
+                    float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
+                    float amt = amount/(dist*dist/(minradius*minradius)) * (2000f/(2000f + e.getMass())); // less effect on big ships
+                    if (e.getOwner() == ship.getOwner()) amt *= 0.05f; // minimal effect on friends
                     e.getVelocity().set(
                             e.getVelocity().x + amount*closest.x*amt,
                             e.getVelocity().y + amount*closest.y*amt
                     );
+                }
+                // 'gravitational drag'
+                if (e instanceof ShipAPI) {
+                    float len = e.getVelocity().length();
+                    float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
+                    if (len > maxlen && maxlen > 1f) {
+                        e.getVelocity().set(
+                                e.getVelocity().x * len/maxlen,
+                                e.getVelocity().y * len/maxlen
+                        );
+                    }
                 }
 
             } else {

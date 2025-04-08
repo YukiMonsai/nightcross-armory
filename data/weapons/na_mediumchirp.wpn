@@ -1,0 +1,57 @@
+{
+  "id": "na_mediumchirp",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "MEDIUM",
+  "collisionClass": "RAY",
+  "beamEffect":"data.scripts.weapons.NA_MediumChirpEffect",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_mediumchirp_turret.png",
+  "turretGlowSprite": "graphics/weapons/na_mediumchirp_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_mediumchirp_hardpoint.png",
+  "hardpointGlowSprite": "graphics/weapons/na_mediumchirp_hardpoint_glow.png",
+  "glowColor": [
+    185,
+    255,
+    100,
+    255
+  ],
+  "hitGlowRadius": 25.0,
+  "hitGlowBrightenDuration":0.25,
+  "turretOffsets": [
+    5,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    13,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "fringeColor": [
+    0,
+    200,
+    0,
+    175
+  ],
+  "coreColor": [
+    185,
+    255,
+    100,
+    200
+  ],
+  "width": 21,
+  "textureType": LASER,
+  "textureScrollSpeed": 256,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "na_chirppdfire"
+}

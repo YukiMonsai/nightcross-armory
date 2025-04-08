@@ -1,3 +1,8 @@
 id,name,cost mult,build time,income,upkeep,downgrade,upgrade,tags,data,image,plugin,desc,order
+battlestation_aria,Aria Station,100,120,,4,,,"station, battlestation, unraidable, structure","{
+radius:65,
+variant:station2_hightech_naExperimental,
+fleetName:Aria Station,
+}",graphics/icons/industry/battlestation.png,data.scripts.campaign.station.na_battlestationaria,"Aria Station was the locus of the Nightcross weapons development program. As such, the station is equipped with a vast experimental arnament that renders the station all but impenetrable to the dilapidated navies of the Pascal system.",2080
 na_armory_hq,NCA Headquarters,90,60,,5,,,"military, unraidable, tactical_bombardment",,graphics/icons/industry/nightcross_armory_hq.png,data.scripts.campaign.fleets.NA_DefenseHQ,"Headquarters of the Nightcross Armory Corporation, the leading supplier of warships and weapons in the Pascal system.",2500
 na_aria_hq,Aria Research Complex,90,60,,5,,,"military, unraidable, tactical_bombardment",,graphics/icons/industry/nightcross_armory_hq.png,data.scripts.campaign.fleets.NA_AriaHQ,Aria Station was the center of Nightcross Armory Corporation's weapons research program. To this day it remains fortified by virtue of its numerous facilities.,2500

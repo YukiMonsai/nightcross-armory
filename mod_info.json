@@ -2,7 +2,7 @@
     "id":"Nightcross",
 	"name":"Nightcross Armory",
 	"author":"YukiM",
-	"version":"1.1.10",
+	"version":"1.1.12",
 	"description":"Contains the remnants of the Nightcross Armory Corporation. LazyLib, GraphicsLib and MagicLib Required.",
 	"gameVersion":"0.98a",
 	"jars":["jars/nightcross.jar"],
