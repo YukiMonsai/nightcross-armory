@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.CombatFleetManagerAPI.AssignmentInfo;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.fleet.FleetGoal;
+import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
@@ -84,17 +85,63 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
         return (Math.abs(MathUtils.getShortestRotation(angleToTarget, ship.getFacing())) <= DEGREES);
     }
 
+    private float damageSinceLastTick = 0f;
+    private float lastFlux = 0f;
+    private float lastHull = 0f;
+    // percent of flux or hull
+    private final float DMG_PANIC_THRESH = 0.2f;
+
+    public void resetTimer() {
+        float len = 0.25f;
+        timer = new IntervalUtil(len, len);
+        if (ship != null) {
+            lastFlux = ship.getFluxLevel();
+            lastHull = ship.getHullLevel();
+        }
+    }
+
     @Override
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         if (engine.isPaused()) {
             return;
         }
+        damageSinceLastTick = (ship.getFluxLevel() - lastFlux) - (ship.getHullLevel() - lastHull);
+
+        float aggromod = 1f;
+
+        if (ship.getCaptain() != null && ship.getCaptain().getPersonalityAPI() != null) {
+            if (ship.getCaptain().getPersonalityAPI().equals(Personalities.RECKLESS))
+                aggromod *= 1.5f;
+            else if (ship.getCaptain().getPersonalityAPI().equals(Personalities.AGGRESSIVE))
+                aggromod *= 1.25f;
+            else if (ship.getCaptain().getPersonalityAPI().equals(Personalities.TIMID)
+                || ship.getCaptain().getPersonalityAPI().equals(Personalities.CAUTIOUS))
+                aggromod *= 0.75f;
+        }
+
+
+        if (damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
+            flags.setFlag(AIFlags.BACK_OFF, 1.0f);
+        }
+
         if (!timer.intervalElapsed())
             timer.advance(amount);
         if (timer.intervalElapsed() || flags.hasFlag(AIFlags.IN_CRITICAL_DPS_DANGER)) {
             if (!AIUtils.canUseSystemThisFrame(ship)) {
+                if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
+                        && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                    if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f
+                            || damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
+
+                        flags.setFlag(AIFlags.BACK_OFF, 1.0f);
+                        flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
+
+                    }
+                    // if it cant use its system we want to back off until we can
+                }
                 return;
             }
+
             float weight = MathUtils.getRandomNumberInRange(0f, BASELINE_WEIGHT);
             for (AIFlags f : ALWAYS) {
                 if (flags.hasFlag(f)) {
@@ -173,7 +220,10 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                     enemyWeight += NAUtils.shipSize(shp);
             }
 
-            if (ship.getFluxTracker().getFluxLevel() > 0.85f ||
+
+            float friendlyWeight = NAUtils.shipSize(ship);
+
+            if (damageSinceLastTick > DMG_PANIC_THRESH * aggromod || ship.getFluxTracker().getFluxLevel() > 0.85f ||
                     (ship.getFluxTracker().getFluxLevel() > 0.5f
                             && ship.getAIFlags() != null && (
                             ship.getAIFlags().hasFlag(AIFlags.BACKING_OFF)
@@ -182,8 +232,6 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
             } else {
                 if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(AIFlags.BACKING_OFF)) {
                     List<ShipAPI> friendsNearby = NAUtils.getFriendlyShipsWithinRange(ship, ship.getLocation(), NA_GravityCatapult.MAX_RANGE, true);
-
-                    float friendlyWeight = NAUtils.shipSize(ship);
                     for (ShipAPI shp: friendsNearby) {
                         friendlyWeight += NAUtils.shipSize(shp);
                     }
@@ -194,7 +242,17 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                 }
             }
 
+            if (enemyWeight > 2*NAUtils.shipSize(ship) && friendlyWeight < enemyWeight*0.3f) {
+                if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
+                        && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                    if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f) {
+                        flags.setFlag(AIFlags.BACK_OFF, 1.0f);
+                        flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
 
+                    }
+                    // if it cant use its system we want to back off until we can
+                }
+            }
 
 
 
@@ -245,8 +303,7 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                                 ship.setShipTarget(oldTarget);
                                 return;
                             } else {
-                                float len = 0.25f;
-                                timer = new IntervalUtil(len, len);
+                                resetTimer();
                                 return;
                             }
 
@@ -285,19 +342,19 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                                 ship.setShipTarget(oldTarget);
                                 return;
                             } else {
-                                float len = 0.25f;
-                                timer = new IntervalUtil(len, len);
+                                resetTimer();
                                 return;
                             }
                         }
                     } else {
                         ship.useSystem();
+                        resetTimer();
                         float len = Math.min(2.5f, Math.max(0.5f, weight));
                         timer = new IntervalUtil(len, len);
                         return;
                     }
                 }
-            } else if (weight < -3.0f) {
+            } else if (weight < -4.0f * aggromod) {
                 // we DONT want to use it, but a lot of negative reasons means we want to retreat
                 ShipAPI friend = NA_GravityCatapult.findTarget(ship, true);
                 if (friend != null) {
@@ -308,11 +365,15 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                     ship.setShipTarget(oldTarget);
                     return;
                 } else {
-                    float len = 0.25f;
-                    timer = new IntervalUtil(len, len);
+                    resetTimer();
                     return;
                 }
             }
+        }
+
+
+        if (timer.intervalElapsed()) {
+            resetTimer();
         }
     }
 }

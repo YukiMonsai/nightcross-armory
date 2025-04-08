@@ -278,7 +278,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
     public static float getJumpDist(ShipAPI ship, ShipAPI target) {
         float distToTarget = MathUtils.getDistance(ship.getLocation(), target.getLocation()) + target.getCollisionRadius() + ship.getCollisionRadius();
         float jumpDist = Math.max(BASE_DIST, distToTarget + BASE_DIST_ADD);
-        int size_that = 0;
+        int size_that = 1;
         if (target != null) {
             switch (target.getHullSize()) {
                 case CAPITAL_SHIP: size_that = 4; break;
@@ -290,7 +290,8 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         jumpDist += size_that * BASE_DIST_PER_SIZE;
 
         // this bit of code borrowed from Mayorate to tell if target location is occupied
-        while (true) {
+        int i = 0;
+        while (i++ < 5) {
             double jumpAngle = Math.atan2(target.getLocation().y - ship.getLocation().y,
                     target.getLocation().x - ship.getLocation().x);
             float endLocX = ship.getLocation().y + (float) FastTrig.sin(jumpAngle) * jumpDist;
@@ -298,7 +299,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
             Vector2f endLoc = new Vector2f(endLocX, endLocY);
 
             boolean collides = false;
-            for (CombatEntityAPI inRangeObject : CombatUtils.getEntitiesWithinRange(endLoc, ship.getCollisionRadius() + 250f)) {
+            for (CombatEntityAPI inRangeObject : CombatUtils.getEntitiesWithinRange(endLoc, ship.getCollisionRadius() + 60f)) {
                 if (inRangeObject == ship || inRangeObject == target) {
                     // don't do anything if its the ship activating the system
                     continue;
@@ -348,7 +349,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
 
 
     public static Vector2f getJumpPoint(ShipAPI ship, ShipAPI target) {
-        float jumpDist = getJumpDist(ship, target);
+        float jumpDist = Math.min(getJumpDist(ship, target), 2000f); // sanity check
         double jumpAngle = Math.atan2(target.getLocation().y - ship.getLocation().y,
                 target.getLocation().x - ship.getLocation().x);
         return new Vector2f(
