@@ -32,7 +32,7 @@ public class Pascal {
         StarSystemAPI system = sector.createStarSystem("Pascal");
         system.getLocation().set(-20000, 17600);
         system.getMemoryWithoutUpdate().set(MusicPlayerPluginImpl.MUSIC_SET_MEM_KEY, NightcrossID.NIGHTCROSS_PASCAL_BG);
-        system.setBackgroundTextureFilename("graphics/Backgrounds/background5.jpg");
+        system.setBackgroundTextureFilename("graphics/backgrounds/background5.jpg");
 
         PlanetAPI pascal = system.initStar("pascal", "star_rayet", 700f, 1000f);
         pascal.setCustomDescriptionId("wolf_rayet");

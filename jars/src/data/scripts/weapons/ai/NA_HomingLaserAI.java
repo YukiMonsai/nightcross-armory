@@ -4,6 +4,7 @@ package data.scripts.weapons.ai;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -42,7 +43,14 @@ public class NA_HomingLaserAI implements MissileAIPlugin, GuidedMissileAI {
 
 
         // left or right
-        stage = MathUtils.getRandomNumberInRange(0, 1f) > 0.5 ? -1 : 1;
+        if (missile.getWeapon() != null && missile.getWeapon().getSlot() != null) {
+            WeaponSlotAPI slot = missile.getWeapon().getSlot();
+
+            stage = slot.getLocation().x > 0 ? -1 : 1;
+        } else {
+            stage = MathUtils.getRandomNumberInRange(0, 1f) > 0.5 ? -1 : 1;
+        }
+
         deathTimer.randomize();
 
         target_angle = missile.getFacing() + (float) (stage * (STAGE_ONE_ANGLE));

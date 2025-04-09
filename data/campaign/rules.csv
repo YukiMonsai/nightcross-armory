@@ -1,0 +1,39 @@
+id,trigger,conditions,script,text,options,notes
+#RULESET_NAME YUKIM,,,,,,
+,,,,,,
+#RED MASK,,,,,,
+redmaskDialogFriendly,OpenCommLink,"$faction.id == nightcrossremnant score:1000
+$entity.isHostile
+","SetTextHighlightColors na_redmasktext
+SetTextHighlights ""have you come to gaze at the stars with us?""
+$menuState = fleetConvMain 0
+FireAll PopulateOptions","The comms flicker beneath a deluge of IFF handshake data and corrupted data packets. A presence appears over the channel--no, inside it--as the noise begins to fade. It sings to your ears without a voice.
+
+have you come to gaze at the stars with us?",cutCommLink:Cut the comm link,
+redmaskDialogHostile,OpenCommLink,"$faction.id == nightcrossremnant score:1000
+$entity.isHostile
+","SetTextHighlightColors na_redmasktext
+SetTextHighlights ""who reminds Oblivion of the suffering in this world? the stars are our witness.""
+$entity.ignorePlayerCommRequests = true 1","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping with the rhythms of an alien intelligence sizing up its prey. Then it stops.
+
+who reminds oblivion of the suffering in this world? the stars are our witness.
+
+INTERRUPT
+
+""--unit is not cleared for approach. This incident has been logged.""
+",,
+redmaskDialogNeutral,OpenCommLink,"$faction.id == nightcrossremnant score:1000
+$entity.isHostile
+","SetTextHighlightColors na_redmasktext
+SetTextHighlights ""every birth of a star ends in infinite black.""
+$menuState = fleetConvMain 0
+FireAll PopulateOptions","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping with the rhythms of an alien intelligence trying simply to understand.
+
+every birth of a star ends in infinite black.
+
+INTERRUPT
+
+""--within ERROR days. Please power down weapons and maintain distance from confidential Nightcross Armory business assets.
+
+Warning: Crew has been incapacitated. Medical support has been dispatched to arrive within ERROR days. Please power down weapons--""",,
+#END RED MASK,,,,,,

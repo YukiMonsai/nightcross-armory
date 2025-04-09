@@ -2,6 +2,7 @@
   "id": "na_pyrowisp_large",
   "specClass": "projectile",
   "projectileSpecId": "na_pyrowisp_large_shot",
+  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "type": "ENERGY",
   "mountTypeOverride": "SYNERGY",
   "size": "LARGE",

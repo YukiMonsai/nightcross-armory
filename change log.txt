@@ -1,6 +1,13 @@
 V1.1.13
 - Corrosion beam flux cost increased 1450 -> 1750/s
 - Discord PPC ACTUALLY decreased range this time (to 550)
+- String of pearls speed reduced from 190 to 150
+- Fixed an error where String of Pearls would zoom across the map when using its ship system
+- Improved String of Pearls ship system AI again, this time making it back off when isolated and unable to use its system
+- Precision Drive Systems now increases zero flux boost by 10
+- Heavy Pyrowisp now has 2 charges and faster RoF, same DPS
+- HPFs and Pyrowisps (including flamestrike) now get +100% max ammo count if mounted in a missile-capable slot
+- Added descriptions for fighter weapons
 
 V1.1.12
 - Made corrosion torp and Lo Sulci effects weaker on larger ships

@@ -2,6 +2,7 @@
   "id": "na_hominglaser_medium",
   "specClass": "projectile",
   "projectileSpecId": "na_hominglaser_medium_shot",
+  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "type": "ENERGY",
   "mountTypeOverride": "SYNERGY",
   "typeOverride": "MISSILE",
