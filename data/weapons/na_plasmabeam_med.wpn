@@ -50,7 +50,7 @@
   "pierceSet": [
     PROJECTILE_FF,
     PROJECTILE_NO_FF,
-    PROJECTILE_FIGHTER
+    PROJECTILE_FIGHTER,MISSILE_FF,MISSILE_NO_FF
   ],
   "fireSoundOne": "na_plasmabeam_med"
 }

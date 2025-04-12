@@ -225,8 +225,8 @@
         "offersCommissions":false,
         "engagesInHostilities":false,
         "buysAICores":true,
-        "AICoreValueMult":2.0,
-        "AICoreRepMult":0.1,
+        "AICoreValueMult":2.75,
+        "AICoreRepMult":0.125,
         "buysSurveyData":true,
         "hostilityImpactOnGrowth":false,
         "caresAboutAtrocities":false,
@@ -236,6 +236,10 @@
             "canBombard":false,
             "territorial":false,
         },
+		"simulatorData":{
+			"showInSimulator":true,
+			"standardAICores":true,
+		},
     },
     "fleetTypeNames":{
 		"trade":"Supplier",

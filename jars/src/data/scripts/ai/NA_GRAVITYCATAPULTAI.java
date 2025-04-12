@@ -127,6 +127,10 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
         if (!timer.intervalElapsed())
             timer.advance(amount);
         if (timer.intervalElapsed() || flags.hasFlag(AIFlags.IN_CRITICAL_DPS_DANGER)) {
+
+            AssignmentInfo assignment = engine.getFleetManager(ship.getOwner()).getTaskManager(ship.isAlly()).getAssignmentFor(ship);
+
+
             if (!AIUtils.canUseSystemThisFrame(ship)) {
                 if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
                         && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
@@ -134,7 +138,8 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                             || damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
 
                         flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-                        flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
+                        if (assignment == null)
+                            flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
 
                     }
                     // if it cant use its system we want to back off until we can
@@ -230,11 +235,12 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                             ))) {
                 panic = true;
             } else {
+                List<ShipAPI> friendsNearby = NAUtils.getFriendlyShipsWithinRange(ship, ship.getLocation(), NA_GravityCatapult.MAX_RANGE, true);
+                for (ShipAPI shp: friendsNearby) {
+                    friendlyWeight += NAUtils.shipSize(shp);
+                }
                 if (ship.getAIFlags() != null && ship.getAIFlags().hasFlag(AIFlags.BACKING_OFF)) {
-                    List<ShipAPI> friendsNearby = NAUtils.getFriendlyShipsWithinRange(ship, ship.getLocation(), NA_GravityCatapult.MAX_RANGE, true);
-                    for (ShipAPI shp: friendsNearby) {
-                        friendlyWeight += NAUtils.shipSize(shp);
-                    }
+
 
                     if (enemyWeight > friendlyWeight) {
                         panic = true;
@@ -242,17 +248,27 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
                 }
             }
 
-            if (enemyWeight > 2*NAUtils.shipSize(ship) && friendlyWeight < enemyWeight*0.3f) {
-                if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
-                        && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
-                    if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f) {
-                        flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-                        flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
 
+            if (assignment == null || !(
+                    assignment.getType() == CombatAssignmentType.ASSAULT
+                    || assignment.getType() == CombatAssignmentType.INTERCEPT
+                    || assignment.getType() == CombatAssignmentType.STRIKE
+                    || assignment.getType() == CombatAssignmentType.RETREAT
+                    )) {
+                if (enemyWeight > 2*NAUtils.shipSize(ship) && friendlyWeight < enemyWeight*0.25f * aggromod) {
+                    if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
+                            && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                        if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f) {
+                            flags.setFlag(AIFlags.BACK_OFF, 1.0f);
+                            if (assignment == null)
+                                flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
+
+                        }
+                        // if it cant use its system we want to back off until we can
                     }
-                    // if it cant use its system we want to back off until we can
                 }
             }
+
 
 
 

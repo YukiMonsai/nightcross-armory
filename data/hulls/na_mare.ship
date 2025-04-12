@@ -179,7 +179,7 @@
       "width": 10.054451,
       "angle": 125.5,
       "contrailSize": 7,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [-26.5, -16],
@@ -187,7 +187,7 @@
       "width": 10.054451,
       "angle": -125.5,
       "contrailSize": 7,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [26.5, 17.5],
@@ -195,7 +195,7 @@
       "width": 8.77323,
       "angle": 68.5,
       "contrailSize": 7,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [26.5, -17.5],
@@ -203,7 +203,7 @@
       "width": 8.77323,
       "angle": -68.5,
       "contrailSize": 7,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [-16, 29.5],
@@ -211,7 +211,7 @@
       "width": 13.547636,
       "angle": 151.5,
       "contrailSize": 13.547636,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [-16, -29.5],
@@ -219,7 +219,7 @@
       "width": 13.547636,
       "angle": -151.5,
       "contrailSize": 13.547636,
-      "style": "NIGHTCROSS"
+      "style": "NIGHTCROSS_SEC"
     }
   ],
   "bounds": [
