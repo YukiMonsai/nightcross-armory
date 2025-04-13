@@ -1,4 +1,11 @@
 V1.1.13
+- Atomic driver damage 1000 -> 3000
+- Atomic driver flux cost 250 -> 800
+- Atomic driver proj speed 1400 -> 1250
+- Atomic driver always deals soft flux damage (instead of just ballistic mounted)
+- Atomic driver damage 1000 -> 2400
+- Atomic driver now uses a fancy algorithm to determine damage and reward good aim. AI always aims for center of mass so it should be unaffected.
+- Atomic driver now more affected heavily by armor (flat reduction, 5x scaling)
 - Corrosion beam flux cost increased 1450 -> 1750/s
 - Discord PPC ACTUALLY decreased range this time (to 550)
 - String of pearls speed reduced from 190 to 155

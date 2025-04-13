@@ -21,6 +21,12 @@ public class NAUtils {
     }
 
 
+    public static float getArmorAtPoint(ShipAPI target, Vector2f point) {
+        int[] cellloc = target.getArmorGrid().getCellAtLocation(point);
+        float armorRating = target.getArmorGrid().getArmorRating();
+        return armorRating * target.getArmorGrid().getArmorFraction(cellloc[0], cellloc[1]);
+    }
+
     public static float shipSize(ShipAPI ship) {
         switch (ship.getHullSize()) {
             case CAPITAL_SHIP: return 4f;

@@ -8,6 +8,8 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
+
 
 public class NA_HardlightRifle implements EveryFrameWeaponEffectPlugin {
     private final float BOOST_PER_HIT = 50f;
@@ -73,6 +75,12 @@ public class NA_HardlightRifle implements EveryFrameWeaponEffectPlugin {
 
                         damage.getModifier().modifyPercent("na_hardlightriflesucchit", bonus);
                         Global.getSoundPlayer().playSound("hardlightrifle_impact", 1f, 0.15f + 0.2f * (bonus)/100f, point, Misc.ZERO);
+
+                        Global.getCombatEngine().addSmoothParticle(
+                                point, Misc.ZERO,
+                                50f + 40f* (bonus)/100f, 0.8f, 1.2f,
+                                new Color(200, 250, 255)
+                        );
 
                         script.doHit((ShipAPI) target);
                     }

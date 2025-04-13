@@ -20,8 +20,8 @@
 	"hardpointAngleOffsets":[0],
 	"barrelMode":"ALTERNATING", # LINKED or ALTERNATING.  whether barrels fire at the same time or alternate.
 	"animationType":"GLOW_AND_FLASH",
-	"muzzleFlashSpec":{"length":100.0,   # only used if animationType = MUZZLE_FLASH
-					   "spread":5.0,
+	"muzzleFlashSpec":{"length":70.0,   # only used if animationType = MUZZLE_FLASH
+					   "spread":35.0,
 					   "particleSizeMin":20.0,
 					   "particleSizeRange":20.0,
 					   "particleDuration":0.25,
@@ -29,6 +29,6 @@
 					   "particleColor":[175,225,255,255]},	
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"projectileSpecId":"na_hardlightrifle_shot",  # projectile that will be fired
-	"fireSoundOne":"hardlight_charge",
+	#"fireSoundOne":"hardlight_charge",
 	"fireSoundTwo":"hardlight_rifle",
 }

@@ -28,6 +28,11 @@
 	
 	
 	
+	"atomicdriver_impact":
+	[
+		{"file":"sounds/wpn/atomicdriver_impact.ogg","pitch":1.0,"volume":1.00},
+	],
+	
 	"na_chirppdfire":
 	[
 		{"file":"sounds/wpn/na_chirppdfire.ogg","pitch":1.0,"volume":1.05},

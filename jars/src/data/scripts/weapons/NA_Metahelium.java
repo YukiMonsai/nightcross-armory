@@ -52,7 +52,7 @@ public class NA_Metahelium implements EveryFrameWeaponEffectPlugin {
         }
         public float getWeaponBaseRangeFlatMod(ShipAPI ship, WeaponAPI weapon) {
             if (weapon == this.weapon)
-                return 100f;
+                return 200f;
             return 0f;
         }
     }
