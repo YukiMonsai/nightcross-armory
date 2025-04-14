@@ -1,7 +1,8 @@
 name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u (base cap),cr/u,max uses,regen,charge up,active,down,cooldown,toggle,noDissipation,noHardDissipation,hardFlux,noFiring,noTurning,noStrafing,noAccel,noShield,noVent,icon
 Plasma Autoforge,na_forgevats,,,,,,0.4,,,,1,,1,60,,,,,,,,,,,
 Catalyst Injector,na_afterburners,,,,,,,,3,.05,.25,0.5,2.5,1.5,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
-Relativity Drive,na_relativitydrive,,,,,,,,2,0.08,0.2,2.2,1.5,0.1,,,,,TRUE,,,,,,graphics/icons/hullsys/infernium_injector.png
+Relativity Drive,na_relativitydrive,,,,,,,,2,0.08,0.2,1.9,1.5,0.1,,,,,TRUE,,,,,,graphics/icons/hullsys/infernium_injector.png
+Temporal Eversion,na_reversaldrive,,,,,,,,,,.5,,.5,4,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,graphics/icons/hullsys/infernium_injector.png
 Tidal Disruption,na_tidaldisruption,,,,,,0.1,,,,0.5,10,1,10,,,,,,,,,,,
 Chroma Reactor,na_fastcapacitors,,,,,,,,,,1.5,3,1,8,,,,,,,,,,,graphics/icons/hullsys/lidar_barrage.png
 Plasma Surge,na_plasmasurge,,,,10,,,,2,0.08,0.5,2,1,0.2,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png

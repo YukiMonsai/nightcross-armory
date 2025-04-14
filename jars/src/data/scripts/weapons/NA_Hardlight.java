@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.listeners.WeaponBaseRangeModifier;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.NAUtils;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -15,7 +16,7 @@ import java.awt.*;
 public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
 
     // multiplier to armor for flat reduction
-    public final float ARMOR_SCALE = 6f;
+    public final float ARMOR_SCALE = 5f;
     // determines the size of the 'sweet spot' along the ship's centerline
     public final float CENTER_SCALE = 1.33f;
 

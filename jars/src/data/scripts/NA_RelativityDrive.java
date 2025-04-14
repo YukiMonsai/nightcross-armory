@@ -18,6 +18,7 @@ public class NA_RelativityDrive extends BaseShipSystemScript {
 
     public static float TIMEFLOW_MULT = 9f;
     public static float ROF_MULT = 3f; // boost weapons at end
+    public static float ROF_MULT_DURING = 2.5f; // boost weapons at end
 
     private String ID = "NA_RelativityDrive";
 
@@ -55,9 +56,9 @@ public class NA_RelativityDrive extends BaseShipSystemScript {
             }
         } else {
             stats.getTimeMult().modifyMult(id, 1f + effectLevel*TIMEFLOW_MULT);
-            stats.getBallisticRoFMult().modifyMult(id, ROF_MULT);
-            stats.getEnergyRoFMult().modifyMult(id, ROF_MULT);
-            stats.getMissileRoFMult().modifyMult(id, ROF_MULT);
+            stats.getBallisticRoFMult().modifyMult(id, effectLevel == 1 ? ROF_MULT_DURING : ROF_MULT);
+            stats.getEnergyRoFMult().modifyMult(id, effectLevel == 1 ? ROF_MULT_DURING : ROF_MULT);
+            stats.getMissileRoFMult().modifyMult(id, effectLevel == 1 ? ROF_MULT_DURING : ROF_MULT);
 
             if (stats.getEntity() == Global.getCombatEngine().getPlayerShip()
                 && ((ShipAPI) stats.getEntity()).isAlive()) {

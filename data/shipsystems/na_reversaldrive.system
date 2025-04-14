@@ -1,0 +1,21 @@
+{
+	"id":"na_reversaldrive",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_ReversalDriveAI",
+	
+	"statsScript":"data.scripts.NA_ReversalDrive",
+	"useSound":"system_interdictor",
+	"loopSound":"na_system_relativity_loop",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"runScriptWhileIdle":true, # unapply() never gets called
+	
+	"soundFilterType":"LOWPASS",
+	"soundFilterGain":0.9,
+	"soundFilterGainHF":0.25,
+	
+	"aiHints":{
+		"burstMovementPotential":300,
+	}
+}

@@ -4,6 +4,7 @@ package data.scripts;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.impl.combat.DisintegratorEffect;
 import com.fs.starfarer.combat.entities.Missile;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -22,9 +23,38 @@ public class NAUtils {
 
 
     public static float getArmorAtPoint(ShipAPI target, Vector2f point) {
+        ArmorGridAPI grid = target.getArmorGrid();
+        int[] cell = grid.getCellAtLocation(point);
+        if (cell == null) return 0f;
+
+        int gridWidth = grid.getGrid().length;
+        int gridHeight = grid.getGrid()[0].length;
+
+        float totalArmor = 0f;
+        float armorCells = 0f;
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j <= 2; j++) {
+                if ((i == 2 || i == -2) && (j == 2 || j == -2)) continue; // skip corners
+
+                int cx = cell[0] + i;
+                int cy = cell[1] + j;
+
+                if (cx < 0 || cx >= gridWidth || cy < 0 || cy >= gridHeight) continue;
+
+
+                float armorInCell = grid.getArmorFraction(cx, cy);
+                totalArmor += armorInCell;
+                armorCells++;
+            }
+        }
+
+        float armorRating = target.getArmorGrid().getArmorRating();
+        return armorRating*totalArmor / Math.max(1, armorCells);
+
+        /*
         int[] cellloc = target.getArmorGrid().getCellAtLocation(point);
         float armorRating = target.getArmorGrid().getArmorRating();
-        return armorRating * target.getArmorGrid().getArmorFraction(cellloc[0], cellloc[1]);
+        return armorRating * target.getArmorGrid().getArmorFraction(cellloc[0], cellloc[1]);*/
     }
 
     public static float shipSize(ShipAPI ship) {

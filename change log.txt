@@ -15,6 +15,14 @@ V1.1.13
 - Heavy Pyrowisp now has 2 charges and faster RoF, same DPS
 - HPFs and Pyrowisps (including flamestrike) now get +100% max ammo count if mounted in a missile-capable slot
 - Added descriptions for fighter weapons
+- Tessera Magu renamed to Magu Tessera
+- Nammu renamed to Occator
+- Changed sound effects for Saturation Cannon recharging
+- Added sound effect for hardlight rifle reload
+- Increased Mare Crisium OP from 55 to 60
+- Reduced Mare Crisium shield to 240 deg (from 360)
+- Mare Crisium DP increased to 10 from 8
+- Mare Crisium system duration reduced from 2.2s to 1.9s
 
 V1.1.12
 - Made corrosion torp and Lo Sulci effects weaker on larger ships

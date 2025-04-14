@@ -18,7 +18,9 @@ public class NA_HardFluxCannon implements EveryFrameWeaponEffectPlugin {
     public final float MAX_CHARGE = 8;
 
     public int last_charges = 0;
-    public static final String CHARGE_SOUND = "na_hardflux_charge";
+    public static final String CHARGE_SOUND = "na_saturation_reload";
+    public static final String CHARGEFULL_SOUND = "na_hardflux_charge";
+
     public static final Color CHARGE_COLOR = new Color(175, 50, 225);
 
     @Override
@@ -32,11 +34,11 @@ public class NA_HardFluxCannon implements EveryFrameWeaponEffectPlugin {
                 weapon.getAmmoTracker().setMaxAmmo(charges);
             }
 
-            if (currentCharges > last_charges && currentCharges > 1) {
+            if (currentCharges > last_charges && charges > 1) {
                 // do a fancy effect
                 if (currentCharges == MAX_CHARGE) {
                     Global.getSoundPlayer().playSound(
-                            CHARGE_SOUND, 0.75f, 1.3f, weapon.getLocation(), Misc.ZERO);
+                            CHARGEFULL_SOUND, 1.0f, 1.1f, weapon.getLocation(), Misc.ZERO);
                     Global.getCombatEngine().addSwirlyNebulaParticle(
                             weapon.getLocation(), weapon.getShip() != null ? weapon.getShip().getVelocity() : Misc.ZERO,
                             100f, 0.1f, 0.05f, 0.2f,
@@ -44,8 +46,7 @@ public class NA_HardFluxCannon implements EveryFrameWeaponEffectPlugin {
                             CHARGE_COLOR, true
                     );
                 } else {
-                    Global.getSoundPlayer().playSound(
-                            CHARGE_SOUND, 0.99f, 0.8f, weapon.getLocation(), Misc.ZERO);
+
                     Global.getCombatEngine().addSwirlyNebulaParticle(
                             weapon.getLocation(), weapon.getShip() != null ? weapon.getShip().getVelocity() : Misc.ZERO,
                             45f, 0.1f, 0.05f, 0.2f,
@@ -53,7 +54,8 @@ public class NA_HardFluxCannon implements EveryFrameWeaponEffectPlugin {
                             CHARGE_COLOR, true
                     );
                 }
-
+                Global.getSoundPlayer().playSound(
+                        CHARGE_SOUND, 0.99f, 1.1f, weapon.getLocation(), Misc.ZERO);
             }
 
             last_charges = currentCharges;

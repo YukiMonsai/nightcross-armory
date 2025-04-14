@@ -22,6 +22,12 @@ public class NA_HardlightRifle implements EveryFrameWeaponEffectPlugin {
     private boolean inited = false;
     private NA_HardlightRifleBoost dmglistener;
 
+
+    public static final String CHARGE_SOUND = "na_hardlight_reload";
+
+
+    public int last_charges = 0;
+
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
         if (!inited) {
@@ -31,11 +37,27 @@ public class NA_HardlightRifle implements EveryFrameWeaponEffectPlugin {
                 weapon.getShip().addListener(dmglistener);
             }
         }
+
+        int currentCharges = weapon.getAmmoTracker().getAmmo();
+
+        if (currentCharges > last_charges && currentCharges > 1) {
+           Global.getSoundPlayer().playSound(
+                    CHARGE_SOUND, 0.99f, 2.1f, weapon.getLocation(), Misc.ZERO);
+           Global.getCombatEngine().addSwirlyNebulaParticle(
+                    weapon.getLocation(), weapon.getShip() != null ? weapon.getShip().getVelocity() : Misc.ZERO,
+                    195f, 0.1f, 0.05f, 1.4f,
+                    0.85f,
+                    new Color(168, 224, 243), true
+            );
+        }
+
+        last_charges = currentCharges;
+
         if (lastHitTimer.intervalElapsed()) {
             currentBoost = 0;
             lastHitTimer = new IntervalUtil(TIMER, TIMER);
         } else {
-            lastHitTimer.advance(amount);
+            lastHitTimer.advance(amount / Math.max(0.05f, weapon.getShip().getMutableStats().getTimeMult().getModifiedValue()));
         }
     }
 
@@ -78,7 +100,7 @@ public class NA_HardlightRifle implements EveryFrameWeaponEffectPlugin {
 
                         Global.getCombatEngine().addSmoothParticle(
                                 point, Misc.ZERO,
-                                50f + 40f* (bonus)/100f, 0.8f, 1.2f,
+                                80f + 50f* (bonus)/100f, 0.8f, 1.2f,
                                 new Color(200, 250, 255)
                         );
 

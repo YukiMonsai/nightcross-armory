@@ -26,6 +26,15 @@
 #collapseopen WEAPONS	
 	
 	
+	"na_saturation_reload":
+	[
+		{"file":"sounds/wpn/na_saturation_reload.ogg","pitch":1.0,"volume":1.00},
+	],
+	
+	"na_hardlight_reload":
+	[
+		{"file":"sounds/wpn/na_hardlight_reload.ogg","pitch":1.0,"volume":1.00},
+	],
 	
 	
 	"atomicdriver_impact":
