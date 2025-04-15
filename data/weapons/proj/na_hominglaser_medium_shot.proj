@@ -53,9 +53,9 @@
                 "styleSpec":{
                         "mode":"QUAD_STRIP",
                         "engineColor":[80,125,255,0],
-                        "contrailDuration":1.4,
+                        "contrailDuration":0.33,
                         "contrailWidthMult":90,
-                        "contrailWidthAddedFractionAtEnd":0.1,
+                        "contrailWidthAddedFractionAtEnd":2.0,
                         "contrailMinSeg":8,
                         "contrailMaxSpeedMult":0.0f,
                         "contrailAngularVelocityMult":0.0f,

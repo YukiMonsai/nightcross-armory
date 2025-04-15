@@ -39,7 +39,7 @@ public class NA_Wound_Red implements EveryFrameWeaponEffectPlugin {
                     id, /* ID */
                     Global.getSettings().getSprite("na_trails", "na_particletrail"), /* sprite */
                     weapon.getLocation(), /* position */
-                    50f, /* startSpeed */
+                    80f, /* startSpeed */
                     0f, /* endSpeed */
                     weapon.getCurrAngle() + MathUtils.getRandomNumberInRange(-5f, 5f), /* angle */
                     0f, /* startAngularVelocity */
@@ -68,9 +68,9 @@ public class NA_Wound_Red implements EveryFrameWeaponEffectPlugin {
                     id, /* ID */
                     Global.getSettings().getSprite("na_trails", "na_particletrailcore"), /* sprite */
                     weapon.getLocation(), /* position */
-                    100f, /* startSpeed */
+                    50f, /* startSpeed */
                     0f, /* endSpeed */
-                    ship.getFacing(), /* angle */
+                    weapon.getCurrAngle() + 10f, /* angle */
                     0f, /* startAngularVelocity */
                     0f, /* endAngularVelocity */
                     70f, /* startSize */
