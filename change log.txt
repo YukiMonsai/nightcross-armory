@@ -1,3 +1,6 @@
+V1.1.14
+- Added a rare mare crisium wreck around a black hole (can generate on existing saves)
+
 V1.1.13
 - Atomic driver damage 1000 -> 3000
 - Atomic driver flux cost 250 -> 800

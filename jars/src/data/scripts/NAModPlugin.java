@@ -32,6 +32,7 @@ public class NAModPlugin extends BaseModPlugin {
 
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
+    public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
 
 
@@ -42,9 +43,12 @@ public class NAModPlugin extends BaseModPlugin {
 
         NightcrossPeople.create();
 
-        new NAGen().generate(Global.getSector());
-
+        NAGen gen = new NAGen();
+        gen.generate(Global.getSector());
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+        gen.place_mare(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+
     }
 
     @Override
@@ -116,10 +120,7 @@ public class NAModPlugin extends BaseModPlugin {
         NightcrossPeople.create();
 
         if (!isExerelin || SectorManager.getManager().isCorvusMode()) { // Till Nex
-            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZED)) {
-                addToOngoingGame();
-                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
-            }
+            addToOngoingGame();
         }
 
         if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_IBB_INITIALIZED)) {
@@ -133,8 +134,18 @@ public class NAModPlugin extends BaseModPlugin {
     }
 
     protected void addToOngoingGame() {
-        if (!isExerelin || SectorManager.getManager().isCorvusMode()) { // tillnex
-            new NAGen().generate(Global.getSector());
+        if (!isExerelin || SectorManager.getManager().isCorvusMode()) {
+
+
+            NAGen gen = new NAGen();
+            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZED)) {
+                gen.generate(Global.getSector());
+                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+            }
+            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_MARE_CRISIUM)) {
+                gen.place_mare(Global.getSector());
+                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+            }
 
             //MarketHelpers.generateMarketsFromEconJson("na_pascal");
         }

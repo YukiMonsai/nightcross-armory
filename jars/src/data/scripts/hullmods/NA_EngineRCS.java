@@ -129,11 +129,12 @@ public class NA_EngineRCS extends BaseHullMod {
 					ship.setCustomData("NA_AfterburnerStatsInfo", new NA_AfterburnerStatsInfo(angVel));
 				}
 				float Agility_scaling = Math.max(1f, 150f / Math.max(1f, ship.getMutableStats().getMaxTurnRate().getModifiedValue()));
-				float changeInAngVel = Agility_scaling * ANG_RATE*(angVel - lastAngVel);
+				float changeInAngVel = 40* Agility_scaling * ANG_RATE*(angVel - lastAngVel);
 				float changeInAngVelOrig = changeInAngVel;
 
 				if (changeInAngVel <= 0 && angVel < 0) changeInAngVel = Math.min(angVel, changeInAngVel);
 				else if (changeInAngVel >= 0 && angVel > 0) changeInAngVel = Math.max(angVel, changeInAngVel);
+				else if (Math.abs(changeInAngVel) < 10f) changeInAngVel = angVel;
  				float angVel_smooth = ((NA_AfterburnerStatsInfo) ship.getCustomData().get("NA_AfterburnerStatsInfo")).Value_Smooth;
 
 				if (Math.abs(changeInAngVel - angVel_smooth) < 0.3f*RATE * amount) angVel_smooth = 0;

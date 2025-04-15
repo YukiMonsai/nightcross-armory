@@ -2,6 +2,7 @@ name,id,tier,rarity,base value,range,damage/second,damage/shot,emp,impact,turn r
 Treble CIWS,treble_ciws,1,0.5,400,550,,40,45,10,75,6,12,1.2,3,ENERGY,50,,0,0.6,3,0.1,0,6,1,10,,1000,,,20,,,"PD,ANTI_FTR","pd9, SR, nightcross_bp_heavy, merc",,Nightcross Armory,,Point Defense (Area),,,,,,,,,,130
 Blinker Cyan,blinker_na_cyan,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
 Reactor Deco,na_reactor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
+Mare Crisium Wound,na_wound_red,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
 Hardlight Generator,na_hardlightgenerator,1,.001,400,5,1,,,,0,0,,,,ENERGY,0,,4,0.6,,,0,6,1,10,4,,,,20,,,,"no_drop, no_drop_salvage",,,,,,,,,,,,,,444
 Blinker Red,blinker_na_red,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,445
 Echo Leftwing,na_echo_leftwing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,

@@ -22,6 +22,30 @@ public class NAUtils {
     }
 
 
+    public static float getFriendlyWeight(ShipAPI ship, Vector2f point, float range) {
+
+        float friendlyWeight = NAUtils.shipSize(ship);
+
+        List<ShipAPI> friendsNearby = NAUtils.getFriendlyShipsWithinRange(ship, point, range, true);
+        for (ShipAPI shp: friendsNearby) {
+            friendlyWeight += NAUtils.shipSize(shp);
+        }
+
+        return friendlyWeight;
+    }
+    public static float getEnemyWeight(ShipAPI ship, Vector2f point, float range) {
+        List<ShipAPI> enemiesNearby = NAUtils.getEnemyShipsWithinRange(ship, point, range, true);
+
+        float enemyWeight = 0;
+        for (ShipAPI shp: enemiesNearby) {
+            if (!shp.getFluxTracker().isOverloadedOrVenting())
+                enemyWeight += NAUtils.shipSize(shp);
+        }
+
+        return enemyWeight;
+    }
+
+
     public static float getArmorAtPoint(ShipAPI target, Vector2f point) {
         ArmorGridAPI grid = target.getArmorGrid();
         int[] cell = grid.getCellAtLocation(point);

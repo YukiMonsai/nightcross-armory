@@ -1,8 +1,8 @@
 {
-  "hullName": "Mare Crisium",
-  "hullId": "na_mare",
+  "hullName": "Mare Crisium (X)",
+  "hullId": "na_mare_proto",
   "hullSize": "FRIGATE",
-  "spriteName": "graphics/ships/na/mare/na_mare.png",
+  "spriteName": "graphics/ships/na/mare/na_mare_phase.png",
   "style": "NIGHTCROSSHULL",
   "height": 112,
   "width": 112,
@@ -12,14 +12,17 @@
   "shieldRadius": 57,
   "viewOffset": 0,
   "builtInMods": [
-    "nightcrosstargeting",
+    "phasefield",
     "na_rcs",
-    "delicate"
+    "delicate",
+    "increased_maintenance",
+    "na_tidalgrid"
   ],
   "builtInWeapons": {
     "CENTER": "na_mare_deco",
     "WS0004": "na_reactor",
     "WS0005": "blinker_na_cyan",
+    "WS0006": "na_wound_red",
     "WS0007": "blinker_na_cyan",
     "WS0008": "blinker_na_red",
     "WS0011": "blinker_na_red",
@@ -146,6 +149,15 @@
       "arc": 5,
       "angle": 0,
       "locations": [-8, -0]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -65.5,
+      "locations": [21, -10]
     }
   ],
   "engineSlots": [
@@ -190,18 +202,18 @@
       "style": "NIGHTCROSS_SEC"
     },
     {
-      "location": [36.5, 9.5],
+      "location": [37.5, 10],
       "length": 35.738743,
       "width": 8.77323,
-      "angle": 79.5,
+      "angle": 79,
       "contrailSize": 7,
       "style": "NIGHTCROSS_SEC"
     },
     {
-      "location": [36.5, -9.5],
+      "location": [37.5, -10],
       "length": 35.738743,
       "width": 8.77323,
-      "angle": -79.5,
+      "angle": -79,
       "contrailSize": 7,
       "style": "NIGHTCROSS_SEC"
     },

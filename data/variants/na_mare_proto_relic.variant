@@ -1,0 +1,40 @@
+{
+  "variantId": "na_mare_proto_relic",
+  "hullId": "na_mare_proto",
+  "displayName": "Relic",
+  "goalVariant": true,
+  "fluxCapacitors": 7,
+  "fluxVents": 2,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "phase_anchor",
+    "magazines",
+    "autorepair"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_hardlightriflereal"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_hardlightrifle"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_corrosion_pod"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

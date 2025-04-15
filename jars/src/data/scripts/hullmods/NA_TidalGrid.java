@@ -1,33 +1,31 @@
 package data.scripts.hullmods;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Vector;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SoundAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.util.IntervalUtil;
-import org.lwjgl.util.vector.Vector2f;
-
-import org.dark.shaders.distortion.DistortionShader;
+import data.scripts.NAUtils;
 import org.dark.shaders.distortion.WaveDistortion;
 import org.dark.shaders.light.LightShader;
 import org.dark.shaders.light.StandardLight;
-import java.awt.Color;
-import data.scripts.NAUtils;
+import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicIncompatibleHullmods;
 
-public class NightcrossTargeting extends BaseHullMod {
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class NA_TidalGrid extends BaseHullMod {
 
 	private static Map mag = new HashMap();
 	static {
-		mag.put(HullSize.FIGHTER, 0.51f);
-		mag.put(HullSize.FRIGATE, 0.75f);
-		mag.put(HullSize.DESTROYER, 1.1f);
-		mag.put(HullSize.CRUISER, 2f);
-		mag.put(HullSize.CAPITAL_SHIP, 3f);
+		mag.put(HullSize.FIGHTER, 1.0f);
+		mag.put(HullSize.FRIGATE, 1.5f);
+		mag.put(HullSize.DESTROYER, 2.0f);
+		mag.put(HullSize.CRUISER, 2.5f);
+		mag.put(HullSize.CAPITAL_SHIP, 3.0f);
 	}
 
 	public static final float FLUX_RED = 33f;
@@ -40,7 +38,6 @@ public class NightcrossTargeting extends BaseHullMod {
 	public static final float PARTICLE_VELOCITY = 5f;
 	public static final float ARC_CHANCE_VISUAL = 0.12f;
 	public static final float ARC_CHANCE_VISUAL_REPEAT = 0.03f;
-	public static final float SHIELD_RATE = 50f;
 
 	public static final Color PARTICLE_COLOR = new Color(80, 210, 240);
 	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175);
@@ -49,18 +46,21 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 
+	public static float FLUX_THRESHOLD_INCREASE_PERCENT = 75f;
 
 
-	private String ID = "NightcrossTargeting";
+
+	private String ID = "NightcrossTidalGrid";
 
 	private static class NightcrossTargetingData {
 		IntervalUtil interval = new IntervalUtil(TIME_SECONDS, TIME_SECONDS);
+		IntervalUtil intervalOff = new IntervalUtil(TIME_SECONDS, TIME_SECONDS);
 		public void reset(float time) {
 			interval = new IntervalUtil(time, time);
 		}
-	}
-	public static class NightcrossTargetingAIData {
-		boolean holdShieldsOff = false;
+		public void resetOff(float time) {
+			intervalOff = new IntervalUtil(time, time);
+		}
 	}
 	private static class NightcrossTargetingEffectData {
 		IntervalUtil interval = new IntervalUtil(PARTICLE_PERIOD, PARTICLE_PERIOD*2f);
@@ -92,17 +92,24 @@ public class NightcrossTargeting extends BaseHullMod {
 		if (index == 3) return "" + Math.round((Float) mag.get(HullSize.DESTROYER)) + "";
 		if (index == 4) return "" + Math.round((Float) mag.get(HullSize.CRUISER)) + "";
 		if (index == 5) return "" + Math.round((Float) mag.get(HullSize.CAPITAL_SHIP)) + " seconds";
-		if (index == 6) return Math.round(SHIELD_RATE) + "%";
+		if (index == 6) return "" + (int) + FLUX_THRESHOLD_INCREASE_PERCENT + "%";
 		return null;
 	}
 
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
-		//stats.getBallisticWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
-		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
-		stats.getShieldUnfoldRateMult().modifyPercent(id, SHIELD_RATE);
+		stats.getDynamic().getMod(
+				Stats.PHASE_CLOAK_FLUX_LEVEL_FOR_MIN_SPEED_MOD).modifyPercent(id, FLUX_THRESHOLD_INCREASE_PERCENT);
+
 	}
 
 
+
+	@Override
+	public void applyEffectsAfterShipCreation(ShipAPI ship, String id){
+		if (ship.getVariant().getHullMods().contains("adaptive_coils")) {
+			MagicIncompatibleHullmods.removeHullmodWithWarning(ship.getVariant(), "adaptive_coils", "na_tidalgrid");
+		}
+	}
 
 	private StandardLight light;
 	private WaveDistortion wave;
@@ -126,7 +133,6 @@ public class NightcrossTargeting extends BaseHullMod {
 		String key3 = ID + "3_" + ship.getId();
 		String key4  = ID + "4_" + ship.getId();
 		String key5  = ID + "5_" + ship.getId();
-		String key6  = ID + "6_" + ship.getId();
 		NightcrossTargetingData data = (NightcrossTargetingData) ship.getCustomData().get(key);
 		if (data == null) {
 			data = new NightcrossTargetingData();
@@ -155,17 +161,12 @@ public class NightcrossTargeting extends BaseHullMod {
 			chargesound = new NightcrossTargetingChargeData();
 			ship.setCustomData(key5, chargesound);
 		}
-		NightcrossTargetingAIData shieldAI = (NightcrossTargetingAIData) ship.getCustomData().get(key6);
-		if (shieldAI == null) {
-			shieldAI = new NightcrossTargetingAIData();
-			ship.setCustomData(key6, shieldAI);
-		}
 
 		if (arctimer.remainingCount > 0 && arctimer.interval.intervalElapsed()) {
 			arctimer.reset();
 			arctimer.remainingCount -= 1;
 
-			if (ship.getShield().isOff()) {
+			if (ship.getPhaseCloak().isOn()) {
 				arctimer.remainingCount = 0;
 			} else {
 				float chance = 1f * (ARC_CHANCE_VISUAL_REPEAT);
@@ -195,13 +196,11 @@ public class NightcrossTargeting extends BaseHullMod {
 			}
 		}
 
-		ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(ID, SHIELD_RATE);
+		if (effectlevel.level > 0) {
+			if (!ship.getPhaseCloak().isOn()) {
+				data.intervalOff.advance(amount);
+			}
 
-		ShipwideAIFlags ai = ship.getAIFlags();
-		if (effectlevel.level > 0.99) {
-			if (ai.hasFlag(ShipwideAIFlags.AIFlags.SAFE_FROM_DANGER_TIME))
-				ai.setFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS);
-			else ai.removeFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS);
 			ship.getMutableStats().getBallisticWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
 			ship.getMutableStats().getEnergyWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
 			ship.getMutableStats().getBallisticRoFMult().modifyPercent(ID, RPM_INCREASE);
@@ -238,8 +237,8 @@ public class NightcrossTargeting extends BaseHullMod {
 				particletimer.interval.advance(amount);
 			}
 
-			if (ship.getShield().isOn()) {
-				effectlevel.level = 0.5f;
+			if (data.intervalOff.intervalElapsed()) {
+				effectlevel.level = 0f;
 				data.reset((Float) mag.get(ship.getHullSize()));
 				float chance = 1f * (ARC_CHANCE_VISUAL * ship.getAllWeapons().size());
 				arctimer.reset();
@@ -267,114 +266,56 @@ public class NightcrossTargeting extends BaseHullMod {
 						break;
 					}
 				}
-
-
-
-
 			}
+
 			if (ship == player) {
 				Global.getCombatEngine().maintainStatusForPlayerShip(
-						"nightcrosstargeting",
+						"na_tidalcloak",
 						"graphics/icons/hullsys/high_energy_focus.png",
-						"Dynamic Grid",
-						"+" + Math.round(RPM_INCREASE) + "% RoF, -" + Math.round(FLUX_RED) + "% weapon flux cost",
-						false);
+						"Tidal Cloak",
+						"Tidal Cloak ACTIVE",
+						true);
+
+
 			}
 		} else {
+			if (ship.getPhaseCloak().isOn()) {
+
+				ship.getMutableStats().getBallisticWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
+				ship.getMutableStats().getEnergyWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
+				ship.getMutableStats().getBallisticRoFMult().modifyPercent(ID, RPM_INCREASE);
+				ship.getMutableStats().getEnergyRoFMult().modifyPercent(ID, RPM_INCREASE);
+			} else {
+
+				ship.getMutableStats().getBallisticWeaponFluxCostMod().unmodify(ID);
+				ship.getMutableStats().getEnergyWeaponFluxCostMod().unmodify(ID);
+				ship.getMutableStats().getBallisticRoFMult().unmodify(ID);
+				ship.getMutableStats().getEnergyRoFMult().unmodify(ID);
+			}
 
 
-			ai.removeFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS);
-			ship.getMutableStats().getBallisticWeaponFluxCostMod().unmodify(ID);
-			ship.getMutableStats().getEnergyWeaponFluxCostMod().unmodify(ID);
-			ship.getMutableStats().getBallisticRoFMult().unmodify(ID);
-			ship.getMutableStats().getEnergyRoFMult().unmodify(ID);
+			if (!ship.getPhaseCloak().isOn() && !data.intervalOff.intervalElapsed()) {
+				data.resetOff((Float) mag.get(ship.getHullSize()));
+				effectlevel.level = 1f;
 
-
-
-			if (effectlevel.level > 0.01) {
-				if (ship.getShield().isOff()) {
-					data.interval.advance(amount);
-				} else {
-					data.reset((Float) mag.get(ship.getHullSize()));
-					effectlevel.level = 0f;
-
-					if (chargesound.sound != null) {
-						chargesound.sound.stop();
-						chargesound.sound = null;
-					}
+				Global.getSoundPlayer().playSound(ACTIVATE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
+				if (chargesound.sound != null) {
+					chargesound.sound.stop();
+					chargesound.sound = null;
 				}
+			} else {
+				if (ship.getPhaseCloak().isOn())
+					data.resetOff((Float) mag.get(ship.getHullSize()));
 				if (data.interval.intervalElapsed()) {
-					effectlevel.level = 1f;
-					Global.getSoundPlayer().playSound(ACTIVATE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
-					if (chargesound.sound != null) {
-						chargesound.sound.stop();
-						chargesound.sound = null;
-					}
-					if (ship != player && ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS) && shieldAI.holdShieldsOff) {
-						ship.getAIFlags().unsetFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS);
-					}
-				} else {
-
-					if (particletimer.interval.intervalElapsed()) {
-						pos = ship.getLocation();
-						vel = Vector2f.add(ship.getVelocity(),
-								NAUtils.lengthdir(PARTICLE_VELOCITY, (float) (Math.random() * 2f * Math.PI)),
-								null);
-
-						light = new StandardLight(pos, zero, zero, null);
-						light.setIntensity(0.1f + 0.25f * data.interval.getElapsed() / data.interval.getIntervalDuration());
-						light.setVelocity(vel);
-						light.setSize(ship.getCollisionRadius());
-						light.setColor(PARTICLE_CHARGE_COLOR);
-						light.fadeIn(0.05f);
-						light.setLifetime(PARTICLE_DURATION);
-						light.setAutoFadeOutTime(0.17f);
-						light.setSize(25f);
-						LightShader.addLight(light);
-					} else {
-						particletimer.interval.advance(amount);
-					}
-
-
-					if (chargesound.sound == null && ship.getShield().isOff()) {
+					if (chargesound.sound == null && ship.getPhaseCloak().isOn()) {
 						chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
 					}
-				}
-
-				if (ship == player) {
-					Global.getCombatEngine().maintainStatusForPlayerShip(
-							"nightcrosstargeting",
-							"graphics/icons/hullsys/high_energy_focus.png",
-							"Nightcross Systems Integration",
-							"Rerouting power...",
-							true);
-
-
-				} else if (!ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS) && !shieldAI.holdShieldsOff
-				&& !(ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.HARASS_MOVE_IN) ||
-						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.KEEP_SHIELDS_ON) ||
-						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.NEEDS_HELP) ||
-						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.DO_NOT_PURSUE) ||
-						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.IN_CRITICAL_DPS_DANGER) ||
-						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.HAS_INCOMING_DAMAGE))) {
-					// Temporary AI modification to get the AI not to use shields while it's charging.
-					ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS, (Float) mag.get(ship.getHullSize()));
-					shieldAI.holdShieldsOff = true;
-				}
-				//"system_entropy"
-
-
-			} else {
-				if (ship.getShield().isOff()) {
-					effectlevel.level = 0.5f;
-				}
-				if (ship == player) {
-					Global.getCombatEngine().maintainStatusForPlayerShip(
-							"nightcrosstargeting",
-							"graphics/icons/hullsys/quantum_disruptor.png",
-							"Nightcross Systems Integration",
-							"Power diverted to shield systems.",
-							true);
+				} else {
+					if (chargesound.sound != null) {
+						chargesound.sound.stop();
+						chargesound.sound = null;
+					}
+					data.interval.advance(amount);
 				}
 			}
 		}

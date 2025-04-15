@@ -10,10 +10,13 @@ import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.NAUtils;
 import data.scripts.NA_GravityCatapult;
+import data.scripts.NA_ReversalDrive;
+import data.scripts.NA_ReversalDriveSuper;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,7 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
 
     private IntervalUtil timer = new IntervalUtil(0.3f, 0.8f);
 
+    public static final float DMG_WEIGHT = 0.1f;
     public static final float DEGREES = 50f;
     public static final float MIN_PARTIAL = 0.2f;
     public static final float MAX_PARTIAL = 0.4f;
@@ -33,6 +37,8 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
 
     public static final float FLUX_THRESH_PARTIAL = 0.5f;
     public static final float FLUX_THRESH_ALWAYS = 0.9f;
+
+    private NA_ReversalDrive system = null;
 
     // partial reasons = add +0.2-0.4 weight
     // high reasons = add 0.7f weight
@@ -66,6 +72,7 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
         this.ship = ship;
         this.flags = flags;
         this.engine = engine;
+        this.system = (NA_ReversalDrive) system.getScript();
     }
 
     private float damageSinceLastTick = 0f;
@@ -103,6 +110,7 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
         }
 
 
+
         if (damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
             flags.setFlag(AIFlags.BACK_OFF, 1.0f);
         }
@@ -121,9 +129,6 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
                             || damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
 
                         flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-                        if (assignment == null)
-                            flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
-
                     }
                     // if it cant use its system we want to back off until we can
                 }
@@ -137,35 +142,22 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
                 }
             }
 
+            Vector3f lp = system.getLastPoint();
+            if (lp == null) return;
+            Vector2f lastPoint = new Vector2f(lp.x, lp.y);
 
+            float friendlyWeightHere = NAUtils.getFriendlyWeight(ship, ship.getLocation(), 1000f);
+            float enemyWeightHere = NAUtils.getEnemyWeight(ship, ship.getLocation(), 1000f);
+            float friendlyWeightLast = NAUtils.getFriendlyWeight(ship, lastPoint, 1000);
+            float enemyWeightLast = NAUtils.getEnemyWeight(ship, lastPoint, 1000);
 
-            if (target != null && target.getOwner() != ship.getOwner()) {
-                // HOSTILE DETECTED
-                // check if target is bigger. if so we probably want to flank
-                int size_this = 1;
-                int size_that = 1;
-                switch (ship.getHullSize()) {
-                    case CAPITAL_SHIP: size_this = 4; break;
-                    case CRUISER: size_this = 3; break;
-                    case DESTROYER: size_this = 2; break;
-                }
-                switch (target.getHullSize()) {
-                    case CAPITAL_SHIP: size_that = 4; break;
-                    case CRUISER: size_that = 3; break;
-                    case DESTROYER: size_that = 2; break;
-                }
-                if (size_that > size_this) {
-                    // check if we need to get behind their shield -- if so, increase weight by 0.5 if target is bigger than us
-                    if (target.getShield() != null && target.getShield().isOn()
-                        && target.getShield().isWithinArc(ship.getLocation())) {
-                        weight += 0.7f * Math.max(0, 1f - Math.abs(MathUtils.getShortestRotation(target.getFacing(),
-                                VectorUtils.getAngle(target.getLocation(), ship.getLocation())))/60f);
-                    } else if (target.getShield() != null && target.getShield().isOn()) {
-                        // stay behind!
-                        weight -= 3.0f * Math.max(0, 1f - Math.abs(MathUtils.getShortestRotation(target.getFacing() + 180f,
-                                VectorUtils.getAngle(target.getLocation(), ship.getLocation())))/90f);
-                    }
-                }
+            weight -= friendlyWeightHere / aggromod;
+            weight += friendlyWeightLast / aggromod;
+            weight += enemyWeightHere / aggromod;
+            weight -= enemyWeightLast / aggromod;
+
+            if (weight > -0.5 && system instanceof NA_ReversalDriveSuper) {
+                weight += DMG_WEIGHT * NAUtils.getEnemyWeight(ship, lastPoint, NA_ReversalDriveSuper.DMG_AREA);
             }
 
             for (AIFlags f : NEG) {
@@ -243,8 +235,6 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
                             && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
                         if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f) {
                             flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-                            if (assignment == null)
-                                flags.setFlag(AIFlags.ESCORT_OTHER_SHIP, 1.0f);
 
                         }
                         // if it cant use its system we want to back off until we can
@@ -279,92 +269,10 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
                 }
 
                 if (weight >= 1.3f || panic) {
-                    if (panic) {
-                        // we DONT want to use it, but a lot of negative reasons means we want to retreat
-                        ShipAPI friend = NA_GravityCatapult.findTarget(ship, true);
-                        if (friend != null) {
-                            // use on friend preferentially
-                            float targetWeight = 0f;
-                            Vector2f targetPoint = NA_GravityCatapult.getJumpPoint(ship, friend);
-
-                            List<ShipAPI> trgNearby = NAUtils.getEnemyShipsWithinRange(ship, targetPoint, NA_GravityCatapult.MAX_RANGE, true);
-
-                            for (ShipAPI shp: trgNearby) {
-                                if (!shp.getFluxTracker().isOverloadedOrVenting())
-                                    targetWeight += NAUtils.shipSize(shp);
-                            }
-
-                            if (targetWeight < enemyWeight) {
-                                ShipAPI oldTarget = ship.getShipTarget();
-                                ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, friend);
-                                ship.setShipTarget(friend);
-                                ship.useSystem();
-                                ship.setShipTarget(oldTarget);
-                                return;
-                            } else {
-                                resetTimer();
-                                return;
-                            }
-
-
-                        } else {
-                            // find a target in range with the least enemyweight of the point around
-                            ShipAPI bestTarget = null;
-                            float bestTargetWeight = enemyWeight;
-
-                            for (ShipAPI tmp: enemiesNearby) {
-                                if (tmp.isFighter()) continue;
-                                float targetWeight = 0f;
-                                Vector2f targetPoint = NA_GravityCatapult.getJumpPoint(ship, tmp);
-
-                                List<ShipAPI> trgNearby = NAUtils.getEnemyShipsWithinRange(ship, targetPoint, NA_GravityCatapult.MAX_RANGE, true);
-
-                                for (ShipAPI shp: trgNearby) {
-                                    if (!shp.getFluxTracker().isOverloadedOrVenting())
-                                        targetWeight += NAUtils.shipSize(shp);
-                                }
-
-                                if (targetWeight < bestTargetWeight) {
-                                    bestTargetWeight = targetWeight;
-                                    bestTarget = tmp;
-                                }
-
-
-                            }
-
-                            if (bestTarget != null) {
-
-                                ShipAPI oldTarget = ship.getShipTarget();
-                                ship.setShipTarget(bestTarget);
-                                ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, bestTarget);
-                                ship.useSystem();
-                                ship.setShipTarget(oldTarget);
-                                return;
-                            } else {
-                                resetTimer();
-                                return;
-                            }
-                        }
-                    } else {
-                        ship.useSystem();
-                        resetTimer();
-                        float len = Math.min(2.5f, Math.max(0.5f, weight));
-                        timer = new IntervalUtil(len, len);
-                        return;
-                    }
-                }
-            } else if (weight < -4.0f * aggromod) {
-                // we DONT want to use it, but a lot of negative reasons means we want to retreat
-                ShipAPI friend = NA_GravityCatapult.findTarget(ship, true);
-                if (friend != null) {
-                    ShipAPI oldTarget = ship.getShipTarget();
-                    ship.setShipTarget(friend);
-                    ship.getAIFlags().setFlag(AIFlags.TARGET_FOR_SHIP_SYSTEM, 1f, friend);
                     ship.useSystem();
-                    ship.setShipTarget(oldTarget);
-                    return;
-                } else {
                     resetTimer();
+                    float len = Math.min(2.5f, Math.max(0.5f, weight));
+                    timer = new IntervalUtil(len, len);
                     return;
                 }
             }

@@ -432,38 +432,6 @@ public class Pascal {
         moon.getMarket().addCondition(Conditions.RUINS_SCATTERED);
         moon.getMarket().getFirstCondition(Conditions.RUINS_SCATTERED).setSurveyed(true);
 
-        /*MarketAPI moonMarket = addMarketplace.addMarketplace("nightcross", moon,
-                null,
-                "Vanth",
-                5,
-                new ArrayList<>(Arrays.asList(
-                        Conditions.FARMLAND_BOUNTIFUL,
-                        Conditions.ORE_SPARSE,
-                        Conditions.IRRADIATED,
-                        Conditions.MILD_CLIMATE,
-                        Conditions.POPULATION_5)),
-                new ArrayList<>(Arrays.asList(
-                        Industries.POPULATION,
-                        Industries.MEGAPORT,
-                        Industries.HEAVYBATTERIES,
-                        Industries.MILITARYBASE,
-                        Industries.REFINING)),
-                new ArrayList<>(Arrays.asList(
-                        Submarkets.SUBMARKET_STORAGE,
-                        Submarkets.SUBMARKET_BLACK,
-                        Submarkets.GENERIC_MILITARY,
-                        Submarkets.SUBMARKET_OPEN)),
-                0.3f);
-        moonMarket.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Arrays.asList(Items.CORRUPTED_NANOFORGE)));*/
-
-
-
-        /*float radiusAfter = StarSystemGenerator.addOrbitingEntities(system, pascal, StarAge.YOUNG,
-                                                                    2, 4, // min/max entities to add
-                                                                    14200, // radius to start adding at
-                                                                    3, // name offset - next planet will be <system name> <roman numeral of this parameter + 1>
-                                                                    true); // whether to use custom or system-name based names
-        */
         system.autogenerateHyperspaceJumpPoints(true, true);
         HyperspaceTerrainPlugin plugin = (HyperspaceTerrainPlugin) Misc.getHyperspaceTerrain().getPlugin();
         NebulaEditor editor = new NebulaEditor(plugin);
@@ -475,53 +443,3 @@ public class Pascal {
     }
 }
 
-
-/*
-        SectorEntityToken relay = system.addCustomEntity("gneiss_relay", "Gneiss Relay", "comm_relay",
-                                                         "blackrock_driveyards");
-        relay.setCircularOrbit(gneiss, 220, 3650, 215);
-
-                SectorEntityToken stableloc2 = system.addCustomEntity(null,null, "stable_location",Factions.NEUTRAL);
-		stableloc2.setCircularOrbitPointingDown(gneiss, 40, 3650, 215f);
-
-                SectorEntityToken stableloc3 = system.addCustomEntity(null,null, "stable_location",Factions.NEUTRAL);
-		stableloc3.setCircularOrbitPointingDown(gneiss, 310, 3650, 215f);
-
-        PlanetAPI creir = system.addPlanet("creir", gneiss, "Creir", "toxic", 100, 130, 6500, 360);
-                Misc.initConditionMarket(creir);
-        creir.getMarket().addCondition(Conditions.TOXIC_ATMOSPHERE);
-        creir.getMarket().addCondition(Conditions.HOT);
-
-
-        PlanetAPI lydia = system.addPlanet("lydia", creir, "Lydia", "barren_iron", 40, 60, 850, 45); // 0.004 AU
-        lydia.setInteractionImage("illustrations", "vacuum_colony");
-        lydia.setCustomDescriptionId("blackrock_lydia");
-
-        system.addAsteroidBelt(gneiss, 70, 5600, 128, 440, 470);
-
-        PlanetAPI nanoplanet = system.addPlanet("nanoplanet", gneiss, "Verge", "br_nanoplanet", 230, 340, 9500, 800); //
-        nanoplanet.getSpec().setGlowTexture(Global.getSettings().getSpriteName("hab_glows", "banded"));
-        nanoplanet.getSpec().setGlowColor(new Color(54, 119, 84, 84));
-        nanoplanet.getSpec().setUseReverseLightForGlow(true);
-        nanoplanet.applySpecChanges();
-
-                Misc.initConditionMarket(nanoplanet);
-        nanoplanet.getMarket().addCondition(NA_conditions.VERGE_CON);
-        nanoplanet.getMarket().addCondition(Conditions.DENSE_ATMOSPHERE);
-        nanoplanet.getMarket().addCondition(Conditions.HIGH_GRAVITY);
-
-        system.addRingBand(nanoplanet, "misc", "rings_dust0", 256f, 1, Color.white, 256f, 360, 7.9f);
-        system.addRingBand(nanoplanet, "misc", "rings_dust0", 256f, 1, Color.white, 256f, 370, 9.95f);
-        system.addRingBand(nanoplanet, "misc", "rings_dust0", 256f, 1, Color.white, 256f, 380, 11.45f);
-
-        system.addAsteroidBelt(nanoplanet, 70, 900, 128, 10, 16);
-
-        SectorEntityToken vigil = system.addCustomEntity("brstation2", "Vigil Station", "br_station",
-                "blackrock_driveyards");
-        vigil.setCircularOrbitPointingDown(system.getEntityById("nanoplanet"), 90, 540, 11);
-        vigil.setInteractionImage("illustrations", "blackrock_vigil_station");
-        vigil.setCustomDescriptionId("blackrock_vigil");
-
-        PlanetAPI preclusion = system.addPlanet("preclusion", gneiss, "Preclusion", "cryovolcanic", 260, 30, 12200, 480);
-        preclusion.setInteractionImage("illustrations", "abandoned_station");
-        preclusion.setCustomDescriptionId("blackrock_preclusion");*/

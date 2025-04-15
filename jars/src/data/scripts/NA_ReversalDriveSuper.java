@@ -6,7 +6,11 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.loading.V;
+import org.dark.shaders.distortion.DistortionShader;
+import org.dark.shaders.distortion.WaveDistortion;
+import org.lazywizard.lazylib.CollisionUtils;
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -17,51 +21,23 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NA_ReversalDrive extends BaseShipSystemScript {
+public class NA_ReversalDriveSuper extends NA_ReversalDrive {
 
-    protected static final Color HARDLIGHT_TRAIL_COLOR_START = new Color(226, 255, 251);
-    protected static final Color HARDLIGHT_TRAIL_COLOR_END = new Color(83, 78, 238);
-
-    protected static float DMG_AREA = 300f;
-    protected static float DMG_AMT = 800f;
-    protected static DamageType DMG_TYPE = DamageType.ENERGY;
-
-    protected String ID = "NA_ReversalDrive";
-
-    protected static Color COLOR_AFTERIMAGE = new Color(125, 75, 255, 255);
-    protected static Color color = new Color(125,75,255,255);
+    public static float DMG_AREA = 300f;
+    public static float DMG_AMT = 800f;
+    public static float DMG_AMT_SCALE = 1200f;
+    public static float DMG_AMT_SCALETIME = 4f;
+    public static DamageType DMG_TYPE = DamageType.ENERGY;
+    public static IntervalUtil dmgInterval = new IntervalUtil(DMG_AMT_SCALETIME, DMG_AMT_SCALETIME);
 
 
-    protected boolean activated = false;
-
-    protected float systemID = 0;
-
-
-    public static Color JITTER_COLOR = new Color(50,50,255,75);
-    public static Color JITTER_UNDER_COLOR = new Color(100,100,255,155);
-
-    public ShipAPI ship = null;
-
-    public Vector3f getLastPoint() {
-        if (ship == null) return null;
-        String key = ID + "_data_" + ship.getId();
-        NA_ReversalDriveData data = (NA_ReversalDriveData) ship.getCustomData().get(key);
-        if (data == null) {
-            data = new NA_ReversalDriveData();
-            ship.setCustomData(key, data);
-        }
-
-        Vector3f lastPoint = null;
-        if (data.positions.size() > 1) {
-            lastPoint = data.positions.get(data.positions.size()-1);
-        }
-        return lastPoint;
-    }
+    private String ID = "NA_ReversalDriveW";
+    private String expl_sound = "na_rift_explosion";
 
     private static float TIME_AFTERIMAGE = 0.1f;
-    private static float REVERT_TIME = 1.5f;
-    private static float TIME_STEPS_MAX = 15; // 3 seconds
-    protected static class NA_ReversalDriveData {
+    private static float REVERT_TIME = 4.0f;
+    private static float TIME_STEPS_MAX = 40; // 3 seconds
+    protected static class NA_ReversalDriveSuperData extends NA_ReversalDriveData {
         IntervalUtil interval = new IntervalUtil(TIME_AFTERIMAGE, TIME_AFTERIMAGE);
         List<Vector3f> positions = new ArrayList<>();
 
@@ -83,13 +59,14 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
 
     }
 
+
     @Override
     public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
         if (ship != null) {
             String key = ID + "_data_" + ship.getId();
-            NA_ReversalDriveData data = (NA_ReversalDriveData) ship.getCustomData().get(key);
+            NA_ReversalDriveSuperData data = (NA_ReversalDriveSuperData) ship.getCustomData().get(key);
             if (data == null) {
-                data = new NA_ReversalDriveData();
+                data = new NA_ReversalDriveSuperData();
                 ship.setCustomData(key, data);
             }
 
@@ -101,12 +78,77 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
         return false;
     }
 
+    public float getDmg() {
+        return DMG_AMT + DMG_AMT_SCALE * Math.min(1f, Math.max(0f, dmgInterval.getElapsed()/DMG_AMT_SCALETIME));
+    }
 
+    public void doDmg(Vector2f point) {
+
+        Global.getSoundPlayer().playSound(expl_sound, 1f, 1.2f, point, Misc.ZERO);
+
+        WaveDistortion ripple = new WaveDistortion(point, Misc.ZERO);
+        ripple.setSize(DMG_AREA);
+        ripple.setIntensity(40.0F);
+        ripple.fadeInSize(0.5F);
+        ripple.fadeOutIntensity(3.5F);
+        DistortionShader.addDistortion(ripple);
+
+        CombatEngineAPI engine = Global.getCombatEngine();
+        engine.addNegativeSwirlyNebulaParticle(
+                point,
+                Misc.ZERO,
+                DMG_AREA + 10f,
+                1.5f,
+                0.6f,
+                0.2f,
+                2.5f,
+                new Color(216, 246, 44)
+        );
+        engine.addSmoothParticle(
+                point,
+                Misc.ZERO,
+                DMG_AREA + 100f,
+                1.1f,
+                0.1f,
+                1.25f,
+                new Color(252, 249, 253)
+        );
+
+        engine.addNegativeParticle(point, Misc.ZERO, 70f, 0f, 0.2f, Color.white);
+        engine.addNegativeParticle(point, Misc.ZERO, 50f, 0.1f, 0.15f, Color.white);
+        engine.addNegativeNebulaParticle(point, Misc.ZERO, 40f, 2f, 0.2f, 0f, 0.4f, Color.white);
+
+        List<ShipAPI> enemiesNearby = NAUtils.getEnemyShipsWithinRange(ship, point, DMG_AREA, true);
+        List<MissileAPI> missilesNearby = NAUtils.getMissilesWithinRange(point, DMG_AREA);
+
+        float dmg = getDmg();
+        dmgInterval = new IntervalUtil(DMG_AMT_SCALETIME, DMG_AMT_SCALETIME);
+
+        for (MissileAPI missile : missilesNearby) {
+            // just do the damage
+            Global.getCombatEngine().applyDamage(
+                    missile, missile.getLocation(), dmg, DMG_TYPE, 0f, false, false, ship
+            );
+        }
+        for (ShipAPI trg : enemiesNearby) {
+            Vector2f tpoint = CollisionUtils.getNearestPointOnBounds(
+                    MathUtils.getPointOnCircumference(trg.getLocation(), trg.getCollisionRadius(),
+                            VectorUtils.getAngle(trg.getLocation(), point)), trg);
+            Global.getCombatEngine().applyDamage(
+                    trg, tpoint, dmg, DMG_TYPE, 0f, false, false, ship, true
+            );
+        }
+    }
+
+    @Override
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
-
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
         if (this.ship == null) this.ship = ship;
+
+        TIME_AFTERIMAGE = 0.1f;
+        REVERT_TIME = 4.0f;
+        TIME_STEPS_MAX = 40; // 3 seconds
 
         String shipID = id + "_" + ship.getId();
 
@@ -117,13 +159,16 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
         if (stats.getEntity() instanceof ShipAPI) {
             if (ship != null) {
                 String key = ID + "_data_" + ship.getId();
-                NA_ReversalDriveData data = (NA_ReversalDriveData) ship.getCustomData().get(key);
+                NA_ReversalDriveSuperData data = (NA_ReversalDriveSuperData) ship.getCustomData().get(key);
                 if (data == null) {
-                    data = new NA_ReversalDriveData();
+                    data = new NA_ReversalDriveSuperData();
                     ship.setCustomData(key, data);
                 }
 
-                Vector3f lastPoint = getLastPoint();
+                Vector3f lastPoint = null;
+                if (data.positions.size() > 1) {
+                    lastPoint = data.positions.get(data.positions.size()-1);
+                }
 
                 if (state == State.COOLDOWN || state == State.IDLE) {
                     if (activated) {
@@ -148,9 +193,9 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                         HARDLIGHT_TRAIL_COLOR_START, /* startColor */
                         HARDLIGHT_TRAIL_COLOR_END, /* endColor */
                         0.3f, /* opacity */
-                        0.25f, /* inDuration */
-                            0.25f, /* mainDuration */
-                            0.75f, /* outDuration */
+                        1.0f, /* inDuration */
+                        0.25f, /* mainDuration */
+                        1.75f, /* outDuration */
                         GL11.GL_SRC_ALPHA, /* blendModeSRC */
                         GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                         256f, /* textureLoopLength */
@@ -172,6 +217,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                                 ship.getFacing()
                         ));
                         if (lastPoint != null && state == State.IDLE) {
+                            dmgInterval.advance(Global.getCombatEngine().getElapsedInLastFrame() * ship.getMutableStats().getTimeMult().getModifiedValue());
                             MagicRender.battlespace(
                                     Global.getSettings().getSprite(ship.getHullSpec().getSpriteName()),
                                 new Vector2f(lastPoint.x, lastPoint.y),
@@ -193,6 +239,9 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                 } else if (effectLevel == 1) {
                     // USE
                     if (lastPoint != null) {
+                        doDmg(new Vector2f(lastPoint.x, lastPoint.y));
+
+
                         ship.getLocation().set(lastPoint.x, lastPoint.y);
                         ship.setFacing(lastPoint.z);
                     }
@@ -208,7 +257,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                             new Vector2f(ship.getSpriteAPI().getHeight(), ship.getSpriteAPI().getWidth()),
                             Misc.ZERO,
                             lastPoint.z - 90,
-                                0, Color.WHITE,
+                            0, Color.WHITE,
                             true,
                             0.4f,
                             0f,
@@ -217,7 +266,6 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                     }
                     activated = true;
                     ship.setCollisionClass(CollisionClass.NONE);
-
                 }
 
                 if (effectLevel > 0) {
@@ -232,26 +280,9 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
         }
     }
 
-    public static Object KEY_SHIP = new Object();
-
-    @Override
-    public void unapply(MutableShipStatsAPI stats, String id) {
-
-        String shipID = id + "_" + ((ShipAPI)(stats.getEntity())).getId();
-
-        Global.getCombatEngine().getTimeMult().unmodify(shipID);
-
-        ShipAPI ship = (ShipAPI) stats.getEntity();
-        if (ship == null) return;
-        String key = ID + "_data_" + ship.getId();
-        if ((NA_ReversalDriveData) ship.getCustomData().get(key) != null) {
-            ship.getCustomData().remove(key);
-        }
-    }
-
     public StatusData getStatusData(int index, State state, float effectLevel) {
         if (index == 0) {
-            return new StatusData("WARNING temporal anomaly", false);
+            return new StatusData("stored system dmg: " + (Math.round(getDmg()/100)*100), false);
         }
         return null;
     }

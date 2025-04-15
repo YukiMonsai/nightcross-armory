@@ -16,7 +16,7 @@ import java.awt.*;
 public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
 
     // multiplier to armor for flat reduction
-    public final float ARMOR_SCALE = 5f;
+    public final float ARMOR_SCALE = 6f;
     // determines the size of the 'sweet spot' along the ship's centerline
     public final float CENTER_SCALE = 1.33f;
 
@@ -87,7 +87,7 @@ public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
                         if (shieldHit) {
                             damage.setSoftFlux(true);
                         } else if (target instanceof ShipAPI) {
-                            float armor = NAUtils.getArmorAtPoint((ShipAPI) target, point);
+                            float armor = Math.max(0f, NAUtils.getArmorAtPoint((ShipAPI) target, point) - 0.15f * ((ShipAPI) target).getArmorGrid().getArmorRating());
                             float orig = Math.max(1f, projectile.getWeapon().getDamage().getDamage());
                             float dmg = orig;
                             dmg = Math.max(100f, dmg - ARMOR_SCALE*armor);
