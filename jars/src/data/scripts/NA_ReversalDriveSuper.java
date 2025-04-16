@@ -60,6 +60,24 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
     }
 
 
+
+    @Override
+    public Vector3f getLastPoint() {
+        if (ship == null) return null;
+        String key = ID + "_data_" + ship.getId();
+        NA_ReversalDriveSuperData data = (NA_ReversalDriveSuperData) ship.getCustomData().get(key);
+        if (data == null) {
+            data = new NA_ReversalDriveSuperData();
+            ship.setCustomData(key, data);
+        }
+
+        Vector3f lastPoint = null;
+        if (data.positions.size() > 1) {
+            lastPoint = data.positions.get(data.positions.size()-1);
+        }
+        return lastPoint;
+    }
+
     @Override
     public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
         if (ship != null) {
@@ -178,34 +196,35 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
                         }
                     }
 
-                    MagicTrailPlugin.addTrailMemberAdvanced(
-                        ship, /* linkedEntity */
-                            systemID, /* ID */
-                        Global.getSettings().getSprite("na_trails", "na_hardlighttrail"), /* sprite */
-                        ship.getLocation(), /* position */
-                        0f, /* startSpeed */
-                        0f, /* endSpeed */
-                        ship.getFacing(), /* angle */
-                        0f, /* startAngularVelocity */
-                        0f, /* endAngularVelocity */
-                        ship.getCollisionRadius()*1.0f, /* startSize */
-                        25f, /* endSize */
-                        HARDLIGHT_TRAIL_COLOR_START, /* startColor */
-                        HARDLIGHT_TRAIL_COLOR_END, /* endColor */
-                        0.3f, /* opacity */
-                        1.0f, /* inDuration */
-                        0.25f, /* mainDuration */
-                        1.75f, /* outDuration */
-                        GL11.GL_SRC_ALPHA, /* blendModeSRC */
-                        GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
-                        256f, /* textureLoopLength */
-                        16f, /* textureScrollSpeed */
-                        -1, /* textureOffset */
-                        Misc.ZERO, /* offsetVelocity */
-                        null, /* advancedOptions */
-                        CombatEngineLayers.BELOW_SHIPS_LAYER, /* layerToRenderOn */
-                        1f /* frameOffsetMult */
-                    );
+                    if (ship.getOwner() == 0)
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                            ship, /* linkedEntity */
+                                systemID, /* ID */
+                            Global.getSettings().getSprite("na_trails", "na_hardlighttrail"), /* sprite */
+                            ship.getLocation(), /* position */
+                            0f, /* startSpeed */
+                            0f, /* endSpeed */
+                            ship.getFacing(), /* angle */
+                            0f, /* startAngularVelocity */
+                            0f, /* endAngularVelocity */
+                            ship.getCollisionRadius()*1.0f, /* startSize */
+                            25f, /* endSize */
+                            HARDLIGHT_TRAIL_COLOR_START, /* startColor */
+                            HARDLIGHT_TRAIL_COLOR_END, /* endColor */
+                            0.3f, /* opacity */
+                            1.0f, /* inDuration */
+                            0.25f, /* mainDuration */
+                            1.75f, /* outDuration */
+                            GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                            GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                            256f, /* textureLoopLength */
+                            16f, /* textureScrollSpeed */
+                            -1, /* textureOffset */
+                            Misc.ZERO, /* offsetVelocity */
+                            null, /* advancedOptions */
+                            CombatEngineLayers.BELOW_SHIPS_LAYER, /* layerToRenderOn */
+                            1f /* frameOffsetMult */
+                        );
 
                     // TRACK
                     data.interval.advance(Global.getCombatEngine().getElapsedInLastFrame()
@@ -218,19 +237,21 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
                         ));
                         if (lastPoint != null && state == State.IDLE) {
                             dmgInterval.advance(Global.getCombatEngine().getElapsedInLastFrame() * ship.getMutableStats().getTimeMult().getModifiedValue());
-                            MagicRender.battlespace(
-                                    Global.getSettings().getSprite(ship.getHullSpec().getSpriteName()),
-                                new Vector2f(lastPoint.x, lastPoint.y),
-                                Misc.ZERO,
-                                new Vector2f(ship.getSpriteAPI().getHeight(), ship.getSpriteAPI().getWidth()),
-                                Misc.ZERO,
-                                lastPoint.z - 90,
-                                0, COLOR_AFTERIMAGE,
-                                true,
-                                TIME_AFTERIMAGE,
-                                TIME_AFTERIMAGE*0.5f,
-                                TIME_AFTERIMAGE
-                            );
+                            if (Global.getCombatEngine().getPlayerShip() != null
+                                    && ship.getId() == Global.getCombatEngine().getPlayerShip().getId())
+                                MagicRender.battlespace(
+                                        Global.getSettings().getSprite(ship.getHullSpec().getSpriteName()),
+                                    new Vector2f(lastPoint.x, lastPoint.y),
+                                    Misc.ZERO,
+                                    new Vector2f(ship.getSpriteAPI().getHeight(), ship.getSpriteAPI().getWidth()),
+                                    Misc.ZERO,
+                                    lastPoint.z - 90,
+                                    0, COLOR_AFTERIMAGE,
+                                    true,
+                                    TIME_AFTERIMAGE,
+                                    TIME_AFTERIMAGE*0.5f,
+                                    TIME_AFTERIMAGE
+                                );
 
                         }
 

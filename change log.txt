@@ -1,5 +1,6 @@
 V1.1.14
 - Added a rare mare crisium wreck around a black hole (can generate on existing saves)
+- Added a new frigate: Kasei Valles
 
 V1.1.13
 - Atomic driver damage 1000 -> 3000

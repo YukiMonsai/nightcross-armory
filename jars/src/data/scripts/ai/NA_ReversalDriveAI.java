@@ -29,7 +29,7 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
 
     private IntervalUtil timer = new IntervalUtil(0.3f, 0.8f);
 
-    public static final float DMG_WEIGHT = 0.1f;
+    public static final float DMG_WEIGHT = 0.5f;
     public static final float DEGREES = 50f;
     public static final float MIN_PARTIAL = 0.2f;
     public static final float MAX_PARTIAL = 0.4f;
@@ -56,15 +56,15 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
         PARTIAL.add(AIFlags.BACK_OFF_MIN_RANGE);
         NEG.add(AIFlags.HARASS_MOVE_IN);
         ALWAYS.add(AIFlags.IN_CRITICAL_DPS_DANGER);
-        NEG.add(AIFlags.BACKING_OFF);
-        NEG.add(AIFlags.BACK_OFF);
-        NEG.add(AIFlags.DO_NOT_PURSUE);
+        PARTIAL.add(AIFlags.BACKING_OFF);
+        PARTIAL.add(AIFlags.BACK_OFF);
+        PARTIAL.add(AIFlags.DO_NOT_PURSUE);
         PARTIAL.add(AIFlags.DO_NOT_BACK_OFF);
         NEG.add(AIFlags.SAFE_VENT);
         NEG.add(AIFlags.AUTO_BEAM_FIRING_AT_PHASE_SHIP);
         NEG.add(AIFlags.AUTO_FIRING_AT_PHASE_SHIP);
         NEG.add(AIFlags.MAINTAINING_STRIKE_RANGE);
-        HIGH.add(AIFlags.HAS_INCOMING_DAMAGE);
+        ALWAYS.add(AIFlags.HAS_INCOMING_DAMAGE);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
     private final float DMG_PANIC_THRESH = 0.2f;
 
     public void resetTimer() {
-        float len = 0.25f;
+        float len = 0.1f;
         timer = new IntervalUtil(len, len);
         if (ship != null) {
             lastFlux = ship.getFluxLevel();
@@ -111,10 +111,6 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
 
 
 
-        if (damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
-            flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-        }
-
         if (!timer.intervalElapsed())
             timer.advance(amount);
         if (timer.intervalElapsed() || flags.hasFlag(AIFlags.IN_CRITICAL_DPS_DANGER)) {
@@ -123,15 +119,6 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
 
 
             if (!AIUtils.canUseSystemThisFrame(ship)) {
-                if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
-                        && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
-                    if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f
-                            || damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
-
-                        flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-                    }
-                    // if it cant use its system we want to back off until we can
-                }
                 return;
             }
 
@@ -156,8 +143,25 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
             weight += enemyWeightHere / aggromod;
             weight -= enemyWeightLast / aggromod;
 
-            if (weight > -0.5 && system instanceof NA_ReversalDriveSuper) {
-                weight += DMG_WEIGHT * NAUtils.getEnemyWeight(ship, lastPoint, NA_ReversalDriveSuper.DMG_AREA);
+            if (flags.getCustom(AIFlags.MANEUVER_TARGET) != null && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                if (MathUtils.getDistance((ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET), lastPoint) <= NA_ReversalDriveSuper.DMG_AREA) {
+                    if (weight > -0.5 && system instanceof NA_ReversalDriveSuper) {
+                        weight += DMG_WEIGHT * NAUtils.getEnemyWeight(ship, lastPoint, NA_ReversalDriveSuper.DMG_AREA);
+                    } else if (weight > -0.25) {
+                        weight += 0.45f;
+                    }
+                }
+            }
+
+
+            if (damageSinceLastTick > DMG_PANIC_THRESH * aggromod) {
+                weight += 2f;
+            } else if (flags.getCustom(AIFlags.MANEUVER_TARGET) != null && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                if (flags.hasFlag(AIFlags.PURSUING) || (!flags.hasFlag(AIFlags.BACK_OFF) && !flags.hasFlag(AIFlags.BACKING_OFF) && !flags.hasFlag(AIFlags.DO_NOT_PURSUE))) {
+                    if (MathUtils.getDistance((ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET), lastPoint) <=
+                            MathUtils.getDistance((ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET), ship.getLocation()))
+                        weight += 2f;
+                }
             }
 
             for (AIFlags f : NEG) {
@@ -224,23 +228,6 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
             }
 
 
-            if (assignment == null || !(
-                    assignment.getType() == CombatAssignmentType.ASSAULT
-                    || assignment.getType() == CombatAssignmentType.INTERCEPT
-                    || assignment.getType() == CombatAssignmentType.STRIKE
-                    || assignment.getType() == CombatAssignmentType.RETREAT
-                    )) {
-                if (enemyWeight > 2*NAUtils.shipSize(ship) && friendlyWeight < enemyWeight*0.25f * aggromod) {
-                    if (flags.hasFlag(AIFlags.MANEUVER_TARGET) && flags.getCustom(AIFlags.MANEUVER_TARGET) != null
-                            && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
-                        if (MathUtils.getDistance(ship, (ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET)) < 1500f) {
-                            flags.setFlag(AIFlags.BACK_OFF, 1.0f);
-
-                        }
-                        // if it cant use its system we want to back off until we can
-                    }
-                }
-            }
 
 
 
@@ -269,11 +256,20 @@ public class NA_ReversalDriveAI implements ShipSystemAIScript {
                 }
 
                 if (weight >= 1.3f || panic) {
-                    ship.useSystem();
-                    resetTimer();
-                    float len = Math.min(2.5f, Math.max(0.5f, weight));
-                    timer = new IntervalUtil(len, len);
-                    return;
+                    if (flags.getCustom(AIFlags.MANEUVER_TARGET) != null && flags.getCustom(AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
+                        if (!flags.hasFlag(AIFlags.PURSUING)) {
+                            if (flags.hasFlag(AIFlags.IN_CRITICAL_DPS_DANGER)
+                                    || flags.hasFlag(AIFlags.HAS_INCOMING_DAMAGE)
+                                    || (MathUtils.getDistance((ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET), lastPoint) >
+                                    MathUtils.getDistance((ShipAPI) flags.getCustom(AIFlags.MANEUVER_TARGET), ship.getLocation())))
+                                ship.useSystem();
+                                resetTimer();
+                                float len = Math.min(2.5f, Math.max(0.5f, weight));
+                                timer = new IntervalUtil(len, len);
+                                return;
+                        }
+                    }
+
                 }
             }
         }

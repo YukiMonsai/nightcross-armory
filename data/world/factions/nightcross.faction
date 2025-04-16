@@ -40,6 +40,7 @@
 			"na_losulci": 2,
 			"na_elyurias": 2,
 			"na_tessera": 3,
+			"na_kasei": 3,
         },
     },
     # ships the faction gets access to when importing S&W out-of-faction
@@ -66,6 +67,7 @@
 			"afflictor",
 			"harbinger",
 			"na_tessera",
+			"na_kasei"
 			
         ],
     },
@@ -82,6 +84,7 @@
 			"na_fossa","na_nammu",
 			"shade",
 			"na_tessera",
+			"na_kasei",
         ],
     },
     "knownFighters":{

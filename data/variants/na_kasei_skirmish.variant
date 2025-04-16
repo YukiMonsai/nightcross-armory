@@ -1,0 +1,44 @@
+{
+  "variantId": "na_kasei_skirmish",
+  "hullId": "na_kasei",
+  "displayName": "Skirmish",
+  "goalVariant": true,
+  "fluxCapacitors": 6,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "lightdualac",
+        "WS0004": "lightdualac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "haas_beamer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_chirppd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
