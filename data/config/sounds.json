@@ -249,10 +249,21 @@
 	],
 	
 	
+	"na_system_catapult_super":
+	[
+		{"file":"sounds/system/na_system_catapult_super.ogg","pitch":1,"volume":1.25},
+	],
+	"na_system_catapult_super_slash":
+	[
+		{"file":"sounds/system/na_system_catapult_super_slash.ogg","pitch":1.4,"volume":1},
+	],
+	
 	"na_system_catapult":
 	[
 		{"file":"sounds/system/na_system_catapult.ogg","pitch":1,"volume":1.25},
 	],
+	
+	
 	
 	
 	

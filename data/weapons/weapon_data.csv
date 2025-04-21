@@ -3,6 +3,7 @@ Treble CIWS,treble_ciws,1,0.5,400,550,,40,45,10,75,6,12,1.2,3,ENERGY,50,,0,0.6,3
 Blinker Cyan,blinker_na_cyan,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
 Reactor Deco,na_reactor,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
 Mare Crisium Wound,na_wound_red,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
+SOP Stripe,na_sop_trail,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,444
 Hardlight Generator,na_hardlightgenerator,1,.001,400,5,1,,,,0,0,,,,ENERGY,0,,4,0.6,,,0,6,1,10,4,,,,20,,,,"no_drop, no_drop_salvage",,,,,,,,,,,,,,444
 Blinker Red,blinker_na_red,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,,,,,,,,,,,,,,,445
 Echo Leftwing,na_echo_leftwing,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
@@ -31,7 +32,7 @@ Discord PPC,na_metahelium,3,,1000,550,,80,,0,15,11,,,,HIGH_EXPLOSIVE,68,,.1,2.7,
 Trance Super Blaster,na_superblaster,3,,5000,550,,200,150,25,20,14,5,.5,1,ENERGY,225,,0,.35,,,0,14,2,10,,900,,,,,,,"energy11, strike13, nightcross_bp_rare, codex_unlockable",,Nightcross Experimental,,"Burst, EMP",,,,,"Deals up to %s bonus damage based on current flux level (max at %s flux). Hits on hull or armor have a %s chance to arc to weapons and engines, dealing the same damage.",50% | 70% | 25%,,,,146
 Crescendo,na_superblaster_large,3,,15000,650,,200,150,25,10,26,,,,ENERGY,210,,0.4,0,,,0,14,2,10,,900,,,,,,,"energy15, strike18, nightcross_bp_rare, codex_unlockable",,Nightcross Experimental,,"Burst, EMP",,,,,"Deals up to %s bonus damage based on current flux level (max at %s flux). Hits on hull or armor have a %s chance to arc to weapons and engines, dealing the same damage.",50% | 70% | 25%,,,,146
 AMP Cannon,na_particlecannon,3,,4000,700,,625,500,0,10,14,,,,ENERGY,750,,0.25,4.75,,0.25,0,2,0.25,0.05,,1000,,,,,,"STRIKE, USE_VS_FRIGATES","energy14, strike9, nightcross_bp_fast, merc",,Nightcross Armory,,Strike,,,,,Hits on hull deal up to %s additional %s damage and EMP in a %s unit cone past the point of impact.,100% | Fragmentation | 500,,,,132
-Atomic Driver,na_hardlightrifle,3,0.1,5000,700,,3000,800,0,7,16,,,,FRAGMENTATION,800,,.25,6.2,,,0,0,0,0,,1250,,,,,,"STRIKE, USE_VS_FRIGATES, GROUP_LINKED","strike15, nightcross_bp_restricted, rare_bp, codex_unlockable",,Nightcross Restricted,,Die,,,,,"Damage is heavily reduced by armor, and deals full damage only when passing through center of mass. Mounting in a %s slot increases range by %s.","Ballistc, Hybrid, or Universal | 300",Does not damage armor and deals soft flux damage to shields.,,,145
+Atomic Driver,na_hardlightrifle,3,0.1,5000,700,,2400,800,0,7,16,,,,FRAGMENTATION,800,,.25,6.2,,,0,0,0,0,,1250,,,,,,"STRIKE, USE_VS_FRIGATES, GROUP_LINKED","strike15, nightcross_bp_restricted, rare_bp, codex_unlockable",,Nightcross Restricted,,Die,,,,,"Damage is heavily reduced by armor, and deals full damage only when passing through center of mass. Mounting in a %s slot increases range by %s.","Ballistc, Hybrid, or Universal | 300",Does not damage armor and deals soft flux damage to shields.,,,145
 Hardlight Rifle,na_hardlightriflereal,3,0.2,5000,550,,175,,0,7,12,5,0.8,5,ENERGY,215,,,.38,,,0,4,0.5,1,,950,,,,,,"STRIKE, USE_VS_FRIGATES, GROUP_LINKED","energy8, strike12, nightcross_bp_restricted, rare_bp, codex_unlockable",,Nightcross Restricted,,Assault,,,,,"Successive hull and armor hits within %s seconds deal %s more damage, stacking up to a maximum of %s bonus damage. Switching targets reduces the counter.",2 | 50% | 200%,,,,145
 Stunpulse,na_stunpulse,2,,500,550,,28,75,0,25,7,,,,KINETIC,45,,0.05,0.25,,,5,25,4,1.6,,675,,,,,,GUIDED_POOR,"kinetic7, nightcross_bp_fast, merc",,Nightcross Armory,,"Anti Shield, EMP",,,,,Projectiles are attracted to shielded targets and have a chance to arc onhit.,,,,,134
 Tizona (High Delay),na_energyorb_cannon,,,500,650,,125,400,0,25,5,,,,KINETIC,60,,0.05,1.5,,,5,25,4,1.6,,675,,,,,,"SYSTEM, PD, ANTI_FTR","kinetic4, no_drop, no_drop_salvage",,Nightcross Armory,,"Anti Shield, EMP",,,,,Projectiles are attracted to shielded targets and have a chance to arc onhit.,,,,,134
@@ -52,6 +53,7 @@ Echo Center,na_echo_center,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_dr
 Tessera Deco,na_tessera_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
 Mare Crisium Center,na_mare_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
 String of Parls Center,na_sop_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
+String of Parls Center,na_sop_proto_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
 Kasei Valles Deco,na_kasei_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
 Krun Macula Left,na_macula_left,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,
 Elyurias Deco,na_elyurias_deco,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage",,,,,,,,,,,,,,

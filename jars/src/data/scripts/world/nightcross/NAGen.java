@@ -41,6 +41,7 @@ public class NAGen implements SectorGeneratorPlugin {
 
     boolean NightcrossGenerated = false;
     boolean MareGenerated = false;
+    boolean SopGenerated = false;
 
     @Override
     public void generate(SectorAPI sector) {
@@ -81,7 +82,7 @@ public class NAGen implements SectorGeneratorPlugin {
         List<StarSystemAPI> blackholes = new ArrayList<>();
         for (LocationAPI loc : locations) {
             if (loc instanceof StarSystemAPI && ((StarSystemAPI) loc).getStar() != null) {
-                if (((StarSystemAPI) loc).getStar().isBlackHole()) {
+                if (((StarSystemAPI) loc).getStar().getSpec() != null && ((StarSystemAPI) loc).getStar().getSpec().isBlackHole()) {
                     if (((StarSystemAPI) loc).isProcgen()) {
                         boolean filtered = false;
                         for (String tag : BLACKLISTED_SYSTEM_TAGS) {
@@ -99,7 +100,7 @@ public class NAGen implements SectorGeneratorPlugin {
 
                         // only procgen blackholes
                         if (!filtered)
-                        blackholes.add((StarSystemAPI) loc);
+                            blackholes.add((StarSystemAPI) loc);
                     }
                 }
             }
@@ -118,6 +119,51 @@ public class NAGen implements SectorGeneratorPlugin {
         }
 
         MareGenerated = true;
+    }
+
+
+    public void place_sop(SectorAPI sector) {
+        List<LocationAPI> locations = sector.getAllLocations();
+        List<StarSystemAPI> neutronstar = new ArrayList<>();
+        for (LocationAPI loc : locations) {
+            if (loc instanceof StarSystemAPI && ((StarSystemAPI) loc).getStar() != null) {
+                if (((StarSystemAPI) loc).getStar().getSpec() != null && ((StarSystemAPI) loc).getStar().getSpec().isPulsar()) {
+                    if (((StarSystemAPI) loc).isProcgen()) {
+                        boolean filtered = false;
+                        for (String tag : BLACKLISTED_SYSTEM_TAGS) {
+                            if (loc.getTags().contains(tag)) {
+                                filtered = true;
+                                break;
+                            }
+                        }
+                        for (String name : BLACKLISTED_SYSTEMS) {
+                            if (loc.getName().equals(name)) {
+                                filtered = true;
+                                break;
+                            }
+                        }
+
+                        // only procgen pulsars
+                        if (!filtered)
+                            neutronstar.add((StarSystemAPI) loc);
+                    }
+                }
+            }
+        }
+
+        int index = MathUtils.getRandomNumberInRange(0, neutronstar.size() - 1);
+        if (neutronstar.size() > 0) {
+            StarSystemAPI system = neutronstar.get(index);
+
+            // place the string of pearls wreck
+            PlanetAPI star = system.getStar();
+
+            float distance = star.getRadius() + 100f; // close
+            SectorEntityToken ship = addDerelict(system, "na_sop_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, null);
+            ship.setCircularOrbit(star, MathUtils.getRandomNumberInRange(0f, 360f), distance, distance/10f);
+        }
+
+        SopGenerated = true;
     }
 
 

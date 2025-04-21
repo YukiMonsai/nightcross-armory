@@ -28,6 +28,7 @@ na_pyrowisp_large,hardpoint,,1,normal,graphics/maps/na_pyrowisp_large_hardpoint_
 na_pyrowisp_medium,hardpoint,,1,normal,graphics/maps/na_pyrowisp_medium_hardpoint_normal.png
 na_pyrowisp_medium,hardpoint,,1,normal,graphics/maps/na_pyrowisp_medium_turret_normal.png
 na_sop_deco,hardpoint,,1,normal,graphics/maps/na_sop_deco_normal.png
+na_sop_proto_deco,hardpoint,,1,normal,graphics/maps/na_sop_deco_normal.png
 na_stunpulse,hardpoint,,1,normal,graphics/maps/na_stunpulse_hardpoint_normal.png
 na_superblaster,hardpoint,,1,normal,graphics/maps/na_superblaster_hardpoint_base_normal.png
 na_superblaster_large,hardpoint,,1,normal,graphics/maps/na_superblaster_large_hardpoint_base_normal.png
@@ -49,6 +50,7 @@ na_mare,ship,,1,normal,graphics/maps/na_mare_normal.png
 na_mare_proto,ship,,1,normal,graphics/maps/na_mare_normal.png
 na_kasei,ship,,1,normal,graphics/maps/na_kasei_normal.png
 na_sop,ship,,1,normal,graphics/maps/na_sop_normal.png
+na_sop_proto,ship,,1,normal,graphics/maps/na_sop_proto_normal.png
 na_fossa,ship,,1,normal,graphics/maps/na_fossa_normal.png
 na_hardlightgenerator,ship,,1,normal,graphics/maps/hardlight_generator_normal.png
 na_tessera,ship,,1,normal,graphics/maps/na_tessera_normal.png

@@ -14,6 +14,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.combat.entities.Ship;
 import data.scripts.NAUtils;
 import data.scripts.NA_GravityCatapult;
+import data.scripts.NA_GravityCatapultSuper;
 import data.scripts.NA_RelativityDrive;
 import data.scripts.util.NAUtil;
 import org.lazywizard.lazylib.LazyLib;
@@ -270,6 +271,11 @@ public class NA_GRAVITYCATAPULTAI implements ShipSystemAIScript {
             }
 
 
+            if (ship.getSystem().getScript() instanceof NA_GravityCatapultSuper) {
+                if (ship.getSystem().getAmmo() > 2) {
+                    weight += 1.35f; // encourage aggressive use
+                }
+            }
 
 
             if (weight >= 1.0f || panic) {

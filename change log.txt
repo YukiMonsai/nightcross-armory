@@ -1,3 +1,9 @@
+V1.1.15
+- Mare Crisium OP reduced back to 8
+- Temporal Inverter and Temporal Eversion now have charges, same CD but slower regen
+- Atomic driver dmg reduced to 2400
+- Added a rare string of pearls wreck around a neutron star (can generate on existing saves)
+
 V1.1.14
 - Added a rare mare crisium wreck around a black hole (can generate on existing saves)
 - Added a new frigate: Kasei Valles

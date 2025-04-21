@@ -34,14 +34,11 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
     public static float MAX_RANGE = 600f; // max distance from target
     public static float SHIP_ALPHA_MULT = 0.5f;
 
-    private String ID = "NA_GravityCatapult";
+    protected String ID = "NA_GravityCatapult";
 
-    private static Color COLOR_AFTERIMAGE = new Color(125, 75, 255, 255);
-    private static Color color = new Color(125,75,255,255);
+    protected static Color COLOR_AFTERIMAGE = new Color(125, 75, 255, 255);
+    protected static Color color = new Color(125,75,255,255);
 
-    private static final String IMPACT_SOUND = "hit_solid";
-    private static final Color EXPLOSION_COLOR = new Color(200, 23, 253, 255);
-    private static final float EXPLOSION_VISUAL_RADIUS = 150;
 
     public static class NA_GravityCatapultData {
         IntervalUtil interval = new IntervalUtil(TIME_JUMP, TIME_JUMP);
@@ -196,7 +193,9 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                 }
 
                 if (state != State.ACTIVE) {
-                    ship.setPhased(false);
+                    if (!ship.isPhased()) {
+                        ship.setCollisionClass(CollisionClass.SHIP);
+                    }
                     return;
                 }
                 // assess the jump
@@ -249,7 +248,7 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
                         );
 
                         // phase thru
-                        ship.setPhased(true);
+                        ship.setCollisionClass(CollisionClass.NONE);
                         float dx = 2f*(data.targetLoc.x - data.initialLoc.x) * delta;
                         float dy = 2f*(data.targetLoc.y - data.initialLoc.y) * delta;
 
@@ -330,7 +329,8 @@ public class NA_GravityCatapult extends BaseShipSystemScript {
         String key = ID + "_data_" + ship.getId();
         NA_GravityCatapultData data = (NA_GravityCatapultData) ship.getCustomData().get(key);
         if (data != null) {
-            ship.setPhased(false);
+            if (!ship.isPhased())
+                ship.setCollisionClass(CollisionClass.SHIP);
             ship.getCustomData().remove(key);
         }
         ship.setExtraAlphaMult(1f);

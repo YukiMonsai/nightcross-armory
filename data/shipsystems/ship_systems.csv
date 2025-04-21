@@ -7,6 +7,7 @@ Chroma Reactor,na_fastcapacitors,,,,,,,,,,1.5,3,1,8,,,,,,,,,,,,,graphics/icons/h
 Plasma Surge,na_plasmasurge,,,,10,,,,2,0.08,0.5,2,1,0.2,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Singularity Drive,na_singdrive,1,,,,,,,,,1,6,1,10,TRUE,,,,,,TRUE,TRUE,,,,,
 Gravitational Catapult,na_gravitycatapult,,,,,,,,2,0.07,.1,.5,0.75,0.4,,,,,TRUE,TRUE,TRUE,TRUE,,TRUE,,,graphics/icons/hullsys/infernium_injector.png
-Temporal Inverter,na_reversaldrive,,,,,,.1,,,,.5,,.5,3,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,,,graphics/icons/hullsys/infernium_injector.png
-Temporal Eversion,na_reversaldrivesuper,,,,,,.1,,,,.5,,.5,4,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,,,graphics/icons/hullsys/infernium_injector.png
+Phase Catapult,na_gravitycatapultsuper,,,,,,0.05,,3,0.07,.1,.5,.1,0.4,,,,,TRUE,TRUE,TRUE,TRUE,,TRUE,,,graphics/icons/hullsys/infernium_injector.png
+Temporal Inverter,na_reversaldrive,,,,,,.1,,2,0.125,.5,,.5,3,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,,,graphics/icons/hullsys/infernium_injector.png
+Temporal Eversion,na_reversaldrivesuper,,,,,,.1,,2,0.1,.5,,.5,4,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,,,graphics/icons/hullsys/infernium_injector.png
 Tidal Cloak,na_phasecloak,,,,,,,,,,.25,,.25,1.5,TRUE,,TRUE,TRUE,TRUE,,,,TRUE,,TRUE,defensive,graphics/icons/hullsys/phase_cloak.png

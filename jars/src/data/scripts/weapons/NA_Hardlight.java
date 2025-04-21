@@ -7,7 +7,6 @@ import com.fs.starfarer.api.combat.listeners.WeaponBaseRangeModifier;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.NAUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -16,7 +15,7 @@ import java.awt.*;
 public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
 
     // multiplier to armor for flat reduction
-    public final float ARMOR_SCALE = 7f;
+    public final float ARMOR_SCALE = 5.5f;
     // determines the size of the 'sweet spot' along the ship's centerline
     public final float CENTER_SCALE = 1.33f;
 
@@ -25,7 +24,7 @@ public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
 
     private boolean inited = false;
     private NA_MetaheliumRangeModifier rnglistener;
-    private NA_MetaheliumDmgBoost dmglistener;
+    private NA_AtomicDriverDmgBoost dmglistener;
 
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
@@ -36,7 +35,7 @@ public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
                 weapon.getShip().addListener(rnglistener);
             }
             if (dmglistener == null) {
-                dmglistener = new NA_MetaheliumDmgBoost(weapon);
+                dmglistener = new NA_AtomicDriverDmgBoost(weapon);
                 weapon.getShip().addListener(dmglistener);
             }
         }
@@ -68,12 +67,12 @@ public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
     }
 
 
-    public class NA_MetaheliumDmgBoost implements DamageDealtModifier {
+    public class NA_AtomicDriverDmgBoost implements DamageDealtModifier {
         public WeaponAPI weapon;
         public float mult;
         public float effectLevel;
 
-        public NA_MetaheliumDmgBoost(WeaponAPI weapon) {
+        public NA_AtomicDriverDmgBoost(WeaponAPI weapon) {
            this.weapon = weapon;
         }
 
@@ -104,6 +103,11 @@ public class NA_Hardlight implements EveryFrameWeaponEffectPlugin {
 
 
                             dmg = Math.max(100f, dmg*distScale);
+
+                            // Make it not ignore damper field
+                            dmg *= ((ShipAPI) target).getMutableStats().getHullDamageTakenMult().getModifiedValue();
+                            dmg *= ((ShipAPI) target).getMutableStats().getProjectileDamageTakenMult().getModifiedValue();
+                            dmg *= ((ShipAPI) target).getMutableStats().getFragmentationDamageTakenMult().getModifiedValue();
 
                             target.setHitpoints(Math.max(0, target.getHitpoints() - dmg));
 

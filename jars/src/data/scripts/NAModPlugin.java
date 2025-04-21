@@ -33,7 +33,9 @@ public class NAModPlugin extends BaseModPlugin {
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
     public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium";
+    public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
+
 
 
     private static void initNA() {
@@ -48,6 +50,9 @@ public class NAModPlugin extends BaseModPlugin {
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
         gen.place_mare(Global.getSector());
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+        gen.place_sop(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+
 
     }
 
@@ -145,6 +150,10 @@ public class NAModPlugin extends BaseModPlugin {
             if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_MARE_CRISIUM)) {
                 gen.place_mare(Global.getSector());
                 Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+            }
+            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_STRINGOFPEARLS)) {
+                gen.place_sop(Global.getSector());
+                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
             }
 
             //MarketHelpers.generateMarketsFromEconJson("na_pascal");

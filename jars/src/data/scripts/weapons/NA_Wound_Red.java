@@ -47,7 +47,7 @@ public class NA_Wound_Red implements EveryFrameWeaponEffectPlugin {
                     25f, /* startSize */
                     45f, /* endSize */
                     trailColor, /* startColor */
-                    trailColor, /* endColor */
+                    ship.isPhased() ? new Color(255, 175, 225) : new Color(100, 100, 255), /* endColor */
                     0.5f, /* opacity */
                     0.1f, /* inDuration */
                     0.25f, /* mainDuration */
