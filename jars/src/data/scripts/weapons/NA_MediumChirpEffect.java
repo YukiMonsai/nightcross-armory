@@ -90,13 +90,18 @@ public class NA_MediumChirpEffect implements BeamEffectPlugin {
                     engine.spawnEmpArcPierceShields(
                             beam.getSource(), point, beam.getDamageTarget(), beam.getDamageTarget(),
                             DamageType.ENERGY,
-                            dam, // damage
+                            0, // damage
                             dam, // emp
                             155f, // max range
                             "tachyon_lance_emp_impact",
                             beam.getWidth() + 20f,
                             beam.getFringeColor(),
                             beam.getCoreColor()
+                    );
+
+                    engine.applyDamage(
+                            beam.getDamageTarget(),
+                            point, dam, DamageType.ENERGY, 0f, false, true, beam.getSource(), false
                     );
                 }
             }

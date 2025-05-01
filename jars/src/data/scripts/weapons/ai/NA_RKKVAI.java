@@ -4,6 +4,7 @@ package data.scripts.weapons.ai;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.impl.hullmods.Automated;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.combat.CombatEngine;
@@ -189,10 +190,18 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             // tracking
 
 
+
+            float vmult = 0.1f;
+            float pvmult = 0.5f;
+            if (MathUtils.getDistance(target.getLocation(), missile.getLocation()) > (1.4f * missile.getVelocity().length())) {
+                vmult = 0.2f;
+                pvmult = 0.75f;
+            }
+
             lead = leadPoint(
                     new Vector2f(target.getLocation()),
-                    new Vector2f(target.getVelocity().x - 0.1f * missile.getVelocity().x, target.getVelocity().y - 0.1f * missile.getVelocity().y),
-                    new Vector2f(missile.getLocation()), Math.max(250, missile.getVelocity().length()*0.5f));
+                    new Vector2f(target.getVelocity().x - vmult * missile.getVelocity().x, target.getVelocity().y - vmult * missile.getVelocity().y),
+                    new Vector2f(missile.getLocation()), Math.max(250, missile.getVelocity().length()*pvmult));
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     lead.y - missile.getLocation().y,
                     lead.x - missile.getLocation().x

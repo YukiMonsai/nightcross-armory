@@ -80,8 +80,8 @@
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
-      "arc": 121,
-      "angle": 34.5,
+      "arc": 60,
+      "angle": 0,
       "locations": [23, 10],
       "renderOrderMod": 400
     },
@@ -90,8 +90,8 @@
       "size": "SMALL",
       "type": "ENERGY",
       "mount": "TURRET",
-      "arc": 121,
-      "angle": -34.5,
+      "arc": 60,
+      "angle": -0,
       "locations": [23, -10],
       "renderOrderMod": 400
     },
@@ -163,9 +163,18 @@
       "size": "SMALL",
       "type": "HYBRID",
       "mount": "TURRET",
-      "arc": 257,
+      "arc": 325,
       "angle": 180,
       "locations": [-9, -0]
+    },
+    {
+      "id": "WS009",
+      "size": "MEDIUM",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [24, -0]
     }
   ],
   "engineSlots": [

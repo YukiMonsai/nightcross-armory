@@ -1,7 +1,7 @@
 {
-  "variantId": "na_kasei_skirmish",
-  "hullId": "na_kasei",
-  "displayName": "Skirmish",
+  "variantId": "na_kasei_x_assault",
+  "hullId": "na_kasei_x",
+  "displayName": "Assault",
   "goalVariant": true,
   "fluxCapacitors": 10,
   "fluxVents": 1,
@@ -14,10 +14,7 @@
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0001": "na_pulsecannon",
-        "WS0002": "na_pulsecannon"
-      }
+      "weapons": {}
     },
     {
       "autofire": true,
@@ -30,7 +27,8 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS009": "na_laser"}
     },
     {
       "autofire": true,

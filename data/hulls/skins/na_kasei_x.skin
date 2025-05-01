@@ -1,0 +1,46 @@
+{
+  "baseHullId": "na_kasei",
+  "baseValueMult": 1.3,
+  "descriptionId": "na_kasei",
+  "descriptionPrefix": "A competing model of the Kasei Valles, engineered with a medium energy hardpoint to replace the central turrets. While this simplifies the flux distribution scheme dramatically, the increased bulk leaves no room for the temporal displacement engine. Engineers installed hardened conduits instead to allow short bursts of increased power output, but only a few prototypes were ever built before the collapse. It appears the blueprints survived.",
+  "engineSlotChanges": {
+    "0": {
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -94,
+      "contrailSize": 7,
+      "location": [28.5, 20.5],
+    },
+    "1": {
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 94,
+      "contrailSize": 7,
+      "location": [28.5, -20.5],
+    }
+  },
+  "builtInMods":["fluxbreakers"],
+  "systemId":"highenergyfocus",
+  "suppliesToRecover":6,
+  "suppliesPerMonth":6,
+  "removeWeaponSlots":["WS0001", "WS0002"], 	# ids
+  "fighterBays": 0,
+  "fleetPoints": 5,
+  "fpMod": 0,
+  "hullDesignation": "FRIGATE",
+  "hullName": "Kasei Valles (X)",
+  "manufacturer": "",
+  "ordnancePoints": 48,
+  "restoreToBaseHull": false,
+  "skinHullId": "na_kasei_x",
+  "spriteName": "graphics/ships/na/kaseivalles/na_kasei_x.png",
+  "tech": "Nightcross",
+    "weaponSlotChanges":{
+		"WS009":{
+            "mount": "HARDPOINT",
+            "size": "MEDIUM",
+            "type": "ENERGY",
+			"locations": [0, 0]
+		}	
+	},
+}

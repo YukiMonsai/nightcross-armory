@@ -83,7 +83,7 @@ public class NAGen implements SectorGeneratorPlugin {
         for (LocationAPI loc : locations) {
             if (loc instanceof StarSystemAPI && ((StarSystemAPI) loc).getStar() != null) {
                 if (((StarSystemAPI) loc).getStar().getSpec() != null && ((StarSystemAPI) loc).getStar().getSpec().isBlackHole()) {
-                    if (((StarSystemAPI) loc).isProcgen()) {
+                    if (((StarSystemAPI) loc).isProcgen() && !loc.isDeepSpace()) {
                         boolean filtered = false;
                         for (String tag : BLACKLISTED_SYSTEM_TAGS) {
                             if (loc.getTags().contains(tag)) {
@@ -116,6 +116,7 @@ public class NAGen implements SectorGeneratorPlugin {
             float distance = star.getRadius() + 50f; // right on event horizon
             SectorEntityToken ship = addDerelict(system, "na_mare_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, null);
             ship.setCircularOrbit(star, MathUtils.getRandomNumberInRange(0f, 360f), distance, distance/10f);
+            ship.setId("na_mare_x_wreck");
         }
 
         MareGenerated = true;
@@ -128,7 +129,7 @@ public class NAGen implements SectorGeneratorPlugin {
         for (LocationAPI loc : locations) {
             if (loc instanceof StarSystemAPI && ((StarSystemAPI) loc).getStar() != null) {
                 if (((StarSystemAPI) loc).getStar().getSpec() != null && ((StarSystemAPI) loc).getStar().getSpec().isPulsar()) {
-                    if (((StarSystemAPI) loc).isProcgen()) {
+                    if (((StarSystemAPI) loc).isProcgen() && !loc.isDeepSpace()) {
                         boolean filtered = false;
                         for (String tag : BLACKLISTED_SYSTEM_TAGS) {
                             if (loc.getTags().contains(tag)) {
@@ -161,6 +162,7 @@ public class NAGen implements SectorGeneratorPlugin {
             float distance = star.getRadius() + 100f; // close
             SectorEntityToken ship = addDerelict(system, "na_sop_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, null);
             ship.setCircularOrbit(star, MathUtils.getRandomNumberInRange(0f, 360f), distance, distance/10f);
+            ship.setId("na_sop_x_wreck");
         }
 
         SopGenerated = true;

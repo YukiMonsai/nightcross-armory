@@ -1,11 +1,12 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/YukiMonsai/nightcross-armory/main/Nightcross.version",
+    "masterVersionFile":"https://github.com/YukiMonsai/nightcross-armory/releases/latest/download/Nightcross.version",
+	"changelogURL":"https://github.com/YukiMonsai/nightcross-armory/releases/latest/download/change log.txt"
     "modName":"Nightcross Armory",
     "modThreadId":31982,
     "modVersion":
     {
         "major":1,
         "minor":1,
-        "patch":15
+        "patch":17
     },
 }

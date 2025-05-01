@@ -15,6 +15,8 @@ import org.lazywizard.lazylib.MathUtils;
 public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
 
     private final RepLevel MIN_STANDING = RepLevel.INHOSPITABLE;
+    private final RepLevel MIN_STANDING_RES =  RepLevel.FRIENDLY;
+    private final RepLevel MIN_STANDING_EXP = RepLevel.NEUTRAL;
 
     @Override
     public void init(SubmarketAPI submarket) {
@@ -86,6 +88,8 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
                 if (!spec.hasTag("nightcross_bp_rare") && !spec.hasTag("nightcross_bp_heavy") && !spec.hasTag("nightcross_bp_fast")) continue;
                 if (spec.hasTag(Tags.NO_DROP)) continue;
                 float w = spec.getRarity();
+                if (spec.hasTag("nightcross_bp_rare")) w *= 0.35f;
+                else if (spec.hasTag("nightcross_bp_restricted")) w *= 0.1f;
                 picker.add(spec, w);
             }
 
@@ -94,10 +98,11 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
 
             WeightedRandomPicker<FighterWingSpecAPI> fpicker = new WeightedRandomPicker<FighterWingSpecAPI>();
             for (FighterWingSpecAPI spec : Global.getSettings().getAllFighterWingSpecs()) {
-                if (!spec.hasTag("nightcross_bp_rare") && !spec.hasTag("nightcross_bp_heavy") && !spec.hasTag("nightcross_bp_fast")
-                    && !spec.hasTag("nightcross_bp_restricted")) continue;
+                if (!spec.hasTag("nightcross_bp_rare") && !spec.hasTag("nightcross_bp_heavy") && !spec.hasTag("nightcross_bp_fast")) continue;
                 if (spec.hasTag(Tags.NO_DROP)) continue;
                 float w = spec.getRarity();
+                if (spec.hasTag("nightcross_bp_rare")) w *= 0.35f;
+                else if (spec.hasTag("nightcross_bp_restricted")) w *= 0.1f;
                 fpicker.add(spec, w);
             }
 
@@ -137,9 +142,81 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
 
     }
 
+    private RepLevel getRequiredLevelAssumingLegal(FleetMemberAPI member, TransferAction action) {
+        int tier = -1;
+        if (member.getHullSpec()  == null) return RepLevel.VENGEFUL;
+        switch (member.getHullSpec().getHullSize()) {
+            case CAPITAL_SHIP: tier = 4; break;
+            case FRIGATE: tier = 1; break;
+            case DESTROYER: tier = 2; break;
+            case CRUISER: tier = 3; break;
+            default: tier = 0; break;
+        }
+
+        if (tier >= 0) {
+            if (action == TransferAction.PLAYER_BUY) {
+                if (tier > 3) {
+                    return RepLevel.COOPERATIVE;
+                }
+                if (tier == 3) {
+                    return RepLevel.FRIENDLY;
+                }
+                if (tier == 2) {
+                    return RepLevel.WELCOMING;
+                }
+                if (tier == 1) {
+                    return RepLevel.FAVORABLE;
+                }
+                return RepLevel.NEUTRAL;
+            }
+            return RepLevel.VENGEFUL;
+        }
+        return RepLevel.VENGEFUL;
+    }
+
+    private RepLevel getRequiredLevelAssumingLegal(CargoStackAPI stack, TransferAction action) {
+        int tier = -1;
+        boolean restricted = false;
+        boolean rare = false;
+        if (stack.isWeaponStack()) {
+            WeaponSpecAPI weaponSpec = stack.getWeaponSpecIfWeapon();
+            tier = weaponSpec.getTier();
+
+            if (weaponSpec.hasTag("nightcross_bp_rare")) rare = true;
+            else if (weaponSpec.hasTag("nightcross_bp_restricted")) restricted = true;
+        } else if (stack.isFighterWingStack()) {
+            FighterWingSpecAPI fighterSpec = stack.getFighterWingSpecIfWing();
+            tier = fighterSpec.getTier();
+            if (fighterSpec.hasTag("nightcross_bp_rare")) rare = true;
+            else if (fighterSpec.hasTag("nightcross_bp_restricted")) restricted = true;
+        }
+
+        if (tier >= 0 || rare) {
+            if (action == TransferAction.PLAYER_BUY) {
+                if (tier > 3) {
+                    return RepLevel.COOPERATIVE;
+                }
+                if (tier == 3 || restricted) {
+                    return RepLevel.FRIENDLY;
+                }
+                if (tier == 2) {
+                    return RepLevel.FAVORABLE;
+                }
+                return RepLevel.NEUTRAL;
+            }
+            return RepLevel.VENGEFUL;
+        }
+        return RepLevel.VENGEFUL;
+    }
+
+
     @Override
     public boolean isIllegalOnSubmarket(CargoStackAPI stack, TransferAction action) {
-        return action == TransferAction.PLAYER_SELL;
+        RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        if (level.isAtWorst(getRequiredLevelAssumingLegal(stack, action))) {
+            return action == TransferAction.PLAYER_SELL;
+        }
+        return true;
     }
 
     @Override
@@ -149,19 +226,36 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
 
     @Override
     public boolean isIllegalOnSubmarket(FleetMemberAPI member, TransferAction action) {
-        return action == TransferAction.PLAYER_SELL;
+        RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        if (level.isAtWorst(getRequiredLevelAssumingLegal(member, action))) {
+            return action == TransferAction.PLAYER_SELL;
+        }
+        return true;
     }
 
     @Override
     public String getIllegalTransferText(FleetMemberAPI member, TransferAction action) {
-        return "No sales allowed.";
+        RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        RepLevel minstanding = getRequiredLevelAssumingLegal(member, action);
+        if (level.isAtWorst(minstanding)) {
+            return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
+        }
+
+        return "Requires: " + market.getFaction().getDisplayName() + " - "
+                + minstanding.getDisplayName().toLowerCase();
     }
 
     @Override
     public String getIllegalTransferText(CargoStackAPI stack, TransferAction action) {
-        return "No sales allowed.";
-    }
+        RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        RepLevel minstanding = getRequiredLevelAssumingLegal(stack, action);
+        if (level.isAtWorst(minstanding)) {
+            return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
+        }
 
+        return "Requires: " + market.getFaction().getDisplayName() + " - "
+                + minstanding.getDisplayName().toLowerCase();
+    }
     @Override
     public boolean isParticipatesInEconomy() {
         return false;

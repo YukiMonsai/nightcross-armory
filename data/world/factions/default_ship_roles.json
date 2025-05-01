@@ -8,6 +8,7 @@
 		"na_mare_exp":5,
 		"na_kasei_skirmish":3,
 		"na_kasei_strike":3,
+		"na_kasei_x_assault":3,
 	},
 	"combatSmall":{
 		"na_sop_elite":4,
@@ -19,6 +20,7 @@
 		"na_mare_beam":5,
 		"na_kasei_skirmish":3,
 		"na_kasei_strike":3,
+		"na_kasei_x_assault":3,
 	},
 	"combatMedium":{
 		"na_macula_overdriven":5,

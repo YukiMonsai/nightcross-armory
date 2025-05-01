@@ -67,7 +67,8 @@
 			"afflictor",
 			"harbinger",
 			"na_tessera",
-			"na_kasei"
+			"na_kasei",
+			"na_kasei_x",
 			
         ],
     },
@@ -85,6 +86,7 @@
 			"shade",
 			"na_tessera",
 			"na_kasei",
+			"na_kasei_x",
         ],
     },
     "knownFighters":{
@@ -225,6 +227,7 @@
         "myth":1,
     },
     "custom":{
+		"allowsTransponderOffTrade":true,
         "offersCommissions":false,
         "engagesInHostilities":false,
         "buysAICores":true,

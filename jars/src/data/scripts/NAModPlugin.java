@@ -32,8 +32,8 @@ public class NAModPlugin extends BaseModPlugin {
 
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
-    public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium";
-    public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop";
+    public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium2";
+    public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop2";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
 
 
@@ -48,10 +48,6 @@ public class NAModPlugin extends BaseModPlugin {
         NAGen gen = new NAGen();
         gen.generate(Global.getSector());
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
-        gen.place_mare(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
-        gen.place_sop(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
 
 
     }
@@ -174,6 +170,16 @@ public class NAModPlugin extends BaseModPlugin {
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_IBB_INITIALIZED, 0.1);
     }
 
+
+    @Override
+    public void onNewGameAfterProcGen() {
+
+        NAGen gen = new NAGen();
+        gen.place_mare(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+        gen.place_sop(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+    }
 
     @Override
     public PluginPick<ShipAIPlugin> pickShipAI(FleetMemberAPI member, ShipAPI ship) {

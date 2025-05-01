@@ -1,3 +1,25 @@
+V1.1.17
+- Chirp PD ammo/sec raised to .7 from .4
+- Tarantella PD ammo/sec raised to .5 from .33
+- Tarantella PD burst delay reduced to 0.4 from 0.8
+- Kasei valles DP reduced to 4
+- Kasei valles system now does 2 sec instead of 1.5
+- Kasei valles maneuverability increased
+- Kasei valles frontal weapon arcs reduced
+- Kasei valles rear turret has a much wider arc
+- Updated kasei valles variants
+- Added kasei valles (x)
+- Haas Beamer damage/second increased to 500 from 350
+- Removed nightcross restricted weapons from appearing in aria shop. They should be loot only.
+- Improved RKKV course correction at long distance so they dont struggle to hit stationary targets
+- Fixed issue where wavefronts were not firing from off-axis hardpoints
+- Fixed issue where fancy String of Pearls and Mare Crisium never generated
+
+V1.1.16
+- fixed a crash related to magu tessera
+- mixed down audio for a number of weapons to avoid audio glitches
+- increased requirements to buy rare weapons at aria station
+
 V1.1.15
 - Mare Crisium OP reduced back to 8
 - Temporal Inverter and Temporal Eversion now have charges, same CD but slower regen

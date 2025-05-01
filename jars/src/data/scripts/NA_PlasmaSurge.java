@@ -67,6 +67,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
     // plagarized ruthlessly from alex
     public void init(ShipAPI ship) {
         if (inited) return;
+        if (ship == null) return;
         inited = true;
 
         needsUnapply = true;
@@ -189,10 +190,12 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         if (ship == null || ship.isHulk()) {
             if (needsUnapply) {
                 unmodify(id, stats);
-                for (WeaponAPI w : ship.getAllWeapons()) {
-                    if (!w.isDecorative() && w.getSlot().isHardpoint() && !w.isBeam() &&
-                            (w.getType() == WeaponAPI.WeaponType.BALLISTIC || w.getType() == WeaponAPI.WeaponType.ENERGY)) {
-                        w.setGlowAmount(0, null);
+                if (ship != null) {
+                    for (WeaponAPI w : ship.getAllWeapons()) {
+                        if (!w.isDecorative() && w.getSlot().isHardpoint() && !w.isBeam() &&
+                                (w.getType() == WeaponAPI.WeaponType.BALLISTIC || w.getType() == WeaponAPI.WeaponType.ENERGY)) {
+                            w.setGlowAmount(0, null);
+                        }
                     }
                 }
                 needsUnapply = false;
