@@ -17,6 +17,7 @@ import org.dark.shaders.distortion.DistortionShader;
 import org.dark.shaders.distortion.RippleDistortion;
 import org.dark.shaders.distortion.WaveDistortion;
 import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.util.MagicRender;
 
@@ -146,13 +147,14 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
         List<CombatEntityAPI> entities = NAUtils.getEntitiesWithinRange(point, radius);
 
         for (CombatEntityAPI e:entities) {
-            float angle = (float) (Math.atan2(point.y - e.getLocation().y, point.x - e.getLocation().x)* 180f / Math.PI);
+            if (e instanceof ShipAPI && (((ShipAPI) e).isStation() || ((ShipAPI) e).isStationModule())) continue;
+            float angle = VectorUtils.getAngle(e.getLocation(), point);
             Vector2f closest = MathUtils.getPointOnCircumference(
                     Misc.ZERO, force,
                     angle
             );
             float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
-            float amt = amount/(dist*dist/(minradius*minradius)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
+            float amt = amount/(dist*dist/(40000)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
             if (dist > minradius) {
                 e.getVelocity().set(
                         e.getVelocity().x + amount*closest.x*amt,
@@ -165,8 +167,8 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
                 float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
                 if (len > maxlen && maxlen > 1f) {
                     e.getVelocity().set(
-                            e.getVelocity().x * len/maxlen,
-                            e.getVelocity().y * len/maxlen
+                            e.getVelocity().x * maxlen/len,
+                            e.getVelocity().y * maxlen/len
                     );
                 }
             }

@@ -37,6 +37,8 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
     private static float TIME_AFTERIMAGE = 0.1f;
     private static float REVERT_TIME = 4.0f;
     private static float TIME_STEPS_MAX = 40; // 3 seconds
+    public CollisionClass OriginalClass = null;
+
     protected static class NA_ReversalDriveSuperData extends NA_ReversalDriveData {
         IntervalUtil interval = new IntervalUtil(TIME_AFTERIMAGE, TIME_AFTERIMAGE);
         List<Vector3f> positions = new ArrayList<>();
@@ -163,6 +165,7 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
         if (this.ship == null) this.ship = ship;
+        if (OriginalClass == null) OriginalClass = ship.getCollisionClass();
 
         TIME_AFTERIMAGE = 0.1f;
         REVERT_TIME = 4.0f;
@@ -192,7 +195,7 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
                     if (activated) {
                         activated = false;
                         if (!ship.isPhased()) {
-                            ship.setCollisionClass(CollisionClass.SHIP);
+                            ship.setCollisionClass(OriginalClass);
                         }
                     }
 
@@ -238,7 +241,7 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
                         if (lastPoint != null && state == State.IDLE) {
                             dmgInterval.advance(Global.getCombatEngine().getElapsedInLastFrame() * ship.getMutableStats().getTimeMult().getModifiedValue());
                             if (Global.getCombatEngine().getPlayerShip() != null
-                                    && ship.getId() == Global.getCombatEngine().getPlayerShip().getId())
+                                    && ship.getId().equals(Global.getCombatEngine().getPlayerShip().getId()))
                                 MagicRender.battlespace(
                                         Global.getSettings().getSprite(ship.getHullSpec().getSpriteName()),
                                     new Vector2f(lastPoint.x, lastPoint.y),
@@ -298,7 +301,7 @@ public class NA_ReversalDriveSuper extends NA_ReversalDrive {
 
 
             }
-        }
+        } else if (OriginalClass != null && ship.getCollisionClass() != OriginalClass) ship.setCollisionClass(OriginalClass);
     }
 
     public StatusData getStatusData(int index, State state, float effectLevel) {

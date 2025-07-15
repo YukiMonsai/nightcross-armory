@@ -35,7 +35,7 @@ public class NA_RKKVRenderer extends BaseCombatLayeredRenderingPlugin {
         Map<String, Object> customCombatData = Global.getCombatEngine().getCustomData();
         sprite.setAdditiveBlend();
         float frameTime = Global.getCombatEngine().getElapsedInLastFrame();
-        if (layer == CombatEngineLayers.ABOVE_PARTICLES){
+        if (layer == CombatEngineLayers.ABOVE_PARTICLES && frameTime > 0){
 
             HashMap<CombatEntityAPI, IntervalUtil> drawn = new HashMap<>();
             HashMap<MissileAPI, Boolean> toRemove = new HashMap<>();

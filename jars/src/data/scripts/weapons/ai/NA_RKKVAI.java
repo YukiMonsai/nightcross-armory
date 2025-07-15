@@ -35,7 +35,9 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     private final IntervalUtil deathTimer = new IntervalUtil(0.05f, 0.4f);
 
     private final float BEAM_TIME = 0.5f;
+    private final float TARGETTIME = 0.5f;
     private final IntervalUtil beamTimer = new IntervalUtil(BEAM_TIME, BEAM_TIME);
+    private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME);
     // data
     private final float MAX_SPEED;
     private final float SLOW_SPEED = 500f;
@@ -45,7 +47,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     // 1 - full send
     private int stage = 0;
 
-    public final float MIN_RANGE = 2500f;
+    public final float MIN_RANGE = 5000f;
 
     public NA_RKKVAI(MissileAPI missile, ShipAPI ship) {
         if (layerRenderer == null || engine != Global.getCombatEngine()) {
@@ -94,6 +96,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             return;
         }
 
+        targetTimer.advance(amount);
         updateTarget();
 
         // if the missile has no target, pick the nearest one
@@ -103,21 +106,28 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 || target.getCollisionClass() == CollisionClass.NONE) {
             missile.giveCommand(stage < 2 ? ShipCommand.DECELERATE : ShipCommand.ACCELERATE);
             if (stage < 2 && missile.getSource() != null) {
-                if (missile.getSource().getShipTarget() != null)
-                    setTarget(missile.getSource().getShipTarget());
-                else if (missile.getSource().getAIFlags() != null
-                    && missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET) != null
-                    && missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET) instanceof ShipAPI)
-                    setTarget((ShipAPI) missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET));
+                if (stage < 1 || missile.getSource() == engine.getPlayerShip()) {
+                    if (missile.getSource().getShipTarget() != null)
+                        setTarget(missile.getSource().getShipTarget());
+                    else if (missile.getSource().getAIFlags() != null
+                            && missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET) != null
+                            && missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET) instanceof ShipAPI)
+                        setTarget((ShipAPI) missile.getSource().getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET));
+
+                }
 
                 if (stage != 1) clampTarget();
             }
             if (target == null) {
-                setTarget(
-                        MagicTargeting.pickTarget(
-                                missile, MagicTargeting.targetSeeking.LOCAL_RANDOM,
-                                (int) missile.getMaxRange(), getCone(),
-                                0, 1, 4, 10, 20, true));
+                if (targetTimer.intervalElapsed()) {
+                    targetTimer.setElapsed(0f);
+                    setTarget(
+                            MagicTargeting.pickTarget(
+                                    missile, MagicTargeting.targetSeeking.LOCAL_RANDOM,
+                                    (int) missile.getMaxRange(), getCone(),
+                                    0, 1, 4, 10, 20, true));
+                }
+
             }
 
 
@@ -169,7 +179,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 allowAccel = false;
             }
 
-            if (Math.abs(angle) < 45 && missile.getVelocity().length() > SLOW_SPEED) allowAccel = false;
+            if (Math.abs(angle) > 45 && missile.getVelocity().length() > SLOW_SPEED) allowAccel = false;
 
             // Damp angular velocity if the missile aim is getting close to the targeted angle
             float DAMPING = 0.1f;
@@ -191,16 +201,16 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
 
 
-            float vmult = 0.1f;
-            float pvmult = 0.5f;
+            float vmult = 0.4f;
+            float pvmult = 0.2f;
             if (MathUtils.getDistance(target.getLocation(), missile.getLocation()) > (1.4f * missile.getVelocity().length())) {
-                vmult = 0.2f;
-                pvmult = 0.75f;
+                vmult = 0.6f;
+                pvmult = 0.3f;
             }
 
             lead = leadPoint(
                     new Vector2f(target.getLocation()),
-                    new Vector2f(target.getVelocity().x - vmult * missile.getVelocity().x, target.getVelocity().y - vmult * missile.getVelocity().y),
+                    new Vector2f(vmult*target.getVelocity().x - pvmult * missile.getVelocity().x, vmult*target.getVelocity().y - pvmult * missile.getVelocity().y),
                     new Vector2f(missile.getLocation()), Math.max(250, missile.getVelocity().length()*pvmult));
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     lead.y - missile.getLocation().y,
@@ -218,7 +228,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 missile.giveCommand(ShipCommand.TURN_LEFT);
             }
 
-            float DAMPING = stage == 1 ? 0.05f : 0.25f;
+            float DAMPING = stage == 1 ? 0.03f : 0.05f;
             if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
                 missile.setAngularVelocity(angle / DAMPING);
                 missile.giveCommand(ShipCommand.ACCELERATE);
@@ -265,11 +275,11 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 MagicFakeBeam.spawnFakeBeam(
                         Global.getCombatEngine(),
                         missile.getLocation(),
-                        dist + 1000f,
+                        Math.min(dist + 1000f, 5000f),
                         VectorUtils.getFacing(missile.getVelocity()),
-                        8f,
+                        6f,
                         0f,
-                        0.01f,
+                        0.05f,
                         0f,
                         new Color(201, 0, 0, 175),
                         new Color(255, 0, 0, 200),
@@ -278,6 +288,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                         0f,
                         missile.getSource()
                 );
+
                 beamTimer.setElapsed(0);
             } else {
                 beamTimer.advance(amount);

@@ -14,7 +14,9 @@
   "builtInMods": [
     "nightcrosstargeting",
     "na_rcs",
-    "delicate"
+    "delicate",
+    "na_slowmissiles",
+	"na_plasmaaggregator"
   ],
   "builtInWeapons": {
     "CENTER1": "na_macula_left",

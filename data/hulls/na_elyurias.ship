@@ -133,7 +133,7 @@
     {
       "id": "WS0004",
       "size": "MEDIUM",
-      "type": "MISSILE",
+      "type": "SYNERGY",
       "mount": "HARDPOINT",
       "arc": 5,
       "angle": 160.5,
@@ -142,7 +142,7 @@
     {
       "id": "WS0006",
       "size": "MEDIUM",
-      "type": "MISSILE",
+      "type": "SYNERGY",
       "mount": "HARDPOINT",
       "arc": 5,
       "angle": -160.5,

@@ -82,7 +82,9 @@ public class NA_OverloadWeapons extends BaseHullMod {
 			// EMP weapons
 
 
-
+			for (WeaponAPI w: ship.getUsableWeapons()) {
+				w.setForceNoFireOneFrame(true);
+			}
 			NA_OverloadWeaponsArcTimer arctimer = (NA_OverloadWeaponsArcTimer) ship.getCustomData().get(key);
 			if (arctimer == null) {
 				arctimer = new NA_OverloadWeaponsArcTimer();
@@ -94,7 +96,6 @@ public class NA_OverloadWeapons extends BaseHullMod {
 			if (arctimer.interval.intervalElapsed()) {
 				arctimer.reset();
 				for (WeaponAPI w: ship.getUsableWeapons()) {
-					w.setForceNoFireOneFrame(true);
 					engine.spawnEmpArc(ship,
 							w.getLocation(),
 							ship,

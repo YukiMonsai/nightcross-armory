@@ -48,7 +48,7 @@
       "duration": 0.1f,
       "radius": 100,
       "coreRadius": 50, # full damage within core radius - also equal to proximity fuse range
-      "collisionClass": PROJECTILE_FF,
+      "collisionClass": PROJECTILE_NO_FF,
       "collisionClassByFighter": PROJECTILE_FIGHTER,
       "particleSizeMin": 3.0,
       "particleSizeRange": 6.0,

@@ -17,7 +17,7 @@ public class NA_RelativityDrive extends BaseShipSystemScript {
     
 
     public static float TIMEFLOW_MULT = 9f;
-    public static float ROF_MULT = 3f; // boost weapons at end
+    public static float ROF_MULT = 1.1f; // boost weapons at end
     public static float ROF_MULT_DURING = 2.5f; // boost weapons at end
 
     private String ID = "NA_RelativityDrive";

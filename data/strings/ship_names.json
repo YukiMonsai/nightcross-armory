@@ -12,6 +12,7 @@
 		"Fae Language",
 		"Berry Blossom",
 		"Swan Song",
+		"Chor Tempest",
 	],
 	"MYTH": [
 		"Decretum",
@@ -22,6 +23,8 @@
 		"Noita",
 		"Fae Language",
 		"Swan Song",
+		"Chor Tempest",
+		"As Above, So Below",
 	],
 	"SPACE":
 	[
@@ -32,10 +35,12 @@
 		"Barely Sentient",
 		"Delphinium",
 		"Abyss Breaker",
+		"Chandrasekhar Limit",
 	],
 	"SCIENCE": [
 		"Ultraviolet Catastrophe",
 		"Brain Power",
+		"Chandrasekhar Limit",
 	],
 	"FUTURE":
 	[
@@ -87,5 +92,6 @@
 		"Berry Blossom",
 		"Swan Song",
 		"Artificial Revelation",
+		"Chor Tempest",
 		],
 }

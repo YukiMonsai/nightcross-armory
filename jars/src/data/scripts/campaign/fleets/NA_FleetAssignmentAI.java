@@ -50,7 +50,7 @@ public class NA_FleetAssignmentAI extends RouteFleetAssignmentAI {
         } else {
             if (isCurrentlyNightcross) {
                 fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_NO_REP_IMPACT, true);
-                fleet.setFaction(Factions.MERCENARY, true);
+                fleet.setFaction(Factions.INDEPENDENT, true);
             }
             return;
         }

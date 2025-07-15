@@ -42,6 +42,8 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
 
     public ShipAPI ship = null;
 
+    public CollisionClass OriginalClass = null;
+
     public Vector3f getLastPoint() {
         if (ship == null) return null;
         String key = ID + "_data_" + ship.getId();
@@ -107,6 +109,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
         if (this.ship == null) this.ship = ship;
+        if (OriginalClass == null) OriginalClass = ship.getCollisionClass();
 
         String shipID = id + "_" + ship.getId();
 
@@ -129,7 +132,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                     if (activated) {
                         activated = false;
                         if (!ship.isPhased()) {
-                            ship.setCollisionClass(CollisionClass.SHIP);
+                            ship.setCollisionClass(OriginalClass);
                         }
                     }
 
@@ -232,7 +235,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
 
 
             }
-        }
+        } else if (OriginalClass != null && ship.getCollisionClass() != OriginalClass) ship.setCollisionClass(OriginalClass);
     }
 
     public static Object KEY_SHIP = new Object();

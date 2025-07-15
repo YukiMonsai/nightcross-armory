@@ -41,7 +41,8 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
             return "Not available if controlled by independents";
         }
         if (!level.isAtWorst(MIN_STANDING)) {
-            return "Requires: " + market.getFaction().getDisplayName() + " - "
+            return "Requires: " + market.getFaction().getDisplayName() + " OR "
+                    + Global.getSector().getFaction("nightcross").getDisplayName() + " - "
                     + MIN_STANDING.getDisplayName().toLowerCase();
         }
         return super.getTooltipAppendix(ui);
@@ -53,7 +54,8 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
             return false;
         }
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        return level.isAtWorst(MIN_STANDING);
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        return level.isAtWorst(MIN_STANDING) || ncalevel.isAtWorst(MIN_STANDING);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
                     0f, // utilityPts
                     null, // qualityOverride
                     quality, // qualityMod
-                    FactionAPI.ShipPickMode.PRIORITY_THEN_ALL,
+                    FactionAPI.ShipPickMode.PRIORITY_ONLY,
                     doctrineOverride);
 
             pruneWeapons(0f);
@@ -174,6 +176,69 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
         return RepLevel.VENGEFUL;
     }
 
+
+    private RepLevel getNCARequiredLevelAssumingLegal(CargoStackAPI stack, TransferAction action) {
+        int tier = -1;
+        if (stack.isWeaponStack()) {
+            WeaponSpecAPI weaponSpec = stack.getWeaponSpecIfWeapon();
+            tier = weaponSpec.getTier();
+        } else if (stack.isFighterWingStack()) {
+            FighterWingSpecAPI fighterSpec = stack.getFighterWingSpecIfWing();
+            tier = fighterSpec.getTier();
+        }
+
+        if (tier >= 0) {
+            if (action == TransferAction.PLAYER_BUY) {
+                if (tier > 3) {
+                    return RepLevel.COOPERATIVE;
+                }
+                if (tier == 3) {
+                    return RepLevel.FRIENDLY;
+                }
+                if (tier == 2) {
+                    return RepLevel.FAVORABLE;
+                }
+                return RepLevel.NEUTRAL;
+            }
+            return RepLevel.VENGEFUL;
+        }
+        return RepLevel.VENGEFUL;
+    }
+
+
+    private RepLevel getNCARequiredLevelAssumingLegal(FleetMemberAPI member, TransferAction action) {
+        int tier = -1;
+        if (member.getHullSpec()  == null) return RepLevel.VENGEFUL;
+        switch (member.getHullSpec().getHullSize()) {
+            case CAPITAL_SHIP: tier = 4; break;
+            case FRIGATE: tier = 1; break;
+            case DESTROYER: tier = 2; break;
+            case CRUISER: tier = 3; break;
+            default: tier = 0; break;
+        }
+
+        if (tier >= 0) {
+            if (action == TransferAction.PLAYER_BUY) {
+                if (tier > 3) {
+                    return RepLevel.COOPERATIVE;
+                }
+                if (tier == 3) {
+                    return RepLevel.FRIENDLY;
+                }
+                if (tier == 2) {
+                    return RepLevel.WELCOMING;
+                }
+                if (tier == 1) {
+                    return RepLevel.FAVORABLE;
+                }
+                return RepLevel.NEUTRAL;
+            }
+            return RepLevel.VENGEFUL;
+        }
+        return RepLevel.VENGEFUL;
+    }
+
+
     private RepLevel getRequiredLevelAssumingLegal(CargoStackAPI stack, TransferAction action) {
         int tier = -1;
         boolean restricted = false;
@@ -213,7 +278,9 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
     @Override
     public boolean isIllegalOnSubmarket(CargoStackAPI stack, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(getRequiredLevelAssumingLegal(stack, action))) {
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        if (level.isAtWorst(getRequiredLevelAssumingLegal(stack, action))
+                || ncalevel.isAtWorst(getNCARequiredLevelAssumingLegal(stack, action))) {
             return action == TransferAction.PLAYER_SELL;
         }
         return true;
@@ -227,7 +294,10 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
     @Override
     public boolean isIllegalOnSubmarket(FleetMemberAPI member, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(getRequiredLevelAssumingLegal(member, action))) {
+
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        if (level.isAtWorst(getRequiredLevelAssumingLegal(member, action))
+                || ncalevel.isAtWorst(getNCARequiredLevelAssumingLegal(member, action))) {
             return action == TransferAction.PLAYER_SELL;
         }
         return true;
@@ -237,11 +307,14 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
     public String getIllegalTransferText(FleetMemberAPI member, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel minstanding = getRequiredLevelAssumingLegal(member, action);
-        if (level.isAtWorst(minstanding)) {
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        RepLevel minstandingca = getNCARequiredLevelAssumingLegal(member, action);
+        if (level.isAtWorst(minstanding) || ncalevel.isAtWorst(minstandingca)) {
             return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
         }
 
-        return "Requires: " + market.getFaction().getDisplayName() + " - "
+        return "Requires: " + market.getFaction().getDisplayName() + " OR "
+                + Global.getSector().getFaction("nightcross").getDisplayName() + " - "
                 + minstanding.getDisplayName().toLowerCase();
     }
 
@@ -249,11 +322,14 @@ public class NA_NightcrossAriaMarketPlugin extends BaseSubmarketPlugin {
     public String getIllegalTransferText(CargoStackAPI stack, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel minstanding = getRequiredLevelAssumingLegal(stack, action);
-        if (level.isAtWorst(minstanding)) {
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        RepLevel minstandingca = getNCARequiredLevelAssumingLegal(stack, action);
+        if (level.isAtWorst(minstanding) || ncalevel.isAtWorst(minstandingca)) {
             return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
         }
 
-        return "Requires: " + market.getFaction().getDisplayName() + " - "
+        return "Requires: " + market.getFaction().getDisplayName() + " OR "
+                + Global.getSector().getFaction("nightcross").getDisplayName() + " - "
                 + minstanding.getDisplayName().toLowerCase();
     }
     @Override

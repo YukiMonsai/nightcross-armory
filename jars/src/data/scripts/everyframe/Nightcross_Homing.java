@@ -10,6 +10,7 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.NAModPlugin;
 import data.scripts.NAUtils;
 import data.scripts.util.NAUtil;
+import data.scripts.weapons.NA_CorrosionListener;
 import org.lazywizard.lazylib.LazyLib;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -18,10 +19,8 @@ import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.plugins.MagicTrailPlugin;
 
 import java.awt.*;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
 
@@ -52,6 +51,12 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
 
     private CombatEngineAPI engine;
 
+    private final float TARGETTIME = 0.5f; // clear target matrix
+    private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME);
+
+
+    public HashMap<DamagingProjectileAPI, CombatEntityAPI> projtargets = new HashMap<>();
+
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
         if (engine == null) {
@@ -59,6 +64,12 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
         }
         if (engine.isPaused()) {
             return;
+        }
+
+        targetTimer.advance(amount);
+        if (targetTimer.intervalElapsed()) {
+            targetTimer.setElapsed(0);
+            projtargets = new HashMap<>();
         }
 
 
@@ -99,6 +110,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                     home_speed = PYROWISP_HOMING_SPEED;
                     vfactor = PYROWISP_HOMING_VFACTOR;
                     speed_reduction = spec == PYROWISP_LARGE_PROJ_ID ? 0f : PYROWISP_SPEED_FORCE_REDUCTION;
+                    requireTarget = true;
                     break;
                 case INTERCEPTOR_ID:
                     home_amount = 40f;
@@ -125,20 +137,30 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                     List<DamagingProjectileAPI> targets = NAUtils.getProjectilesWithinRange(testLoc, home_dist);
                     DamagingProjectileAPI selectedTarget = null;
                     float targetDist = 100000;
-                    for (int ii = 0; ii < targets.size(); ii++) {
-                        DamagingProjectileAPI tt = targets.get(ii);
-                        if ((tt instanceof MissileAPI) && (proj.getSource() == null ||
-                                (
-                                        // FF prevention
-                                        tt.getOwner() != proj.getSource().getOwner()
-                                ))) {
-                            float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
-                            if (dist < targetDist) {
-                                selectedTarget = tt;
-                                targetDist = dist;
+                    if (projtargets.containsKey(proj) && projtargets.get(proj) instanceof DamagingProjectileAPI) {
+                        float dd = MathUtils.getDistance(proj.getLocation(), projtargets.get(proj).getLocation());
+                        if (dd <= home_dist) {
+                            selectedTarget = (DamagingProjectileAPI) projtargets.get(proj);
+                            targetDist = 0;
+                        }
+                    }
+                    if (targetDist > 0) {
+                        for (int ii = 0; ii < targets.size(); ii++) {
+                            DamagingProjectileAPI tt = targets.get(ii);
+                            if ((tt instanceof MissileAPI) && (proj.getSource() == null ||
+                                    (
+                                            // FF prevention
+                                            tt.getOwner() != proj.getSource().getOwner()
+                                    ))) {
+                                float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
+                                if (dist < targetDist) {
+                                    selectedTarget = tt;
+                                    targetDist = dist;
+                                }
                             }
                         }
                     }
+
                     if (selectedTarget == null) {
                         // allow projectiles too
 
@@ -175,6 +197,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             home_amount *= speed / (speed_reduction + speed);
                         }
 
+                        projtargets.put(proj, selectedTarget);
 
                         Vector2f vecPush = MathUtils.getPointOnCircumference(
                                 ZERO,
@@ -196,20 +219,29 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                     List<ShipAPI> targets = NAUtils.getShipsWithinRange(testLoc, home_dist);
                     ShipAPI selectedTarget = null;
                     float targetDist = 100000;
-                    for (int ii = 0; ii < targets.size(); ii++) {
-                        ShipAPI tt = targets.get(ii);
-                        if (!tt.isFighter() && !tt.isHulk() && tt.isAlive() && (proj.getSource() == null ||
-                                (
-                                        // FF prevention
-                                        tt.getOwner() != proj.getSource().getOwner()
-                                )) && (!requireShield || (tt.getShield() != null && tt.getShield().isOn()))) {
-                            float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
-                            if (dist < targetDist) {
+                    if (projtargets.containsKey(proj) && projtargets.get(proj) instanceof ShipAPI) {
+                        float dd = MathUtils.getDistance(proj.getLocation(), projtargets.get(proj).getLocation());
+                        if (dd <= home_dist) {
+                            selectedTarget = (ShipAPI) projtargets.get(proj);
+                            targetDist = 0;
+                        }
+                    }
+                    if (targetDist > 0) {
+                        for (int ii = 0; ii < targets.size(); ii++) {
+                            ShipAPI tt = targets.get(ii);
+                            if (!tt.isFighter() && !tt.isHulk() && tt.isAlive() && (proj.getSource() == null ||
+                                    (
+                                            // FF prevention
+                                            tt.getOwner() != proj.getSource().getOwner()
+                                    )) && (!requireShield || (tt.getShield() != null && tt.getShield().isOn()))) {
+                                float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
+                                if (dist < targetDist) {
 
-                                Vector2f relativeLoc = new Vector2f(prloc.x - tt.getLocation().x, prloc.y - tt.getLocation().y);
-                                if (Vector2f.dot(prvel, relativeLoc) > 0) {
-                                    selectedTarget = tt;
-                                    targetDist = dist;
+                                    Vector2f relativeLoc = new Vector2f(prloc.x - tt.getLocation().x, prloc.y - tt.getLocation().y);
+                                    if (Vector2f.dot(prvel, relativeLoc) > 0) {
+                                        selectedTarget = tt;
+                                        targetDist = dist;
+                                    }
                                 }
                             }
                         }
@@ -251,6 +283,8 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             home_amount *= speed / (speed_reduction + speed);
                         }
 
+
+                        projtargets.put(proj, selectedTarget);
 
                         Vector2f vecPush = MathUtils.getPointOnCircumference(
                                 ZERO,

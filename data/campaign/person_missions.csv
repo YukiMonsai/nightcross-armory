@@ -1,0 +1,4 @@
+mission id,person id,tagsAll,tagsAny,tagsNotAny,tags,freq,min timeout,max timeout,min rep,max rep,importance,reqMissionAny,reqMissionAll,reqMissionNone,icon,plugin
+ncaproCom,,nightcross,"trade, underworld",,,10,30,60,INHOSPITABLE,,,,,,graphics/icons/missions/procurement.png,data.scripts.campaign.missions.NCAProcurementMission
+ncamcb,,nightcross,military,,priority,20,30,60,INHOSPITABLE,,,,,,graphics/icons/missions/military_bounty.png,data.scripts.campaign.missions.NCAMilitaryBounty
+"# note: if person id, tagsAll, tagsAny, and tagsNotAny are all blank, the mission will not be offered by any contact without specific scripting to make it so (via BeginMission, etc). Otherwise, the mission may be offered by any contact that meets the conditions specified by these columns.",,,,,,,,,,,,,,,,

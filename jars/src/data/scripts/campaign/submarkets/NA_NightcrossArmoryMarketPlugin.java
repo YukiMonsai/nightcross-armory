@@ -70,10 +70,12 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
 
     @Override
     public boolean isEnabled(CoreUIAPI ui) {
-        if (market.getFaction() != Global.getSector().getFaction("independent")) {
+        if (!Global.getSector().getPlayerFleet().isTransponderOn()) {
             return false;
         }
-        if (!Global.getSector().getPlayerFleet().isTransponderOn()) {
+        RepLevel ncalevel = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
+        if (ncalevel.isAtWorst(MIN_STANDING)) return true;
+        if (market.getFaction() != Global.getSector().getFaction("independent")) {
             return false;
         }
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
@@ -102,7 +104,7 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
                     0f, // utilityPts
                     null, // qualityOverride
                     quality, // qualityMod
-                    FactionAPI.ShipPickMode.PRIORITY_THEN_ALL,
+                    FactionAPI.ShipPickMode.PRIORITY_ONLY,
                     doctrineOverride);
 
             pruneWeapons(0f);
@@ -125,7 +127,8 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
 
             pickAndAddFighters(3,5, fpicker);
 
-            cargo.addHullmods("na_plasmaaggregator", 1);
+            if (!cargoAlreadyHasMod("na_plasmaaggregator"))
+                cargo.addHullmods("na_plasmaaggregator", 1);
 
             //addFighters(2, 3, 2, faction.getId());
 
@@ -202,6 +205,18 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
             case CRUISER: tier = 3; break;
             default: tier = 0; break;
         }
+        if (tier > 0) {
+
+            ShipHullSpecAPI spec = member.getHullSpec().getBaseHull();
+            if (spec == null) spec = member.getHullSpec();
+            if (spec != null) {
+
+                if (spec.hasTag("nightcross_bp_heavy") || spec.hasTag("nightcross_bp_fast"))
+                    tier -= 2; // common ships are easy to get
+                else if (!spec.hasTag("nightcross_bp_rare") && !spec.hasTag("nightcross_bp_restricted"))
+                    tier -= 1; // common ships are easy to get
+            }
+        }
 
         if (tier >= 0) {
             if (action == TransferAction.PLAYER_BUY) {
@@ -229,7 +244,7 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
     public boolean isIllegalOnSubmarket(CargoStackAPI stack, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel level_nightcross = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(getRequiredLevelAssumingLegal(stack, action)) || level_nightcross.isAtWorst(getRequiredLevelAssumingLegal(stack, action))) {
+        if (level_nightcross.isAtWorst(getRequiredLevelAssumingLegal(stack, action))) {
             return action == TransferAction.PLAYER_SELL;
         }
         return true;
@@ -244,7 +259,7 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
     public boolean isIllegalOnSubmarket(FleetMemberAPI member, TransferAction action) {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel level_nightcross = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(getRequiredLevelAssumingLegal(member, action)) || level_nightcross.isAtWorst(getRequiredLevelAssumingLegal(member, action))) {
+        if (level_nightcross.isAtWorst(getRequiredLevelAssumingLegal(member, action))) {
             return action == TransferAction.PLAYER_SELL;
         }
         return true;
@@ -255,11 +270,11 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel minstanding = getRequiredLevelAssumingLegal(member, action);
         RepLevel level_nightcross = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(minstanding) || level_nightcross.isAtWorst(minstanding)) {
+        if (level_nightcross.isAtWorst(minstanding)) {
             return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
         }
 
-        return "Requires: " + market.getFaction().getDisplayName() + " - "
+        return "Requires: " + Global.getSector().getFaction("nightcross").getDisplayName() + " - "
                 + minstanding.getDisplayName().toLowerCase();
     }
 
@@ -268,11 +283,11 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
         RepLevel level = market.getFaction().getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
         RepLevel minstanding = getRequiredLevelAssumingLegal(stack, action);
         RepLevel level_nightcross = Global.getSector().getFaction("nightcross").getRelationshipLevel(Global.getSector().getFaction(Factions.PLAYER));
-        if (level.isAtWorst(minstanding) || level_nightcross.isAtWorst(minstanding)) {
+        if (level_nightcross.isAtWorst(minstanding)) {
             return action != TransferAction.PLAYER_SELL ? "" : "No sales allowed.";
         }
 
-        return "Requires: " + market.getFaction().getDisplayName() + " - "
+        return "Requires: " + Global.getSector().getFaction("nightcross") + " - "
                 + minstanding.getDisplayName().toLowerCase();
     }
 

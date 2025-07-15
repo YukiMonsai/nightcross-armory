@@ -14,7 +14,7 @@
 		"glowSprite":"graphics/fx/engineglow32nightcross.png",
 		"glowOutline":"graphics/fx/engineflame32nightcross.png",
 		"omegaMode":false,
-		"glowSizeMult":1.1,
+		"glowSizeMult":0.7,
 		"engineColor":[75,125,255,255],
 		"glowAlternateColor":[45,75,255,255]
 		

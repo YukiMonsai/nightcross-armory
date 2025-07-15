@@ -165,7 +165,7 @@ public class NightcrossTargeting extends BaseHullMod {
 			arctimer.reset();
 			arctimer.remainingCount -= 1;
 
-			if (ship.getShield().isOff()) {
+			if (ship.getShield() == null || ship.getShield().isOff()) {
 				arctimer.remainingCount = 0;
 			} else {
 				float chance = 1f * (ARC_CHANCE_VISUAL_REPEAT);
@@ -238,7 +238,7 @@ public class NightcrossTargeting extends BaseHullMod {
 				particletimer.interval.advance(amount);
 			}
 
-			if (ship.getShield().isOn()) {
+			if (ship.getShield() != null && ship.getShield().isOn()) {
 				effectlevel.level = 0.5f;
 				data.reset((Float) mag.get(ship.getHullSize()));
 				float chance = 1f * (ARC_CHANCE_VISUAL * ship.getAllWeapons().size());
@@ -292,7 +292,7 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 			if (effectlevel.level > 0.01) {
-				if (ship.getShield().isOff()) {
+				if (ship.getShield() == null || ship.getShield().isOff()) {
 					data.interval.advance(amount);
 				} else {
 					data.reset((Float) mag.get(ship.getHullSize()));
@@ -336,7 +336,7 @@ public class NightcrossTargeting extends BaseHullMod {
 					}
 
 
-					if (chargesound.sound == null && ship.getShield().isOff()) {
+					if (chargesound.sound == null && (ship.getShield() == null || ship.getShield().isOff())) {
 						chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
 					}
 				}
@@ -358,6 +358,7 @@ public class NightcrossTargeting extends BaseHullMod {
 						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.IN_CRITICAL_DPS_DANGER) ||
 						ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.HAS_INCOMING_DAMAGE))) {
 					// Temporary AI modification to get the AI not to use shields while it's charging.
+
 					ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DO_NOT_USE_SHIELDS, (Float) mag.get(ship.getHullSize()));
 					shieldAI.holdShieldsOff = true;
 				}
@@ -365,7 +366,7 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 			} else {
-				if (ship.getShield().isOff()) {
+				if (ship.getShield() == null || ship.getShield().isOff()) {
 					effectlevel.level = 0.5f;
 				}
 				if (ship == player) {

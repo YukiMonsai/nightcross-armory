@@ -58,6 +58,13 @@
 	[
 		{"file":"sounds/wpn/na_chirppdfire.ogg","pitch":1.0,"volume":1.05},
 	],
+	
+	"na_hmg_shoot":
+	[
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.05,"volume":0.8},
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":0.95,"volume":0.8},
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.05,"volume":0.8},
+	],
 	# TREBLE CIWS
 	"ionflak":
 	[
@@ -74,9 +81,9 @@
 	# STUNPULSE
 	"stunpulse":
 	[
-		{"file":"sounds/wpn/stunpulse_01.ogg","pitch":1,"volume":0.5},
-		{"file":"sounds/wpn/stunpulse_02.ogg","pitch":1,"volume":0.5},
-		{"file":"sounds/wpn/stunpulse_03.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/stunpulse_01.ogg","pitch":1,"volume":0.4},
+		{"file":"sounds/wpn/stunpulse_02.ogg","pitch":1,"volume":0.4},
+		{"file":"sounds/wpn/stunpulse_03.ogg","pitch":1,"volume":0.4},
 	],
 	# HARDLIGHT RIFLE
 	
@@ -265,7 +272,55 @@
 	
 	
 	
+	"explosion_ship":{ # when a fighter or ship explodes
+		"NIGHTCROSSHULL":{"sounds":[0,1,2,3], "pitch":1.2, "volume":1},
+	},
 	
+#collapseopen ENGINES	
+	# Engines
+	# played when engines are being used - depending on ship style and size
+	# For example - a "new" frigate would play the third sound listed, at volume 0.6
+
+	"engine_loop":{
+		"NIGHTCROSSHULL":{"sounds":[10,11,12,13,14], "pitch":1, "volume":0.5},
+		},
+	
+
+
+	"engine_accelerate":{ # played when ship receives an "engine boost" from having zero flux 
+		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":1},
+	},
+
+#collapseclose
+
+#collapseopen SHIELDS
+	
+	# Shields and related
+	"shield_burnout":{ # played when a ship overloads
+		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+	},
+	"emp_loop":{ # played to accompany the lighning arcs displayed when a ship is overloaded
+		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+	},
+
+	"flux_loop":{ # played while a ship is venting flux
+		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+	},	
+
+	"vent_flux":{ # played once when a ship starts venting flux
+		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},	
+	},	
+	
+	# Similar setup to engine loop - defines which of the two sounds to use, and
+	# what pitch/volume to use them at, depending on ship style and size
+	"shield_lower":{
+		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+	},
+	"shield_raise":{
+		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+	},
+
+#collapseclose
 	
 
 }

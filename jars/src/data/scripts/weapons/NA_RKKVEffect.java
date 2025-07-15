@@ -15,8 +15,8 @@ import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 
 public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
 
-    public static float DAMAGE_MULT_PER_SPEED = 1f/2000f;
-    public static float DAMAGE_MAX_MULT = 1;
+    public static float DAMAGE_MULT_PER_SPEED = 1f/1300f;
+    public static float DAMAGE_MAX_MULT = 1.25f;
     public static float DAMAGE_MIN = 0.1f;
 
     protected String weaponId = null;

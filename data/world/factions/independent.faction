@@ -7,8 +7,9 @@
 			"na_sop":0.2, #rare
 			"na_mare":0.2, #rare
 			"na_macula":0.1, #rare
-			"na_fossa":0.1, #rare
-			"na_kasei":0.1, #rare
+			"na_fossa":0.15, #rare
+			"na_kasei":0.3,
+			"na_kasei_x":0.05, #rare
         },
     },
 	
@@ -20,6 +21,7 @@
             "na_mare",	
 			"na_fossa", #rare
 			"na_kasei", #rare
+			"na_kasei_x", #rare
         ],
     },
 },

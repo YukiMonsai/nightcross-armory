@@ -151,9 +151,9 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
             mult *= ship.getMutableStats().getMissileWeaponDamageMult().getModifiedValue();
         }
         if (target instanceof ShipAPI) {
-            ((ShipAPI) ship).getFluxTracker().setHardFlux(Math.min(
-                    ((ShipAPI) ship).getFluxTracker().getMaxFlux(),
-                    ((ShipAPI) ship).getFluxTracker().getHardFlux() + ADD_FLUX*mult
+            ((ShipAPI) target).getFluxTracker().setHardFlux(Math.min(
+                    ((ShipAPI) target).getFluxTracker().getMaxFlux(),
+                    ((ShipAPI) target).getFluxTracker().getHardFlux() + ADD_FLUX*mult
             ));
         }
         if (piercing) Global.getCombatEngine().spawnEmpArcPierceShields(projectile.getSource(),

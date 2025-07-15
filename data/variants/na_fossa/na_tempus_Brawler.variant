@@ -1,0 +1,41 @@
+{
+  "variantId": "na_tempus_brawler",
+  "hullId": "na_tempus",
+  "displayName": "Brawler",
+  "goalVariant": true,
+  "fluxCapacitors": 17,
+  "fluxVents": 23,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "heavyblaster",
+        "WS0003": "heavyblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "lightdualmg",
+        "WS0016": "lightdualmg",
+        "WS0017": "lightdualmg",
+        "WS0018": "lightdualmg",
+        "WS0019": "lightdualmg",
+        "WS0020": "lightdualmg",
+        "WS0022": "vulcan",
+        "WS0023": "vulcan",
+        "WS0028": "na_interceptor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

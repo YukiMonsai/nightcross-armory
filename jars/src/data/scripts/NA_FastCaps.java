@@ -172,6 +172,11 @@ public class NA_FastCaps extends BaseShipSystemScript {
             stats.getEnergyWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
             stats.getBallisticWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
 
+        } else if (state == State.COOLDOWN) {
+            float cdleft = 1f - ship.getSystem().getCooldownRemaining()/Math.max(1, ship.getSystem().getCooldown());
+            stats.getEnergyWeaponRangeBonus().modifyPercent(DMG_ID + "passive", cdleft * PASSIVE_BOOST);
+            stats.getBallisticWeaponRangeBonus().modifyPercent(DMG_ID + "passive", cdleft * PASSIVE_BOOST);
+
         }
 
         if (state == State.IDLE && !playedCooledDown) {
@@ -209,7 +214,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
         }
 
         if (listener != null) {
-            listener.effectLevel = effectLevel;
+            listener.effectLevel = (state == State.OUT ? effectLevel : Math.max(effectLevel, 0.4f));
         }
         if (dmglistener != null) {
             dmglistener.effectLevel = effectLevel;
@@ -245,8 +250,9 @@ public class NA_FastCaps extends BaseShipSystemScript {
                 w.setGlowAmount(effectLevel, glowColor);
 
                 if (!w.isBeam() || w.isBurstBeam()) {
-                    if (w.getCooldownRemaining() > 0)
+                    if (w.getCooldownRemaining() > 0 && !w.isInBurst()) {
                         w.setRemainingCooldownTo(Math.max(0, w.getCooldownRemaining() - ROF_BOOST * time));
+                    }
                 }
 
                 if (beamTimer.intervalElapsed() && Math.random() < 0.5) {

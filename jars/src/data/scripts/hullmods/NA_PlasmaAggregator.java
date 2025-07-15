@@ -19,6 +19,7 @@ import java.util.Map;
 
 public class NA_PlasmaAggregator extends BaseHullMod {
 	public static final float ROF_BOOST = 0.25f;
+	public static final float SMOD_REGEN_BONUS = 30f;
 	public static final float FLUX_RED = 20f;
 
 	private String ID = "NA_PlasmaAgg";
@@ -36,10 +37,23 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 		return null;
 	}
 
+
+	public String getSModDescriptionParam(int index, HullSize hullSize) {
+		//if (index == 0) return "" + (int) SMOD_AMMO_BONUS + "%";
+		if (index == 0) return "" + (int) SMOD_REGEN_BONUS + "%";
+		return null;
+	}
+
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		//stats.getBallisticWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getMissileRoFMult().modifyMult(ID, ROF_PENALTY);
+
+
+		boolean sMod = isSMod(stats);
+		if (sMod) {
+			stats.getEnergyAmmoRegenMult().modifyPercent(id, SMOD_REGEN_BONUS);
+		}
 	}
 
 	@Override
@@ -158,7 +172,10 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 		return weapon != null
 				&& weapon.getSlot().getWeaponType() == WeaponAPI.WeaponType.SYNERGY
 				&& (weapon.getSpec().getType() == WeaponAPI.WeaponType.ENERGY
-					|| weapon.getType() == WeaponAPI.WeaponType.ENERGY);
+					|| weapon.getType() == WeaponAPI.WeaponType.ENERGY)
+				&& !(weapon.getSpec().getType() == WeaponAPI.WeaponType.SYNERGY
+					|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
+					|| weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY);
 	}
 
 

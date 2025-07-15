@@ -1,0 +1,16 @@
+{
+	"id":"na_hmg_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC_AS_BEAM",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"length":65.0,
+	"hitGlowRadius":25,
+	"width":5,
+	"fadeTime":0.3,
+	"fringeColor":[230,200,255,200],
+	"coreColor":[225,255,255,250],
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/shell_small.png"
+}

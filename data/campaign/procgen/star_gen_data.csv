@@ -1,2 +1,2 @@
 id,age,tags,freqYOUNG,freqAVERAGE,freqOLD,minRadius,maxRadius,habZoneStart,probOrbits,minOrbits,maxOrbits,coronaMin,coronaMult,coronaVar,solarWind,minFlare,maxFlare,crLossMult,lightColorMin,lightColorMax
-star_rayet,YOUNG,,5,3,1,650,750,5,0.95,4,10,400,1,0.5,10,3,6,6,255180140,255240200
+star_rayet,YOUNG,,5,3,1,850,1000,5,0.95,4,10,400,1,0.5,10,3,6,6,255180140,255240200

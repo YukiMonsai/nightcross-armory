@@ -79,7 +79,7 @@ public class NA_HardlightMatrix extends BaseHullMod {
 			}
 
 			ship.setJitterUnder(
-					ship, new Color(140, 175, 255), bonuses > 1 ? 0.8f : 0.4f, 3, 24f
+					ship, new Color(140, 175, 255), bonuses > 1 ? 0.8f : 0.4f, 3, 15f
 			);
 
 		} else {

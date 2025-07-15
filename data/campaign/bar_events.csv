@@ -1,0 +1,3 @@
+bar event id,tags,freq,prob,min dur,max dur,min timeout,max timeout,min accepted timeout,max accepted timeout,plugin
+ncaproCom,,25,1,30,40,15,20,60,90,data.scripts.campaign.missions.NCAProcurementMission
+ncamcb,,20,1,30,40,15,20,60,90,data.scripts.campaign.missions.NCAMilitaryBounty

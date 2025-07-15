@@ -2,6 +2,7 @@
   "id": "na_interceptor",
   "specClass": "projectile",
   "projectileSpecId": "na_interceptor_shot",
+  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon2",
 	"type": "MISSILE",
 	"mountTypeOverride": "SYNERGY",
   "size": "MEDIUM",

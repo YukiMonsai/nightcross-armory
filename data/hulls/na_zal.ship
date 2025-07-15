@@ -1,0 +1,218 @@
+{
+  "hullName": "Zal Patera",
+  "hullId": "na_zal",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/na/zalpatera/na_zal.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 112,
+  "width": 112,
+  "center": [56, 56],
+  "collisionRadius": 63.5,
+  "shieldCenter": [-0, -0],
+  "shieldRadius": 58,
+  "viewOffset": 0,
+  "builtInMods": [
+    "nightcrosstargeting",
+    "nightcrossengines",
+    "na_rcs",
+    "missleracks"
+  ],
+  "builtInWeapons": {
+    "CENTER": "na_zal_deco",
+    "WS0005": "blinker_na_cyan",
+    "WS0007": "blinker_na_cyan",
+    "WS0008": "blinker_na_red",
+    "WS0009": "na_reactor",
+    "WS0010": "blinker_na_red",
+    "WS0011": "blinker_na_cyan",
+    "WS0012": "blinker_na_cyan",
+    "WS0014": "blinker_na_red",
+    "WS0015": "blinker_na_red"
+  },
+  "weaponSlots": [
+    {
+      "id": "CENTER",
+      "size": "MEDIUM",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [-28, -0],
+      "renderOrderMod": 100
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [0.5, 41]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [6.5, -33]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-6, 41]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-4, -33]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [23.5, -12]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [10.5, -22]
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 225,
+      "angle": 0,
+      "locations": [-3.5, -0]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-30, 26.5]
+    },
+    {
+      "id": "WS0010",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-30, -26.5]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-15.5, 26.5]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-15.5, -26.5]
+    },
+    {
+      "id": "WS0006",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [23, 8]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [28, 18],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 109,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [28, -20.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -109,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [-35.5, 14],
+      "length": 78.5,
+      "width": 20,
+      "angle": 180,
+      "contrailSize": 20,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-35.5, -14],
+      "length": 78.5,
+      "width": 20,
+      "angle": -180,
+      "contrailSize": 20,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-23.5, 30.5],
+      "length": 35.449268,
+      "width": 9.919544,
+      "angle": 64.5,
+      "contrailSize": 9.919544,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [-23.5, -30.5],
+      "length": 35.449268,
+      "width": 9.919544,
+      "angle": -64.5,
+      "contrailSize": 9.919544,
+      "style": "NIGHTCROSS_SEC"
+    }
+  ],
+  "bounds": [
+    31, -14,
+    19, -27,
+    -10.5, -16.5,
+    -17.5, -26.5,
+    -24.5, -27.5,
+    -35.5, -20,
+    -37.5, -4,
+    -37.5, 4,
+    -35.5, 20,
+    -24.5, 27.5,
+    -17.5, 26.5,
+    -2.5, 15.5,
+    7, 23.5,
+    32.5, 15
+  ]
+}

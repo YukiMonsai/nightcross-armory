@@ -50,6 +50,7 @@ na_mare,ship,,1,normal,graphics/maps/na_mare_normal.png
 na_mare_proto,ship,,1,normal,graphics/maps/na_mare_normal.png
 na_kasei_x,ship,,1,normal,graphics/maps/na_kasei_normal.png
 na_kasei,ship,,1,normal,graphics/maps/na_kasei_normal.png
+na_zal,ship,,1,normal,graphics/maps/na_zal_normal.png
 na_sop,ship,,1,normal,graphics/maps/na_sop_normal.png
 na_sop_proto,ship,,1,normal,graphics/maps/na_sop_proto_normal.png
 na_fossa,ship,,1,normal,graphics/maps/na_fossa_normal.png
@@ -60,6 +61,7 @@ na_hardlightgenerator,hardpoint,,1,normal,graphics/maps/hardlight_generator_norm
 na_losulci,ship,,1,normal,graphics/maps/losulci_normal.png
 na_losulci_deco,hardpoint,,1,normal,graphics/maps/losulci_deco_normal.png
 na_kasei_deco,hardpoint,,1,normal,graphics/maps/na_kasei_deco_normal.png
+na_zal_deco,hardpoint,,1,normal,graphics/maps/na_zal_deco_normal.png
 na_fossa_deco,hardpoint,,1,normal,graphics/maps/na_fossa_deco_normal.png
 na_fossa_frontL,hardpoint,,1,normal,graphics/maps/na_fossa_frontL_normal.png
 na_fossa_frontR,hardpoint,,1,normal,graphics/maps/na_fossa_frontR_normal.png

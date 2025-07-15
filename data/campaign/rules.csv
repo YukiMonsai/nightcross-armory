@@ -1,5 +1,191 @@
 id,trigger,conditions,script,text,options,notes
 #RULESET_NAME YUKIM,,,,,,
+NCACBThreat,NCACBThreatOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe taps on one of the entries to enlarge the report, pressing a thumb against a biometric scanner several times to dismiss security popups all over the page.
+
+""This one requires a bit of discretion,"" $personFirstName stares at you.
+""High-energy events detected near the Orion-Persean abyss, $bcb_dist light-years away."" $HeOrShe carries a bleak expression. ""Word is that Tri-Tachyon stumbled upon something real interesting out there. Some kind of... Threat.""
+
+The $rank looks around warily.
+
+""Looks like they hired a whole merc armada to check it out. Based on what we know, they never made it back.
+The reward is $bcb_reward credits and you'd have $bcb_days days to go there and find what they were looking for. Make sure none of this gets out to the wider public. You in?""",,
+# nca custom military bounty,,,,,,
+ncamcbBlurb,ncamcb_blurb,,,"""Some new targets have come up on the docket,"" $heOrShe says with a sigh. ""If you took a contract to handle one of these bounties, it might just get the brass off my case.""",,
+ncamcbOfferOption,ncamcb_option,,,,ncamcb_start:Ask about what's available on the bounty docket,
+ncamcbBlurbBar,ncamcb_blurbBar,,,A military officer is holding court at one of the nicer tables; you watch a merc captain approach for a perfunctory exchange of words and mutual tap of datapads. They appear to be acting as some kind of system patrol liaison contracting out bounties.,,
+ncamcbOfferOptionBar,ncamcb_optionBar,,,,ncamcb_startBar:Talk to the corporate $ncamcb_manOrWoman offering bounties.,
+ncamcbOfferTextContact,DialogOptionSelected,$option == ncamcb_start,"$missionId = ncamcb
+$option = ncamcb_showOptions 0
+FireBest DialogOptionSelected",ncamcb_startBar:Talk to the corporate $ncamcb_manOrWoman offering bounties.,,
+ncamcbOfferTextBar,DialogOptionSelected,$option == ncamcb_startBar,"$missionId = ncamcb
+$option = ncamcb_showOptionsBar 0
+FireBest DialogOptionSelected","You approach and the $rank $personLastName gives you a perfunctory nod. ""Captain,"" $heOrShe says, all business.
+
+The officer's branded water bottle indicates an affiliation with Nightcross Armory Corporation, a ship and arms dealer operating out of the Pascal system.
+
+""I have several contracts available. The usual broken deals, stolen assets, unfinished business...""
+An iced coffee, drizzled with caramel, sits slowly melting on the counter. ""What can you handle?""",,
+ncamcbLowSel,DialogOptionSelected,$option == ncamcb_low,"$ncamcb_difficulty = LOW 0
+FireBest ncaMCBShowBounty",,,
+ncamcbNormalSel,DialogOptionSelected,$option == ncamcb_normal,"$ncamcb_difficulty = NORMAL 0
+FireBest ncaMCBShowBounty",,,
+ncamcbHighSel,DialogOptionSelected,$option == ncamcb_high,"$ncamcb_difficulty = HIGH 0
+FireBest ncaMCBShowBounty",,,
+ncaMCBShowBounty,ncaMCBShowBounty,,Call $ncamcb_ref showBountyDetail,,ncamcb_showIntel:Continue,
+ncaMCBShowBountyShowShips,DialogOptionSelected,$option == ncamcb_showIntel,Call $ncamcb_ref showBountyAssessment,,"contact_accept:Accept
+contact_decline:Decline
+ncamcb_showOptions:Ask about one of the other targets",
+ncaMCBShowBountyBar,ncaMCBShowBounty,$ncamcb_barEvent,Call $ncamcb_ref showBountyDetail,,ncamcb_showIntelBar:Continue,
+ncaMCBShowBountyShowShipsBar,DialogOptionSelected,$option == ncamcb_showIntelBar,Call $ncamcb_ref showBountyAssessment,,"contact_acceptBar:Accept
+contact_declineBarNoContinue:Decline
+ncamcb_showOptionsBar:Ask about one of the other targets",
+ncamcbGoBackSel,DialogOptionSelected,$option == ncamcb_showOptions,"# removes map
+ShowPersonVisual",,"ncamcb_low:""I'd prefer a more manageable target.""
+ncamcb_normal:""Whatever you've got works for me.""
+ncamcb_high:""I can handle a more challenging target.""
+contact_decline:""Maybe another time."" (decline)",
+ncamcbGoBackBarSel,DialogOptionSelected,$option == ncamcb_showOptionsBar,"# removes map
+ShowPersonVisual",,"ncamcb_low:""I'd prefer a more manageable target.""
+ncamcb_normal:""Whatever you've got works for me.""
+ncamcb_high:""I can handle a more challenging target.""
+contact_declineBarNoContinue:""Maybe another time."" (decline)",
+# commodity procurement,,,,,,
+ncaproComBlurb,ncaproCom_blurb,,,"""I need to procure a quantity of $ncaproCom_commodityName.""
+OR
+""I require delivery of a cargo of $ncaproCom_commodityName.""
+OR
+""I need a shipment of $ncaproCom_commodityName.""",,
+ncaproComBlurbAristo,ncaproCom_blurb,$voice == aristo,,"""The family decided that I must 'demonstrate initiative' by procuring a cargo of $ncaproCom_commodityName. Perhaps I could pay you to solve this little conundrum.""",,
+ncaproComOfferOption,ncaproCom_option,,,,ncaproCom_start:Ask about the $ncaproCom_commodityName procurement,
+ncaproComBlurbBar,ncaproCom_blurbBar,,,A handful of commodity traders downing caffeine-spiked drinks seems to be giving a Nightcross Armory Corporation $ncaproCom_manOrWoman some disappointing news.,,
+ncaproComBlurbBarUnderworld,ncaproCom_blurbBar,$ncaproCom_underworld,,A pack of seedy-looking traders passing around a narco-stick seem to give a Nightcross Armory Corporation $ncaproCom_manOrWoman disappointing news.,,
+ncaproComOfferOptionBar,ncaproCom_optionBar,,,,ncaproCom_startBar:Talk to the corporate $ncaproCom_manOrWoman thrumming $ncaproCom_hisOrHer fingers on a datapad.,
+ncaproComOfferOptionBarUnderworld,ncaproCom_optionBar,$ncaproCom_underworld,,,ncaproCom_startBar:Talk to the $ncaproCom_manOrWoman looking dead inside.,
+ncaproComOfferBeginBar,DialogOptionSelected,$option == ncaproCom_startBar,"$missionId = ncaproCom
+FireBest ncaProComOfferText",,"contact_acceptBar:Accept
+contact_declineBarNoContinue:Decline",
+ncaproComOfferBegin,DialogOptionSelected,$option == ncaproCom_start,"$missionId = ncaproCom
+FireBest ncaProComOfferText",,"contact_accept:Accept
+contact_decline:Decline",
+ncaproComTextLocal,ncaProComOfferText,"$ncaproCom_variation == LOCAL
+!$ncaproCom_barEvent",SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit,"""I require $ncaproCom_quantity units of $ncaproCom_commodityName delivered here as soon as possible. It's a rush job so I'll pay over market value, $ncaproCom_pricePerUnit per unit.""",,
+ncaproComTextLocalUnderworld,ncaProComOfferText,"$ncaproCom_variation == LOCAL
+!$ncaproCom_barEvent
+$ncaproCom_underworld",SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit,"""I need $ncaproCom_quantity units of $ncaproCom_commodityName delivered right here as soon as possible. I don't care where it comes from or how it gets done, so long as it gets here.""
+
+""Because I appreciate your... efficiency, let's call it, I'm willing to pay you a generous $ncaproCom_pricePerUnit per unit. Agreed?""",,
+ncaproComTextRemote,ncaProComOfferText,"$ncaproCom_variation == REMOTE
+!$ncaproCom_barEvent","SetTextHighlights $ncaproCom_quantity $ncaproCom_dist $ncaproCom_pricePerUnit $ncaproCom_totalPrice
+Call $ncaproCom_ref showMap ""Destination: $ncaproCom_marketName""","""I need $ncaproCom_quantity units of $ncaproCom_commodityName delivered to $ncaproCom_marketName - that's $ncaproCom_dist light-years away. Due to the importance of this shipment, I'll ensure that you're paid $ncaproCom_pricePerUnit per unit, which makes for a total of $ncaproCom_totalPrice credits.""
+
+""$ncaproCom_PersonPost $ncaproCom_personName will receive the shipment from you $ncaproCom_marketOnOrAt $ncaproCom_marketName and deliver payment upon completion.""",,
+ncaproComTextRemoteUnderworld,ncaProComOfferText,"$ncaproCom_variation == REMOTE
+!$ncaproCom_barEvent
+$ncaproCom_underworld","SetTextHighlights $ncaproCom_quantity $ncaproCom_dist $ncaproCom_pricePerUnit $ncaproCom_totalPrice
+Call $ncaproCom_ref showMap ""Destination: $ncaproCom_marketName""","""I need $ncaproCom_quantity units of $ncaproCom_commodityName delivered to $ncaproCom_marketName - that's $ncaproCom_dist light-years away. I don't care who you have to shoot to make it happen so long as it gets there.""
+
+""Call it $ncaproCom_pricePerUnit per unit. That makes $ncaproCom_totalPrice total, because I know that you'll do what it takes to get it done. You'll need to talk to my, ah, associate, $ncaproCom_personPost $ncaproCom_personName to make the delivery and receive payment. And there's no need to mention my name.""",,
+ncaproComTextLocalBar,ncaProComOfferText,"$ncaproCom_variation == LOCAL score:10
+$ncaproCom_barEvent",SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit,"$HeOrShe looks up with a flicker of hope as you approach, ""You're a starship captain, right?""
+
+The trader's branded water bottle indicates an affiliation with Nightcross Armory Corporation, a ship and arms dealer operating out of the Pascal system.
+
+$HeOrShe sighs, and taps at a TriPad, ""I need to get $ncaproCom_quantity units of $ncaproCom_commodityName delivered here as soon as possible. It's very important. I'll even pay above market rates, $ncaproCom_pricePerUnit credits per unit. Is this something you could do?""
+OR
+$HeOrShe looks up from $hisOrHer TriPad, brow creased. ""Perhaps you can help. Your $shipOrFleet just arrived, did it not?"" $HeOrShe holds up a hand, ""Hear me out, it'll just be a moment. I need $ncaproCom_quantity units of $ncaproCom_commodityName as soon as possible, and I'll pay above market price, $ncaproCom_pricePerUnit credits per unit. Are you interested?""
+OR
+$HeOrShe interrupts your attempt at a greeting with a quick wave, ""I'm sorry, captain, is it? I don't mean to be abrupt, but I really need to secure a delivery of $ncaproCom_quantity units of $ncaproCom_commodityName as soon as possible."" 
+
+$HeOrShe hesitates, sighs, then says ""I'm willing to pay above market value, $ncaproCom_pricePerUnit per unit. If you're interested.""",,
+ncaproComTextLocalBarUnderworld,ncaProComOfferText,"$ncaproCom_variation == LOCAL score:10
+$ncaproCom_barEvent
+$ncaproCom_underworld",SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit,"$HeOrShe brushes off $hisOrHer coat, muttering ""They don't know who they've-"" then smiles suddenly as you approach. 
+
+The trader's branded water bottle indicates an affiliation with Nightcross Armory Corporation, an arms dealer operating out of the Pascal system.
+
+""Finally, someone reasonable."" $HeOrShe pulls you aside as if you're old business partners, and says quietly ""I'm looking for $ncaproCom_quantity units of $ncaproCom_commodityName. Delivered here, as soon as possible, don't care how it gets done so long as it gets done, understand? I'm willing to pay $ncaproCom_pricePerUnit per unit, isn't that generous? It's because I respect what you're capable of."" 
+
+$HeOrShe rolls $hisOrHer eyes at the group nearby, shrugging with one shoulder ""Some people, they have no respect. They'll learn. What do you say?""",,
+ncaproComTextRemoteBar,ncaProComOfferText,"$ncaproCom_variation == REMOTE score:10
+$ncaproCom_barEvent","SetTextHighlights $ncaproCom_quantity $ncaproCom_dist $ncaproCom_pricePerUnit $ncaproCom_totalPrice
+Call $ncaproCom_ref showMap ""Destination: $ncaproCom_marketName""","$HeOrShe looks up with a flicker of hope as you approach, ""You're a starship captain, right?""
+
+The trader's branded water bottle indicates an affiliation with Nightcross Armory Corporation, a ship and arms dealer operating out of the Pascal system.
+
+$HeOrShe taps at a TriPad, ""I need $ncaproCom_quantity units of $ncaproCom_commodityName delivered to $ncaproCom_marketName, $ncaproCom_dist light-years away. You'd be paid above market rates, $ncaproCom_pricePerUnit per unit for $ncaproCom_totalPrice total on delivery to $ncaproCom_personPost $ncaproCom_personName. Are you interested?""",,"#$HeOrShe looks up from $hisOrHer TriPad as you approach, and says ""Maybe you can help. Your $shipOrFleet just arrived, right?"" $HeOrShe holds up a hand, ""Hear me out, it'll be quick. I need someone to ship $ncaproCom_quantity units of $ncaproCom_commodityName. It's a delivery job, and you'd be paid above market prices, $ncaproCom_pricePerUnit per unit, or $ncaproCom_totalPrice total, to ship the cargo to $ncaproCom_personPost $ncaproCom_personName $ncaproCom_marketOnOrAt $ncaproCom_marketName, which is $ncaproCom_dist light-years away.""
+
+$HeOrShe takes a breath, then asks ""Can you do it?"""
+ncaProComOfferText,ProComOfferText,"$ncaproCom_variation == REMOTE score:10
+$ncaproCom_barEvent
+$ncaproCom_underworld","SetTextHighlights $ncaproCom_quantity $ncaproCom_dist $ncaproCom_pricePerUnit $ncaproCom_totalPrice
+Call $ncaproCom_ref showMap ""Destination: $ncaproCom_marketName""","You approach the $manOrWoman as $heOrShe glares icily, muttering ""-big mistake,"" then turns to you with a cool smile. ""Ah, captain."" $HisOrHer eye twitches, the tell of a black market ocular implant, ""Your $shipOrFleet just arrived, yes? Let's talk."" 
+
+The trader's branded water bottle indicates an affiliation with Nightcross Armory Corporation, an arms dealer operating out of the Pascal system.
+
+$HeOrShe raises two fingers at the bartender, ""I need $ncaproCom_quantity units of $ncaproCom_commodityName delivered to $ncaproCom_marketName. $ncaproCom_dist light-years away. I won't ask or answer any questions. It's full payment above market rate- $ncaproCom_pricePerUnit per unit, for $ncaproCom_totalPrice total on delivery to the contact,  $ncaproCom_personName. They'll pay. And don't mention my name.""
+
+$HisOrHer cool smile returns just as the bartender arrives with two small, potent drinks. ""Do we have a deal?""",,
+ncaproComDeliverGreetingNotEnough,PickGreeting,"$ncaproCom_needsCommodity score:1000
+Call $ncaproCom_ref updateData
+!$ncaproCom_playerHasEnough","ShowPersonVisual
+SetTextHighlights $ncaproCom_quantity
+FireAll PopulateOptions","""Yes, hello."" $HeOrShe appears to be busy browsing a shipping manifest on an adjacent display, ""I'm expecting a cargo of $ncaproCom_quantity units of $ncaproCom_commodityName. To be paid for,"" $hisOrHer eyes turn to you. ""Upon delivery. In full.""
+OR
+""I'm expecting a delivery of $ncaproCom_commodityName, $ncaproCom_quantity units, exact."" $HeOrShe idly reads from a datapad. ""That's the deal.""",,
+ncaproComDeliverGreetingNotEnoughUW,PickGreeting,"$ncaproCom_needsCommodity score:1000
+Call $ncaproCom_ref updateData
+!$ncaproCom_playerHasEnough
+$ncaproCom_underworld","ShowPersonVisual
+SetTextHighlights $ncaproCom_quantity
+FireAll PopulateOptions","""You're here to deliver $ncaproCom_quantity units of $ncaproCom_commodityName? This manifest says you can't fulfill the shipment.""
+
+$HeOrShe drops the datapad to $hisOrHer desk with, you sense, more force than necessary. 
+
+""So why are you here?"" $heOrShe asks.
+OR
+""I'm expecting a cargo of exactly $ncaproCom_quantity units of $ncaproCom_commodityName."" $HeOrShe says, reading from a datapad. ""Delivery in full."" $HeOrShe looks up, finally, ""That's the deal.""",,
+ncaproComDeliverGreeting,PickGreeting,"$ncaproCom_needsCommodity score:1000
+Call $ncaproCom_ref updateData
+$ncaproCom_playerHasEnough","ShowPersonVisual
+SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit","""Ah, you must be $playerName. We've been expecting you."" $personName reads a datapad, ""And I believe- yes, it says here you're delivering $ncaproCom_quantity units of $ncaproCom_commodityName. Is that correct?""","ncaproCom_deliver:Deliver the $ncaproCom_commodityName
+cutCommLink:Cut the comm link",
+ncaproComDeliverGreetingUnderworld,PickGreeting,"$ncaproCom_needsCommodity score:1000
+Call $ncaproCom_ref updateData
+$ncaproCom_playerHasEnough
+$ncaproCom_underworld","ShowPersonVisual
+SetTextHighlights $ncaproCom_quantity $ncaproCom_pricePerUnit","$personName looks you over nervously. ""You have the goods. And they're ready to be offloaded - as agreed, $ncaproCom_quantity units at $ncaproCom_pricePerUnit per?""
+OR
+$personName eyes you suspiciously, ""You're $playerName? I thought you'd look different."" $HisOrHer eyes flick over to a secondary display, ""It says here you've got the cargo, all $ncaproCom_quantity units. We'll go ahead with the agreed $ncaproCom_pricePerUnit per unit. I'll provide you with a drop-off point.""","ncaproCom_deliver:Deliver the $ncaproCom_commodityName
+cutCommLink:Cut the comm link",
+ncaproComDeliverOptionSel,DialogOptionSelected,$option == ncaproCom_deliver,"FireBest ncaProComCompletedText
+AddCommodity credits $ncaproCom_totalPrice
+RemoveCommodity $ncaproCom_commodityId $ncaproCom_quantity
+$ncaproCom_completed = true
+Call $ncaproCom_ref updateStage
+FireAll PopulateOptions",,,
+ncaproComDeliverCompleted,ncaProComCompletedText,,,"""Thank you, this cargo of $ncaproCom_commodityName is more important than you might think.""
+OR
+""I knew we could count on you. Thank you for the shipment.""
+OR
+""Good work, you've really saved us a lot of trouble.""
+OR
+""This was handled perfectly, captain. I'll be sure to put in a good word for you.""",,
+ncaproComDeliverCompletedUnderworld,ncaProComCompletedText,$ncaproCom_underworld,,"$HeOrShe nods, ""The boss will be pleased.""
+OR
+""Good. Very good,"" $heOrShe looks more relieved than the situation calls for. ""You have no idea how important this was.""
+OR
+""Okay, it's done."" $HeOrShe seems to key in some kind of confirmation on an off-brand datapad, then looks back up at you. ""This never happened.""",,
+# encounter at some point after accepting the ncaproCom mission,,,,,,
+NCAPROCOMMercHail,NCAPROCOMMercHail,,$entity.ignorePlayerCommRequests = true,"The mercenary $personRank smiles as the feed comes on.
+""Ah good, I was worried you'd never show up. Now then, we have some business to attend to regarding a $ncaproCom_commodityName shipment you've taken on.""
+
+The feed disappears into static as your sensors officer intercepts a standard electronic warfare package. ""Incoming, Captain!""","cutCommLink2:""Just business, I see.""
+cutCommLink:Say nothing",
+NCAPROCOMTTHail,NCAPROCOMTTHail,,$entity.ignorePlayerCommRequests = true,"""Hello, Captain."" the $personRank looks at you with a smile graced by subtle facial augs. ""I'm here to inform you about an certain agreement regarding a $ncaproCom_commodityName procurement contract you've taken on. An agreement which the contract owner has violated, warranting immediate enforcement action which of course applies to you as a contract holder. Nothing personal.""
+
+The feed cuts to a series of Tri-Tachyon legal disclaimers on repeat.","cutCommLink2:""Nothing personal indeed."" (Power up weapons)
+cutCommLink:Say nothing",
+,,,,,,
 ,,,,,,
 #RED MASK,,,,,,
 redmaskDialogFriendly,OpenCommLink,"$faction.id == nightcrossremnant score:1000

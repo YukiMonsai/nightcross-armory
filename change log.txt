@@ -1,3 +1,36 @@
+V1.2.0
+- New frigate: Zal Patera
+- New cruiser: Tempus Spatium
+- Some various minor tweaks to ships
+- Improved performance when many nightcross homing weapons are present
+- Added chance for NCA faction bounty & trade missions on independent markets
+- Added rare unusual bounty offered by NCA contacts.
+- Tweaked submarket requirements to allow NCA rep to override local faction rep
+- Attempted to fix a bug where sometimes (?) kasei valles (regular) could become invincible
+- Plasma Aggregator now has smod bonus: +30% energy weapon magazine recharge rate
+- Weakened Lo Sulci system effect on allies if the allied ship isn't accelerating forward
+- Heavymetal RKKV reduced to 1200 damage, reduced OP cost considerably, adjusted ammo capacity
+- Heavymetal RKKV max speed reduced to 2800 from 4000
+- Wavefrom MRM speed reduced to 750 from 900
+- Reduced wavefront MRM impact damage to 300 from 500
+- Occator cargo space increased to 225 from 175, fuel increased to 160 from 150, fuel/LY reduced to 1.5 from 2
+- Fossa magna speed increased to 120 from 110, acceleration increased to 150 from 140, turn accel increased to 120 from 100, fuel/ly reduced to 1.5 from 2
+- Krun macula hull increased to 3200 from 3000, turn accel decreased to 90 from 100
+- Added slow/overloaded missile racks hullmod to Krun Macula, as well as builtin Plasma Aggregator
+- Slow missile racks renamed to Overloaded Missile Racks, penalty is now fully negated only if no missiles are installed in synergy slots
+- Overloaded missile racks RoF penalty increased to 35% from 25%
+- Elyurias medium missile slots replaced with synergy slots (to synergize with Overloaded Missile Racks)
+
+V1.1.19
+- Fixed some misleading descriptions about Wavefront torpedoes.
+- Heavy beamer damage increased by 33%, flux efficiency improved to .9
+- Fixed wavefront missile increasing hardflux of target
+- Wavefront gets DO_NOT_AIM ai tag
+
+V1.1.18
+- Corrosion torpedo no longer sucks modules (still does damage)
+- Fixed bug that results in ships displaced by gravity effects (lo sulci, corrosion torpedoes) getting shot across the map
+
 V1.1.17
 - Chirp PD ammo/sec raised to .7 from .4
 - Tarantella PD ammo/sec raised to .5 from .33

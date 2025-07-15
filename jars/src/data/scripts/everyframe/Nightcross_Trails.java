@@ -35,8 +35,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
 
 
     private static final String PYRO_PROJ_ID = "na_pyrokinetic_shot";
-    private static final Color PYRO_TRAIL_COLOR_START = new Color(255, 225, 50);
-    private static final Color PYRO_TRAIL_COLOR_END = new Color(255, 175, 0);
+    private static final Color PYRO_TRAIL_COLOR_START = new Color(255, 214, 50);
+    private static final Color PYRO_TRAIL_COLOR_END = new Color(119, 0, 255);
     private static final String META_PROJ_ID = "na_metahelium_shot";
     private static final String MINIRAZOR_ID = "na_minirazor_shot";
     private static final Color META_TRAIL_COLOR_START = new Color(255, 45, 25);
@@ -417,8 +417,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 PYRO_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.05f * powermult + 0.1f, /* mainDuration */
-                                0.1f * powermult + 0.25f, /* outDuration */
+                                0.05f * powermult + 0.05f, /* mainDuration */
+                                0.1f * powermult + 0.12f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */
@@ -432,6 +432,46 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                     }
                     break;
                 case META_PROJ_ID:
+                    if (data.interval == null) {
+                        data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
+                    }
+                    data.interval.advance(amount);
+                    if (data.interval.intervalElapsed()) {
+                        float offset = 10f;
+                        Vector2f offsetPoint = new Vector2f((float) Math.cos(Math.toRadians(proj.getFacing())) * offset, (float) Math.sin(Math.toRadians(proj.getFacing())) * offset);
+                        spawnPosition.x += offsetPoint.x;
+                        spawnPosition.y += offsetPoint.y;
+
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_smoketrail"), /* sprite */
+                                spawnPosition, /* position */
+                                0f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 4f + 8f, /* startSize */
+                                powermult * 25f + 32f, /* endSize */
+                                META_TRAIL_COLOR_START, /* startColor */
+                                META_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.1f * powermult + 0.2f, /* mainDuration */
+                                0.1f * powermult + 0.3f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                16f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                    }
+                    break;
                 case MINIRAZOR_ID:
                     if (data.interval == null) {
                         data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);

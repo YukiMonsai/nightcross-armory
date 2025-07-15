@@ -85,15 +85,17 @@ public class NA_ParticleWeaponHit implements OnHitEffectPlugin {
                     }
                 }
                 for (int ii = 1; ii <= i; ii++) {
-                    engineAPI.addNebulaSmoothParticle(MathUtils.getRandomPointInCircle(point_dmg, size),
-                            MathUtils.getRandomPointInCircle(ZERO, 10f*PARTICLE_VEL),
-                            size*0.05f, 1.5f, 0.1f,
-                            0.8f, 0.3f + 0.35f * (i/NUM_POINTS),
-                            COLOR1);
+                    if (Math.random() < 0.4 + i * 0.1f)
+                        engineAPI.addNebulaSmoothParticle(MathUtils.getRandomPointInCircle(point_dmg, size),
+                                MathUtils.getRandomPointInCircle(ZERO, 10f*PARTICLE_VEL),
+                                size*0.05f, 1.5f, 0.1f,
+                                0.8f, 0.7f + 0.35f * (i/NUM_POINTS),
+                                COLOR1);
                 }
-                engineAPI.addSmoothParticle(point_dmg, ZERO, size*0.85f, 1f,
-                        0.5f,
-                        0.5f + 2.0f * (i/NUM_POINTS), COLOR2);
+                if (Math.random() < 0.5)
+                    engineAPI.addSmoothParticle(point_dmg, ZERO, size*0.85f, 1f,
+                            0.5f,
+                            0.5f + 2.0f * (i/NUM_POINTS), COLOR2);
 
                 if (end) {
                     break;

@@ -22,7 +22,7 @@ public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
         ShipAPI ship = weapon.getShip();
-        if (ship != null) {
+        if (ship != null && !ship.isPhased()) {
             float fluxperc = ship.getFluxTracker().getFluxLevel();
             float hardflux = ship.getFluxTracker().getHardFlux()/Math.max(1, ship.getFluxTracker().getMaxFlux());
 

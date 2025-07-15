@@ -1,0 +1,53 @@
+{
+  "variantId": "na_tempus_experimental",
+  "hullId": "na_tempus",
+  "displayName": "Experimental",
+  "goalVariant": true,
+  "fluxCapacitors": 17,
+  "fluxVents": 17,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "magazines"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_superblaster",
+        "WS0003": "na_superblaster",
+        "WS0010": "vulcan",
+        "WS0016": "vulcan"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "lightneedler",
+        "WS0018": "lightneedler",
+        "WS0019": "lightneedler",
+        "WS0020": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "vulcan",
+        "WS0023": "vulcan"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0028": "na_interceptor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
