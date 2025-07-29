@@ -42,6 +42,7 @@ public class NA_RKKVRenderer extends BaseCombatLayeredRenderingPlugin {
 
             for (Map.Entry<MissileAPI, CombatEntityAPI> entry : missiles.entrySet()){
                 if (entry.getKey() != null && Global.getCombatEngine().isEntityInPlay(entry.getKey())
+                        && Global.getCombatEngine().isUIShowingHUD()
                 ){
                     if (entry.getValue() != null && Global.getCombatEngine().isEntityInPlay(entry.getValue())) {
                         if (!drawn.containsKey(entry.getValue())) {

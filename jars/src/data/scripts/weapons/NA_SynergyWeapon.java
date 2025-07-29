@@ -19,11 +19,14 @@ public class NA_SynergyWeapon implements EveryFrameWeaponEffectPlugin {
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI w) {
         if (!inited) {
             inited = true;
+
             WeaponAPI.WeaponType slotType = w.getSlot().getWeaponType();
             if (slotType != WeaponAPI.WeaponType.ENERGY
                     && slotType != WeaponAPI.WeaponType.BALLISTIC) {
                 if (w.getShip() != null) {
-                    magSizeTracker = (int) w.getShip().getMutableStats().getEnergyAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
+                    if (w.getType() == WeaponAPI.WeaponType.ENERGY)
+                        magSizeTracker = (int) w.getShip().getMutableStats().getEnergyAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
+                    else magSizeTracker = (int) w.getShip().getMutableStats().getMissileAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
                 } else {
                     magSizeTracker = w.getSpec().getMaxAmmo();
                 }
@@ -34,7 +37,10 @@ public class NA_SynergyWeapon implements EveryFrameWeaponEffectPlugin {
         if (inited) {
             int tracker = 1;
             if (w.getShip() != null) {
-                tracker = (int) w.getShip().getMutableStats().getEnergyAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
+                if (w.getType() == WeaponAPI.WeaponType.ENERGY)
+                    tracker = (int) w.getShip().getMutableStats().getEnergyAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
+                else
+                    tracker = (int) w.getShip().getMutableStats().getMissileAmmoBonus().computeEffective(w.getSpec().getMaxAmmo());
             } else {
                 tracker = w.getSpec().getMaxAmmo();
             }

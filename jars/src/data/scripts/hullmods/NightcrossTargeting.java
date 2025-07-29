@@ -29,6 +29,14 @@ public class NightcrossTargeting extends BaseHullMod {
 		mag.put(HullSize.CRUISER, 2f);
 		mag.put(HullSize.CAPITAL_SHIP, 3f);
 	}
+	private static Map mag2 = new HashMap();
+	static {
+		mag2.put(HullSize.FIGHTER, 50f);
+		mag2.put(HullSize.FRIGATE, 25f);
+		mag2.put(HullSize.DESTROYER, 20f);
+		mag2.put(HullSize.CRUISER, 15f);
+		mag2.put(HullSize.CAPITAL_SHIP, 10f);
+	}
 
 	public static final float FLUX_RED = 33f;
 	public static final float RPM_INCREASE = 33f;
@@ -87,12 +95,16 @@ public class NightcrossTargeting extends BaseHullMod {
 	
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return "" + (int) FLUX_RED + "%";
-		if (index == 1) return "" + (int) RPM_INCREASE + "%";
-		if (index == 2) return "" + Math.round((Float) mag.get(HullSize.FRIGATE)) + "";
-		if (index == 3) return "" + Math.round((Float) mag.get(HullSize.DESTROYER)) + "";
-		if (index == 4) return "" + Math.round((Float) mag.get(HullSize.CRUISER)) + "";
-		if (index == 5) return "" + Math.round((Float) mag.get(HullSize.CAPITAL_SHIP)) + " seconds";
-		if (index == 6) return Math.round(SHIELD_RATE) + "%";
+		//if (index == 1) return "" + (int) RPM_INCREASE + "%";
+		if (index == 1) return "" + Math.round((Float) mag.get(HullSize.FRIGATE)) + "";
+		if (index == 2) return "" + Math.round((Float) mag.get(HullSize.DESTROYER)) + "";
+		if (index == 3) return "" + Math.round((Float) mag.get(HullSize.CRUISER)) + "";
+		if (index == 4) return "" + Math.round((Float) mag.get(HullSize.CAPITAL_SHIP)) + " seconds";
+		if (index == 5) return Math.round(SHIELD_RATE) + "%";
+		if (index == 6) return "" + Math.round((Float) mag2.get(HullSize.FRIGATE)) + "";
+		if (index == 7) return "" + Math.round((Float) mag2.get(HullSize.DESTROYER)) + "";
+		if (index == 8) return "" + Math.round((Float) mag2.get(HullSize.CRUISER)) + "";
+		if (index == 9) return "" + Math.round((Float) mag2.get(HullSize.CAPITAL_SHIP)) + "%";
 		return null;
 	}
 
@@ -100,6 +112,7 @@ public class NightcrossTargeting extends BaseHullMod {
 		//stats.getBallisticWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		stats.getShieldUnfoldRateMult().modifyPercent(id, SHIELD_RATE);
+		stats.getVentRateMult().modifyPercent(id, (float) mag2.get(hullSize));
 	}
 
 
@@ -165,7 +178,7 @@ public class NightcrossTargeting extends BaseHullMod {
 			arctimer.reset();
 			arctimer.remainingCount -= 1;
 
-			if (ship.getShield() == null || ship.getShield().isOff()) {
+			if ((ship.getShield() == null || ship.getShield().isOff()) && !((ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting()))) {
 				arctimer.remainingCount = 0;
 			} else {
 				float chance = 1f * (ARC_CHANCE_VISUAL_REPEAT);
@@ -196,6 +209,7 @@ public class NightcrossTargeting extends BaseHullMod {
 		}
 
 		ship.getMutableStats().getShieldUnfoldRateMult().modifyPercent(ID, SHIELD_RATE);
+		ship.getMutableStats().getVentRateMult().modifyPercent(ID, (float) mag2.get(ship.getHullSize()));
 
 		ShipwideAIFlags ai = ship.getAIFlags();
 		if (effectlevel.level > 0.99) {
@@ -217,20 +231,18 @@ public class NightcrossTargeting extends BaseHullMod {
 							|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
 							|| weapon.getType() == WeaponAPI.WeaponType.COMPOSITE) {
 						pos = weapon.getLocation();
-						vel = Vector2f.add(ship.getVelocity(),
-								NAUtils.lengthdir(PARTICLE_VELOCITY, (float) (Math.random() * 2f * Math.PI)),
-								null);
 
-						light = new StandardLight(pos, zero, zero, null);
-						light.setIntensity(0.15f);
-						light.setVelocity(vel);
-						light.setSize(PARTICLE_RADIUS);
-						light.setColor(PARTICLE_COLOR);
-						light.fadeIn(0.05f);
-						light.setLifetime(PARTICLE_DURATION);
-						light.setAutoFadeOutTime(0.17f);
-						light.setSize(30f);
-						LightShader.addLight(light);
+						float sz = 15f;
+						if (weapon.getSize() == WeaponAPI.WeaponSize.MEDIUM) sz = 25;
+						else
+						if (weapon.getSize() == WeaponAPI.WeaponSize.LARGE) sz = 35f;
+
+						Global.getCombatEngine().addSwirlyNebulaParticle(
+								pos, new Vector2f(ship.getVelocity().x*0.5f, ship.getVelocity().y*0.5f),
+								sz, 3f, 0.5f, 0.5f,
+								0.8f,
+								new Color(51, 151, 223, 150), true
+						);
 
 					}
 				}
@@ -238,7 +250,7 @@ public class NightcrossTargeting extends BaseHullMod {
 				particletimer.interval.advance(amount);
 			}
 
-			if (ship.getShield() != null && ship.getShield().isOn()) {
+			if ((ship.getShield() != null && ship.getShield().isOn()) || (ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting())) {
 				effectlevel.level = 0.5f;
 				data.reset((Float) mag.get(ship.getHullSize()));
 				float chance = 1f * (ARC_CHANCE_VISUAL * ship.getAllWeapons().size());
@@ -292,7 +304,7 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 			if (effectlevel.level > 0.01) {
-				if (ship.getShield() == null || ship.getShield().isOff()) {
+				if ((ship.getShield() == null || ship.getShield().isOff()) && !((ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting()))) {
 					data.interval.advance(amount);
 				} else {
 					data.reset((Float) mag.get(ship.getHullSize()));
@@ -336,7 +348,7 @@ public class NightcrossTargeting extends BaseHullMod {
 					}
 
 
-					if (chargesound.sound == null && (ship.getShield() == null || ship.getShield().isOff())) {
+					if (chargesound.sound == null && ((ship.getShield() == null || ship.getShield().isOff()) && !((ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting())))) {
 						chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
 					}
 				}
@@ -346,7 +358,7 @@ public class NightcrossTargeting extends BaseHullMod {
 							"nightcrosstargeting",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Nightcross Systems Integration",
-							"Rerouting power...",
+							"Rerouting power... " + ((int) (100f * data.interval.getElapsed()/Math.max(0.5f, data.interval.getIntervalDuration()))),
 							true);
 
 
@@ -366,7 +378,7 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 			} else {
-				if (ship.getShield() == null || ship.getShield().isOff()) {
+				if ((ship.getShield() == null || ship.getShield().isOff()) && !((ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting()))) {
 					effectlevel.level = 0.5f;
 				}
 				if (ship == player) {

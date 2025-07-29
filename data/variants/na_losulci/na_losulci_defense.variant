@@ -4,20 +4,23 @@
   "displayName": "Defensive",
   "goalVariant": true,
   "fluxCapacitors": 0,
-  "fluxVents": 45,
+  "fluxVents": 43,
   "quality": 2,
   "permaMods": [],
   "hullMods": [
     "hardenedshieldemitter",
     "targetingunit",
     "turretgyros",
-    "stabilizedshieldemitter"
+    "stabilizedshieldemitter",
+    "na_energizedarmor"
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
+        "WS0016": "treble_ciws",
+        "WS0017": "treble_ciws",
         "WS0026": "na_heavyparticlecannon",
         "WS0027": "na_heavyparticlecannon"
       }
@@ -51,10 +54,7 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0016": "na_lasermini",
-        "WS0017": "na_lasermini"
-      }
+      "weapons": {}
     },
     {
       "autofire": true,
@@ -72,12 +72,8 @@
         "WS0003": "na_interceptor",
         "WS0018": "pdlaser",
         "WS0019": "pdlaser",
-        "WS0020": "pdlaser",
-        "WS0021": "pdlaser",
         "WS0022": "treble_ciws",
-        "WS0023": "treble_ciws",
-        "WS0024": "vulcan",
-        "WS0025": "vulcan"
+        "WS0023": "treble_ciws"
       }
     }
   ],

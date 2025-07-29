@@ -7,29 +7,33 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipAPI;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NightcrossEngines extends BaseHullMod {
 
 	public static final float DMG_MULT = 50f;
-	public static final float ENG_REPAIR = -20f;
+	//public static final float ENG_REPAIR = -20f;
 	public static final float SHIELD_RATE_MULT = 40f;
-	public static final float ZFLUX_BOOST = 10f;
+	public static final float ZFLUX_BOOST = 15f;
 	public static final float HULL_THRESH = 50f;
 	private String ID = "NightcrossEngines";
 	
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getEngineDamageTakenMult().modifyPercent(id, DMG_MULT);
-		stats.getCombatEngineRepairTimeMult().modifyPercent(id, ENG_REPAIR);
+		//stats.getCombatEngineRepairTimeMult().modifyPercent(id, ENG_REPAIR);
 		stats.getZeroFluxSpeedBoost().modifyFlat(id, ZFLUX_BOOST);
 
 	}
 	
 	public String getDescriptionParam(int index, HullSize hullSize) {
-		if (index == 0) return "" + (int) ZFLUX_BOOST + "%";
+		if (index == 0) return "" + (int) ZFLUX_BOOST;
 		if (index == 1) return "" + (int) DMG_MULT + "%";
 		if (index == 2) return "" + (int) HULL_THRESH + "%";
 		if (index == 3) return "" + (int) SHIELD_RATE_MULT + "%";
 		return null;
 	}
+
 
 	@Override
 	public void advanceInCombat(ShipAPI ship, float amount) {
@@ -52,20 +56,12 @@ public class NightcrossEngines extends BaseHullMod {
 				Global.getCombatEngine().maintainStatusForPlayerShip(
 						"nightcrossengines",
 						"graphics/icons/hullsys/infernium_injector.png",
-						"Precision Drive Systems",
+						"Precision Drives",
 						"Zero-flux engine boost decreased by " + Math.round(100f * effectLevel)+ "% due to damage.",
 						true);
 			}
 		} else {
 			ship.getMutableStats().getZeroFluxSpeedBoost().unmodify(ID);
-			if(ship == player){
-				Global.getCombatEngine().maintainStatusForPlayerShip(
-						"nightcrossengines",
-						"graphics/icons/hullsys/infernium_injector.png",
-						"Precision Drive Systems",
-						"Engines operating at full capacity.",
-						false);
-			}
 		}
 
 

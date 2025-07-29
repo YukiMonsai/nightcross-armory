@@ -69,7 +69,7 @@ public class NCAMilitaryBounty extends BaseCustomBounty {
 		}
 		setGiverTags(Tags.CONTACT_MILITARY, Tags.CONTACT_TRADE);
 		findOrCreateGiver(createdAt, false, false);
-		setGiverIsPotentialContactOnSuccess();
+		setGiverIsPotentialContactOnSuccess(1f); // guaranteed -- nightcross has no bases
 	}
 
 

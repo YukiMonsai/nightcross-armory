@@ -3,7 +3,13 @@ package data.scripts;
 
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.PersonImportance;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.FullName;
+import com.fs.starfarer.api.characters.ImportantPeopleAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.combat.DisintegratorEffect;
 import com.fs.starfarer.combat.entities.Missile;
 import org.lazywizard.lazylib.MathUtils;
@@ -209,5 +215,66 @@ public class NAUtils {
 
 
         return entities;
+    }
+
+    public static void NAGenPeople() {
+        MarketAPI market = Global.getSector().getEconomy().getMarket("na_graveyard_station");
+        ImportantPeopleAPI ip = Global.getSector().getImportantPeople();
+        if (market != null && !Global.getSector().getMemoryWithoutUpdate().contains(NAModPlugin.MEMKEY_NCA_PERSON_ADMIN)) {
+            PersonAPI admin = Global.getFactory().createPerson();
+            admin.setId("nightcross_admin");
+            admin.setFaction("nightcross");
+            admin.setGender(FullName.Gender.MALE);
+            admin.setPostId("nightcross_admin");
+            admin.setRankId(Ranks.FACTION_LEADER);
+            admin.getName().setFirst("Nasa");
+            admin.getName().setLast("Cabrakan");
+            admin.setImportance(PersonImportance.VERY_HIGH);
+            admin.setPersonality(Personalities.CAUTIOUS);
+            admin.setVoice(Voices.BUSINESS);
+            admin.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "nightcross_admin"));
+
+            admin.getMemoryWithoutUpdate().set("$nex_preferredAdmin", true);
+            admin.getMemoryWithoutUpdate().set("$nex_preferredAdmin_factionId", "nightcross");
+            admin.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 3);
+            admin.getStats().setLevel(1);
+
+            ip.addPerson(admin);
+            market.setAdmin(admin);
+            market.getCommDirectory().addPerson(admin, 0);
+            market.addPerson(admin);
+
+            PersonAPI researcher = Global.getFactory().createPerson();
+            researcher.setId("nightcross_researcher");
+            researcher.setFaction("nightcross");
+            researcher.setGender(FullName.Gender.FEMALE);
+            researcher.setPostId("nightcross_researcher");
+            researcher.setRankId("nightcross_researcher");
+            researcher.getName().setFirst("Cybele");
+            researcher.getName().setLast("Talho");
+            researcher.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "nightcross_researcher"));
+            researcher.setPersonality(Personalities.STEADY);
+            researcher.setVoice(Voices.SCIENTIST);
+            researcher.setImportance(PersonImportance.MEDIUM);
+            researcher.addTag(Tags.CONTACT_SCIENCE);
+            researcher.addTag(Tags.CONTACT_MILITARY);
+
+
+            researcher.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
+            researcher.getStats().setSkillLevel(Skills.FIELD_MODULATION, 2);
+            researcher.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+            researcher.getStats().setSkillLevel(Skills.GUNNERY_IMPLANTS, 2);
+            researcher.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+            researcher.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
+            researcher.getStats().setSkillLevel(Skills.BALLISTIC_MASTERY, 2);
+            researcher.getStats().setLevel(7);
+
+            ip.addPerson(researcher);
+            market.getCommDirectory().addPerson(researcher,1);
+            market.addPerson(researcher);
+
+            Global.getSector().getMemoryWithoutUpdate().set(NAModPlugin.MEMKEY_NCA_PERSON_ADMIN, true);
+
+        }
     }
 }

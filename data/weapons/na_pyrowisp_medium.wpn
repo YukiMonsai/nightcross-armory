@@ -2,10 +2,10 @@
   "id": "na_pyrowisp_medium",
   "specClass": "projectile",
   "projectileSpecId": "na_pyrowisp_medium_shot",
-  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "type": "MISSILE",
   "mountTypeOverride": "SYNERGY",
   "size": "MEDIUM",
+  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "turretSprite": "graphics/weapons/na_pyrowisp_medium_turret.png",
   "turretGlowSprite": "graphics/weapons/na_pyrowisp_medium_turret_glow.png",
   "hardpointSprite": "graphics/weapons/na_pyrowisp_medium_hardpoint.png",
@@ -17,14 +17,14 @@
     255
   ],
   "turretOffsets": [
-    24,
-    0
+    0.5,
+    0.5
   ],
   "turretAngleOffsets": [
     0
   ],
   "hardpointOffsets": [
-    18,
+    11,
     0
   ],
   "hardpointAngleOffsets": [
@@ -32,6 +32,5 @@
   ],
   "barrelMode": "LINKED",
   "animationType": "GLOW",
-	"interruptibleBurst":false,
   "fireSoundTwo": "pyrowisp_medium"
 }

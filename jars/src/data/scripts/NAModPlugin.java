@@ -35,6 +35,8 @@ public class NAModPlugin extends BaseModPlugin {
     public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium2";
     public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop2";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
+    public static final String MEMKEY_NCA_PERSON_ADMIN = "$nightcross_nca_person_admin";
+
 
 
 
@@ -132,6 +134,9 @@ public class NAModPlugin extends BaseModPlugin {
         if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_VERSION)) {
             Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_VERSION, 0.1);
         }
+
+
+        NAUtils.NAGenPeople();
     }
 
     protected void addToOngoingGame() {
@@ -168,6 +173,8 @@ public class NAModPlugin extends BaseModPlugin {
         }
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_VERSION, 0.1);
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_IBB_INITIALIZED, 0.1);
+
+        NAUtils.NAGenPeople();
     }
 
 

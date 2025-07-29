@@ -16,20 +16,17 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "na_metahelium",
-        "WS0003": "na_pyrokinetic",
-        "WS0010": "vulcan",
-        "WS0016": "vulcan",
-        "WS0019": "lightneedler",
-        "WS0028": "na_pyrowisp_medium"
+        "WS0002": "na_metahelium"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0003": "na_pyrokinetic",
         "WS0017": "lightneedler",
         "WS0018": "lightneedler",
+        "WS0019": "lightneedler",
         "WS0020": "lightneedler"
       }
     },
@@ -37,6 +34,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
+        "WS0010": "vulcan",
+        "WS0016": "vulcan",
         "WS0022": "vulcan",
         "WS0023": "vulcan"
       }
@@ -44,7 +43,9 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS0028": "na_pyrowisp_medium"
+      }
     }
   ],
   "modules": [],

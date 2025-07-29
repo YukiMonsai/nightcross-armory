@@ -3,7 +3,7 @@
   "specClass": "beam",
   "type": "ENERGY",
   "size": "MEDIUM",
-  "collisionClass": "RAY",
+	"collisionClass":"RAY_FIGHTER",
   "beamEffect":"data.scripts.weapons.NA_MediumChirpEffect",
   "collisionClassByFighter": "RAY_FIGHTER",
   "turretSprite": "graphics/weapons/na_mediumchirp_turret.png",
@@ -36,15 +36,15 @@
     0,
     200,
     0,
-    175
+    85
   ],
   "coreColor": [
     185,
     255,
     100,
-    200
+    150
   ],
-  "width": 21,
+  "width": 35,
   "textureType": LASER,
   "textureScrollSpeed": 256,
   "pixelsPerTexel": 5,

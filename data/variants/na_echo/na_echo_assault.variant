@@ -3,8 +3,8 @@
   "hullId": "na_echo",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 6,
-  "fluxVents": 30,
+  "fluxCapacitors": 16,
+  "fluxVents": 18,
   "quality": 0.5,
   "permaMods": [],
   "hullMods": [
@@ -17,7 +17,9 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0009": "na_pyrowisp_large",
+        "WS0001": "na_pyrorifle",
+        "WS0002": "na_pyrorifle",
+        "WS0009": "autopulse",
         "WS0010": "na_pyrowisp_large"
       }
     },
@@ -39,10 +41,7 @@
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0001": "na_stunpulse",
-        "WS0002": "na_stunpulse"
-      }
+      "weapons": {}
     }
   ],
   "modules": [

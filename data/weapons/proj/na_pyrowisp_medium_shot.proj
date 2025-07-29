@@ -1,7 +1,7 @@
 {
 	"id":"na_pyrowisp_medium_shot",
 	"specClass":"missile",
-	"spawnType":"BALLISTIC",
+	"spawnType":"PLASMA",
 	#"onFireEffect":"data.scripts.weapons.NA_StunpulseHoming",
 	#"onHitEffect":"data.scripts.weapons.NA_PyrowispHit",
 	"collisionClassByFighter":"MISSILE_NO_FF",
@@ -19,12 +19,12 @@
 				  "turnRate":1800,
 				  "acc":700,
 				  "dec":0},
-	"hitGlowRadius":50,
 	"fringeColor":[255,0,0,75],
 	"coreColor":[255,225,225,255],	
 	"textureScrollSpeed":64.0,
 	"pixelsPerTexel":5.0,
 	"sprite":"graphics/missiles/na_pyrowisp_medium.png",
+	"hitGlowRadius":60,	
 	
 	"engineSlots":[{"id":"ES1",
 					"loc":[0, 0],
@@ -51,10 +51,10 @@
 	"explosionSpec": {
       "duration": 0.1f,
       "radius": 40,
-      "coreRadius": 20, # full damage within core radius - also equal to proximity fuse range
+      "coreRadius": 35, # full damage within core radius - also equal to proximity fuse range
       "collisionClass": PROJECTILE_FF,
       "collisionClassByFighter": PROJECTILE_FIGHTER,
-      "particleSizeMin": 3.0,
+      "particleSizeMin": 5.0,
       "particleSizeRange": 6.0,
       "particleDuration": 0.6,
       "particleCount": 50,

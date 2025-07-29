@@ -47,9 +47,12 @@
     },
 	"ranks":{
 		"ranks":{
+			"nightcross_researcher":{"name":"Expedition Director"},
 			"spaceCommander":{"name":"Expedition Leader"},
 		},
 		"posts":{
+			"nightcross_admin":{"name":"CEO"},
+			"nightcross_researcher":{"name":"Expedition Director"},
 			"patrolCommander":{"name":"Supervisor"},
 			"fleetCommander":{"name":"Security Director"},
 			"baseCommander":{"name":"General Manager"},
@@ -64,10 +67,14 @@
         ],
     },
     "knownShips":{
-        "tags":["base_bp", "hightech_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
+        "tags":["hightech_bp", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare"],
         "hulls":[
             "prometheus",
             "valkyrie",
+            "phaeton",
+            "atlas",
+            "dram",
+            "buffalo",
 			"aurora",
 			"sunder",
 			"shade",
@@ -203,6 +210,8 @@
 			"surveying_equipment",
 			"hiressensors",
 			"efficiency_overhaul",
+			"na_energizedarmor",
+			"na_plasmaaggregator",
         ],
     },
     "factionDoctrine":{

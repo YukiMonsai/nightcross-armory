@@ -3,14 +3,14 @@
   "hullId": "na_echo",
   "displayName": "Standard",
   "goalVariant": true,
-  "fluxCapacitors": 8,
-  "fluxVents": 23,
+  "fluxCapacitors": 10,
+  "fluxVents": 15,
   "quality": 0,
   "permaMods": [],
   "hullMods": [
     "targetingunit",
-    "fluxbreakers",
-    "hardenedshieldemitter"
+    "hardenedshieldemitter",
+    "na_energizedarmor"
   ],
   "weaponGroups": [
     {

@@ -89,6 +89,8 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
                 return (int) Math.signum(o1.getSlot().getLocation().x - o2.getSlot().getLocation().x);
             }
         });
+        ShipHullSpecAPI spec = ship.getHullSpec().getBaseHull();
+        if (spec == null) spec = ship.getHullSpec();
         for (WeaponAPI w : lidar) {
             if (w.isDecorative()) {
                 UnfurlDecoData data = null;
@@ -97,7 +99,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
                     data = new UnfurlDecoData();
                     data.turnDir = -1;
                     data.turnRate = 0.5f;
-                    data.turnRate = 0.1f;
+                    data.turnRate = 0.25f;
                     data.w = w;
                     data.angle = 0f;
                     data.count = count;
@@ -107,16 +109,17 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
                     data = new UnfurlDecoData();
                     data.turnDir = 1;
                     data.turnRate = 0.5f;
-                    data.turnRate = 0.1f;
+                    data.turnRate = 0.25f;
                     data.w = w;
                     data.angle = 0f;
                     data.count = count;
                     dishData.add(data);
                 }
                 if (data != null) {
-                    if (engineMap.containsKey(ship.getHullSpec().getHullId())) {
-                        if (engineMap.get(ship.getHullSpec().getHullId()).containsKey(w.getSlot().getId())) {
-                            float[] slot = (float[]) engineMap.get(ship.getHullSpec().getHullId()).get(w.getSlot().getId());
+
+                    if (engineMap.containsKey(spec.getHullId())) {
+                        if (engineMap.get(ship.getHullSpec().getBaseHullId()).containsKey(w.getSlot().getId())) {
+                            float[] slot = (float[]) engineMap.get(spec.getHullId()).get(w.getSlot().getId());
                             for (ShipEngineControllerAPI.ShipEngineAPI engine : ship.getEngineController().getShipEngines()) {
                                 if (MathUtils.getDistance(
                                         new Vector2f(slot[0], slot[1]),
@@ -145,7 +148,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
     public void rotateLidarDishes(boolean active, float effectLevel) {
         float amount = Global.getCombatEngine().getElapsedInLastFrame();
 
-        float turnRateMult = 8f;
+        float turnRateMult = 10f;
         if (active) {
             turnRateMult = 20f;
         }
@@ -154,8 +157,9 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         for (UnfurlDecoData data : dishData) {
             float arc = data.w.getArc();
             boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir)
-                    && Math.abs(data.w.getShip().getAngularVelocity()) > 0.4f;
-            if (data.w.getShip().getEngineController().isStrafingLeft()) vector = data.turnDir > 0;
+                    && Math.abs(data.w.getShip().getAngularVelocity()) > 3f;
+            if (data.w.getShip().getEngineController().isDecelerating()) vector = true;
+            else if (data.w.getShip().getEngineController().isStrafingLeft()) vector = data.turnDir > 0;
             else if (data.w.getShip().getEngineController().isStrafingRight()) vector = data.turnDir < 0;
             float desired = (active || vector) ? arc * data.turnDir : 0f;
             float useTurnDir = Misc.getClosestTurnDirection(data.angle,

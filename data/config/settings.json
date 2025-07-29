@@ -39,6 +39,9 @@
 			"teto_mini":"graphics/icons/cargo/na_ai_core_teto.png",
 			"rei":"graphics/portraits/characters/na_rei.png",
 			"rei_mini":"graphics/icons/cargo/na_rei.png",
+			"nightcross_admin":"graphics/portraits/characters/nca/admin.png",
+			"nightcross_researcher":"graphics/portraits/characters/nca/researcher.png",
+			
 		},
 	},
 }

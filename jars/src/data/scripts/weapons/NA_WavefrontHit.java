@@ -47,6 +47,7 @@ public class NA_WavefrontHit implements OnHitEffectPlugin {
                 List<ShipAPI> unshielded = new ArrayList<ShipAPI>();
                 List<ShipAPI> shielded = new ArrayList<ShipAPI>();
                 for (CombatEntityAPI e : nearbyObjects) {
+                    if (e.getCollisionClass() == CollisionClass.NONE) continue;
                     float de = MathUtils.getDistance(e, point);
                     if (de >= dist && de <= ARC_RANGE && de <= dist + ARC_RANGE_INC) {
                         if (de <= ARC_RANGE_FRIENDLY ||

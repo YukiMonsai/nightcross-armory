@@ -15,10 +15,9 @@
     255,
     255
   ],
-  "hitGlowRadius": 38.0,
-  "hitGlowBrightenDuration":0.4,
+  "hitGlowRadius": 38,
   "turretOffsets": [
-    9,
+    7.5,
     0
   ],
   "turretAngleOffsets": [

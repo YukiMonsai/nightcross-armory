@@ -84,15 +84,20 @@ public class NA_EngineRCS extends BaseHullMod {
 
 		if (ship instanceof ShipAPI) {
 
-			switch (ship.getHullSpec().getHullId()) {
+			ShipHullSpecAPI spec = ship.getHullSpec().getBaseHull();
+			if (spec == null) spec = ship.getHullSpec();
+
+			switch (spec.getHullId()) {
 				case SHIP_ECHO:
 					// check if modules exist
 					boolean removeLeft = true;
 					boolean removeRight = true;
 					List<ShipAPI> modules = ship.getChildModulesCopy();
 					for (ShipAPI module : modules) {
+						ShipHullSpecAPI specm = module.getHullSpec().getBaseHull();
+						if (specm == null) specm = module.getHullSpec();
 						if (module.isAlive()) {
-							switch (module.getHullSpec().getHullId()) {
+							switch (specm.getHullId()) {
 								case SHIP_ECHOL:
 									removeLeft = false;
 									break;

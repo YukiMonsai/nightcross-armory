@@ -2,7 +2,7 @@
   "variantId": "na_tessera_beam",
   "hullId": "na_tessera",
   "displayName": "Target Designation",
-  "goalVariant": true,
+  "goalVariant": false,
   "fluxCapacitors": 12,
   "fluxVents": 14,
   "quality": 1,

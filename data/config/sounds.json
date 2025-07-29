@@ -61,9 +61,9 @@
 	
 	"na_hmg_shoot":
 	[
-		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.05,"volume":0.8},
-		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":0.95,"volume":0.8},
-		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.05,"volume":0.8},
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.01,"volume":0.75},
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":0.99,"volume":0.75},
+		{"file":"sounds/wpn/na_hmg_shoot.ogg","pitch":1.0,"volume":0.75},
 	],
 	# TREBLE CIWS
 	"ionflak":
@@ -149,6 +149,10 @@
 	[
 		{"file":"sounds/wpn/na_ion_01.ogg","pitch":1,"volume":0.8},
 		{"file":"sounds/wpn/na_ion_02.ogg","pitch":1,"volume":0.8},
+	],
+	"na_ionmatrix":
+	[
+		{"file":"sounds/wpn/na_ionmatrix.ogg","pitch":1,"volume":1.5},
 	],
 	"na_gigacannon_charge":
 	[

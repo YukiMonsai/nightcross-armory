@@ -2,10 +2,10 @@
   "id": "na_pyrowisp_large",
   "specClass": "projectile",
   "projectileSpecId": "na_pyrowisp_large_shot",
-  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "type": "ENERGY",
   "mountTypeOverride": "SYNERGY",
   "size": "LARGE",
+  "everyFrameEffect": "data.scripts.weapons.NA_SynergyWeapon",
   "turretSprite": "graphics/weapons/na_pyrowisp_large_turret.png",
   "turretGlowSprite": "graphics/weapons/na_pyrowisp_large_turret_glow.png",
   "hardpointSprite": "graphics/weapons/na_pyrowisp_large_hardpoint.png",
@@ -17,19 +17,19 @@
     225
   ],
   "turretOffsets": [
-    39.5,
+    10,
     5,
-    39.5,
-    -5,
+    10,
+    -5
   ],
   "turretAngleOffsets": [
     0,
-    0,
+    0
   ],
   "hardpointOffsets": [
-    39.5,
+    23,
     5,
-    39.5,
+    23,
     -5
   ],
   "hardpointAngleOffsets": [
@@ -37,20 +37,7 @@
     0
   ],
   "barrelMode": "ALTERNATING",
-	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
   "animationType": "GLOW",
-  "fireSoundTwo": "pyrowisp_medium",
-	"explosionSpec": {
-      "duration": 0.1f,
-      "radius": 40,
-      "coreRadius": 20, # full damage within core radius - also equal to proximity fuse range
-      "collisionClass": PROJECTILE_FF,
-      "collisionClassByFighter": PROJECTILE_FIGHTER,
-      "particleSizeMin": 3.0,
-      "particleSizeRange": 6.0,
-      "particleDuration": 0.6,
-      "particleCount": 50,
-      "particleColor": [255, 75, 25, 255],
-      "sound": "system_emp_emitter_impact",
-    },
+  "autocharge": true,
+  "fireSoundTwo": "pyrowisp_medium"
 }

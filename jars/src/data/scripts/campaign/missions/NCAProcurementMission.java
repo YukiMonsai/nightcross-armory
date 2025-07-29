@@ -89,7 +89,7 @@ public class NCAProcurementMission extends HubMissionWithBarEvent {
 		}
 		
 		if (barEvent) {
-			setGiverIsPotentialContactOnSuccess();
+			setGiverIsPotentialContactOnSuccess(1f);
 		}
 		
 		PersonImportance importance = person.getImportance();

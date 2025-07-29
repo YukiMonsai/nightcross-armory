@@ -11,12 +11,17 @@ The $rank looks around warily.
 The reward is $bcb_reward credits and you'd have $bcb_days days to go there and find what they were looking for. Make sure none of this gets out to the wider public. You in?""",,
 # nca custom military bounty,,,,,,
 ncamcbBlurb,ncamcb_blurb,,,"""Some new targets have come up on the docket,"" $heOrShe says with a sigh. ""If you took a contract to handle one of these bounties, it might just get the brass off my case.""",,
-ncamcbOfferOption,ncamcb_option,,,,ncamcb_start:Ask about what's available on the bounty docket,
+ncamcbOfferOption,ncamcb_option,,,,ncamcb_start:Ask about bounty contracts.,
 ncamcbBlurbBar,ncamcb_blurbBar,,,A military officer is holding court at one of the nicer tables; you watch a merc captain approach for a perfunctory exchange of words and mutual tap of datapads. They appear to be acting as some kind of system patrol liaison contracting out bounties.,,
 ncamcbOfferOptionBar,ncamcb_optionBar,,,,ncamcb_startBar:Talk to the corporate $ncamcb_manOrWoman offering bounties.,
 ncamcbOfferTextContact,DialogOptionSelected,$option == ncamcb_start,"$missionId = ncamcb
 $option = ncamcb_showOptions 0
-FireBest DialogOptionSelected",ncamcb_startBar:Talk to the corporate $ncamcb_manOrWoman offering bounties.,,
+FireBest DialogOptionSelected","You approach and the $rank $personLastName gives you a perfunctory nod. ""Captain,"" $heOrShe says, all business.
+
+The officer's branded water bottle indicates an affiliation with Nightcross Armory Corporation, a ship and arms dealer operating out of the Pascal system.
+
+""I have several contracts available. The usual broken deals, stolen assets, unfinished business...""
+An iced coffee, drizzled with caramel, sits slowly melting on the counter. ""What can you handle?""",,
 ncamcbOfferTextBar,DialogOptionSelected,$option == ncamcb_startBar,"$missionId = ncamcb
 $option = ncamcb_showOptionsBar 0
 FireBest DialogOptionSelected","You approach and the $rank $personLastName gives you a perfunctory nod. ""Captain,"" $heOrShe says, all business.
@@ -186,6 +191,29 @@ NCAPROCOMTTHail,NCAPROCOMTTHail,,$entity.ignorePlayerCommRequests = true,"""Hell
 The feed cuts to a series of Tri-Tachyon legal disclaimers on repeat.","cutCommLink2:""Nothing personal indeed."" (Power up weapons)
 cutCommLink:Say nothing",
 ,,,,,,
+nca_graveyard_researcher,PopulateOptions,"$id == nightcross_researcher
+!$nca_graveyardResearcherContact",,,"1:nca_graveyardResearcherContactOption:""I'd like to procure some equipment from your company.""",
+nca_graveyard_researcherAddContact,DialogOptionSelected,"$option == nca_graveyardResearcherContactOption
+RepGTE independent FAVORABLE","AddPotentialContact
+$nca_graveyardResearcherContact = true
+FireAll PopulateOptions
+","""I suppose you got the boilerplate notice, then,"" she sighs.
+
+""I can set you up with an account, but it's a bit more involved than just paperwork. Since the... Aria problem, they've only been issuing higher-level credentials to trusted partners.
+
+Fortunately for you, my department has the authority to do just that- provided you can handle a bit of work for us.""",,
+nca_graveyard_researcherDenyContact,DialogOptionSelected,"$option == nca_graveyardResearcherContactOption
+RepLTE independent FAVORABLE","FireAll PopulateOptions
+SetTextHighlights ""Requires independent - favorable""","""I suppose you got the boilerplate notice, then-"" she glances at a monitor to her side.
+
+""Looks like you're on the blacklist. Sorry, you're going to need to do something about that first.""
+
+Requires independent - favorable",,
+nca_graveyard_admin,PopulateOptions,"$id == nightcross_admin
+!$nca_graveyardResearcherContact",,,"1:nca_graveyardAdminContactOption:""I'd like to procure some equipment from your company.""",
+nca_graveyard_adminAddContact,DialogOptionSelected,$option == nca_graveyardAdminContactOption,"FireAll PopulateOptions
+SetTextHighlights ""Requires independent - favorable""","""You could talk to someone in the expeditions department-"" The CEO picks up his TriPad. He doesn't look at you.
+""I don't have any bandwidth for such requests at the moment.""",,
 ,,,,,,
 #RED MASK,,,,,,
 redmaskDialogFriendly,OpenCommLink,"$faction.id == nightcrossremnant score:1000

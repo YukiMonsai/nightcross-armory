@@ -1,7 +1,31 @@
+V1.2.1
+- Added NCA contacts to Graveyard Station
+- New weapon: Pyrorifle
+- New hullmod: Armor Energizer Matrix
+- Dynamic grid -> now gives +25/20/15/10% vent speed
+- Reworked the way Tidal Grid works, now permanent after being in phase for a while, lasts until next phase dive
+- Tempus spatium flux 10000 -> 9500
+- Tempus spatium dissipation 700 -> 600
+- Fixed stero sound on chirp pd
+- Increased HPF reload speed by 50%
+- Fix magu tessera engines not rotating properly, increased speed at which they rotate
+- Fixed pyrowisp max ammo bonus not stacking with expanded missile racks
+- Increased heavy pyrowisp rate of fire (not reload speed)
+- Bitcrush HMG now has much more punch to its sound effect
+- Chirp and Tarantella PD now fire over allies
+- Tarantella now has slower fire rate
+- Chirp PD and tarantella PD range +100
+- Flamestrike damage 250 -> 320 (HE), flux/shot 220 -> 240
+- Stunpulse OP 7 -> 6
+- Mini electron laser and burst electron laser now have 1.0 flux efficiency
+- silence combat laser OP 7 -> 6
+- String of Pearls X flux 200 -> 225, hp 1000 -> 1100
+- Mare Crisium X flux 225 -> 250, hp 1400 -> 1500
+
 V1.2.0
 - New frigate: Zal Patera
 - New cruiser: Tempus Spatium
-- Some various minor tweaks to ships
+- New weapon: Bitcrush HMG
 - Improved performance when many nightcross homing weapons are present
 - Added chance for NCA faction bounty & trade missions on independent markets
 - Added rare unusual bounty offered by NCA contacts.
@@ -20,6 +44,7 @@ V1.2.0
 - Slow missile racks renamed to Overloaded Missile Racks, penalty is now fully negated only if no missiles are installed in synergy slots
 - Overloaded missile racks RoF penalty increased to 35% from 25%
 - Elyurias medium missile slots replaced with synergy slots (to synergize with Overloaded Missile Racks)
+- Fixed a bug where the Chroma Reactor system would prevent Ion Pulser from firing
 
 V1.1.19
 - Fixed some misleading descriptions about Wavefront torpedoes.
