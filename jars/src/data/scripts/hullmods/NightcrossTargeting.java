@@ -50,8 +50,8 @@ public class NightcrossTargeting extends BaseHullMod {
 	public static final float ARC_CHANCE_VISUAL_REPEAT = 0.03f;
 	public static final float SHIELD_RATE = 50f;
 
-	public static final Color PARTICLE_COLOR = new Color(80, 210, 240);
-	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175);
+	public static final Color PARTICLE_CHARGE_COLOR_SG = new Color(138, 0, 23, 90);
+	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175, 80);
 	public static final String ACTIVATE_SOUND = "system_ammo_feeder";
 	public static final String CHARGE_SOUND = "na_chargeup";
 
@@ -199,7 +199,7 @@ public class NightcrossTargeting extends BaseHullMod {
 								100000f, // max range
 								null, //"tachyon_lance_emp_impact",
 								20f, // thickness
-								PARTICLE_CHARGE_COLOR,
+								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
 								new Color(255, 255, 255, 255)
 						);
 
@@ -239,9 +239,11 @@ public class NightcrossTargeting extends BaseHullMod {
 
 						Global.getCombatEngine().addSwirlyNebulaParticle(
 								pos, new Vector2f(ship.getVelocity().x*0.5f, ship.getVelocity().y*0.5f),
-								sz, 3f, 0.5f, 0.5f,
+								sz, 3f, 0.3f, 0.3f,
 								0.8f,
-								new Color(51, 151, 223, 150), true
+
+								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : new Color(51, 151, 223, 150),
+								true
 						);
 
 					}
@@ -273,7 +275,7 @@ public class NightcrossTargeting extends BaseHullMod {
 								100000f, // max range
 								"tachyon_lance_emp_impact", //"tachyon_lance_emp_impact",
 								20f, // thickness
-								PARTICLE_CHARGE_COLOR,
+								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
 								new Color(65,125,255,255)
 						);
 						break;
@@ -337,7 +339,7 @@ public class NightcrossTargeting extends BaseHullMod {
 						light.setIntensity(0.1f + 0.25f * data.interval.getElapsed() / data.interval.getIntervalDuration());
 						light.setVelocity(vel);
 						light.setSize(ship.getCollisionRadius());
-						light.setColor(PARTICLE_CHARGE_COLOR);
+						light.setColor(ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR);
 						light.fadeIn(0.05f);
 						light.setLifetime(PARTICLE_DURATION);
 						light.setAutoFadeOutTime(0.17f);
@@ -358,7 +360,7 @@ public class NightcrossTargeting extends BaseHullMod {
 							"nightcrosstargeting",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Nightcross Systems Integration",
-							"Rerouting power... " + ((int) (100f * data.interval.getElapsed()/Math.max(0.5f, data.interval.getIntervalDuration()))),
+							"Rerouting power... " + ((int) (100f * data.interval.getElapsed()/Math.max(0.5f, data.interval.getIntervalDuration()))) + "%",
 							true);
 
 
@@ -386,7 +388,7 @@ public class NightcrossTargeting extends BaseHullMod {
 							"nightcrosstargeting",
 							"graphics/icons/hullsys/quantum_disruptor.png",
 							"Nightcross Systems Integration",
-							"Power diverted to shield systems.",
+							"Power diverted to shields.",
 							true);
 				}
 			}

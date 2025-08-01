@@ -22,9 +22,9 @@ public class NA_TidalGrid extends BaseHullMod {
 	private static Map mag = new HashMap();
 	static {
 		mag.put(HullSize.FIGHTER, 1.0f);
-		mag.put(HullSize.FRIGATE, 3.4f);
-		mag.put(HullSize.DESTROYER, 3.0f);
-		mag.put(HullSize.CRUISER, 2.4f);
+		mag.put(HullSize.FRIGATE, 3f);
+		mag.put(HullSize.DESTROYER, 2.6f);
+		mag.put(HullSize.CRUISER, 2.3f);
 		mag.put(HullSize.CAPITAL_SHIP, 2f);
 	}
 
@@ -39,8 +39,8 @@ public class NA_TidalGrid extends BaseHullMod {
 	public static final float ARC_CHANCE_VISUAL = 0.12f;
 	public static final float ARC_CHANCE_VISUAL_REPEAT = 0.03f;
 
-	public static final Color PARTICLE_COLOR = new Color(73, 19, 209);
-	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175);
+	public static final Color PARTICLE_CHARGE_COLOR_SG = new Color(138, 0, 23, 150);
+	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175, 150);
 	public static final String ACTIVATE_SOUND = "system_ammo_feeder";
 	public static final String CHARGE_SOUND = "na_chargeup";
 
@@ -200,7 +200,7 @@ public class NA_TidalGrid extends BaseHullMod {
 								100000f, // max range
 								null, //"tachyon_lance_emp_impact",
 								20f, // thickness
-								PARTICLE_CHARGE_COLOR,
+								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
 								new Color(255, 255, 255, 255)
 						);
 
@@ -245,8 +245,8 @@ public class NA_TidalGrid extends BaseHullMod {
 								100000f, // max range
 								"tachyon_lance_emp_impact", //"tachyon_lance_emp_impact",
 								20f, // thickness
-								PARTICLE_CHARGE_COLOR,
-								new Color(65,125,255,255)
+								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
+								new Color(194, 210, 248,255)
 						);
 						break;
 					}

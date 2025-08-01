@@ -1,0 +1,187 @@
+{
+  "hullName": "Xanthe Terra",
+  "hullId": "na_xanthe",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/na/xantheterra/na_xanthe.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 172,
+  "width": 172,
+  "center": [86, 88],
+  "collisionRadius": 102,
+  "shieldCenter": [-2, -0],
+  "shieldRadius": 100.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "phasefield",
+    "na_rcs",
+    "delicate",
+    "na_tidalgrid",
+    "nightcrossengines"
+  ],
+  "builtInWeapons": {
+    "WS0005": "blinker_na_cyan",
+    "WS0007": "blinker_na_cyan",
+    "WS0009": "na_reactor",
+    "WS0011": "blinker_na_red",
+    "WS0014": "blinker_na_red",
+    "WS0015": "blinker_na_red"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [66, 43.5]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [61, -33.5]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-57.5, -1]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-36.5, 69.5]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-69, -21.5]
+    },
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "SYNERGY",
+      "mount": "HARDPOINT",
+      "arc": 8,
+      "angle": 0,
+      "locations": [72.5, 12.5],
+      "renderOrderMod": 400
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 273,
+      "angle": -70.5,
+      "locations": [-3, -20],
+      "renderOrderMod": 400
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [57, -6]
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 225,
+      "angle": 90,
+      "locations": [-33, -0.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [26, -20]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-51.5, -37.5],
+      "length": 44.933029,
+      "width": 10.054451,
+      "angle": -74.5,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [56.5, 49],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 103,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [42.5, -50.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -103,
+      "contrailSize": 7,
+      "style": "NIGHTCROSS_SEC"
+    },
+    {
+      "location": [-61.5, 20],
+      "length": 72.5,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 16,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-69.5, -0],
+      "length": 91,
+      "width": 26,
+      "angle": 180,
+      "contrailSize": 26,
+      "style": "NIGHTCROSS"
+    },
+    {
+      "location": [-22.5, 71.5],
+      "length": 40.641533,
+      "width": 11.535288,
+      "angle": 64,
+      "contrailSize": 11.535288,
+      "style": "NIGHTCROSS_SEC"
+    }
+  ],
+  "bounds": [
+    37, -10.5,
+    13.5, -15.5,
+    -16.5, -44,
+    -14, -22,
+    -21.5, -9.5,
+    -43.5, -3,
+    -43.5, 3,
+    -21.5, 9.5,
+    -14, 22,
+    -16.5, 44,
+    13.5, 15.5,
+    37, 10.5
+  ]
+}

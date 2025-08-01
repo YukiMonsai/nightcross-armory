@@ -59,6 +59,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         float[] e3 = {-23.5f, 63.5f}; tessera.put("WS0010", e3);
         float[] e4 = {-15f, 91}; tessera.put("WS0027", e4);
         engineMap.put("na_tessera", tessera);
+        engineMap.put("naai_tessera", tessera);
     }
 
 

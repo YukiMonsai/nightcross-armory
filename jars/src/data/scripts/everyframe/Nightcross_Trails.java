@@ -35,8 +35,11 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
 
 
     private static final String PYRO_PROJ_ID = "na_pyrokinetic_shot";
+    private static final String PYROAI_PROJ_ID = "na_pyrokinetic_ai_shot";
     private static final Color PYRO_TRAIL_COLOR_START = new Color(255, 214, 50);
     private static final Color PYRO_TRAIL_COLOR_END = new Color(119, 0, 255);
+    private static final Color PYROAI_TRAIL_COLOR_START = new Color(255, 50, 50);
+    private static final Color PYROAI_TRAIL_COLOR_END = new Color(85, 0, 255);
     private static final String META_PROJ_ID = "na_metahelium_shot";
     private static final String MINIRAZOR_ID = "na_minirazor_shot";
     private static final Color META_TRAIL_COLOR_START = new Color(255, 45, 25);
@@ -106,6 +109,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                     }
                     break;
                 case PYRO_PROJ_ID:
+                case PYROAI_PROJ_ID:
+
                 case META_PROJ_ID:
                 case MINIRAZOR_ID:
 
@@ -137,6 +142,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
             switch (spec) {
                 case LASER_PROJ_ID:
                 case PYRO_PROJ_ID:
+                case PYROAI_PROJ_ID:
                 case META_PROJ_ID:
                 case MINIRAZOR_ID:
                 case SUPERBLASTER_PROJ_ID:
@@ -378,6 +384,48 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 0f, /* inDuration */
                                 0.2f * powermult + 0.3f, /* mainDuration */
                                 0.4f * powermult + 1.1f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                0f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                    }
+                    break;
+
+                case PYROAI_PROJ_ID:
+                    if (data.interval == null) {
+                        data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
+                    }
+                    data.interval.advance(amount);
+                    if (data.interval.intervalElapsed()) {
+                        float offset = 10f;
+                        Vector2f offsetPoint = new Vector2f((float) Math.cos(Math.toRadians(proj.getFacing())) * offset, (float) Math.sin(Math.toRadians(proj.getFacing())) * offset);
+                        spawnPosition.x += offsetPoint.x;
+                        spawnPosition.y += offsetPoint.y;
+
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_particletrailcore"), /* sprite */
+                                spawnPosition, /* position */
+                                0f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 5f + 7f, /* startSize */
+                                powermult * 4f + 3f, /* endSize */
+                                PYROAI_TRAIL_COLOR_START, /* startColor */
+                                PYROAI_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.05f * powermult + 0.05f, /* mainDuration */
+                                0.1f * powermult + 0.12f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE, /* blendModeDEST */
                                 256f, /* textureLoopLength */

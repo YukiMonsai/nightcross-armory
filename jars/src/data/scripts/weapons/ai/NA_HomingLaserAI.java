@@ -46,7 +46,7 @@ public class NA_HomingLaserAI implements MissileAIPlugin, GuidedMissileAI {
         if (missile.getWeapon() != null && missile.getWeapon().getSlot() != null) {
             WeaponSlotAPI slot = missile.getWeapon().getSlot();
 
-            stage = slot.getLocation().x > 0 ? -1 : 1;
+            stage = slot.getLocation().y > 0 ? -1 : 1;
         } else {
             stage = MathUtils.getRandomNumberInRange(0, 1f) > 0.5 ? -1 : 1;
         }

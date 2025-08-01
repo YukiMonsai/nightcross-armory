@@ -7,6 +7,8 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.NA_FastCaps;
+import org.dark.shaders.distortion.DistortionShader;
+import org.dark.shaders.distortion.RippleDistortion;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.util.MagicIncompatibleHullmods;
@@ -42,7 +44,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 		maxarmor.put(HullSize.CAPITAL_SHIP, 800f);
 	}
 
-	public static final Color GLOW = new Color(104, 226, 253,155);
+	public static final Color GLOW = new Color(195, 237, 246,155);
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return ((int) FLUX_RED) + "%";
@@ -69,6 +71,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 		private boolean inited = false;
 
 		private IntervalUtil soundTimer = new IntervalUtil(1.5f, 2.5f);
+		private IntervalUtil glowtimer = new IntervalUtil(0.1f, 0.15f);
 	}
 
 
@@ -141,6 +144,9 @@ public class NA_EnergizedArmor extends BaseHullMod {
 		if (!data.soundTimer.intervalElapsed()) {
 			data.soundTimer.advance(amount);
 		}
+		if (!data.glowtimer.intervalElapsed()) {
+			data.glowtimer.advance(amount);
+		}
 		init(ship);
 
 		// generate energy
@@ -170,6 +176,12 @@ public class NA_EnergizedArmor extends BaseHullMod {
 					}
 					data.soundTimer.randomize();
 
+					if (data.glowtimer.intervalElapsed()) {
+						data.glowtimer = new IntervalUtil(0.5f, 0.5f);
+						ship.setJitter(
+								ship, GLOW, 0.5f - 0.5f*(data.glowtimer.getElapsed()/data.glowtimer.getIntervalDuration()), 3, 5f
+						);
+					}
 
 					Global.getSoundPlayer().playSound("na_ionmatrix", 1f, 1.5f, ship.getLocation(), ship.getVelocity());
 				} else {
@@ -222,6 +234,11 @@ public class NA_EnergizedArmor extends BaseHullMod {
 				stats.getHullDamageTakenMult().unmodify(ID);
 				stats.getWeaponDamageTakenMult().unmodify(ID);
 				stats.getEngineDamageTakenMult().unmodify(ID);
+			}
+			if (!data.glowtimer.intervalElapsed()) {
+				ship.setJitter(
+						ship, GLOW, 1f - (data.glowtimer.getElapsed()/data.glowtimer.getIntervalDuration()), 1, 15f
+				);
 			}
 		}
 
@@ -287,6 +304,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 	public static class NA_EnergizedArmorDamageTakenListener implements DamageTakenModifier {
 		private final ShipAPI ship;
 		private final NA_EnergizedArmor hullmod;
+
 		public NA_EnergizedArmorDamageTakenListener(ShipAPI ship, NA_EnergizedArmor hullmod) {
 			this.ship = ship;
 			this.hullmod = hullmod;
@@ -307,14 +325,44 @@ public class NA_EnergizedArmor extends BaseHullMod {
 
 				if (data.energyTotal > 0) {
 					// Reduce energy
-					data.energyTotal = Math.max(0, data.energyTotal - DMG_RATIO * Math.max(0, damage.getDamage()));
+					float reduct = damage.getDamage();
+					if (param instanceof BeamAPI beam) {
+						reduct *= damage.getDpsDuration();
+					}
 
-					if (data.energyTotal == 0 && data.soundTimer.intervalElapsed()) {
-						data.soundTimer.randomize();
+					if (reduct > 0) {
+						data.energyTotal = Math.max(0, data.energyTotal - DMG_RATIO * Math.max(0, reduct));
 
-						Global.getSoundPlayer().playSound("na_superblaster_impact", 1f, 1f, ship.getLocation(), ship.getVelocity());
+						if (data.energyTotal == 0 && data.soundTimer.intervalElapsed()) {
+							data.soundTimer.randomize();
 
-						for (int i = 0; i < 7; i++) {
+							RippleDistortion ripple = new RippleDistortion(ship.getLocation(), ship.getVelocity());
+							ripple.setSize(ship.getCollisionRadius());
+							ripple.setIntensity(65.0F);
+							ripple.setFrameRate(-30);
+							ripple.setCurrentFrame(59);
+							ripple.fadeOutIntensity(0.75f);
+							DistortionShader.addDistortion(ripple);
+
+							Global.getSoundPlayer().playSound("na_superblaster_impact", 0.8f, 1f, ship.getLocation(), ship.getVelocity());
+
+							for (int i = 0; i < 7; i++) {
+								Global.getCombatEngine().spawnEmpArcPierceShields(ship,
+										point,
+										ship,
+										ship,
+										DamageType.ENERGY,
+										0,
+										0, // emp
+										100000f, // max range
+										"tachyon_lance_emp_impact",
+										8f, // thickness
+										new Color(64, 0, 175),
+										new Color(255, 65, 100,255)
+								);
+							}
+						}
+						if (MathUtils.getRandomNumberInRange(0f, 100f + damage.getDamage()) > 100f) {
 							Global.getCombatEngine().spawnEmpArcPierceShields(ship,
 									point,
 									ship,
@@ -322,32 +370,17 @@ public class NA_EnergizedArmor extends BaseHullMod {
 									DamageType.ENERGY,
 									0,
 									0, // emp
-									100000f, // max range
-									"tachyon_lance_emp_impact",
+									250f, // max range
+									"", //"tachyon_lance_emp_impact",
 									8f, // thickness
 									new Color(64, 0, 175),
 									new Color(255, 65, 100,255)
 							);
 						}
+						data.glowtimer = new IntervalUtil(0.25f, 0.25f);
+
 					}
-					if (MathUtils.getRandomNumberInRange(0f, 100f + damage.getDamage()) > 100f) {
-						Global.getCombatEngine().spawnEmpArcPierceShields(ship,
-								point,
-								ship,
-								ship,
-								DamageType.ENERGY,
-								0,
-								0, // emp
-								250f, // max range
-								"", //"tachyon_lance_emp_impact",
-								8f, // thickness
-								new Color(64, 0, 175),
-								new Color(255, 65, 100,255)
-						);
-					}
-					ship.setJitter(
-							ship, GLOW, 1f, 8, 15f
-					);
+
 				}
 			}
 			return "";

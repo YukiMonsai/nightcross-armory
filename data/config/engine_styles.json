@@ -27,6 +27,64 @@
 		#"contrailCampaignColor":[100,165,255,75],
 		#"type":"GLOW" # GLOW or SMOKE
 	},	
+	"NA_STARGAZER":{
+		"mode":"PARTICLES", # PARTICLES or QUAD_STRIP, determines which params are used
+		
+		"contrailParticleSizeMult":2.5,
+		"contrailParticleDuration":1.5,
+		"contrailParticleFinalSizeMult":1.5f,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0f,
+		"contrailColor":[75,55,25,25],
+		"contrailCampaignColor":[255,0,80,5],
+		"type":"SMOKE", # GLOW or SMOKE; additive or regular blend mode
+						
+		"glowSprite":"graphics/fx/engineglow32nightcross.png",
+		"glowOutline":"graphics/fx/engineflame32nightcross.png",
+		"omegaMode":false,
+		"glowSizeMult":0.7,
+		
+		
+		"glowAlternateColor":[255,175,0,255],
+		"engineColor":[225,145,25,200],
+		
+		#"contrailParticleSizeMult":4,
+		#"contrailParticleDuration":1,
+		#"contrailParticleFinalSizeMult":2.5,
+		#"contrailMaxSpeedMult":0.5f,
+		#"contrailAngularVelocityMult":0f,
+		#"contrailColor":[100,165,255,25],
+		#"contrailCampaignColor":[100,165,255,75],
+		#"type":"GLOW" # GLOW or SMOKE
+	},	
+	"NA_STARGAZER_SEC":{
+		#"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
+		#"engineColor":[100,165,255,255],
+		#"contrailDuration":2,
+		#"contrailWidthMult":3,
+		#"contrailWidthAddedFractionAtEnd":3,  # can be negative. makes trail spread out/narrow at the end
+		#"contrailMinSeg":10, # min segment length, in pixels
+		#"contrailMaxSpeedMult":0.5f,
+		#"contrailAngularVelocityMult":1f,
+		#"contrailColor":[100,165,255,50],
+		#"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
+						
+		"mode":"NONE",
+		
+		
+		"engineColor":[255,50,0,255],
+		"glowAlternateColor":[255,125,0,255]
+		
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":1.5,
+		"contrailParticleFinalSizeMult":0.5,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0f,
+		"contrailColor":[255,210,80,25],
+		"contrailCampaignColor":[255,210,80,5],
+		"type":"GLOW", # GLOW or SMOKE
+		"glowSizeMult":0.75
+	},
 	"NIGHTCROSS_SEC":{
 		#"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
 		#"engineColor":[100,165,255,255],

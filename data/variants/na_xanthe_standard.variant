@@ -1,0 +1,43 @@
+{
+  "variantId": "na_xanthe_standard",
+  "hullId": "na_xanthe",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 11,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "autorepair",
+    "missile_autoloader",
+    "na_plasmaaggregator",
+    "phase_anchor",
+    "na_energizedarmor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "heavyblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "reaper",
+        "WS0006": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_mediumchirp"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -226,16 +226,34 @@
 	# HAAS_BEAMER
 	"haas_beamer":
 	[
-		{"file":"sounds/wpn/haasbeam_01.ogg","pitch":1,"volume":0.6},
-		{"file":"sounds/wpn/haasbeam_02.ogg","pitch":1,"volume":0.6},
-		{"file":"sounds/wpn/haasbeam_01.ogg","pitch":1.1,"volume":0.57},
-		{"file":"sounds/wpn/haasbeam_02.ogg","pitch":1.1,"volume":0.57},
+		{"file":"sounds/wpn/haasbeam_01.ogg","pitch":1,"volume":0.5},
+		{"file":"sounds/wpn/haasbeam_02.ogg","pitch":1,"volume":0.5},
 	],
 	# SYSTEM
 	
 	"na_system_relativity":
 	[
 		{"file":"sounds/system/na_system_relativity.ogg","pitch":1,"volume":0.75},
+	],
+	"na_pyrolancelg_loop":
+	[
+		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":1},
+	],
+	"na_pyrolance_charge":
+	[
+		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":1,"volume":0.75},
+	],
+	"na_pyrolance_loop":
+	[
+		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":0.75},
+	],
+	"na_pyrolancesm_charge":
+	[
+		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":0.9,"volume":0.6},
+	],
+	"na_pyrolancesm_loop":
+	[
+		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":0.9,"volume":0.6},
 	],
 	"na_system_tidaldisruption":
 	[
@@ -278,6 +296,7 @@
 	
 	"explosion_ship":{ # when a fighter or ship explodes
 		"NIGHTCROSSHULL":{"sounds":[0,1,2,3], "pitch":1.2, "volume":1},
+		"NIGHTCROSSAIHULL":{"sounds":[0,1,2,3], "pitch":1.2, "volume":1},
 	},
 	
 #collapseopen ENGINES	
@@ -287,12 +306,14 @@
 
 	"engine_loop":{
 		"NIGHTCROSSHULL":{"sounds":[10,11,12,13,14], "pitch":1, "volume":0.5},
+		"NIGHTCROSSAIHULL":{"sounds":[10,11,12,13,14], "pitch":1, "volume":0.5},
 		},
 	
 
 
 	"engine_accelerate":{ # played when ship receives an "engine boost" from having zero flux 
 		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":1},
+		"NIGHTCROSSAIHULL":{"sounds":[0,1,2], "pitch":1, "volume":1},
 	},
 
 #collapseclose
@@ -302,26 +323,32 @@
 	# Shields and related
 	"shield_burnout":{ # played when a ship overloads
 		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+		"NIGHTCROSSAIHULL":{"sounds":[0], "pitch":1, "volume":1},
 	},
 	"emp_loop":{ # played to accompany the lighning arcs displayed when a ship is overloaded
 		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+		"NIGHTCROSSAIHULL":{"sounds":[0], "pitch":1, "volume":1},
 	},
 
 	"flux_loop":{ # played while a ship is venting flux
 		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},
+		"NIGHTCROSSAIHULL":{"sounds":[0], "pitch":1, "volume":1},
 	},	
 
 	"vent_flux":{ # played once when a ship starts venting flux
 		"NIGHTCROSSHULL":{"sounds":[0], "pitch":1, "volume":1},	
+		"NIGHTCROSSAIHULL":{"sounds":[0], "pitch":1, "volume":1},	
 	},	
 	
 	# Similar setup to engine loop - defines which of the two sounds to use, and
 	# what pitch/volume to use them at, depending on ship style and size
 	"shield_lower":{
 		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"NIGHTCROSSAIHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
 	},
 	"shield_raise":{
 		"NIGHTCROSSHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
+		"NIGHTCROSSAIHULL":{"sounds":[0,1,2], "pitch":1, "volume":0.75},
 	},
 
 #collapseclose

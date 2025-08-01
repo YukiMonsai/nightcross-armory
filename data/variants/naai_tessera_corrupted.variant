@@ -1,0 +1,55 @@
+{
+  "variantId": "naai_tessera_corrupted",
+  "hullId": "naai_tessera",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 30,
+  "fluxVents": 11,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "magazines",
+    "na_energizedarmor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "reaper",
+        "WS0002": "reaper",
+        "WS0003": "na_pyrorifle",
+        "WS0004": "na_pyrorifle",
+        "WS0006": "na_pyrorifle",
+        "WS0009": "na_pyrorifle",
+        "WS0017": "na_pyrolance_med",
+        "WS0018": "na_pyrolance_med",
+        "WS0024": "na_chirppd",
+        "WS0025": "na_chirppd"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

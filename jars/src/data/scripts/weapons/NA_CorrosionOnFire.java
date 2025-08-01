@@ -9,9 +9,9 @@ import org.magiclib.plugins.MagicTrailPlugin;
 public class NA_CorrosionOnFire implements OnFireEffectPlugin {
     @Override
     public void onFire(DamagingProjectileAPI projectile, WeaponAPI weapon, CombatEngineAPI engine) {
-        Object targetDataObj = Global.getCombatEngine().getCustomData().get(projectile);
+        String key = "" + projectile.hashCode();
+        Object targetDataObj = Global.getCombatEngine().getCustomData().get(key);
         if (targetDataObj == null) {
-            String key = "" + projectile.hashCode();
             Global.getCombatEngine().getCustomData().put(key, new NA_CorrosionListener(projectile, key, projectile.getSource()));
         }
     }

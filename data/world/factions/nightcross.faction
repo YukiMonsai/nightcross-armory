@@ -77,7 +77,6 @@
             "buffalo",
 			"aurora",
 			"sunder",
-			"shade",
 			"afflictor",
 			"harbinger",
 			"na_echo",
@@ -91,6 +90,7 @@
 			"na_kasei",
 			"na_kasei_x",
 			"na_tempus",
+			"na_xanthe",
 			
         ],
     },
@@ -109,6 +109,7 @@
 			"na_kasei",
 			"na_kasei_x",
 			"na_tempus",
+			"na_xanthe",
         ],
     },
     "knownFighters":{

@@ -18,8 +18,6 @@ import java.util.Map;
 
 public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 
-	public final float BEAM_TIME = 0.25f;
-	private IntervalUtil shockInterval = new IntervalUtil(BEAM_TIME, BEAM_TIME);
 	public final String proj_id = "na_corrosionbeambullet_shot";
 	public final String wpn_id = "na_corrosionbeambullet";
 
@@ -27,12 +25,31 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 
 	public Map<CombatEntityAPI, Integer> finalTarget = new HashMap<>();
 
+	private static class BeamEffect {
+		public static final float BEAM_TIME = 0.25f;
+		private IntervalUtil shockInterval = new IntervalUtil(BEAM_TIME, BEAM_TIME);
+	}
 
 	public void advance(float amount, CombatEngineAPI engine, BeamAPI beam) {
 		CombatEntityAPI target = beam.getDamageTarget();
+
+
+		WeaponAPI weapon = beam.getWeapon();
+		if (weapon == null) return;
+		ShipAPI ship = weapon.getShip();
+		String key = "na_corrosionbeam" + (weapon.getSlot() != null ?
+				((int) weapon.getSlot().getLocation().x) + "," + ((int) weapon.getSlot().getLocation().y)
+				: weapon.getId());
+
+		BeamEffect data = (BeamEffect) ship.getCustomData().get(key);
+		if (data == null) {
+			data = new BeamEffect();
+			ship.setCustomData(key, data);
+		}
+
 		if (beam.getBrightness() >= 1f) {
 
-			if (shockInterval.intervalElapsed() && MathUtils.getRandomNumberInRange(0, 1f) < 0.8f) {
+			if (data.shockInterval.intervalElapsed() && MathUtils.getRandomNumberInRange(0, 1f) < 0.8f) {
 				for (Map.Entry<CombatEntityAPI, Integer> tt : finalTarget.entrySet()) {
 					int amtMissiles = tt.getValue();
 					if (amtMissiles > 0) {
@@ -51,10 +68,10 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 				}
 				boolean hitShield = MathUtils.getRandomNumberInRange(0, 100) < 50 || target.getShield() != null && target.getShield().isWithinArc(beam.getTo());
 
-				float amt = Math.max(0, 1f - shockInterval.getElapsed()/shockInterval.getMaxInterval());
+				float amt = Math.max(0, 1f - data.shockInterval.getElapsed()/data.shockInterval.getMaxInterval());
 				beam.setCoreColor(new Color(Math.max(amt * 0.9f, Math.max(0f, Math.min(1f, 3f - beam.getWeapon().getBurstFireTimeRemaining()))), amt * 0.8f, amt));
 
-				if (shockInterval.intervalElapsed()) {
+				if (data.shockInterval.intervalElapsed()) {
 					engine.spawnEmpArcVisual(
 							MathUtils.getRandomPointOnLine(beam.getFrom(), beam.getTo()), null,
 							MathUtils.getRandomPointOnLine(beam.getFrom(), beam.getTo()), null,
@@ -63,7 +80,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 							new Color(61, 55, 255)
 					);
 
-					shockInterval = new IntervalUtil(BEAM_TIME, BEAM_TIME);
+					data.shockInterval = new IntervalUtil(BeamEffect.BEAM_TIME, BeamEffect.BEAM_TIME);
 
 					if (target != null) {
 						if (hitShield) {
@@ -77,16 +94,16 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 
 
 				} else {
-					shockInterval.advance(amount);
+					data.shockInterval.advance(amount);
 				}
 			} else {
 				float amt = 0f;
 				beam.setCoreColor(new Color(Math.max(amt * 0.9f, Math.max(0f, Math.min(1f, 1f - beam.getWeapon().getBurstFireTimeRemaining()/2f))), amt * 0.8f, amt));
-				if (shockInterval.intervalElapsed()) {
+				if (data.shockInterval.intervalElapsed()) {
 
-					shockInterval = new IntervalUtil(BEAM_TIME, BEAM_TIME);
+					data.shockInterval = new IntervalUtil(BeamEffect.BEAM_TIME, BeamEffect.BEAM_TIME);
 				} else
-					shockInterval.advance(amount);
+					data.shockInterval.advance(amount);
 			}
 
 		} else if (beam.getBrightness() < 1) {
@@ -104,8 +121,8 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 				}
 			}
 			finalTarget = new HashMap<>();
-			if (shockInterval.getElapsed() > 0)
-				shockInterval = new IntervalUtil(BEAM_TIME, BEAM_TIME);
+			if (data.shockInterval.getElapsed() > 0)
+				data.shockInterval = new IntervalUtil(BeamEffect.BEAM_TIME, BeamEffect.BEAM_TIME);
 		}
 //			Global.getSoundPlayer().playLoop("system_emp_emitter_loop",
 //											 beam.getDamageTarget(), 1.5f, beam.getBrightness() * 0.5f,

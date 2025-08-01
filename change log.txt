@@ -1,3 +1,10 @@
+V1.2.2
+- New weapon: pyrolance, light pyrolance
+- New phase destroyer: Xanthe Terra
+- Improved haas beamer sweep effect
+- Fixed a bug that made it so only one ionic plasma decimator could do its bonus damage at a time
+- Bitcrush HMG dmg 70->80, flux /shot 35->40
+
 V1.2.1
 - Added NCA contacts to Graveyard Station
 - New weapon: Pyrorifle

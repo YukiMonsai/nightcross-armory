@@ -36,6 +36,7 @@
 		"na_fossa_escort":8,
 		"na_fossa_support":6,
 		"na_nammu_support":2,
+		"na_xanthe_standard":1.5,
 	},
 	"combatLarge":{
 		"na_echo_strike":4,
@@ -45,6 +46,7 @@
 		"na_elyurias_elite":3,
 		"na_elyurias_support":5,
 		"na_elyurias_synergy":1,
+		"naai_tessera_corrupted": 10,
 		"na_tessera_assault":6,
 		"na_tessera_beam":2,
 		"na_tessera_saturation":1,

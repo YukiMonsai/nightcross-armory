@@ -1,0 +1,60 @@
+{
+  "id": "na_pyrolance_small",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "SMALL",
+  "beamEffect": "data.scripts.weapons.NA_Pyrolance",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_pyrolance_small_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/na_pyrolance_small_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_pyrolance_small_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_pyrolance_small_hardpoint_glow.png",
+  
+  
+	"skipIdleFrameIfZeroBurstDelay":true,
+	"hitGlowBrightenDuration":0.25,
+	"width":15.0,
+	"textureType":LASER,
+	"textureScrollSpeed":128.0,
+	"pixelsPerTexel":5.0,
+	"pierceSet":[PROJECTILE_FF,PROJECTILE_NO_FF,PROJECTILE_FIGHTER],
+  
+  
+  "glowColor": [
+    255,
+    0,
+    75,
+    255
+  ],
+  "hitGlowRadius": 50,
+  "turretOffsets": [
+    11,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    20,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  
+  "fringeColor": [
+    200,
+    0,
+    0,
+    255
+  ],
+  "coreColor": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "fireSoundOne": "na_pyrolancesm_charge",
+  "fireSoundTwo": "na_pyrolancesm_loop"
+}

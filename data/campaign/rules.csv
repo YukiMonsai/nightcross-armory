@@ -213,6 +213,7 @@ nca_graveyard_admin,PopulateOptions,"$id == nightcross_admin
 !$nca_graveyardResearcherContact",,,"1:nca_graveyardAdminContactOption:""I'd like to procure some equipment from your company.""",
 nca_graveyard_adminAddContact,DialogOptionSelected,$option == nca_graveyardAdminContactOption,"FireAll PopulateOptions
 SetTextHighlights ""Requires independent - favorable""","""You could talk to someone in the expeditions department-"" The CEO picks up his TriPad. He doesn't look at you.
+
 ""I don't have any bandwidth for such requests at the moment.""",,
 ,,,,,,
 #RED MASK,,,,,,

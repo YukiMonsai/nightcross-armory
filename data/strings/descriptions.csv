@@ -40,6 +40,11 @@ na_pyrowisp_large,WEAPON,"Twin-linked pyrowisp system upgraded with a high-speed
 na_wavefront,WEAPON,"A rack of EMP torpedoes. Each releases an ionic burst near the target, frying electronics and straining flux grids.",,,,
 na_wavefront_pod,WEAPON,"A rack of EMP torpedoes. Each releases an ionic burst near the target, frying electronics and straining flux grids.",,,,
 na_wavefront_single,WEAPON,"A torpedo with an EMP warhead. Each releases an ionic burst near the target, frying electronics and straining flux grids.",,,,
+na_pyrorifle_ai,WEAPON,"""I see a thousand faces, smiling... congratulating me? I recognize some of them... oh, it's all black now.""",- Project GHOST files: Security Incident #143,,,
+na_metahelium_ai,WEAPON,"""While attachment between pilots and their [REDACTED] was expected, reconditioning has proven less effective than originally projected. This review advises to APPROVE [REDACTED] request for additional access to the pilots' medical and psychological records.""",- Project GHOST files: Safety Review #341,,,
+na_stargazer_wisp,WEAPON,"""The fabricated vitals were well beyond our beta-level detection protocols. No leads yet on suspected alpha-level assistance, pending direct physical inspection of Project vessels. For all we know, there could be dozens of dead men flying out there.""",- Project GHOST files: Termination Log #4,,,
+na_stargazer_beam,WEAPON,"""-the lack of funding has made it difficult to pursue projects lacking a favorable profit outlook. As such, the Project has officially entered stage Delta. Please brief the pilots, and schedule installation of the post-disconnect termination switches on remaining units.""",- Project GHOST files: Notice,,,
+na_stargazer_missile,WEAPON,"""As you are aware, the situation is a mess. We've lost contact with the site and half the project ships took off for the abyss with no warning. Corporate's already spinning this as a Tritach hit, but I'm not sure how they could have pulled this one off.""",- [REDACTED],,,
 na_corrosion,WEAPON,"""--and payload is away. [STATIC] ...yeah, that definitely pissed something off in there. Recall the test team.""",- Excerpt from NCA Employee Termination Log,,,
 na_corrosion_pod,WEAPON,"""Tearing holes in spacetime is nice and all, but we could do with some hazard pay to keep up morale... No, I don't believe in ghosts, why do you ask?""",- Excerpt from NCA Employee Termination Log,,,
 na_rkkv,WEAPON,"More-or-less an ion thruster with an oversized propellant tank. Accelerates to great speed over time, dealing damage based on the impact velocity.",,,,
@@ -47,6 +52,8 @@ na_rkkv_medium,WEAPON,"A rack of Heavymetal RKKVs. These missiles accelerate to 
 na_rkkv_large,WEAPON,"A dedicated silo for Heavymetal RKKVs. These missiles accelerate to great speed over time, dealing damage based on the impact velocity.",,,,
 na_laser,WEAPON,Standard free-electron laser tuned to a compromise between effect on shields and effect on target. A supercapacitor allows the weapon to fire in bursts without sacrificing range or efficiency.,,,,
 na_lasermini,WEAPON,"Standard free-electron laser tuned to a compromise between effect on shields and effect on target. The end result is a weapon that is specialized as neither, but is favored for its range and accuracy.",,,,
+na_pyrolance_med,WEAPON,Thermal beam weapon utilizing a phase-catalyzed plasma discharge. Will melt through even the thickest armor given enough dwell time. Devastating to exposed hull.,,,,
+na_pyrolance_small,WEAPON,A miniaturized beam weapon utilizing a phase-catalyzed plasma discharge. Effective at melting through even heavy armor. Devastating to exposed hull.,,,,
 na_heavy_beamer,WEAPON,Pulsed laser with a high sustained damage output. Its range and efficiency are offset by its ineffectiveness against shields.,,,,
 na_plasmabeam_med,WEAPON,"""The last team got dismissed for 'safety violations.' Didn't expect the DUT to saturate the meters on the lowest setting.","- NCA Engineering Log, Project 'Aria'",,,
 na_corrosionbeam,WEAPON,"""It's not something that's impossible or anything, it's just something that's only possible in theory. Which is still terrifying, more terrifying.""",- [REDACTED],,,
@@ -92,9 +99,7 @@ na_fossa,SHIP,"A light destroyer with a robust power grid and durable shield. It
 na_tempus,SHIP,"The Tempus Spatium carries an anachronistic armamant, boasting batteries of ballistic point defense alongside an advanced weapons integration system for its main energy guns. But make no mistake--its ballistic mounts are a concession to unique challenges involved in scaling the Chroma Reactor to cruiser scale. Its deep flux banks allow it to project ruinous firepower from great range.",,,,
 na_nammu,SHIP,"A dedicated support vessel, designed to aid in fleet logistics while providing missile support to fleets in combat. Its drones provide it with the ability to provide onsite repair capabilities and stabilize the shields of targets under fire.",,,,
 na_tessera,SHIP,"A light cruiser designed purely for spaceborne operations, informed by learnings from the Fossa Magna's Chroma Reactor and the Moonbeam's overtuned thrusters. The Tessera Magu is a cutting-edge killing machine, fast and deadly, capable of putting its reactor into overdrive for brief periods in order to supercharge its weapons and mobility.",,,,
-na_elyurias,SHIP,"Born to rain down death across vast distances, the Elyurias was the lynchpin of the Nightcross Planetary Defense Force prior to its dissolution. Equipped with an advanced combat-rated missile forge, its flux grid powered a punishing array of long-ranged weapons supported by an unending barrage of relativistic missiles. Today, the Elyurias is a rarer sight as a supporting vessel in independent battlegroups.",,,,
-na_macula_proto,SHIP,"A Krun Macula-type experimental destroyer found adrift in space, seemingly retrofitted to utilize phase technology and possessing two unusual devices that presumably once functioned as phase coils. One of the devices, however, has been replaced with a perfectly spherical void. The craft functions like a normal phase ship once retrofitted with standard phase coils, but the unusual device in the other space seems to produce an unnerving effect on the crew when activated.",,,,
-na_losulci_threat,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 98.10% confidence. Querying database... ""Humanity is already the undisputed authority of reality, and we have the physics to prove it- DATA CORRUPTED
+naai_tessera,SHIP,"Closest match found to archive entry for ""Magu Tessera""-class hull, 92.8% confidence. Querying database... ""Humanity is already the undisputed authority of reality, and we have the physics to prove it- DATA CORRUPTED
 // datastream resetting...
 
 -someone rigs it from the start, and then says try your best, doesn't it make you mad?- DATA CORRUPTED
@@ -106,5 +111,12 @@ na_losulci_threat,SHIP,"Closest match found to archive entry for ""Lo Sulci""-cl
 // process complete. total file size: 0kb
 
 Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+na_xanthe,SHIP,"A highly unconventional design based on prototype early-model phase coils. While the performance is, on paper, superior to standard-issue coils in the sector, the esoteric design requirements result in a ship that consists of mostly phase-coils, with much of the remaining space packed with automation. Nonetheless, the Xanthe Terra fills a unique niche in the Nightcross Armory catalog, able to bring to bear significant firepower in the hands of a skilled pilot.",,,,
+na_elyurias,SHIP,"Born to rain death across vast distances, the Elyurias was the lynchpin of the Nightcross Planetary Defense Force prior to its dissolution. Equipped with an advanced combat-rated missile forge, its flux grid powered a punishing array of long-ranged weapons supported by an unending barrage of relativistic missiles. Today, the Elyurias is a rarer sight as a supporting vessel in independent battlegroups.",,,,
+na_macula_proto,SHIP,"A Krun Macula-type experimental destroyer found adrift in space, seemingly retrofitted to utilize phase technology and possessing two unusual devices that presumably once functioned as phase coils. One of the devices, however, has been replaced with a perfectly spherical void. The craft functions like a normal phase ship once retrofitted with standard phase coils, but the unusual device in the other space seems to produce an unnerving effect on the crew when activated.",,,,
+naai_losulsi,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 81.27% confidence. Querying database...
+// datastream resetting...
 
 The application has encountered an unexpected error. Please contact your administrator.",,,,
