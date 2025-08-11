@@ -6,7 +6,9 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignPlugin;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
+import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
 import data.scripts.campaign.plugins.NACampaignPlugin;
@@ -81,6 +83,8 @@ public class NAModPlugin extends BaseModPlugin {
 
     @Override
     public void onApplicationLoad() {
+
+        EncounterManager.CREATORS.add(new NA_StargazerBH());
 
         isExerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         {

@@ -17,7 +17,7 @@
 	"textureType":"WEAVE",  # only needed for BEAM spawnType
 	"passThroughFightersOnlyWhenDestroyed":true,
 	"glowRadius":80,
-	"hitGlowRadius":160,
+	"hitGlowRadius":80,
 	"passThroughMissiles":true,
 	"passThroughFighters":true,
 	#"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",

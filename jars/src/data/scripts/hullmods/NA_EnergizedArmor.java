@@ -339,8 +339,8 @@ public class NA_EnergizedArmor extends BaseHullMod {
 							RippleDistortion ripple = new RippleDistortion(ship.getLocation(), ship.getVelocity());
 							ripple.setSize(ship.getCollisionRadius());
 							ripple.setIntensity(65.0F);
-							ripple.setFrameRate(-30);
-							ripple.setCurrentFrame(59);
+							ripple.setFrameRate(30);
+							ripple.setCurrentFrame(45);
 							ripple.fadeOutIntensity(0.75f);
 							DistortionShader.addDistortion(ripple);
 

@@ -200,7 +200,7 @@ public class NA_TidalGrid extends BaseHullMod {
 								100000f, // max range
 								null, //"tachyon_lance_emp_impact",
 								20f, // thickness
-								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
+								(ship.getHullSpec().hasTag("stargazer_hull") || ship.getHullSpec().hasTag("na_red")) ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
 								new Color(255, 255, 255, 255)
 						);
 
@@ -245,7 +245,7 @@ public class NA_TidalGrid extends BaseHullMod {
 								100000f, // max range
 								"tachyon_lance_emp_impact", //"tachyon_lance_emp_impact",
 								20f, // thickness
-								ship.getHullSpec().hasTag("stargazer_hull") ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
+								(ship.getHullSpec().hasTag("stargazer_hull") || ship.getHullSpec().hasTag("na_red")) ? PARTICLE_CHARGE_COLOR_SG : PARTICLE_CHARGE_COLOR,
 								new Color(194, 210, 248,255)
 						);
 						break;

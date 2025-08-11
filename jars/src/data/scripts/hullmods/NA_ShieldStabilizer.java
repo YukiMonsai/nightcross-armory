@@ -107,10 +107,12 @@ public class NA_ShieldStabilizer extends BaseHullMod {
 								0, // emp
 								RANGE_PER_SHOCK*2, // max range
 								"tachyon_lance_emp_impact",
-								20f, // thickness
+								20f,
 								new Color(80, 208, 131, 255),
 								new Color(133, 238, 255, 255)
 						);
+
+						Global.getSoundPlayer().playSound("na_ionmatrix", 0.8f, 1.5f, closest.getLocation(), closest.getVelocity());
 					}
 				}
 			}

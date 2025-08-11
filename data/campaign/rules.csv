@@ -252,3 +252,76 @@ INTERRUPT
 
 Warning: Crew has been incapacitated. Medical support has been dispatched to arrive within ERROR days. Please power down weapons--""",,
 #END RED MASK,,,,,,
+,,,,,,
+#Abyssal encounter stargazer victims,,,,,,
+nca_abyss_sgvs_nightcross,OpenInteractionDialog,"$tag:salvageable
+$gsType == NA_NIGHTCROSS score:1000
+!$explored
+!$player.nca_abyss_sgvs_nightcross","ShowDefaultVisual
+PrintWreckDescription",Your $shipOrFleet approaches $aOrAn $nameInText.,"nca_abyss_sgvs_nightcross_cont1:Explore
+defaultLeave:Leave",
+nca_abyss_sgvs_nightcross_cont1Sel,DialogOptionSelected,$option == nca_abyss_sgvs_nightcross_cont1,"$explored = true
+UniqueEncounter setInteractedWith $gsType
+$salvageLeaveText = Leave 0
+$player.nca_abyss_sgvs_nightcross = true","The ship is an obvious victim of combat.
+
+The salvors recover the ship's computer in search of combat logs, but it appears that every computer on the system has been fried multiple times over by high-intensity electromagnetic pulses.","salExplore:Assess the ship's salvage value
+defaultLeave:Leave",
+nca_abyss_sgvs_tritach,OpenInteractionDialog,"$tag:salvageable
+$gsType == NA_TRITACH score:1000
+!$explored
+!$player.nca_abyss_sgvs_tritach","ShowDefaultVisual
+PrintWreckDescription",Your $shipOrFleet approaches $aOrAn $nameInText.,"nca_abyss_sgvs_tritach_cont1:Explore
+defaultLeave:Leave",
+nca_abyss_sgvs_tritach_cont1Sel,DialogOptionSelected,$option == nca_abyss_sgvs_tritach_cont1,"$explored = true
+UniqueEncounter setInteractedWith $gsType
+$salvageLeaveText = Leave 0
+$player.nca_abyss_sgvs_tritach = true","This was once a Tri-Tachyon vessel.
+
+Not that much is left of the ship's electronics to back the assertion. A lead-lined crate in the cargo hold, however, survived the violent depressurization, and protected its contents as dutifully as a solid metal box ought.
+
+Among some... interesting equipment that your salvors load onto a salvage barge, a lone TriPad details the life of an otherwise insigificant employee who was unlucky enough to find her place aboard this ship.","salExplore:Assess the ship's salvage value
+defaultLeave:Leave",
+nca_abyss_sgvs_pirate,OpenInteractionDialog,"$tag:salvageable
+$gsType == NA_PIRATE score:1000
+!$explored
+!$player.nca_abyss_sgvs_pirate","ShowDefaultVisual
+PrintWreckDescription",Your $shipOrFleet approaches $aOrAn $nameInText.,"nca_abyss_sgvs_pirate_cont1:Explore
+defaultLeave:Leave",
+nca_abyss_sgvs_pirate_cont1Sel,DialogOptionSelected,$option == nca_abyss_sgvs_pirate_cont1,"$explored = true
+UniqueEncounter setInteractedWith $gsType
+$salvageLeaveText = Leave 0
+$player.nca_abyss_sgvs_pirate = true","Between gaping holes in the ship's exterior, you can just barely make out part of a name printed in gauche markings, likely made with an industrial torch.
+
+Aside from the vague trappings of a spaceworthy vessel, however, the form is nearly unrecognizable. What remains is a ghastly display of precise brutality: each engine nacelle, ammo feed, crew compartment - pierced by direct weapons fire. Its occupants never stood a chance.","salExplore:Assess the ship's salvage value
+defaultLeave:Leave",
+nca_abyss_sgvs_merc,OpenInteractionDialog,"$tag:salvageable
+$gsType == NA_MERC score:1000
+!$explored
+!$player.nca_abyss_sgvs_merc","ShowDefaultVisual
+PrintWreckDescription",Your $shipOrFleet approaches $aOrAn $nameInText.,"nca_abyss_sgvs_merc_cont1:Explore
+defaultLeave:Leave",
+nca_abyss_sgvs_merc_cont1Sel,DialogOptionSelected,$option == nca_abyss_sgvs_merc_cont1,"$explored = true
+UniqueEncounter setInteractedWith $gsType
+$salvageLeaveText = Leave 0
+$player.nca_abyss_sgvs_merc = true","The venerable craft bears the marks of a battle hard fought. Nonetheless, a shot to the reactor left it paralyzed.
+
+The interior paints a sorry picture - a stranded vessel, life support kept aloft only by backup power, blaring distress calls into the black void for weeks. Determining whether or not help came is beyond your salvor's pay grade, as there are no bodies to be found aboard the ship, nor suits in the airlocks aside from the usual spares.","salExplore:Assess the ship's salvage value
+defaultLeave:Leave",
+nca_abyss_sgvs_threat,OpenInteractionDialog,"$tag:salvageable
+$gsType == NA_THREAT score:1000
+!$explored
+!$player.nca_abyss_sgvs_threat","ShowDefaultVisual
+PrintWreckDescription","Your $shipOrFleet approaches $aOrAn $nameInText. Its design is unusual, and your TriPad gives off a barrage of warnings as you download the scan results.","nca_abyss_sgvs_threat_cont1:Explore
+defaultLeave:Leave",
+nca_abyss_sgvs_threat_cont1Sel,DialogOptionSelected,$option == nca_abyss_sgvs_threat_cont1,"$explored = true
+UniqueEncounter setInteractedWith $gsType
+$salvageLeaveText = Leave 0
+$player.nca_abyss_sgvs_threat = true","The carcass floats silent in the ocean of darkness.
+
+Without a proper classification, your salvors are forced to proceed slowly, taking seismic scans of the interior at various points before going deeper. Ops comes up to you with what looks like a three-dimensional scan. Presumably the ship's interior-
+
+""$PlayerSirOrMadam, these readings... they don't make any sense. You can see the maintenance passages, discrete hab compartments, furniture even..."" Your ops chief shakes their head. ""But none of it's connected! There's walls going through the tables, upside down rooms, hell, I don't think 90% of it's even connected to the airlocks. It's like one of those delta-generated holovids where it looks alright at first glance, but falls apart the more you look at it-""
+
+The chief sighs. ""I don't like this. I don't like this one bit.""","salExplore:Assess the ship's salvage value
+defaultLeave:Leave",

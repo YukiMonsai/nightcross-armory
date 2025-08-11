@@ -59,6 +59,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         float[] e3 = {-23.5f, 63.5f}; tessera.put("WS0010", e3);
         float[] e4 = {-15f, 91}; tessera.put("WS0027", e4);
         engineMap.put("na_tessera", tessera);
+        engineMap.put("na_tessera_drill", tessera);
         engineMap.put("naai_tessera", tessera);
     }
 
@@ -158,7 +159,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         for (UnfurlDecoData data : dishData) {
             float arc = data.w.getArc();
             boolean vector = Math.signum(data.w.getShip().getAngularVelocity()) == Math.signum(data.turnDir)
-                    && Math.abs(data.w.getShip().getAngularVelocity()) > 3f;
+                    && Math.abs(data.w.getShip().getAngularVelocity()) > 10f;
             if (data.w.getShip().getEngineController().isDecelerating()) vector = true;
             else if (data.w.getShip().getEngineController().isStrafingLeft()) vector = data.turnDir > 0;
             else if (data.w.getShip().getEngineController().isStrafingRight()) vector = data.turnDir < 0;

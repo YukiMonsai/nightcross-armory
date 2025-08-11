@@ -15,16 +15,22 @@
     "phasefield",
     "na_rcs",
     "delicate",
-    "na_tidalgrid",
-    "nightcrossengines"
+    "na_tidalgrid"
   ],
   "builtInWeapons": {
+    "WS0004": "blinker_na_system",
     "WS0005": "blinker_na_cyan",
     "WS0007": "blinker_na_cyan",
+    "WS0008": "blinker_na_system_med",
     "WS0009": "na_reactor",
+    "WS0010": "blinker_na_system_hi",
     "WS0011": "blinker_na_red",
+    "WS0012": "blinker_na_system_hi",
+    "WS0013": "blinker_na_system_hi",
     "WS0014": "blinker_na_red",
-    "WS0015": "blinker_na_red"
+    "WS0015": "blinker_na_red",
+    "WS0016": "blinker_na_system_med",
+    "WS0017": "blinker_na_system"
   },
   "weaponSlots": [
     {
@@ -118,31 +124,94 @@
       "arc": 5,
       "angle": 0,
       "locations": [26, -20]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-9.5, 55.5]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-1.5, 56.5]
+    },
+    {
+      "id": "WS0010",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [8, 56.5]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [17, 54.5]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [24.5, 51]
+    },
+    {
+      "id": "WS0016",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [31.5, 46.5]
+    },
+    {
+      "id": "WS0017",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [38.5, 41]
     }
   ],
   "engineSlots": [
     {
       "location": [-51.5, -37.5],
-      "length": 44.933029,
-      "width": 10.054451,
-      "angle": -74.5,
-      "contrailSize": 7,
+      "length": 43.24786,
+      "width": 11.335391,
+      "angle": -54.5,
+      "contrailSize": 11.335391,
       "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [56.5, 49],
-      "length": 35.738743,
-      "width": 8.77323,
-      "angle": 103,
-      "contrailSize": 7,
+      "length": 35.355339,
+      "width": 15.556349,
+      "angle": 125.5,
+      "contrailSize": 15.556349,
       "style": "NIGHTCROSS_SEC"
     },
     {
       "location": [42.5, -50.5],
-      "length": 35.738743,
-      "width": 8.77323,
-      "angle": -103,
-      "contrailSize": 7,
+      "length": 36.2117,
+      "width": 10.947658,
+      "angle": -132.5,
+      "contrailSize": 10.947658,
       "style": "NIGHTCROSS_SEC"
     },
     {
@@ -165,23 +234,25 @@
       "location": [-22.5, 71.5],
       "length": 40.641533,
       "width": 11.535288,
-      "angle": 64,
+      "angle": 19.5,
       "contrailSize": 11.535288,
       "style": "NIGHTCROSS_SEC"
     }
   ],
   "bounds": [
-    37, -10.5,
-    13.5, -15.5,
-    -16.5, -44,
-    -14, -22,
-    -21.5, -9.5,
-    -43.5, -3,
-    -43.5, 3,
-    -21.5, 9.5,
+    58, -10,
+    25, -25.5,
+    60.5, -33.5,
+    0, -67,
+    -63.5, -22.5,
+    -20.5, -14,
+    -69, -5.5,
+    -63, 24.5,
     -14, 22,
-    -16.5, 44,
-    13.5, 15.5,
-    37, 10.5
+    -27.5, 68,
+    20.5, 67,
+    64.5, 45,
+    37.5, 20,
+    68.5, 17.5
   ]
 }

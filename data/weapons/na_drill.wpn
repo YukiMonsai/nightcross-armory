@@ -31,6 +31,8 @@
   "hardpointAngleOffsets": [
     0
   ],
+  
+  "beamFireOnlyOnFullCharge": true,
   "fringeColor": [
     75,
     0,
@@ -39,8 +41,8 @@
   ],
   "coreColor": [
     225,
-    175,
-    120,
+    205,
+    250,
     255
   ],
   "width": 16,
@@ -52,5 +54,5 @@
     PROJECTILE_NO_FF,
     PROJECTILE_FIGHTER
   ],
-  "fireSoundOne": "na_beam_drill"
+  "fireSoundTwo": "na_beam_drill"
 }

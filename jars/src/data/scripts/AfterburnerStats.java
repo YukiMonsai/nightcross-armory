@@ -54,7 +54,7 @@ public class AfterburnerStats extends BaseShipSystemScript {
             if (stats.getEntity() instanceof ShipAPI) {
                 ShipEngineControllerAPI controller = ship.getEngineController();
                 if (controller.isAcceleratingBackwards()) {
-                    isThrustingForward = false;
+                    //sisThrustingForward = false;
                     isThrustingBackward = true;
                 } else if (controller.isAccelerating()) {
                     isThrustingForward = true;
@@ -63,7 +63,7 @@ public class AfterburnerStats extends BaseShipSystemScript {
             }
             stats.getMaxSpeed().modifyFlat(id, (!isThrustingBackward ? SPEED_BONUS_FORWARD : SPEED_BONUS));
             stats.getAcceleration().modifyPercent(id, (isThrustingForward ? SPEED_BONUS_FORWARD * (0.5f + 0.5f*effectLevel) * 2.0f : SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.0f));
-            stats.getDeceleration().modifyPercent(id, SPEED_BONUS * 2.5f * effectLevel);
+            stats.getDeceleration().modifyPercent(id, SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.5f);
             if (isThrustingForward) {
                 stats.getMaxTurnRate().unmodify(id);
                 stats.getTurnAcceleration().unmodify(id);

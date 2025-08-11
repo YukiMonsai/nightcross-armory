@@ -237,19 +237,19 @@
 	],
 	"na_pyrolancelg_loop":
 	[
-		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":1},
+		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":1.25},
 	],
 	"na_pyrolance_charge":
 	[
-		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":1,"volume":0.75},
+		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":1,"volume":1.1},
 	],
 	"na_pyrolance_loop":
 	[
-		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":0.75},
+		{"file":"sounds/wpn/na_pyrolance_loop.ogg","pitch":1,"volume":1},
 	],
 	"na_pyrolancesm_charge":
 	[
-		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":0.9,"volume":0.6},
+		{"file":"sounds/wpn/na_pyrolance_charge.ogg","pitch":0.9,"volume":0.9},
 	],
 	"na_pyrolancesm_loop":
 	[
@@ -274,7 +274,12 @@
 	
 	"na_plasmasurge":
 	[
-		{"file":"sounds/system/na_plasmasurge.ogg","pitch":1.0,"volume":0.95},
+		{"file":"sounds/system/na_plasmasurge.ogg","pitch":1.0,"volume":1.1},
+	],
+	
+	"na_plasmasurge2":
+	[
+		{"file":"sounds/system/na_plasmasurge2.ogg","pitch":1.0,"volume":1.3},
 	],
 	
 	

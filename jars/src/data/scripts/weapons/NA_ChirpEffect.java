@@ -2,12 +2,15 @@ package data.scripts.weapons;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import com.fs.util.C;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
 import java.util.Iterator;
 
 public class NA_ChirpEffect implements BeamEffectPlugin {
@@ -17,17 +20,28 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
     public static float ANGLE_MAX = 13f; // In degree
 
 
-    private IntervalUtil shockInterval = new IntervalUtil(0.1f, 0.2f);
-    private int shocksLeft = 1;
-    public final int SHOCK_COUNT = 1;
-    public final float DAMAGE_AMOUNT = 100;
 
-    protected IntervalUtil interval = new IntervalUtil(0.5f, 0.7f);
-    protected float originalAngle = 0f;
-    protected boolean setAngle = false;
-    protected boolean direction = false;
+    public final float DAMAGE_AMOUNT = 100;
+    public final int SHOCK_COUNT = 1;
+
+    private static class BeamEffect {
+        private IntervalUtil shockInterval = new IntervalUtil(0.1f, 0.2f);
+        private int shocksLeft = 1;
+        protected IntervalUtil interval = new IntervalUtil(0.35f, 0.35f);
+        protected float originalAngle = 0f;
+        protected boolean setAngle = false;
+        protected boolean direction = false;
+        protected float lastBrightness = 0f;
+    }
+
+
 
     public NA_ChirpEffect() {
+    }
+
+    private boolean validTarget(WeaponAPI weapon, CombatEntityAPI target) {
+        return (!(target instanceof ShipAPI) || ((ShipAPI) target).getHullSize() == ShipAPI.HullSize.FIGHTER
+                || weapon.getSpec().hasTag("stargazer"));
     }
 
     //public void advance(float amount, CombatEngineAPI engine, BeamAPI beam) {
@@ -36,16 +50,42 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
         if (weapon == null) return;
         ShipAPI ship = weapon.getShip();
         float shipAngle = (ship != null) ? ship.getFacing() : 0;
-        if (!setAngle) {
-            setAngle = true;
-            originalAngle = weapon.getCurrAngle() - shipAngle;
-            direction = MathUtils.getRandomNumberInRange(0f, 1f) > 0.5f;
+
+        String key = "chirp_effect" + (weapon.getSlot() != null ?
+                ((int) weapon.getSlot().getLocation().x) + "," + ((int) weapon.getSlot().getLocation().y)
+                : weapon.getId());
+        BeamEffect data = (BeamEffect) ship.getCustomData().get(key);
+        if (data != null && data.interval.intervalElapsed() && beam.getBrightness() > data.lastBrightness) {
+            ship.removeCustomData(key);
+            data = null;
+        }
+        if (data == null) {
+            data = new BeamEffect();
+            ship.setCustomData(key, data);
+
+            data.originalAngle = weapon.getCurrAngle() - shipAngle;
+
+
+            if (weapon.getSlot() != null) {
+                WeaponSlotAPI slot = weapon.getSlot();
+
+                data.direction = slot.getLocation().y > 0;
+            } else {
+                data.direction = MathUtils.getRandomNumberInRange(0f, 1f) > 0.5f;
+            }
         }
 
+        if (!data.setAngle) {
+            data.setAngle = true;
+            data.originalAngle = weapon.getCurrAngle() - shipAngle;
+            data.direction = MathUtils.getRandomNumberInRange(0f, 1f) > 0.5f;
+        }
+
+        data.lastBrightness = beam.getBrightness();
         //if (beam.getBrightness() < 1f) return;
 
-        if (!interval.intervalElapsed())
-            interval.advance(amount);
+        if (!data.interval.intervalElapsed())
+            data.interval.advance(amount);
         //if (beam.getLengthPrevFrame() < 10) return;
 
         /*Vector2f loc;
@@ -64,15 +104,15 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
             angmax = 25;
         }
         float angle = Math.min(weapon.getArc()/2f, angmax * (RANGE_FACTOR / Math.max(weapon.getSpec().getMaxRange(), MIN_DIST)));
-        float sweepLevel = interval.intervalElapsed() ? 1f : Math.min(1f, Math.max(0f, interval.getElapsed()/interval.getIntervalDuration()));
+        float sweepLevel = data.interval.intervalElapsed() ? 1f : Math.min(1f, Math.max(0f, data.interval.getElapsed()/data.interval.getIntervalDuration()));
 
-        weapon.setCurrAngle(shipAngle + originalAngle + (direction ? -1 : 1) * (-angle + 2f*angle*sweepLevel));
+        weapon.setCurrAngle(shipAngle + data.originalAngle + (data.direction ? -1 : 1) * (-angle + 2f*angle*sweepLevel));
 
 
 
         CombatEntityAPI target = beam.getDamageTarget();
         if ((target instanceof ShipAPI || target instanceof MissileAPI || target instanceof CombatAsteroidAPI) && beam.getBrightness() >= 1f
-                && (!(target instanceof ShipAPI) || ((ShipAPI) target).getHullSize() == ShipAPI.HullSize.FIGHTER)) {
+                && validTarget(weapon, target)) {
 
 
             Vector2f point = beam.getRayEndPrevFrame();
@@ -80,30 +120,37 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
 
 
 
-            if (shocksLeft > 0) {
+            if (data.shocksLeft > 0) {
 
-                shocksLeft -= 1;
-                engine.spawnEmpArcPierceShields(
-                        beam.getSource(), point, beam.getDamageTarget(), beam.getDamageTarget(),
-                        DamageType.ENERGY,
-                        0, // damage
-                        dam, // emp
-                        155f, // max range
-                        "tachyon_lance_emp_impact",
-                        beam.getWidth() + 20f,
-                        beam.getFringeColor(),
-                        beam.getCoreColor()
+                data.shocksLeft -= 1;
+
+                EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                params.maxZigZagMult = 0.35f;
+                params.flickerRateMult = 0.25f;
+                params.glowSizeMult *= 0.8f;
+
+                EmpArcEntityAPI arc = engine.spawnEmpArcVisual(
+                        beam.getFrom(), beam.getSource(),
+                        MathUtils.getRandomPointInCircle(beam.getDamageTarget().getLocation(), beam.getDamageTarget().getCollisionRadius() * 0.6f),
+                        beam.getDamageTarget(),
+                        beam.getWidth()*0.5f,
+                        weapon.getSpec().getGlowColor(),
+                        new Color(255, 255, 255), params
                 );
+                arc.setSingleFlickerMode(true);
+                arc.setRenderGlowAtStart(false);
+
+
+                Global.getSoundPlayer().playSound("tachyon_lance_emp_impact", 1f, 0.6f, beam.getDamageTarget().getLocation(), Misc.ZERO);
+
                 engine.applyDamage(
                         beam.getDamageTarget(),
-                        point, dam, DamageType.ENERGY, 0f, false, true, beam.getSource(), false
+                        point, dam, DamageType.ENERGY, dam, false, true, beam.getSource(), false
                 );
             }
 
 
 
-        } else if (beam.getBrightness() < 1) {
-            shocksLeft = SHOCK_COUNT;
         }
 
 //			float thickness = beam.getWidth();

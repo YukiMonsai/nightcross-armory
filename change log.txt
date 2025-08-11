@@ -1,9 +1,22 @@
+V1.2.4
+- Xanthe Terra shipsystem CD 20->
+- Xanthe terra system now has 2 charges, 30s charge time
+- Light Pyrolance OP reduced 8->5
+- Pyrolance OP reduced 12->9, max charges 7 -> 6
+- Added spooky things in the abyss
+- Added Kasane Teto
+
+V1.2.3
+- Increased Xanthe Terra acceleration
+- Replaced Xanthe Terra system with a new gravity mine system, sort of a hybrid between harbinger and doom systems
+
 V1.2.2
 - New weapon: pyrolance, light pyrolance
 - New phase destroyer: Xanthe Terra
 - Improved haas beamer sweep effect
 - Fixed a bug that made it so only one ionic plasma decimator could do its bonus damage at a time
 - Bitcrush HMG dmg 70->80, flux /shot 35->40
+- Reworked Chrip/Tarantella PD graphics
 
 V1.2.1
 - Added NCA contacts to Graveyard Station

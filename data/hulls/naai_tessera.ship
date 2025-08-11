@@ -16,7 +16,8 @@
     "nightcrosstargeting",
     "nightcrossengines",
     "na_rcs",
-    "na_plasmaaggregator"
+    "na_plasmaaggregator",
+    "na_fulldive"
   ],
   "builtInWeapons": {
     "CENTER1": "naai_tessera_deco",
@@ -125,7 +126,7 @@
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "HARDPOINT",
-      "arc": 5,
+      "arc": 8,
       "angle": -0,
       "locations": [20, 38]
     },
@@ -134,7 +135,7 @@
       "size": "MEDIUM",
       "type": "SYNERGY",
       "mount": "HARDPOINT",
-      "arc": 5,
+      "arc": 8,
       "angle": 0,
       "locations": [20, -38]
     },

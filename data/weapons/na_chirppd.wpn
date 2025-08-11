@@ -10,11 +10,24 @@
   "turretGlowSprite": "graphics/weapons/na_chirppd_turret_glow.png",
   "hardpointSprite": "graphics/weapons/na_chirppd_hardpoint.png",
   "hardpointGlowSprite": "graphics/weapons/na_chirppd_hardpoint_glow.png",
+  
   "glowColor": [
+    100,
     185,
     255,
-    100,
     255
+  ],
+  "fringeColor": [
+    0,
+    25,
+    175,
+    85
+  ],
+  "coreColor": [
+    45,
+    150,
+    200,
+    125
   ],
   "hitGlowRadius": 25.0,
   "hitGlowBrightenDuration":0.25,
@@ -31,18 +44,6 @@
   ],
   "hardpointAngleOffsets": [
     0
-  ],
-  "fringeColor": [
-    0,
-    200,
-    0,
-    80
-  ],
-  "coreColor": [
-    185,
-    255,
-    100,
-    120
   ],
   "width": 24,
   "textureType": LASER,

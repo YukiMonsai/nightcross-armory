@@ -1,0 +1,59 @@
+{
+  "id": "na_pyrolance_drill",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "MEDIUM",
+  "beamEffect": "data.scripts.weapons.NA_Pyrolance",
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_pyrolance_drill_hardpoint_base.png",
+  "turretGlowSprite": "graphics/weapons/na_pyrolance_drill_hardpoint_glow.png",
+  "hardpointSprite": "graphics/weapons/na_pyrolance_drill_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/na_pyrolance_drill_hardpoint_glow.png",
+  
+	"skipIdleFrameIfZeroBurstDelay":true,
+	"hitGlowBrightenDuration":0.25,
+	"width":31.0,
+	"textureType":LASER,
+	"textureScrollSpeed":128.0,
+	"pixelsPerTexel":5.0,
+	"pierceSet":[PROJECTILE_FF,PROJECTILE_NO_FF,PROJECTILE_FIGHTER],
+  
+  
+  "glowColor": [
+    255,
+    0,
+    75,
+    255
+  ],
+  "hitGlowRadius": 90,
+  "turretOffsets": [
+    14,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    24,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  
+  "fringeColor": [
+    200,
+    0,
+    0,
+    255
+  ],
+  "coreColor": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "fireSoundOne": "na_pyrolance_charge",
+  "fireSoundTwo": "na_pyrolance_loop"
+}

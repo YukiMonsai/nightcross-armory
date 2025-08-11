@@ -1,0 +1,52 @@
+{
+  "variantId": "na_tessera_drill_drill",
+  "hullId": "na_tessera_drill",
+  "displayName": "Automated",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 20,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "high_scatter_amp",
+	"safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_pulsecannon",
+        "WS0002": "na_pulsecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "na_pyrolance_drill",
+        "WS0018": "na_pyrolance_drill"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0024": "na_chirppd_ai",
+        "WS0025": "na_chirppd_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_pyrorifle",
+        "WS0003": "na_pyrorifle",
+        "WS0004": "na_pyrorifle",
+        "WS0006": "na_pyrorifle"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

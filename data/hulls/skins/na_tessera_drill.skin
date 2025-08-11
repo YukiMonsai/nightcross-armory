@@ -1,0 +1,91 @@
+{
+  "baseHullId": "na_tessera",
+  "baseValueMult": 2.5,
+  "descriptionId": "na_tessera",
+  "descriptionPrefix": "An experimental prototype Magu Tessera class, featuring impractical twin drills and an unusual pilot interface that requires special implants.",
+  "builtInMods":["automated", "na_fulldive"],
+  "engineSlotChanges": {
+    "0": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "1": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "2": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "3": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "4": {
+      "style": "NA_STARGAZER"
+    },
+    "5": {
+      "style": "NA_STARGAZER"
+    },
+    "6": {
+      "style": "NA_STARGAZER"
+    },
+    "7": {
+      "style": "NA_STARGAZER"
+    },
+    "8": {
+      "style": "NA_STARGAZER"
+    },
+    "9": {
+      "style": "NA_STARGAZER"
+    },
+    "10": {
+      "style": "NA_STARGAZER"
+    },
+    "11": {
+      "style": "NA_STARGAZER"
+    },
+    "12": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "13": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "14": {
+      "style": "NA_STARGAZER_SEC"
+    },
+    "15": {
+      "style": "NA_STARGAZER_SEC"
+    }
+  },
+  "systemId":"na_plasmasurge2",
+  "suppliesToRecover":22,
+  "suppliesPerMonth":22,
+  	"tags":["na_red"],
+  "fighterBays": 0,
+  "fleetPoints": 21,
+  "fpMod": 0,
+  "hullDesignation": "drill breaker",
+  "hullName": "Magu Tessera (UTAU)",
+  "manufacturer": "",
+  "ordnancePoints": 140,
+  "restoreToBaseHull": false,
+  "skinHullId": "na_tessera_drill",
+  "spriteName": "graphics/ships/na/magutessera/na_tessera_drill.png",
+  "tech": "TWINDRILL",
+  "style": "NIGHTCROSSAIHULL",
+	"builtInWeapons":{
+        "WS0017": "na_pyrolance_drill",
+        "WS0018": "na_pyrolance_drill",
+    "CENTER1": "na_tessera_deco_drill",
+    "WS0010": "na_tessera_L2_drill",
+    "WS0023": "na_tessera_R2_drill",
+    "WS0026": "na_tessera_R1_drill",
+    "WS0027": "na_tessera_L1_drill",
+
+    },
+    "weaponSlotChanges":{
+		"WS0017":{
+			"type": "BUILT_IN"
+		},
+		"WS0018":{
+			"type": "BUILT_IN"
+		},
+	},
+}
