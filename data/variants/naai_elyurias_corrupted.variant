@@ -1,0 +1,72 @@
+{
+  "variantId": "naai_elyurias_corrupted",
+  "hullId": "naai_elyurias",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0028": "na_corrosionbeam"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "locust",
+        "WS0003": "locust"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "na_corrosion_pod",
+        "WS0006": "na_corrosion_pod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "na_corrosion",
+        "WS0017": "na_corrosion"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0026": "na_hardlightrifle",
+        "WS0027": "na_hardlightrifle"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0024": "na_pyrorifle_ai",
+        "WS0025": "na_pyrorifle_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0020": "na_chirppd_ai",
+        "WS0021": "na_chirppd_ai",
+        "WS0022": "na_chirppd_ai",
+        "WS0023": "na_chirppd_ai"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

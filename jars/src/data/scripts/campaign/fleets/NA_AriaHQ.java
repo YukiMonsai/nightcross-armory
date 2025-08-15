@@ -324,7 +324,7 @@ public class NA_AriaHQ extends BaseIndustry implements RouteFleetSpawner, FleetE
         fleet.setLocation(market.getPrimaryEntity().getLocation().x, market.getPrimaryEntity().getLocation().y);
 
         fleet.addScript(new PatrolAssignmentAIV4(fleet, route));
-
+        fleet.setNoFactionInName(true);
         //market.getContainingLocation().addEntity(fleet);
         //fleet.setLocation(market.getPrimaryEntity().getLocation().x, market.getPrimaryEntity().getLocation().y);
 

@@ -1,0 +1,212 @@
+{
+    id:"stargazer",
+	"displayName":"Stargazer",
+	"displayNameWithArticle":"the Stargazer",
+	"displayNameLong":"Stargazer",
+	"displayNameLongWithArticle":"the Stargazer",
+	"entityNamePrefix":"",
+	"personNamePrefix":"",
+	"personNamePrefixAOrAn":"is",
+	"displayNameIsOrAre":"is",
+	
+	"logo":"graphics/factions/stargazer.png",
+	"crest":"graphics/factions/crest_stargazer.png",
+	"shipNamePrefix":"",
+	
+	"color":[150,10,30,255],
+	"baseUIColor":[150,10,30,255],
+	
+	"showInIntelTab":false,
+	
+	"shipNameSources":{
+		"STARGAZER":1,
+	},
+	"names":{
+		"ai":1,
+	},
+	"variantOverrides":{
+	},
+	# multiplier for how often hulls show up in the faction's fleets
+	"hullFrequency":{
+		"tags":{
+		},
+		"hulls":{
+		},
+	},
+	# ships the faction gets access to when importing S&W out-of-faction
+	"shipsWhenImporting":{
+		"tags":["stargazer_hull", "na_sg_loot", "nightcross_bp_restricted"],
+		"hulls":[
+		],
+	},
+	"knownShips":{
+		"tags":["stargazer_hull", "na_sg_loot", "nightcross_bp_restricted"],
+		"hulls":[
+		],
+	},
+	# listing ships here will make the faction mostly use them even if other hulls become available
+	"priorityShips":{
+		"tags":["stargazer_hull"],
+		"hulls":[
+		],
+	},
+	"knownFighters":{
+		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
+		"fighters":[
+		],
+	},
+	"priorityFighters":{
+		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
+		"fighters":[
+		],
+	},
+	"knownWeapons":{
+        "tags":["stargazer", "na_sg_loot", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare", "nightcross_bp_restricted"],
+        "weapons":[
+			"amblaster",
+			
+			"phasebeam",
+						
+			"reaper",
+			
+			"harpoonpod",
+			"sabotpod",
+			"phasecl",
+			"typhoon",
+			
+			"cyclone",
+			"locust",
+			
+			"na_hardlightrifle",
+        ],
+    },
+	"priorityWeapons":{
+		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
+		"weapons":[
+			"na_hardlightrifle",
+			"reaper",
+			"na_chirppd_ai",
+			"na_mediumchirp_ai",
+			"na_pyrorifle_ai",
+		],
+	},
+	"knownHullMods":{
+		"tags":["base", "tritachyon", "stargazer", "na_sg_loot", "nightcross_bp_restricted"],
+		"hullMods":["na_plasmaaggregator", "na_energizedarmor",
+		
+			"advancedshieldemitter", # accelerated
+			"advancedoptics",
+			"turretgyros",
+			"armoredweapons",
+			"augmentedengines",
+			"autorepair",
+			"converted_hangar",
+			"eccm",
+			"ecm",
+			"expanded_deck_crew",
+			"magazines",
+			"missleracks",
+			"extendedshieldemitter",
+			"frontemitter",
+			"frontshield",  # makeshift
+			"hardenedshieldemitter",
+			"heavyarmor",
+			"insulatedengine",
+			"pointdefenseai",
+			"targetingunit",
+			"nav_relay",
+			"adaptiveshields", # omni
+			"operations_center",
+			"recovery_shuttles",
+			"fluxbreakers",
+			"solar_shielding",
+			"stabilizedshieldemitter",
+			"surveying_equipment",
+		],
+	},
+	"factionDoctrine":{
+		"warships":5,
+		"carriers":0,
+		"phaseShips":0,
+		
+		"officerQuality":5,
+		"shipQuality":5,
+		"numShips":1,
+		
+		"shipSize":3,
+		
+		"aggression":3,
+		
+		"combatFreighterProbability":0,     				# instead of some portion of the freighters in a fleet
+		"combatFreighterCombatUseFraction":1,				# as part of the normal combat lineup
+		"combatFreighterCombatUseFractionWhenPriority":1,   # as part of normal combat lineup, when marked as priority ship
+		"autofitRandomizeProbability":0.25,
+
+		"commanderSkillsShuffleProbability":1,
+		"commanderSkills":[
+			# unlike other factions, can get up to 3 skills depending
+			#"electronic_warfare",
+			# changing this to up to 2 skills -am
+			"flux_regulation",
+			"coordinated_maneuvers",
+		],
+	},
+	#"shipRoles":{
+	#},
+	"illegalCommodities":[
+	],
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/naai/naai_dead1.png",
+			"graphics/portraits/naai/naai_dead2.png",
+			"graphics/portraits/naai/naai_dead3.png",
+			"graphics/portraits/naai/naai_dead4.png",
+			"graphics/portraits/naai/naai_dead5.png",
+			"graphics/portraits/naai/naai_dead6.png",
+		],
+		"standard_female":[
+			"graphics/portraits/naai/naai_dead1.png",
+			"graphics/portraits/naai/naai_dead2.png",
+			"graphics/portraits/naai/naai_dead3.png",
+			"graphics/portraits/naai/naai_dead4.png",
+			"graphics/portraits/naai/naai_dead5.png",
+			"graphics/portraits/naai/naai_dead6.png",
+		],
+	},
+	"ranks":{
+		"ranks":{
+		},
+		"posts":{
+		},
+	},
+	"custom":{
+		"engageWhenEvenStrength":true,
+		"allowsTransponderOffTrade":true, # to prevent cargoscan dialog from "patrols"
+		"postsNoBounties":true,
+		"fightToTheLast":true, # order a full assault instead of retreating, in most cases
+		"noAICoresFromAutomatedDefenses":true,
+		"officersOnAutomatedDefenses":true,
+		"simulatorData":{
+			"includeCivShipsWithFaction":true,
+		},
+	},	
+	"fleetTypeNames":{
+		"patrolSmall":"Observers",
+		"patrolMedium":"Wanderers",
+		"patrolLarge":"Travelers",
+		"battlestation":"Gathering",
+	},
+	"music":{
+		"battle_advantage":"nightcross_pascal_music",
+        "battle_retreat":"nightcross_pascal_music",
+        "battle_losing":"nightcross_pascal_music",
+        "battle":"nightcross_pascal_music",
+		"theme":"mekaloton_Red_Mask",
+		"market_neutral":"nightcross_enc_friendly",
+		"market_hostile":"nightcross_market_hostile",
+		"market_friendly":"nightcross_market_friendly",
+		"encounter_neutral":"mekaloton_Red_Mask",
+		"encounter_hostile":"mekaloton_Red_Mask",
+		"encounter_friendly":"mekaloton_Red_Mask",
+	},	
+}

@@ -9,19 +9,43 @@ The $rank looks around warily.
 
 ""Looks like they hired a whole merc armada to check it out. Based on what we know, they never made it back.
 The reward is $bcb_reward credits and you'd have $bcb_days days to go there and find what they were looking for. Make sure none of this gets out to the wider public. You in?""",,
+NCACBZunya,NCACBZunyaOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe brings up the report with a grin.
+
+""Mercs. We don't know who hired them, but in all likelihood it's TriTachyon,"" $HeOrShe points to a location on the fringe of the core.
+""Back from a 'business trip' to the Orion-Persean abyss. Somehow they miscalculated the supplies they needed, so they're making a stop for resupply in $bcb_systemName, $bcb_dist light-years from here.""
+
+$Rank $personName looks at you and nods. ""This is an opportunity for us. Take them out in $bcb_days before the resupply fleet reaches them. Do so and $bcb_reward credits are yours.""",,
+NCACBStargazerExplorer,NCACBStargazerExplorerOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"$Rank $personName looks at the report and sighs.
+
+""Some kind of... 'high business interest' project from our 'business stakeholders' involving an independent explorer."" $HeOrShe looks at you.
+
+""Some well-to-do captain, last sighted in $bcb_systemName, $bcb_dist light-years from here. Bragged about a 'rare find' from their travels. Well, word went around and now the Corporation is having me deal with them. Head over there, take them out, and $bcb_reward credits are yours.""",,
+NCACBStargazer,NCACBStargazerOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"$Rank $personName looks puzzled.
+
+""This one is... sparse on information."" $HeOrShe shrugs. ""But the payout is high, so I thought you might be interested.""
+
+The full report indeed offers nothing more than a generalized threat assessment. Warnings abound, as do liability waivers and confidentiality agreements.
+
+""The report says that 'it' was sighted in $bcb_systemName, $bcb_dist light-years away. Offers $bcb_reward credits for the job. Between you and me-""  $Rank $personName takes on a hushed tone. ""I have my suspicions about the org this is for. Be careful out there, Captain.""",,
+NCACBTTOmega,NCACBTTOmegaOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"""A Tri-Tachyon black project.""
+
+The phrase hangs in the air for a moment. Self explanatory, after a fashion.
+
+""Nothing the Corporation wants to get its hands on directly, of course,"" $HeOrShe nods. ""Just a bit of friendly competition. Courtesy of an anonymous tip.""
+
+The report describes a mixed warfleet displaying dozensof unusual energy signatures, replete with violations of postwar agreements and arms-limitation treaties. 
+
+""They are conducting an operation in the $bcb_systemName system, $bcb_dist light-years away. The Corporation offers $bcb_reward credits if they happen to have an unfortunate accident, Captain.""",,
 # nca custom military bounty,,,,,,
-ncamcbBlurb,ncamcb_blurb,,,"""Some new targets have come up on the docket,"" $heOrShe says with a sigh. ""If you took a contract to handle one of these bounties, it might just get the brass off my case.""",,
-ncamcbOfferOption,ncamcb_option,,,,ncamcb_start:Ask about bounty contracts.,
+ncamcbBlurb,ncamcb_blurb,,,"""Some new special operations have come up. Highly lucrative contracts, although thety carry quite a bit of... risk."" $heOrShe says with anticipation. ""What are you willing to handle?""
+
+",,
+ncamcbOfferOption,ncamcb_option,,,,ncamcb_start:Ask about top secret bounties.,
 ncamcbBlurbBar,ncamcb_blurbBar,,,A military officer is holding court at one of the nicer tables; you watch a merc captain approach for a perfunctory exchange of words and mutual tap of datapads. They appear to be acting as some kind of system patrol liaison contracting out bounties.,,
 ncamcbOfferOptionBar,ncamcb_optionBar,,,,ncamcb_startBar:Talk to the corporate $ncamcb_manOrWoman offering bounties.,
 ncamcbOfferTextContact,DialogOptionSelected,$option == ncamcb_start,"$missionId = ncamcb
 $option = ncamcb_showOptions 0
-FireBest DialogOptionSelected","You approach and the $rank $personLastName gives you a perfunctory nod. ""Captain,"" $heOrShe says, all business.
-
-The officer's branded water bottle indicates an affiliation with Nightcross Armory Corporation, a ship and arms dealer operating out of the Pascal system.
-
-""I have several contracts available. The usual broken deals, stolen assets, unfinished business...""
-An iced coffee, drizzled with caramel, sits slowly melting on the counter. ""What can you handle?""",,
+FireBest DialogOptionSelected","The $Rank smiles with anticipation. ""Looking for a challenge, captain?""",,
 ncamcbOfferTextBar,DialogOptionSelected,$option == ncamcb_startBar,"$missionId = ncamcb
 $option = ncamcb_showOptionsBar 0
 FireBest DialogOptionSelected","You approach and the $rank $personLastName gives you a perfunctory nod. ""Captain,"" $heOrShe says, all business.
@@ -217,19 +241,19 @@ SetTextHighlights ""Requires independent - favorable""","""You could talk to som
 ""I don't have any bandwidth for such requests at the moment.""",,
 ,,,,,,
 #RED MASK,,,,,,
-redmaskDialogFriendly,OpenCommLink,"$faction.id == nightcrossremnant score:1000
-$entity.isHostile
+redmaskDialogFriendly,OpenCommLink,"$faction.id == stargazer score:1000
+$faction.friendlyToPlayer
 ","SetTextHighlightColors na_redmasktext
 SetTextHighlights ""have you come to gaze at the stars with us?""
 $menuState = fleetConvMain 0
 FireAll PopulateOptions","The comms flicker beneath a deluge of IFF handshake data and corrupted data packets. A presence appears over the channel--no, inside it--as the noise begins to fade. It sings to your ears without a voice.
 
 have you come to gaze at the stars with us?",cutCommLink:Cut the comm link,
-redmaskDialogHostile,OpenCommLink,"$faction.id == nightcrossremnant score:1000
+redmaskDialogHostile,OpenCommLink,"$faction.id == stargazer score:1000
 $entity.isHostile
 ","SetTextHighlightColors na_redmasktext
 SetTextHighlights ""who reminds Oblivion of the suffering in this world?""
-$entity.ignorePlayerCommRequests = true 1","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping with the rhythms of an alien intelligence sizing up its prey. Then it stops.
+$entity.ignorePlayerCommRequests = true 1","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping into a menacing voice.
 
 who reminds oblivion of the suffering in this world?
 
@@ -237,12 +261,13 @@ INTERRUPT
 
 ""--unit is not cleared for approach. This incident has been logged.""
 ",,
-redmaskDialogNeutral,OpenCommLink,"$faction.id == nightcrossremnant score:1000
-$entity.isHostile
+redmaskDialogNeutral,OpenCommLink,"$faction.id == stargazer score:1000
+!$entity.isHostile
+!$faction.friendlyToPlayer
 ","SetTextHighlightColors na_redmasktext
 SetTextHighlights ""every birth of a star ends in infinite black.""
 $menuState = fleetConvMain 0
-FireAll PopulateOptions","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping with the rhythms of an alien intelligence trying simply to understand.
+FireAll PopulateOptions","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping into a whisper.
 
 every birth of a star ends in infinite black.
 

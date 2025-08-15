@@ -1,5 +1,5 @@
 {
-  "hullName": "magu_tessera",
+  "hullName": "Norn Tessera",
   "hullId": "naai_tessera",
   "hullSize": "CRUISER",
   "spriteName": "graphics/ships/naai/magutessera/na_tessera.png",
@@ -13,8 +13,7 @@
   "viewOffset": 0,
   "builtInMods": [
     "automated",
-    "nightcrosstargeting",
-    "nightcrossengines",
+    "na_stargazerhullmod",
     "na_rcs",
     "na_plasmaaggregator",
     "na_fulldive"

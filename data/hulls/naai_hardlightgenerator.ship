@@ -1,0 +1,48 @@
+{
+  "hullName": "Hardlight Generator",
+  "hullId": "naai_hardlightgenerator",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/naai/losulci/hardlight_generator.png",
+  "style": "NIGHTCROSSHULL",
+  "height": 91,
+  "width": 48,
+  "center": [24, 45],
+  "collisionRadius": 38,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 40.5,
+  "viewOffset": 0,
+  "moduleAnchor": [
+    0,
+    0
+  ],
+  "builtInMods": [
+    "reduced_explosion",
+    "always_detaches",
+    "na_overloadweapons"
+  ],
+  "builtInWeapons": {
+    "WS0004": "naai_hardlightgenerator"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "BUILT_IN",
+      "mount": "HARDPOINT",
+      "arc": 2,
+      "angle": 0,
+      "locations": [-22, 0]
+    }
+  ],
+  "engineSlots": [],
+  "bounds": [
+    -10, -8.5,
+    -38.5, -3.5,
+    -38.5, 3,
+    -10, 8.5,
+    17.5, 9,
+    39, 3.5,
+    39, -3.5,
+    17.5, -9
+  ]
+}

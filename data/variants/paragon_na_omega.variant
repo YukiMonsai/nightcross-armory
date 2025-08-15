@@ -1,0 +1,83 @@
+{
+  "variantId": "paragon_na_omega",
+  "hullId": "paragon",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 41,
+  "fluxVents": 50,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "stabilizedshieldemitter",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vpdriver",
+        "WS 002": "vpdriver"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 003": "realitydisruptor"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "riftcascade"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "na_pyrolance_med",
+        "WS 006": "na_pyrolance_med"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "kineticblaster",
+        "WS 008": "kineticblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 009": "na_pulsecannon",
+        "WS 010": "na_pulsecannon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 011": "pdburst",
+        "WS 012": "swarmer",
+        "WS 013": "pdburst",
+        "WS 014": "swarmer",
+        "WS 015": "pdburst",
+        "WS 016": "pdburst",
+        "WS 017": "pdburst",
+        "WS 018": "swarmer",
+        "WS 019": "pdburst",
+        "WS 020": "swarmer",
+        "WS 021": "pdburst",
+        "WS 022": "pdburst",
+        "WS 023": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

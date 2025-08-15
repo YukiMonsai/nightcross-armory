@@ -18,6 +18,7 @@ import data.scripts.weapons.ai.NA_RKKVAI;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
 import data.scripts.world.MarketHelpers;
 import data.scripts.world.nightcross.NAGen;
+import data.scripts.world.nightcross.NA_StargazerGen;
 import exerelin.campaign.SectorManager;
 import org.dark.shaders.util.ShaderLib;
 import org.dark.shaders.util.TextureData;
@@ -34,6 +35,7 @@ public class NAModPlugin extends BaseModPlugin {
 
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
+    public static final String MEMKEY_INTIALIZEDSG = "$nightcross_stargazer_initialized";
     public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium2";
     public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop2";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
@@ -52,6 +54,11 @@ public class NAModPlugin extends BaseModPlugin {
         NAGen gen = new NAGen();
         gen.generate(Global.getSector());
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+
+
+        NA_StargazerGen gen2 = new NA_StargazerGen();
+        gen2.init(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
 
 
     }
@@ -161,6 +168,14 @@ public class NAModPlugin extends BaseModPlugin {
                 Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
             }
 
+
+            NA_StargazerGen gensg = new NA_StargazerGen();
+            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZEDSG)) {
+                gensg.init(Global.getSector());
+                gensg.generate(Global.getSector());
+                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+            }
+
             //MarketHelpers.generateMarketsFromEconJson("na_pascal");
         }
     }
@@ -190,6 +205,11 @@ public class NAModPlugin extends BaseModPlugin {
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
         gen.place_sop(Global.getSector());
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+
+
+        NA_StargazerGen gensg = new NA_StargazerGen();
+        gensg.generate(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
     }
 
     @Override

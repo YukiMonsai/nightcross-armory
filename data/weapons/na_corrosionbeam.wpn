@@ -45,7 +45,7 @@
   ],
   "width": 25,
   "textureType": [
-    "graphics/fx/slipstream.png",
+    "graphics/trails/na_plasmabeamcore.png",
     "graphics/fx/beam_laser_fringe.png"
   ],
   "textureScrollSpeed": 150,

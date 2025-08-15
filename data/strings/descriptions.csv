@@ -24,7 +24,7 @@ na_forgevats,SHIP_SYSTEM,Reloads 20% max ammo to all Large Missile slots and 50%
 na_fastcapacitors,SHIP_SYSTEM,"Reroute engine power to supercharge all energy hardpoints on the ship, granting +50% range, damage, and ammo regeneration. Non-continuous weapons also gain massively increased fire rate. Increase weapon range by 20% while passive.",Weapon Boost,"Reroute engine power to supercharge all energy hardpoints on the ship, granting +50% range, damage, and ammo regeneration. Non-continuous weapons also gain massively increased fire rate. Increase weapon range by 20% while passive.",,
 na_singdrive,SHIP_SYSTEM,"Drags a bubble of space-time forward, dragging following ships along while pulling in anything that approaches from the front.",Movement,Moves forward while dragging nearby ships along.,,
 na_plasmasurge,SHIP_SYSTEM,"Supercharges the ship's energy grid, increasing mobility and instantly reloading 10s worth of ammo for Energy and Synergy weapons. Energy flux costs reduced by 30% for the duration.",Movement,Reloads 10s of energy and synergy weapon ammo while increasing mobility and reducing energy flux costs.,,
-na_plasmasurge2,SHIP_SYSTEM,Provides a brief burst of movement speed and maneuverability.,Movement,"Provides a brief but extreme boost to speed and maneuverability. Increased speed while accelerating forward, while maneuverability is increased while not accelerating.",,
+na_plasmasurge2,SHIP_SYSTEM,"Provides a brief burst of movement speed and maneuverability, depending on current flux level.",Movement,"Provides a brief but extreme boost to speed and maneuverability, increasing with current flux level.",,
 na_gravitymine,SHIP_SYSTEM,"Teleports a powerful gravity bomb to the target location. If it explodes, it deals 500 Energy damage in a wide radius, overloads, and drags nearby ships toward the explosion.",Offense,Teleports a disruptive gravity bomb to the target location that overloads and pulls in ships if it explodes.,,
 na_heavyparticlecannon,WEAPON,Fires a powerful barrage capable of producing Bremsstrahlung radiation as the projectiles pass through hull. ,,,,
 na_particlecannon,WEAPON,"Accelerated-Magnetic-Particle Cannon. Fires a burst of particles at near-relativistic speeds. Generates deadly radiation as particles pass through hull materials, leading to adverse effect on electronics and crew life expectancy.",,,,
@@ -104,7 +104,42 @@ na_fossa,SHIP,"A light destroyer with a robust power grid and durable shield. It
 na_tempus,SHIP,"The Tempus Spatium carries an anachronistic armamant, boasting batteries of ballistic point defense alongside an advanced weapons integration system for its main energy guns. But make no mistake--its ballistic mounts are a concession to unique challenges involved in scaling the Chroma Reactor to cruiser scale. Its deep flux banks allow it to project ruinous firepower from great range.",,,,
 na_nammu,SHIP,"A dedicated support vessel, designed to aid in fleet logistics while providing missile support to fleets in combat. Its drones provide it with the ability to provide onsite repair capabilities and stabilize the shields of targets under fire.",,,,
 na_tessera,SHIP,"A light cruiser designed purely for spaceborne operations, informed by learnings from the Fossa Magna's Chroma Reactor and the Moonbeam's overtuned thrusters. The Tessera Magu is a cutting-edge killing machine, fast and deadly, capable of putting its reactor into overdrive for brief periods in order to supercharge its weapons and mobility.",,,,
-naai_tessera,SHIP,"Closest match found to archive entry for ""Magu Tessera""-class hull, 92.8% confidence. Querying database... ""Humanity is already the undisputed authority of reality, and we have the physics to prove it- DATA CORRUPTED
+naai_tessera,SHIP,"Closest match found to archive entry for ""Magu Tessera""-class hull, 92.8% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_tempus,SHIP,"Closest match found to archive entry for ""Tempus Spatium""-class hull, 95.1% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_fossa,SHIP,"Closest match found to archive entry for ""Mare Crisium""-class hull, 83.5% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_macula,SHIP,"Closest match found to archive entry for ""Krun Macula""-class hull, 101.2% confidence. Querying database...
+
+// process complete. total file size: inf kb
+
+Processing. ERROR//
+
+Not enough memory. Restarting application.",,,,
+naai_elyurias,SHIP,"Closest match found to archive entry for ""Elyurias""-class hull, 89.4% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_mare,SHIP,"Closest match found to archive entry for ""Mare Crisium""-class hull, 83.5% confidence. Querying database... ""Humanity is already the undisputed authority of reality, and we have the physics to prove it- DATA CORRUPTED
 // datastream resetting...
 
 -someone rigs it from the start, and then says try your best, doesn't it make you mad?- DATA CORRUPTED
@@ -118,10 +153,30 @@ naai_tessera,SHIP,"Closest match found to archive entry for ""Magu Tessera""-cla
 Processing. ERROR//
 
 The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_sop,SHIP,"Closest match found to archive entry for ""String of Pearls""-class hull, NaN% confidence -DATA CORRUPTED
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_kasei,SHIP,"Closest match found to archive entry for ""Kasei Valles""-class hull, 68.1% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_losulsi,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 81.27% confidence. Querying database...
+
+// process complete. total file size: -43kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
+naai_nammu,SHIP,"Closest match found to archive entry for ""Occator""-class hull, 73.5% confidence. Querying database...
+
+// process complete. total file size: 0kb
+
+Processing. ERROR//
+
+The application has encountered an unexpected error. Please contact your administrator.",,,,
 na_xanthe,SHIP,"A highly unconventional design based on prototype early-model phase coils. While the performance is, on paper, superior to standard-issue coils in the sector, the esoteric design requirements result in a ship that consists of mostly phase-coils, with much of the remaining space packed with automation. Nonetheless, the Xanthe Terra fills a unique niche in the Nightcross Armory catalog, able to bring to bear significant firepower in the hands of a skilled pilot.",,,,
 na_elyurias,SHIP,"Born to rain death across vast distances, the Elyurias was the lynchpin of the Nightcross Planetary Defense Force prior to its dissolution. Equipped with an advanced combat-rated missile forge, its flux grid powered a punishing array of long-ranged weapons supported by an unending barrage of relativistic missiles. Today, the Elyurias is a rarer sight as a supporting vessel in independent battlegroups.",,,,
 na_macula_proto,SHIP,"A Krun Macula-type experimental destroyer found adrift in space, seemingly retrofitted to utilize phase technology and possessing two unusual devices that presumably once functioned as phase coils. One of the devices, however, has been replaced with a perfectly spherical void. The craft functions like a normal phase ship once retrofitted with standard phase coils, but the unusual device in the other space seems to produce an unnerving effect on the crew when activated.",,,,
-naai_losulsi,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 81.27% confidence. Querying database...
-// datastream resetting...
-
-The application has encountered an unexpected error. Please contact your administrator.",,,,

@@ -1,9 +1,12 @@
 V1.2.4
 - Xanthe Terra shipsystem CD 20->
 - Xanthe terra system now has 2 charges, 30s charge time
-- Light Pyrolance OP reduced 8->5
-- Pyrolance OP reduced 12->9, max charges 7 -> 6
+- Zal Patera now a bit more sluggish, +25 armor and shield is front instead of omni
+- Light Pyrolance max charges 4 -> 8, flux 375 -> 400, dmg 850 -> 1000, range 800 -> 750
+- Trance super blaster ammo/sec increased 0.5 -> 0.65
+- Pyrolance max charges 7 -> 8, dps 1150 -> 1500, flux 450 -> 600, ammo regen .5 -> .3, range 900 -> 850
 - Added spooky things in the abyss
+- Added additional 'top secret' bounties for nightcross contacts
 - Added Kasane Teto
 
 V1.2.3

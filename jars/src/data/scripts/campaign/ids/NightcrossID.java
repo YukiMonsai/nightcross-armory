@@ -14,6 +14,9 @@ public class NightcrossID {
     public static final String NA_SHIELDBATTERY_ID = "na_shieldbattery";
     public static final String NA_LUMINOUSDRILL_REPAIR = "na_luminousdrill_repair";
     public static final String NA_LUMINOUSDRILL = "na_luminousdrill";
+    public static final String FACTION_STARGAZER = "stargazer";
+    public static final String STARDUST_CORE = "na_stardust_core";
+
 
 
 

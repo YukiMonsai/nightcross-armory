@@ -1,0 +1,49 @@
+{
+  "variantId": "anubis_na_omega1",
+  "hullId": "anubis",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 7,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "high_scatter_amp",
+    "safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "realitydisruptor"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "jackhammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "guardian",
+        "WS 002": "guardian"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "resonatormrm"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "xyphos_wing"
+  ]
+}

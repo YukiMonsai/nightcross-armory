@@ -17,17 +17,40 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "reaper",
-        "WS0002": "reaper",
-        "WS0003": "na_pyrorifle",
-        "WS0004": "na_pyrorifle",
-        "WS0006": "na_pyrorifle",
-        "WS0009": "na_pyrorifle",
         "WS0017": "na_pyrolance_med",
-        "WS0018": "na_pyrolance_med",
-        "WS0024": "na_chirppd",
-        "WS0025": "na_chirppd"
+        "WS0018": "na_pyrolance_med"
       }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "reaper",
+        "WS0002": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_pyrorifle_ai",
+        "WS0004": "na_pyrorifle_ai",
+        "WS0006": "na_pyrorifle_ai",
+        "WS0009": "na_pyrorifle_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0024": "na_chirppd_ai",
+        "WS0025": "na_chirppd_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
     },
     {
       "autofire": false,
@@ -35,17 +58,7 @@
       "weapons": {}
     },
     {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": true,
+      "autofire": false,
       "mode": "LINKED",
       "weapons": {}
     }

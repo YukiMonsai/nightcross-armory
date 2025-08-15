@@ -1,0 +1,74 @@
+{
+  "variantId": "odyssey_na_omega",
+  "hullId": "odyssey",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 34,
+  "fluxVents": 50,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "fluxdistributor",
+    "defensive_targeting_array"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "realitydisruptor"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "rifttorpedo"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "vpdriver"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "sabotpod",
+        "WS 005": "sabotpod",
+        "WS 006": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "pdburst",
+        "WS 009": "pdburst",
+        "WS 010": "pdburst",
+        "WS 012": "pdburst",
+        "WS 015": "pdburst",
+        "WS 017": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "longbow_wing",
+    "longbow_wing"
+  ]
+}

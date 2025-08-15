@@ -1,0 +1,44 @@
+{
+  "variantId": "anubis_na_omega2",
+  "hullId": "anubis",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 18,
+  "fluxVents": 9,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks",
+    "eccm"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 000": "rifttorpedo",
+        "WS 001": "rifttorpedo",
+        "WS 002": "rifttorpedo"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "xyphos_wing"
+  ]
+}

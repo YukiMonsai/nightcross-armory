@@ -1,0 +1,356 @@
+{
+  "hullName": "Safronov Regio",
+  "hullId": "naai_macula",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/naai/macula/na_macula.png",
+  "style": "NIGHTCROSSAIHULL",
+  "height": 172,
+  "width": 172,
+  "center": [86, 79],
+  "collisionRadius": 88.5,
+  "shieldCenter": [2, -0],
+  "shieldRadius": 94.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "automated",
+    "na_fulldive",
+    "na_stargazerhullmod",
+    "na_rcs",
+    "na_plasmaaggregator",
+    "coherer"
+  ],
+  "builtInWeapons": {
+    "CENTER1": "naai_macula_left",
+    "CENTER2": "naai_macula_right",
+    "WS0005": "blinker_na_red",
+    "WS0007": "blinker_na_red",
+    "WS0008": "blinker_na_red",
+    "WS0011": "blinker_na_red",
+    "WS0012": "blinker_na_red",
+    "WS0013": "blinker_na_red",
+    "WS0014": "blinker_na_red",
+    "WS0015": "blinker_na_red",
+    "WS0016": "na_reactor",
+    "WS0019": "naai_eye"
+  },
+  "weaponSlots": [
+    {
+      "id": "CENTER1",
+      "size": "MEDIUM",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [-21.5, 40.5],
+      "renderOrderMod": 100
+    },
+    {
+      "id": "CENTER2",
+      "size": "MEDIUM",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [-21.5, -40.5],
+      "renderOrderMod": 100
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [19.5, 51.5]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [19.5, -51.5]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -1.5,
+      "locations": [-43, 33]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 1.5,
+      "locations": [-43, -33]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [65, 30]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [65, -30]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-49.5, 68.5]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-49.5, -68.5]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 99,
+      "angle": 152,
+      "locations": [-26, 50],
+      "renderOrderMod": 400
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 99,
+      "angle": -152,
+      "locations": [-26, -50],
+      "renderOrderMod": 400
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [16, 33]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [16, -33]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 72,
+      "angle": 25.5,
+      "locations": [-9, 62]
+    },
+    {
+      "id": "WS0009",
+      "size": "SMALL",
+      "type": "SYNERGY",
+      "mount": "TURRET",
+      "arc": 72,
+      "angle": -25.5,
+      "locations": [-9, -62]
+    },
+    {
+      "id": "WS0010",
+      "size": "MEDIUM",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 243,
+      "angle": 0,
+      "locations": [27, -0],
+      "renderOrderMod": 800
+    },
+    {
+      "id": "WS0017",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [32, 16]
+    },
+    {
+      "id": "WS0018",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [32, -16]
+    },
+    {
+      "id": "WS0016",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [-22, -0]
+    },
+    {
+      "id": "WS0019",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": -0,
+      "locations": [1, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-45, 75.5],
+      "length": 44.933029,
+      "width": 10.054451,
+      "angle": 107.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-45, -75.5],
+      "length": 44.933029,
+      "width": 10.054451,
+      "angle": -107.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [45.5, 42.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 77.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [45.5, -42.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -77.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-47.5, 63],
+      "length": 77.640938,
+      "width": 13.547636,
+      "angle": 170.5,
+      "contrailSize": 13.547636,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-47.5, -63],
+      "length": 77.640938,
+      "width": 13.547636,
+      "angle": -170.5,
+      "contrailSize": 13.547636,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-55, 41.5],
+      "length": 90.432968,
+      "width": 20.433207,
+      "angle": 176,
+      "contrailSize": 20.433207,
+      "style": "NA_STARGAZER"
+    },
+    {
+      "location": [-55, -41.5],
+      "length": 90.432968,
+      "width": 20.433207,
+      "angle": -176,
+      "contrailSize": 20.433207,
+      "style": "NA_STARGAZER"
+    },
+    {
+      "location": [-55.5, 4.5],
+      "length": 107.109367,
+      "width": 24.131531,
+      "angle": 180,
+      "contrailSize": 24.131531,
+      "style": "NA_STARGAZER"
+    },
+    {
+      "location": [-55.5, -4.5],
+      "length": 107.109367,
+      "width": 24.131531,
+      "angle": -180,
+      "contrailSize": 24.131531,
+      "style": "NA_STARGAZER"
+    },
+    {
+      "location": [-39, 15],
+      "length": 66.478523,
+      "width": 14.677416,
+      "angle": 168,
+      "contrailSize": 14.677416,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-39, -15],
+      "length": 66.478523,
+      "width": 14.677416,
+      "angle": -168,
+      "contrailSize": 14.677416,
+      "style": "NA_STARGAZER_SEC"
+    }
+  ],
+  "bounds": [
+    61.5, -7.5,
+    45, -21,
+    64.5, -28,
+    61.5, -38,
+    12.5, -43.5,
+    20.5, -53,
+    -10, -71,
+    -45, -75.5,
+    -38.5, -50.5,
+    -54, -40.5,
+    -40.5, -18,
+    -57.5, -8.5,
+    -57.5, 8.5,
+    -40.5, 18,
+    -54, 40.5,
+    -38.5, 50.5,
+    -45, 75.5,
+    -10, 71,
+    20.5, 53,
+    12.5, 43.5,
+    61.5, 38,
+    64.5, 28,
+    45, 21,
+    61.5, 7.5
+  ]
+}

@@ -47,7 +47,8 @@
 		"target_skill_preference": "YES_ENERGY_YES_MISSILE_YES_DEFENSE",
 		
 		"fleet_name": "Responsibility Society",
-		"fleet_faction": "ML-Bounty",
+		"fleet_faction": "ML_bounty",
+		"fleet_flagship_name": "KTS Liar Dancer",
 		"fleet_flagship_variant": "na_tessera_drill_drill",
 		"fleet_flagship_recoverable": true,
 		"fleet_scaling_multiplier": 0.6,

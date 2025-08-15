@@ -21,6 +21,9 @@
 		"nightcross_pascal_music":[
 			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
 		],
+		"mekaloton_Red_Mask":[
+			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.45}, 
+		],
 	},
 
 #collapseopen WEAPONS	

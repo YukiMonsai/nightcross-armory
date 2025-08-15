@@ -3,7 +3,7 @@
   "specClass": "beam",
   "type": "ENERGY",
   "size": "MEDIUM",
-  "beamEffect": "data.scripts.weapons.NA_Pyrolance",
+  "beamEffect": "data.scripts.weapons.NA_PyrolanceDrill",
   "collisionClass": "RAY",
   "collisionClassByFighter": "RAY_FIGHTER",
   "turretSprite": "graphics/weapons/na_pyrolance_drill_hardpoint_base.png",

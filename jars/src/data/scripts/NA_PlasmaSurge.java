@@ -298,7 +298,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
         if (ship.getChildModulesCopy() != null && ship.getChildModulesCopy().size() > 0) {
             for (ShipAPI child: ship.getChildModulesCopy()) {
                 child.getEngineController().fadeToOtherColor(child, color, new Color(0, 0, 0, 0), effectLevel, 0.8f);
-                child.getEngineController().extendFlame(child, 1.0f * effectLevel, 1.5f * effectLevel, 1.5f * effectLevel);
+                child.getEngineController().extendFlame(child, 1.0f * effectLevel, 0.8f * effectLevel, 0.8f * effectLevel);
                 child.getEngineController().getExtendLengthFraction().advance(Global.getCombatEngine().getElapsedInLastFrame());
 
             }
@@ -311,7 +311,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
                     // Nothing!!
                 } else {
                     ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(0, 0, 0, 0), effectLevel, 0.8f);
-                    ship.getEngineController().extendFlame(e.getEngineSlot(), 1.0f * effectLevel, 1.5f * effectLevel, 1.5f * effectLevel);
+                    ship.getEngineController().extendFlame(e.getEngineSlot(), 0.5f * effectLevel, 0.45f * effectLevel, 0.5f * effectLevel);
 
 
                     if (beamTimer.intervalElapsed()) {
@@ -319,7 +319,7 @@ public class NA_PlasmaSurge extends BaseShipSystemScript {
                                 e.getLocation(), new Vector2f(ship.getVelocity().x*0.5f, ship.getVelocity().y*0.5f),
                                 30f, 3f, 0.5f, 0.5f,
                                 1.7f,
-                                new Color(0, 61, 94, 150), true
+                                NAUtils.isStargazerRed(ship) ? new Color(158, 0, 29, 150) : new Color(0, 61, 94, 150), true
                         );
                     }
 

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.NAUtils;
 import org.dark.shaders.light.LightShader;
 import org.dark.shaders.light.StandardLight;
 import org.lazywizard.lazylib.MathUtils;
@@ -80,11 +81,17 @@ public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
                             ship.getCollisionRadius(), // max range
                             null, //"tachyon_lance_emp_impact",
                             20f, // thickness
-                            new Color(
+                            NAUtils.isStargazerRed(ship) ? new Color(
+                                    170,
+                                    86,
+                                    86, 147) : new Color(
                                     175,
                                     75,
                                     225),
-                            new Color(200, 175, 225, 255)
+                            NAUtils.isStargazerRed(ship) ? new Color(
+                                    159,
+                                    110,
+                                    110, 98) : new Color(200, 175, 225, 255)
                     );
                 }
             } else {

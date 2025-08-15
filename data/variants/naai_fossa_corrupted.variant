@@ -1,0 +1,63 @@
+{
+  "variantId": "naai_fossa_corrupted",
+  "hullId": "naai_fossa",
+  "displayName": "Corupted",
+  "goalVariant": true,
+  "fluxCapacitors": 7,
+  "fluxVents": 20,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "escort_package",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0028": "na_hardlightrifle"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_rkkv_medium",
+        "WS0003": "na_rkkv_medium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0022": "na_chirppd_ai",
+        "WS0023": "na_chirppd_ai",
+        "WS0024": "na_chirppd_ai",
+        "WS0025": "na_chirppd_ai"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

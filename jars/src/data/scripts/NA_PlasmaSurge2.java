@@ -35,6 +35,8 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
     public static float SPEED_BONUS_FORWARD = 300f;
     public static float TURN_BONUS = 150f;
     public static float TURN_RATE_BONUS = 150f;
+    public static float FLUX_SCALE_MIN = 0.6f;
+    public static float FLUX_SCALE_MAX = 1.35f;
 
     public static final String DMG_ID = "NA_PlasmaSurge2Mod";
 
@@ -249,15 +251,16 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
                 }
 
             }
-            stats.getMaxSpeed().modifyFlat(id, (!isThrustingBackward ? SPEED_BONUS_FORWARD : SPEED_BONUS));
-            stats.getAcceleration().modifyPercent(id, (isThrustingForward ? SPEED_BONUS_FORWARD * (0.5f + 0.5f*effectLevel) * 2.0f : SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.0f));
-            stats.getDeceleration().modifyPercent(id, SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.5f);
+            float mult = FLUX_SCALE_MIN + ship.getFluxTracker().getHardFlux() * (FLUX_SCALE_MAX - FLUX_SCALE_MIN);
+            stats.getMaxSpeed().modifyFlat(id, mult * (!isThrustingBackward ? SPEED_BONUS_FORWARD : SPEED_BONUS));
+            stats.getAcceleration().modifyPercent(id, mult * (isThrustingForward ? SPEED_BONUS_FORWARD * (0.5f + 0.5f*effectLevel) * 2.0f : SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.0f));
+            stats.getDeceleration().modifyPercent(id, mult * SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.5f);
             if (isThrustingForward) {
                 stats.getMaxTurnRate().unmodify(id);
                 stats.getTurnAcceleration().unmodify(id);
             } else {
-                stats.getTurnAcceleration().modifyFlat(id, TURN_BONUS * effectLevel);
-                stats.getMaxTurnRate().modifyPercent(id, TURN_RATE_BONUS);
+                stats.getTurnAcceleration().modifyFlat(id, mult * TURN_BONUS * effectLevel);
+                stats.getMaxTurnRate().modifyPercent(id, mult * TURN_RATE_BONUS);
             }
             //stats.getFluxDissipation().modifyFlat(id, FLUX_GEN * effectLevel);
         }
@@ -298,14 +301,14 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
 
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
-        Color color = new Color(255, 177, 0, 255);
+        Color color = new Color(248, 230, 186, 255);
 
         ship.getEngineController().getExtendLengthFraction().advance(Global.getCombatEngine().getElapsedInLastFrame());
 
         if (ship.getChildModulesCopy() != null && ship.getChildModulesCopy().size() > 0) {
             for (ShipAPI child: ship.getChildModulesCopy()) {
-                child.getEngineController().fadeToOtherColor(child, color, new Color(0, 0, 0, 0), effectLevel, 0.8f);
-                child.getEngineController().extendFlame(child, 0.5f * effectLevel * effectLevel, 1.1f * effectLevel * effectLevel, 1.5f * effectLevel);
+                child.getEngineController().fadeToOtherColor(child, color, new Color(239, 5, 5, 50), effectLevel, 0.4f);
+                child.getEngineController().extendFlame(child, 0.5f * effectLevel * effectLevel, 0.8f * effectLevel * effectLevel, 0.65f * effectLevel);
                 child.getEngineController().getExtendLengthFraction().advance(Global.getCombatEngine().getElapsedInLastFrame());
 
             }
@@ -317,8 +320,8 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
                 if (Math.abs(Math.sin(Math.toRadians(e.getEngineSlot().getAngle()))) > 0.1 && e.getEngineSlot().getLength() < 44) {
                     // Nothing!!
                 } else {
-                    ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(0, 0, 0, 0), effectLevel, 0.8f);
-                    ship.getEngineController().extendFlame(e.getEngineSlot(), 0.5f * effectLevel * effectLevel, 1.1f * effectLevel * effectLevel, 1.5f * effectLevel);
+                    ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(239, 5, 5, 50), effectLevel, 0.4f);
+                    ship.getEngineController().extendFlame(e.getEngineSlot(), 0.25f * effectLevel * effectLevel, 0.5f * effectLevel * effectLevel, 0.4f * effectLevel);
 
 
                     if (beamTimer.intervalElapsed()) {

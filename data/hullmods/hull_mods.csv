@@ -24,3 +24,9 @@ Precision Drives,nightcrossengines,2,,,defensive,"Engines, Defenses",10000,,TRUE
 Precision Drives,na_overloadweapons,2,,,defensive,"Engines, Defenses",10000,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_OverloadWeapons,This module's weapons suffer EMP damage when the host ship is overloading.,This module's weapons suffer EMP damage when the host ship is overloading.,,graphics/hullmods/augmented_drive_field2.png
 RCS,na_rcs,2,,,defensive,"Engines, Defenses",10000,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_EngineRCS,Visual RCS Thrusters,Visual RCS Thrusters,,graphics/hullmods/augmented_drive_field2.png
 NightcrossModuleFixer,na_fakemodule,2,,,defensive,"Engines, Defenses",10000,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_FakeModule,NightcrossModuleFixer,Visual RCS Thrusters,,graphics/hullmods/augmented_drive_field2.png
+Stargazer,na_stargazerhullmod,,,,"codex_require_related, stargazer",,,,TRUE,,0,0,0,0,data.scripts.hullmods.NA_StargazerHull,Hidden hullmod for managing the special properties of Threat ships. Description created in script.,,,graphics/hullmods/the_threat.png
+Stardust,na_stargazerstars,,,,"codex_unlockable, stargazer","Weapons, Special",30000,,,,6,12,18,30,data.scripts.hullmods.NA_StargazerStars,"A swarm of Threat fragments roils around the ship, providing a regenerating supply of fragments for fragment-based weapons.
+
+The base number of fragments is %s/%s/%s/%s, and replacement fragments are launched %s/%s/%s/%s times a second, depending on hull size.
+
+This hullmod is required for fragment weapons to function, if the hullmod is not present or there are not enough fragments in the swarm, fragment weapons will be disabled.",A swarm of Threat fragments roils around the ship.,Reduces maximum combat readiness by %s and increases the maintenance cost by %s.,graphics/hullmods/fragment_swarm.png

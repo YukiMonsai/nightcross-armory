@@ -1,0 +1,42 @@
+{
+  "variantId": "naai_sop_corrupted",
+  "hullId": "naai_sop",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 7,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "magazines",
+    "frontemitter",
+    "missile_autoloader"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_pyrolance_small",
+        "WS0004": "na_pyrolance_small"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "na_corrosion"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_chirppd_ai",
+        "WS0002": "na_chirppd_ai"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

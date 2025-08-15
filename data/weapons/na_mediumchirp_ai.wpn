@@ -17,16 +17,16 @@
     255
   ],
   "fringeColor": [
-    200,
+    100,
     0,
     0,
-    85
+    50
   ],
   "coreColor": [
     225,
     125,
     175,
-    125
+    100
   ],
   "hitGlowRadius": 25.0,
   "hitGlowBrightenDuration":0.25,

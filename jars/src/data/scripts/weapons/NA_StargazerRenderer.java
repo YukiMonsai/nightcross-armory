@@ -44,7 +44,7 @@ public class NA_StargazerRenderer extends BaseCombatLayeredRenderingPlugin {
                     spriteflare.setAlphaMult(1f);
                     float scale = 1f;
                     if (bh.weapon.getShip() != null) {
-                        scale = (float) ((180f + Math.random() * 5f))/Math.max(100f, bh.weapon.getShip().getCollisionRadius());
+                        scale = (float) (Math.max(80f, bh.weapon.getShip().getCollisionRadius())/(70f + Math.random() * 5f));
                     }
 
                     spriteflare.setSize((int) (240f * scale), (int) (34f * scale));

@@ -3,6 +3,8 @@
 	# for example, no Hyperions or fast beam-based kiting loadouts, or ships with damper field
 	"combatSmallForSmallFleet":{
 		"na_sop_strike":5,
+		"naai_sop_corrupted":5,
+		"naai_kasei_corrupted":5,
 		"na_mare_strike":5,
 		"na_mare_standard":5,
 		"na_mare_exp":5,
@@ -14,6 +16,9 @@
 	},
 	"combatSmall":{
 		"na_sop_elite":4,
+		"naai_sop_corrupted":5,
+		"naai_mare_corrupted":5,
+		"naai_kasei_corrupted":5,
 		"na_sop_escort":3,
 		"na_sop_strike":4,
 		"na_mare_strike":2,
@@ -27,6 +32,9 @@
 		"na_zal_strike":5,
 	},
 	"combatMedium":{
+		"naai_macula_corrupted":3,
+		"naai_fossa_corrupted":5,
+		"naai_nammu_corrupted":2.5,
 		"na_macula_overdriven":5,
 		"na_macula_strike":5,
 		"na_macula_elite":5,
@@ -46,7 +54,9 @@
 		"na_elyurias_elite":3,
 		"na_elyurias_support":5,
 		"na_elyurias_synergy":1,
+		"naai_elyurias_corrupted":1,
 		"naai_tessera_corrupted": 10,
+		"naai_tempus_corrupted": 10,
 		"na_tessera_assault":6,
 		"na_tessera_beam":2,
 		"na_tessera_saturation":1,
@@ -59,6 +69,7 @@
 	"combatCapital":{
 		"na_losulci_offense":3,
 		"na_losulci_defense":5,
+		"naai_losulci_corrupted":5,
 	},
 	
 	

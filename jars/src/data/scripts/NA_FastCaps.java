@@ -240,7 +240,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
         if (!active) return;
 
-        Color glowColor = WEAPON_GLOW;
+        Color glowColor = NAUtils.isStargazerRed(ship) ? new Color(238, 118, 19, 173) : WEAPON_GLOW;
         float time = Global.getCombatEngine().getElapsedInLastFrame();
 
         float projChance = 0.7f;
@@ -261,7 +261,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
                             MathUtils.getRandomPointInCircle(
                                     w.getLocation(), w.getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f
                             ), ship, 2f,
-                            new Color(47, 250, 114, 75),
+                            NAUtils.isStargazerRed(ship) ? new Color(167, 0, 250, 75) : new Color(47, 250, 114, 75),
                             new Color(210, 238, 238, 75)
                     );
                 }
@@ -309,7 +309,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
                                             trail ? MathUtils.getPointOnCircumference(Misc.ZERO, 10f, 180f + proj.getFacing()) : proj.getVelocity(),
                                             trail ? 32f : (proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f),
                                             0.8f, 0.5f, 1.5f,
-                                            new Color(47, 250, 114, 150)
+                                            NAUtils.isStargazerRed(ship) ? new Color(233, 0, 250, 174) : new Color(47, 250, 114, 150)
                                     );
                             }
 
@@ -369,7 +369,7 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
-        Color color = new Color(47, 250, 114, 75);
+        Color color = NAUtils.isStargazerRed(ship) ? new Color(167, 0, 250, 75) : new Color(47, 250, 114, 75);
 
         if (ship.getChildModulesCopy() != null && ship.getChildModulesCopy().size() > 0) {
             for (ShipAPI child: ship.getChildModulesCopy()) {

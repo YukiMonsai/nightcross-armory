@@ -1,0 +1,92 @@
+{
+  "variantId": "naai_losulci_corrupted",
+  "hullId": "naai_losulci",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 47,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit",
+    "stabilizedshieldemitter",
+    "auxiliarythrusters"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_hardlightrifle",
+        "WS0003": "na_hardlightrifle",
+        "WS0004": "na_mediumchirp_ai",
+        "WS0006": "na_mediumchirp_ai",
+        "WS0016": "na_pyrorifle_ai",
+        "WS0017": "na_pyrorifle_ai",
+        "WS0018": "na_chirppd_ai",
+        "WS0019": "na_chirppd_ai",
+        "WS0020": "na_chirppd_ai",
+        "WS0021": "na_chirppd_ai",
+        "WS0022": "na_filter",
+        "WS0023": "na_filter",
+        "WS0024": "na_pyrorifle_ai",
+        "WS0025": "na_pyrorifle_ai",
+        "WS0026": "na_corrosionbeam",
+        "WS0027": "na_corrosionbeam",
+        "WS0030": "na_metahelium",
+        "WS0031": "na_metahelium",
+        "WS0032": "na_filter",
+        "WS0033": "na_filter"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0028": "na_wavefront_pod",
+        "WS0029": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "na_metahelium",
+        "WS0010": "na_metahelium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [
+    {
+      "GEN_L": "naai_hardlightgenerator_standard"
+    },
+    {
+      "GEN_R": "naai_hardlightgenerator_standard"
+    }
+  ],
+  "wings": [
+    "na_magicmissile_wing",
+    "na_magicmissile_wing"
+  ]
+}

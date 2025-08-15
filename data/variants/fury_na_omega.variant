@@ -1,0 +1,51 @@
+{
+  "variantId": "fury_na_omega",
+  "hullId": "fury",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 13,
+  "fluxVents": 16,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "targetingunit",
+    "magazines",
+    "stabilizedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "na_pyrolance_med"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "resonatormrm"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "na_interceptor",
+        "WS 005": "shockrepeater",
+        "WS 006": "shockrepeater"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "na_lasermini",
+        "WS 004": "na_lasermini"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

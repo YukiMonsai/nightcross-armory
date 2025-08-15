@@ -9,6 +9,8 @@
 	"na_redmasktext":[230,10,10,255],
 	"na_tetotext":[250,15,35,255],
 	"graphics":{
+		
+		
 		"blueprint_packages":{
 			"nightcross_package_fast":"graphics/icons/package_na_fast.png",
 			"nightcross_package_heavy":"graphics/icons/package_na_heavy.png",
@@ -17,6 +19,11 @@
 		},
 		"misc":{
 			"rings_debris":"graphics/planets/rings_debris.png",
+			"na_stargazer_faction":"graphics/factions/stargazer.png",
+			"na_stargazer_crest":"graphics/factions/crest_stargazer.png",
+			
+			"na_stardust_swarm_pieces":"graphics/weapons/stardust/na_stardust_fragments.png",
+			"na_stardust_swarm_glow":"graphics/fx/hit_glow.png",
 		}, 
 			
 		"na_trails":{
@@ -34,6 +41,14 @@
 			"nightcross_armory_hq":"graphics/icons/industry/nightcross_armory_hq.png",
 		},
 		
+		"naai_portraits":{
+			"naai_dead1":"graphics/portraits/naai/naai_dead1.png",
+			"naai_dead2":"graphics/portraits/naai/naai_dead2.png",
+			"naai_dead3":"graphics/portraits/naai/naai_dead3.png",
+			"naai_dead4":"graphics/portraits/naai/naai_dead4.png",
+			"naai_dead5":"graphics/portraits/naai/naai_dead5.png",
+			"naai_dead6":"graphics/portraits/naai/naai_dead6.png",
+		},
 		"na_characters":{
 			"blackcat":"graphics/portraits/characters/na_blackcat.png",
 			"teto":"graphics/portraits/characters/na_officer_teto.png",

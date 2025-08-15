@@ -1,0 +1,29 @@
+{
+	"id":"naai_hardlightgenerator",  # this id must match what's in the spreadsheet
+	"specClass":"beam",
+	"type":"DECORATIVE",
+	"size":"SMALL",
+	"showDamageWhenDecorative":false,
+	"renderBelowAllWeapons":true,
+	"turretSprite":"graphics/weapons/naai_hardlightgenerator.png",
+	"hardpointSprite":"graphics/weapons/naai_hardlightgenerator.png",
+	  "turretGlowSprite": "graphics/weapons/na_hardlightgenerator_glow.png",
+	  "hardpointGlowSprite": "graphics/weapons/na_hardlightgenerator_glow.png",
+  "glowColor": [
+    255,
+    175,
+	127,
+    255
+  ],
+	"alwaysAnimate":"false",
+	"turretOffsets":[0, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[0, 0],
+	"hardpointAngleOffsets":[0],	
+	"fringeColor":[255,255,255,0],
+	"coreColor":[255,255,255,0],
+	"width":1.0,
+	"textureType":ROUGH,
+	"textureScrollSpeed":1.0,
+	"pixelsPerTexel":1.0,
+}

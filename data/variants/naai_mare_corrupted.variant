@@ -1,0 +1,39 @@
+{
+  "variantId": "naai_mare_corrupted",
+  "hullId": "naai_mare",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 10,
+  "fluxVents": 4,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "extendedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_plasmabeam_med"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_pyrokinetic"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_interceptor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

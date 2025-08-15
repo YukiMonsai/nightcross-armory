@@ -2,12 +2,12 @@
 	"NIGHTCROSS":{
 		"mode":"PARTICLES", # PARTICLES or QUAD_STRIP, determines which params are used
 		
-		"contrailParticleSizeMult":2.5,
+		"contrailParticleSizeMult":1.25,
 		"contrailParticleDuration":1.5,
 		"contrailParticleFinalSizeMult":0.5,
-		"contrailMaxSpeedMult":0.5f,
+		"contrailMaxSpeedMult":0.34f,
 		"contrailAngularVelocityMult":0f,
-		"contrailColor":[80,210,255,25],
+		"contrailColor":[25,195,255,25],
 		"contrailCampaignColor":[80,210,255,5],
 		"type":"GLOW", # GLOW or SMOKE; additive or regular blend mode
 						
@@ -30,12 +30,12 @@
 	"NA_STARGAZER":{
 		"mode":"PARTICLES", # PARTICLES or QUAD_STRIP, determines which params are used
 		
-		"contrailParticleSizeMult":2.5,
+		"contrailParticleSizeMult":1.25,
 		"contrailParticleDuration":1.5,
 		"contrailParticleFinalSizeMult":1.5f,
-		"contrailMaxSpeedMult":0.5f,
+		"contrailMaxSpeedMult":0.34f,
 		"contrailAngularVelocityMult":0f,
-		"contrailColor":[75,55,25,25],
+		"contrailColor":[75,45,255,25],
 		"contrailCampaignColor":[255,0,80,5],
 		"type":"SMOKE", # GLOW or SMOKE; additive or regular blend mode
 						
@@ -45,8 +45,8 @@
 		"glowSizeMult":0.7,
 		
 		
-		"glowAlternateColor":[255,175,0,255],
-		"engineColor":[225,85,25,200],
+		"glowAlternateColor":[255,25,0,255],
+		"engineColor":[255,95,45,200],
 		
 		#"contrailParticleSizeMult":4,
 		#"contrailParticleDuration":1,
@@ -72,7 +72,7 @@
 		"mode":"NONE",
 		
 		
-		"engineColor":[255,50,0,255],
+		"engineColor":[225,25,0,255],
 		"glowAlternateColor":[255,125,0,255],
 		
 		"contrailParticleSizeMult":4,
@@ -80,7 +80,7 @@
 		"contrailParticleFinalSizeMult":0.5,
 		"contrailMaxSpeedMult":0.5f,
 		"contrailAngularVelocityMult":0f,
-		"contrailColor":[255,210,80,25],
+		"contrailColor":[75,45,255,25],
 		"contrailCampaignColor":[255,210,80,5],
 		"type":"GLOW", # GLOW or SMOKE
 		"glowSizeMult":0.75

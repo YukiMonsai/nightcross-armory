@@ -1,0 +1,67 @@
+{
+  "variantId": "apogee_na_omega",
+  "hullId": "apogee",
+  "displayName": "Testbed",
+  "goalVariant": false,
+  "fluxCapacitors": 8,
+  "fluxVents": 15,
+  "quality": 3,
+  "permaMods": [],
+  "hullMods": [
+    "stabilizedshieldemitter",
+    "targetingunit",
+    "eccm"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "kineticblaster"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 008": "rifttorpedo",
+        "WS 009": "locust"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "sabot"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "shockrepeater"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "heavyburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "pdburst"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

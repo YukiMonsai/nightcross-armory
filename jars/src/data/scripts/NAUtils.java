@@ -28,6 +28,13 @@ public class NAUtils {
     }
 
 
+    public static boolean isStargazerRed(ShipAPI ship) {
+        return (ship.getHullSpec().hasTag("stargazer_hull") || ship.getHullSpec().hasTag("na_red") || (ship.getHullSpec().getBaseHull() != null && (ship.getHullSpec().getBaseHull().hasTag("stargazer_hull") || ship.getHullSpec().getBaseHull().hasTag("na_red"))));
+    }
+    public static boolean isStargazer(ShipAPI ship) {
+        return (ship.getHullSpec().hasTag("stargazer_hull") || (ship.getHullSpec().getBaseHull() != null && ship.getHullSpec().getBaseHull().hasTag("stargazer_hull")));
+    }
+
     public static float getFriendlyWeight(ShipAPI ship, Vector2f point, float range) {
 
         float friendlyWeight = NAUtils.shipSize(ship);

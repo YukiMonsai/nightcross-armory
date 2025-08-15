@@ -1,0 +1,52 @@
+{
+  "variantId": "naai_tempus_corrupted",
+  "hullId": "naai_tempus",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 17,
+  "fluxVents": 17,
+  "quality": 2,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "magazines"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "na_hardlightriflereal",
+        "WS0003": "na_hardlightriflereal"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0019": "na_pyrorifle_ai",
+        "WS0020": "na_pyrorifle_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "na_chirppd_ai",
+        "WS0016": "na_chirppd_ai",
+        "WS0017": "na_chirppd_ai",
+        "WS0018": "na_chirppd_ai",
+        "WS0022": "na_filter",
+        "WS0023": "na_filter",
+        "WS0028": "na_mediumchirp_ai"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

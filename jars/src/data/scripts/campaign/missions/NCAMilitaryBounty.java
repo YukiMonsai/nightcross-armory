@@ -15,15 +15,13 @@ public class NCAMilitaryBounty extends BaseCustomBounty {
 
 	public static List<CustomBountyCreator> CREATORS = new ArrayList<CustomBountyCreator>();
 	static {
-		CREATORS.add(new CBPirate());
-		CREATORS.add(new CBDeserter());
-		CREATORS.add(new CBDerelict());
-		CREATORS.add(new CBMerc());
+		CREATORS.add(new NCACBZunya());
+		CREATORS.add(new NCACBStargazerExplorer());
 		CREATORS.add(new NCACBThreat());
+		CREATORS.add(new CBDerelict());
 		CREATORS.add(new CBRemnant());
-		CREATORS.add(new CBRemnantPlus());
-		CREATORS.add(new CBRemnantStation());
-		CREATORS.add(new CBEnemyStation());
+		CREATORS.add(new NCACBTTOmega());
+		CREATORS.add(new NCACBStargazer());
 	}
 	
 	@Override

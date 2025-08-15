@@ -6,6 +6,9 @@ commodity,group,freq
 nothing,na_weps_threat,50
 "wpn_:{tags:[threat, !no_drop, !no_drop_salvage]}",na_weps_threat,100
 ,,
+nothing,na_loot_dweller,50
+item_shrouded_substrate,na_loot_dweller,100
+,,
 nothing,na_weps_stargazer_loot,50
 "wpn_:{tags:[stargazer, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,50
 "wpn_:{tags:[na_sg_loot, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,100

@@ -1,0 +1,69 @@
+{
+  "variantId": "naai_nammu_corrupted",
+  "hullId": "naai_nammu",
+  "displayName": "Corrupted",
+  "goalVariant": true,
+  "fluxCapacitors": 5,
+  "fluxVents": 11,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter",
+    "escort_package",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0008": "na_pyrolance_med",
+        "WS0011": "na_pyrolance_med"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "na_wavefront_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "haas_beamer"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "na_pyrowisp",
+        "WS0004": "na_pyrowisp"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_chirppd_ai",
+        "WS0002": "na_chirppd_ai",
+        "WS0006": "na_mediumchirp_ai",
+        "WS0009": "na_mediumchirp_ai"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
