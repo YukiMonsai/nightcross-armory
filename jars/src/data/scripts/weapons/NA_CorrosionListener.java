@@ -43,8 +43,9 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
     IntervalUtil dmgTimer = new IntervalUtil(SINGULARITY_PERIOD, SINGULARITY_PERIOD);
     public static final float SINGULARITY_PERIOD = 0.2f;
     public static final float SINGULARITY_PULL_RADIUS = 700f;
+    public static final float SINGULARITY_PULL_DUR = 1;
     public static final float SINGULARITY_PULL_MIN_RADIUS = 25f;
-    public static final float SINGULARITY_PULL_STR = 1200000f;
+    public static final float SINGULARITY_PULL_STR = 2000000f;
     IntervalUtil endTimer = new IntervalUtil(SINGULARITY_DURATION, SINGULARITY_DURATION);
     IntervalUtil visTimer = new IntervalUtil(SINGULARITY_VISUAL_DUR, SINGULARITY_VISUAL_DUR*2f);
     IntervalUtil flareTimer = new IntervalUtil(NA_BlackholeRenderer.FLARE_TIME, NA_BlackholeRenderer.FLARE_TIME);
@@ -114,7 +115,7 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
 
 
 
-            if (dmgTimer.intervalElapsed()) {
+            if (dmgTimer.intervalElapsed() && endTimer.getElapsed() < SINGULARITY_PULL_DUR) {
                 dmgTimer.setElapsed(0f);
                 NAUtils.doDamage(lastLocation, SINGULARITY_DMG_RADIUS, SINGULARITY_DMG,
                         SINGULARITY_EMP, SINGULARITY_DMG_TYPE, false, true, source, false);

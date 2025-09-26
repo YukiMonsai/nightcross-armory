@@ -46,7 +46,7 @@
 		
 		
 		"glowAlternateColor":[255,25,0,255],
-		"engineColor":[255,95,45,200],
+		"engineColor":[255,95,25,200],
 		
 		#"contrailParticleSizeMult":4,
 		#"contrailParticleDuration":1,

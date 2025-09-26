@@ -251,7 +251,7 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
                 }
 
             }
-            float mult = FLUX_SCALE_MIN + ship.getFluxTracker().getHardFlux() * (FLUX_SCALE_MAX - FLUX_SCALE_MIN);
+            float mult = FLUX_SCALE_MIN + ship.getFluxTracker().getFluxLevel() * (FLUX_SCALE_MAX - FLUX_SCALE_MIN);
             stats.getMaxSpeed().modifyFlat(id, mult * (!isThrustingBackward ? SPEED_BONUS_FORWARD : SPEED_BONUS));
             stats.getAcceleration().modifyPercent(id, mult * (isThrustingForward ? SPEED_BONUS_FORWARD * (0.5f + 0.5f*effectLevel) * 2.0f : SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.0f));
             stats.getDeceleration().modifyPercent(id, mult * SPEED_BONUS * (0.5f + 0.5f*effectLevel) * 2.5f);
@@ -301,7 +301,7 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
 
         ShipAPI ship = (ShipAPI) stats.getEntity();
         if (ship == null) return;
-        Color color = new Color(248, 230, 186, 255);
+        Color color = new Color(255, 200, 120, 255);
 
         ship.getEngineController().getExtendLengthFraction().advance(Global.getCombatEngine().getElapsedInLastFrame());
 
@@ -320,8 +320,8 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
                 if (Math.abs(Math.sin(Math.toRadians(e.getEngineSlot().getAngle()))) > 0.1 && e.getEngineSlot().getLength() < 44) {
                     // Nothing!!
                 } else {
-                    ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(239, 5, 5, 50), effectLevel, 0.4f);
-                    ship.getEngineController().extendFlame(e.getEngineSlot(), 0.25f * effectLevel * effectLevel, 0.5f * effectLevel * effectLevel, 0.4f * effectLevel);
+                    ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(126, 0, 0, 50), effectLevel, 0.4f);
+                    ship.getEngineController().extendFlame(e.getEngineSlot(), 0.5f * effectLevel * effectLevel, 0.5f * effectLevel, 1.4f * effectLevel);
 
 
                     if (beamTimer.intervalElapsed()) {

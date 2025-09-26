@@ -15,8 +15,8 @@ import java.awt.*;
 public class NA_Pyrolance implements BeamEffectPlugin {
 
 	public static final float DMG_LARGE = 500f;
-	public static final float DMG_MED = 200f;
-	public static final float DMG_SMALL = 100f;
+	public static final float DMG_MED = 150f;
+	public static final float DMG_SMALL = 75f;
 	public static final int COLOR_R = 225;
 	public static final int COLOR_G = 75;
 	public static final int COLOR_B = 15;
@@ -163,9 +163,9 @@ public class NA_Pyrolance implements BeamEffectPlugin {
 		}
 
 		if (damageDealt > 0) {
-			if (Misc.shouldShowDamageFloaty(beam.getSource(), target)) {
+			//if (Misc.shouldShowDamageFloaty(beam.getSource(), target)) {
 				engine.addFloatingDamageText(point, damageDealt, Misc.FLOATY_ARMOR_DAMAGE_COLOR, target, beam.getSource());
-			}
+			//}
 			target.syncWithArmorGridState();
 		}
 	}

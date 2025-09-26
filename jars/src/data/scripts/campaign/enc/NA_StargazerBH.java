@@ -232,52 +232,52 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (type == LoneShipType.TESSERA) {
             String variantId = "naai_tessera_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 3f);
         } else
         if (type == LoneShipType.TEMPUS) {
             String variantId = "naai_tempus_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.KASEI) {
             String variantId = "naai_kasei_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.FOSSA) {
             String variantId = "naai_fossa_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.MACULA) {
             String variantId = "naai_macula_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.SOP) {
             String variantId = "naai_sop_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.MARE) {
             String variantId = "naai_mare_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.LOSULCI) {
             String variantId = "naai_losulci_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.ELYURIAS) {
             String variantId = "naai_elyurias_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 1f);
         }else
         if (type == LoneShipType.NAMMU) {
             String variantId = "naai_nammu_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1f);
         }
 
 
@@ -312,26 +312,26 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (type == VictimType.NIGHTCROSS) {
             String variantId = pickVariant("nightcross", size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f);
         } else if (type == VictimType.TRITACH) {
             String variantId = pickVariant(Factions.TRITACHYON, size, data.random);
             if (variantId == null) return false;
-            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true);
+            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f);
             if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$player.nca_abyss_sgvs_tritach")) {
                 addStargazerWeapons(ship, 3);
             }
         } else if (type == VictimType.PIRATE) {
             String variantId = pickVariant(Factions.PIRATES, size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.WRECKED, type.name(), data.random, true);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.WRECKED, type.name(), data.random, true, 1f);
         } else if (type == VictimType.MERC) {
             String variantId = pickVariant(Factions.MERCENARY, size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), data.random, true);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), data.random, true, 1f);
         } else if (type == VictimType.THREAT) {
             String variantId = pickVariant(Factions.THREAT, size, data.random);
             if (variantId == null) return false;
-            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), data.random, true);
+            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), data.random, true, 1f);
             if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$player.nca_abyss_sgvs_threat")) {
                 addThreatWeapons(ship, 3);
             }
@@ -342,11 +342,11 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
     }
 
     public CustomCampaignEntityAPI addShipAroundPlanet(SectorEntityToken planet, String variantId, ShipRecoverySpecial.ShipCondition condition,
-                                    String gsType, Random random, boolean pruneWeapons) {
-        return this.addShipAroundPlanet(planet, variantId, condition, gsType, null, random, pruneWeapons);
+                                    String gsType, Random random, boolean pruneWeapons, float distMult) {
+        return this.addShipAroundPlanet(planet, variantId, condition, gsType, null, random, pruneWeapons, distMult);
     }
     public CustomCampaignEntityAPI addShipAroundPlanet(SectorEntityToken planet, String variantId, ShipRecoverySpecial.ShipCondition condition,
-                                    String gsType, String shipName, Random random, boolean pruneWeapons) {
+                                    String gsType, String shipName, Random random, boolean pruneWeapons, float distMult) {
         ShipRecoverySpecial.PerShipData psd = new ShipRecoverySpecial.PerShipData(variantId, condition, 0f);
         if (shipName != null) {
             psd.shipName = shipName;
@@ -361,7 +361,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         //ship.addTag(Tags.EXPIRES);
 
         ship.setDiscoverable(true);
-        float orbitRadius = planet.getRadius() + 500f + random.nextFloat() * 100f;
+        float orbitRadius = planet.getRadius() + (500f + random.nextFloat() * 100f) * distMult;
         float orbitDays = orbitRadius / (10f + random.nextFloat() * 5f);
         ship.setCircularOrbit(planet, random.nextFloat() * 360f, orbitRadius, orbitDays);
 

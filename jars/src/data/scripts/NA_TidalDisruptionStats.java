@@ -27,7 +27,7 @@ public class NA_TidalDisruptionStats extends BaseShipSystemScript {
         mag.put(1, 0.4f);
         mag.put(2, 0.5f);
         mag.put(3, 0.6f);
-        mag.put(4, 0.7f);
+        mag.put(4, 0.9f);
     }
 
     protected static float RANGE = 1500f;

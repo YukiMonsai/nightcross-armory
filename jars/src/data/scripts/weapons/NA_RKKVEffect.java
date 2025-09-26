@@ -1,22 +1,15 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.combat.*;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageAPI;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.OnFireEffectPlugin;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 
 public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
 
     public static float DAMAGE_MULT_PER_SPEED = 1f/1300f;
-    public static float DAMAGE_MAX_MULT = 1.25f;
+    public static float DAMAGE_MAX_MULT = 1f;
     public static float DAMAGE_MIN = 0.1f;
 
     protected String weaponId = null;
@@ -37,6 +30,9 @@ public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
                 float relvel = m.getMoveSpeed();
                 if (target.getVelocity() != null) {
                     relvel = MathUtils.getDistance(m.getVelocity(), target.getVelocity());
+                }
+                if (!shieldHit) {
+                    damage.setType(DamageType.FRAGMENTATION);
                 }
                 damage.setDamage(base * Math.min(DAMAGE_MAX_MULT, Math.max(DAMAGE_MIN, 0.1f + DAMAGE_MULT_PER_SPEED * relvel)));
                 return "na_rkkv";

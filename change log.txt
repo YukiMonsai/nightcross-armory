@@ -1,10 +1,12 @@
 V1.2.4
-- Xanthe Terra shipsystem CD 20->
+- Corrosion torpedoes have a stronger pull, but only pull for 1 second rather than the full 4 second duration
+- Heavymetals now deal frag damage to hull and armor
+- HPF weapon hp, ammo regeneration and fire rate considerably increased
 - Xanthe terra system now has 2 charges, 30s charge time
-- Zal Patera now a bit more sluggish, +25 armor and shield is front instead of omni
-- Light Pyrolance max charges 4 -> 8, flux 375 -> 400, dmg 850 -> 1000, range 800 -> 750
+- Zal Patera now a bit more sluggish, +25 armor, and shield is frontal instead of omni
 - Trance super blaster ammo/sec increased 0.5 -> 0.65
-- Pyrolance max charges 7 -> 8, dps 1150 -> 1500, flux 450 -> 600, ammo regen .5 -> .3, range 900 -> 850
+- Light Pyrolance max charges 4 -> 8, flux 375 -> 400, dmg 850 -> 1000, range 800 -> 750, armor dmg 100 -> 75
+- Pyrolance max charges 7 -> 8, dps 1150 -> 1500, flux 450 -> 600, ammo regen .5 -> .3, range 900 -> 850, armor dmg 200 -> 150
 - Added spooky things in the abyss
 - Added additional 'top secret' bounties for nightcross contacts
 - Added Kasane Teto
