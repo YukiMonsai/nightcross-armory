@@ -5,11 +5,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 
-import com.fs.starfarer.api.GameState;
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
-import data.scripts.hullmods.NA_StargazerStardust;
+import data.scripts.stardust.NA_StargazerStardust;
 
 public interface NA_StardustWeapon {
     public int getNumFragmentsToFire();

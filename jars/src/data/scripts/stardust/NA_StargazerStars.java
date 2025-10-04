@@ -1,4 +1,4 @@
-package data.scripts.hullmods;
+package data.scripts.stardust;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class NA_StargazerStars extends BaseHullMod {
     public void advanceInCombat(ShipAPI ship, float amount) {
         if (amount <= 0f || ship == null) return;
 
-        data.scripts.hullmods.NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
+        NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
         if (swarm == null) {
             swarm = createSwarmFor(ship);
         }

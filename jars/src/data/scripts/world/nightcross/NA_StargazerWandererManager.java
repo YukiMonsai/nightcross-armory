@@ -70,6 +70,8 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
     protected CampaignFleetAPI spawnFleetImpl() {
         CampaignFleetAPI f = createStargazerFleet(new StargazerFleetParams(), null);
 
+        f.getStats().getDetectedRangeMod().modifyMult("na_stargazer_hidden", 0.5f);
+
         NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar());
         behavior.setSeenByPlayer();
         f.addScript(behavior);

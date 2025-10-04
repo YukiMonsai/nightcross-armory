@@ -1,4 +1,4 @@
-package data.scripts.hullmods;
+package data.scripts.stardust;
 
 import java.util.ArrayList;
 import java.util.EnumSet;

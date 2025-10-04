@@ -1,31 +1,31 @@
 {
-  "id": "na_corrosionbeam",
+  "id": "naai_corrosionbeam",
   "specClass": "beam",
   "type": "ENERGY",
-  "size": "LARGE",
-  "beamEffect": "data.scripts.stardust.NA_CorrosionBeamEffect",
+  "size": "MEDIUM",
+  "beamEffect": "data.scripts.stardust.NA_CorrosionBeamEffectStargazer",
   "collisionClass": "RAY",
   "collisionClassByFighter": "RAY_FIGHTER",
-  "turretSprite": "graphics/weapons/na_corrosionbeam_turret_base.png",
-  "turretGlowSprite": "graphics/weapons/na_corrosionbeam_turret_glow.png",
-  "hardpointSprite": "graphics/weapons/na_corrosionbeam_hardpoint_base.png",
-  "hardpointGlowSprite": "graphics/weapons/na_corrosionbeam_hardpoint_glow.png",
+  "turretSprite": "graphics/weapons/naai_corrosionbeam_turret_base.png",
+  "turretGlowSprite": "graphics/weapons/naai_corrosionbeam_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/naai_corrosionbeam_hardpoint_base.png",
+  "hardpointGlowSprite": "graphics/weapons/naai_corrosionbeam_hardpoint_glow.png",
   "glowColor": [
-    100,
     185,
+    100,
     255,
     255
   ],
-  "hitGlowRadius": 50,
+  "hitGlowRadius": 45,
   "turretOffsets": [
-    35,
+    10,
     0
   ],
   "turretAngleOffsets": [
     0
   ],
   "hardpointOffsets": [
-    50,
+    19,
     0
   ],
   "hardpointAngleOffsets": [
@@ -43,7 +43,7 @@
     255,
     255
   ],
-  "width": 25,
+  "width": 17,
   "textureType": [
     "graphics/trails/na_plasmabeamcore.png",
     "graphics/fx/beam_laser_fringe.png"
