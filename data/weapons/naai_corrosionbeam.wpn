@@ -55,7 +55,7 @@
     PROJECTILE_NO_FF,
     PROJECTILE_FIGHTER,MISSILE_FF,MISSILE_NO_FF
   ],
-  "fireSoundOne": "na_corrosionbeam_charge",
-  "fireSoundTwo": "na_corrosionbeam",
+  "fireSoundOne": "naai_corrosionlancecharge",
+  "fireSoundTwo": "naai_corrosionlancefire",
   
 }

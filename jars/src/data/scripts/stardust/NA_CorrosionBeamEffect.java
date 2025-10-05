@@ -20,6 +20,8 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 	public final String proj_id = "na_corrosionbeambullet_shot";
 	public final String wpn_id = "na_corrosionbeambullet";
 
+	public static final String mote_sfx = "naai_corrosion_mote";
+
 
 
 	public Map<CombatEntityAPI, Integer> finalTarget = new HashMap<>();
@@ -112,7 +114,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 
 		} else if (beam.getBrightness() < 1) {
 
-			beam.setCoreColor(new Color(5, 5, 5));
+			beam.setCoreColor(new Color(126, 35, 81));
 			beam.setFringeColor(new Color(255, 25, 52));
 			beam.setFringeTexture("graphics/trails/na_particlebeamtrail.png");
 			beam.setCoreTexture("graphics/trails/na_plasmabeamcore.png");
@@ -152,6 +154,9 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 						WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
 
 				makeDistortion(pp);
+
+				Global.getSoundPlayer().playSound(
+						mote_sfx, 1.0f, 1.0f, pp, Misc.ZERO);
 
 				// stargazer hullmod
 				NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(beam.getSource());
@@ -230,6 +235,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 			}
 		}
 	}
+
 
 	public void createDistortionAlongBeam(BeamAPI beam, CombatEntityAPI target) {
 		if (target instanceof ShipAPI && beam.getSource() != null && beam.getSource().isAlive()) {

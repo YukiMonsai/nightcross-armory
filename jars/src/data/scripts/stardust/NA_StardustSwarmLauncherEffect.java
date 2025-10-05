@@ -1,11 +1,9 @@
-package data.scripts.weapons;
+package data.scripts.stardust;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.fs.starfarer.api.impl.combat.threat.SwarmLaunchingWeapon;
-import data.scripts.stardust.NA_StargazerStardust;
-import data.scripts.stardust.NA_StargazerStars;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.GameState;

@@ -31,6 +31,10 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
         void modifyOffset(NA_StargazerStardust.SwarmMember p);
     }
 
+
+    // 90% reduced respawn if no captain
+    public static float NO_CAPTAIN_RESPAWN = 0.1f;
+
     public static class StardustParams {
         public String spriteCat = "misc";
         public String spriteKey = "na_stardust_swarm_pieces";
@@ -760,7 +764,12 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
 
         if (!despawnAll) {
-            respawnChecker.advance(amount * params.memberRespawnRate);
+            if (entity instanceof ShipAPI && ((ShipAPI) entity).getCaptain() == null) {
+                respawnChecker.advance(NO_CAPTAIN_RESPAWN * amount * params.memberRespawnRate);
+            } else {
+                respawnChecker.advance(amount * params.memberRespawnRate);
+            }
+
             if (respawnChecker.intervalElapsed() && params.withRespawn) {
                 int num = getNumMembersToMaintain();
                 if (members.size() < num) {

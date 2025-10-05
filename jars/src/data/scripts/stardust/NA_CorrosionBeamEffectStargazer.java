@@ -18,7 +18,7 @@ import java.util.Map;
 public class NA_CorrosionBeamEffectStargazer extends NA_CorrosionBeamEffect {
 
 
-	public static final float BEAM_TIME = 0.14f;
+	public static final float BEAM_TIME = 0.22f;
 
 	protected float getBeamTime() {
 		return  BEAM_TIME;

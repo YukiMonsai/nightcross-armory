@@ -208,7 +208,7 @@ public class NAUtils {
 
         return entities;
     }
-    public static List<ShipAPI> getEnemyShipsWithinRange(ShipAPI ship, Vector2f location, float range, boolean allowFighters) {
+    public static List<ShipAPI> getEnemyShipsWithinRange(CombatEntityAPI ship, Vector2f location, float range, boolean allowFighters) {
         List<ShipAPI> entities = new ArrayList<>();
 
         for (ShipAPI tmp : Global.getCombatEngine().getShips()) {

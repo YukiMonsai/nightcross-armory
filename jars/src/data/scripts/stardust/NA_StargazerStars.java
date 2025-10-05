@@ -21,7 +21,6 @@ import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.util.ColorShifterUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
-import data.scripts.weapons.NA_StardustSwarmLauncherEffect;
 import data.scripts.weapons.NA_StardustWeapon;
 import org.magiclib.util.MagicIncompatibleHullmods;
 
@@ -304,10 +303,10 @@ public class NA_StargazerStars extends BaseHullMod {
 
     public static float getBaseSwarmRespawnRateMult(ShipAPI.HullSize size) {
         switch (size) {
-            case CAPITAL_SHIP: return 6f;
-            case CRUISER: return 4.5f;
-            case DESTROYER: return 3f;
-            case FRIGATE: return 1.5f;
+            case CAPITAL_SHIP: return 5f;
+            case CRUISER: return 3f;
+            case DESTROYER: return 2f;
+            case FRIGATE: return 1f;
             case FIGHTER: return 1f;
             case DEFAULT: return 1f;
             default: return 0f;

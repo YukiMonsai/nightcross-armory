@@ -36,9 +36,25 @@
             {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_03.ogg","pitch":1,"volume":1},
             {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_04.ogg","pitch":1,"volume":1},
 	],
+	
+	
+	"naai_corrosion_mote":
+	[
+		{"file":"sounds/wpn/naai_corrosion_mote_01.ogg","pitch":1.0,"volume":0.40},
+		{"file":"sounds/wpn/naai_corrosion_mote_02.ogg","pitch":1.0,"volume":0.40},
+		{"file":"sounds/wpn/naai_corrosion_mote_03.ogg","pitch":1.0,"volume":0.40},
+	],
 	"na_rift_explosion": # the official sound is actually pitchshifted, we use the unshifted
 	[
 		{"file":"sounds/wpn/na_rift_explosion.ogg","pitch":1.0,"volume":1.00},
+	],
+	"naai_corrosionlancefire":
+	[
+		{"file":"sounds/wpn/naai_corrosionlancefire.ogg","pitch":1.0,"volume":0.70},
+	],
+	"naai_corrosionlancecharge":
+	[
+		{"file":"sounds/wpn/naai_corrosionlancecharge.ogg","pitch":1.0,"volume":0.70},
 	],
 	
 	"na_saturation_reload":

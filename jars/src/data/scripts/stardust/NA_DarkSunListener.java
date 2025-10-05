@@ -1,0 +1,415 @@
+package data.scripts.stardust;
+
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.SoundAPI;
+import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.graphics.SpriteAPI;
+import com.fs.starfarer.api.impl.combat.NegativeExplosionVisual;
+import com.fs.starfarer.api.impl.combat.RiftCascadeMineExplosion;
+import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
+import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.NAUtils;
+import data.scripts.weapons.NA_BlackholeRenderer;
+import org.dark.shaders.distortion.DistortionShader;
+import org.dark.shaders.distortion.RippleDistortion;
+import org.dark.shaders.distortion.WaveDistortion;
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.List;
+
+public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
+
+    public boolean destroyed = false;
+    private String key;
+    private Object source;
+    DamagingProjectileAPI proj;
+    public static final float EXPL_RADIUS = 300f;
+    public static final float SHOOT_TIMER = 0.8f;
+    public static final float SHOOT_TIMER_CLOSE = 0.4f;
+    public static final float END_TIME = 1.5f;
+    public static final float END_SUBTIME = 0.15f;
+    public static final float SHOOT_RANGE = 1700f;
+    IntervalUtil shootTimer = new IntervalUtil(SHOOT_TIMER_CLOSE, SHOOT_TIMER_CLOSE);
+    IntervalUtil dmgTimer = new IntervalUtil(END_SUBTIME, END_SUBTIME);
+    IntervalUtil endTimer = new IntervalUtil(END_TIME, END_TIME);
+
+    public static final String LOOP_SOUND = "na_blackhole_loop";
+    private SoundAPI sound;
+    public Vector2f lastLocation;
+
+    public NA_DarkSunListener(DamagingProjectileAPI proj, String id, Object source) {
+        super();
+        this.proj = proj;
+        this.key = id;
+        this.source = source;
+        this.lastLocation = proj.getLocation();
+
+        Global.getCombatEngine().addPlugin(this);
+
+    }
+
+    @Override
+    public void init(CombatEngineAPI engine) {
+
+    }
+
+
+
+    public void createExplosion() {
+        //NegativeExplosionVisual.NEParams p = RiftCascadeMineExplosion.createStandardRiftParams(
+        //        new Color(75, 100, 255), 32f);
+        //RiftCascadeMineExplosion.spawnStandardRift(proj, p);
+
+
+        RippleDistortion ripple = new RippleDistortion(proj.getLocation(), Misc.ZERO);
+        ripple.setSize(EXPL_RADIUS);
+        ripple.setIntensity(40.0F);
+        ripple.fadeOutIntensity(.5F);
+        DistortionShader.addDistortion(ripple);
+    }
+    public void doEndState(float amount) {
+
+        this.endTimer.advance(amount);
+
+        if (sound != null && sound.isPlaying()) {
+            float progress = endTimer.getElapsed()/ NA_DarkSunListener.END_TIME;
+            progress = Math.min(1f, 5*progress) - Math.max(0, 2f*5f*(progress - 0.8f));
+            sound.setVolume(Math.max(0.1f, progress));
+        }
+
+        this.dmgTimer.advance(amount);
+
+        if (endTimer.intervalElapsed()) {
+            destroy();
+
+        } else if (armed) {
+
+
+
+            if (dmgTimer.intervalElapsed() && endTimer.getElapsed() < END_TIME) {
+                dmgTimer.setElapsed(0f);
+
+                Global.getCombatEngine().addSwirlyNebulaParticle(proj.getLocation(),
+                        Misc.ZERO,
+                        2f*EXPL_RADIUS,
+                        1.25f,
+                        0.24f,
+                        0.25f,
+                        8f, new Color(95, 10, 67),
+                        true);
+                //if (endTimer.getElapsed() < 2.5f) {
+                //}
+
+            }
+        }
+    }
+
+    public void doForce(float amount, Vector2f point, float radius, float minradius, float force) {
+        List<CombatEntityAPI> entities = NAUtils.getEntitiesWithinRange(point, radius);
+
+        for (CombatEntityAPI e:entities) {
+            if (e instanceof ShipAPI && (((ShipAPI) e).isStation() || ((ShipAPI) e).isStationModule())) continue;
+            float angle = VectorUtils.getAngle(e.getLocation(), point);
+            Vector2f closest = MathUtils.getPointOnCircumference(
+                    Misc.ZERO, force,
+                    angle
+            );
+            float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
+            float amt = amount/(dist*dist/(40000)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
+            if (dist > minradius) {
+                e.getVelocity().set(
+                        e.getVelocity().x + amount*closest.x*amt,
+                        e.getVelocity().y + amount*closest.y*amt
+                );
+            }
+            // 'gravitational drag'
+            if (e instanceof ShipAPI) {
+                float len = e.getVelocity().length();
+                float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
+                if (len > maxlen && maxlen > 1f) {
+                    e.getVelocity().set(
+                            e.getVelocity().x * maxlen/len,
+                            e.getVelocity().y * maxlen/len
+                    );
+                }
+            }
+
+        }
+    }
+
+
+    public void destroy() {
+        // removes the plugin
+        Global.getCombatEngine().removePlugin(this);
+        Global.getCombatEngine().getCustomData().remove(key);
+
+
+        if (sound != null && sound.isPlaying()) {
+            sound.stop();
+        }
+    }
+
+    private SpriteAPI sprite = null;
+    static boolean doOnce = true;
+    public boolean doEndOnce = false;
+
+    public boolean armed = false;
+
+    @Override
+    public void advance(float amount, List<InputEventAPI> events) {
+        if (Global.getCombatEngine().isPaused()) return;
+
+        // check if the projectile is alive or not
+        if (destroyed || proj == null || proj.didDamage() || proj.isFading() || !Global.getCombatEngine().isEntityInPlay(proj)) {
+            if (!destroyed || doEndOnce) {
+                destroyed = true;
+                doEndOnce = false;
+
+
+
+                if (armed) {
+
+                    sound = Global.getSoundPlayer().playSound(
+                            LOOP_SOUND, 1f, 1, this.lastLocation != null ? this.lastLocation : proj.getLocation(), Misc.ZERO);
+
+
+                    WaveDistortion ripple = new WaveDistortion(proj.getLocation(), Misc.ZERO);
+                    ripple.setSize(256.0F);
+                    ripple.setIntensity(40.0F);
+                    ripple.fadeInSize(0.5F);
+                    ripple.fadeOutIntensity(3.5F);
+                    DistortionShader.addDistortion(ripple);
+
+                    NegativeExplosionVisual.NEParams p = RiftCascadeMineExplosion.createStandardRiftParams(
+                            new Color(75, 100, 255), 64);
+                    RiftCascadeMineExplosion.spawnStandardRift(proj, p);
+                }
+                createExplosion();
+
+            } else {
+                doEndState(amount);
+            }
+        } else {
+            this.lastLocation = proj.getLocation();
+
+            doSelfLoop(amount);
+
+            armed = true;
+        }
+    }
+
+    public void doShootLoop(float amount) {
+
+        this.shootTimer.advance(amount);
+        if (shootTimer.intervalElapsed()) {
+            shootTimer.setElapsed(0f);
+
+            // look for a target and shoot
+            ShipAPI target = null;
+            if (proj.getSource() != null && proj.getSource().getShipTarget() != null) {
+                target = proj.getSource().getShipTarget();
+            }
+
+            if (target != null) {
+                float d2 = MathUtils.getDistanceSquared(proj.getLocation(), target.getLocation());
+                if (d2 > SHOOT_RANGE*SHOOT_RANGE) {
+                    target = null;
+                }
+            }
+            // target seeking if none found
+
+            if (target == null) {
+                List<ShipAPI> targets = NAUtils.getEnemyShipsWithinRange(proj, proj.getLocation(), SHOOT_RANGE, false);
+
+                if (!targets.isEmpty()) {
+                    float nearestdist = SHOOT_RANGE * SHOOT_RANGE * 4;
+                    ShipAPI nearest = null;
+
+                    for (ShipAPI tt: targets) {
+                        float dist = MathUtils.getDistanceSquared(proj.getLocation(), tt.getLocation())
+                                // prioritize closer to mothership
+                                + (proj.getSource() != null ? MathUtils.getDistanceSquared(proj.getSource().getLocation(), tt.getLocation()) : 0);
+
+                        if (dist < nearestdist) {
+                            nearestdist = dist;
+                            nearest = tt;
+                        }
+                    }
+
+                    target = nearest;
+                }
+            }
+
+
+
+            // actual shoot
+            if (target != null) {
+                float d2 = MathUtils.getDistanceSquared(proj.getLocation(), target.getLocation());
+                if (d2 < SHOOT_RANGE*SHOOT_RANGE) {
+
+
+
+                    releaseMissile(proj, target);
+
+
+                    // faster shooting if close
+                    if (d2 < 0.25 * SHOOT_RANGE * SHOOT_RANGE) {
+                        shootTimer.setElapsed(SHOOT_TIMER-SHOOT_TIMER_CLOSE);
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    public final String proj_id = "na_corrosionbeambullet_shot";
+    public final String wpn_id = "na_corrosionbeambullet";
+    public void releaseMissile(DamagingProjectileAPI projectile, CombatEntityAPI target) {
+        if (target instanceof ShipAPI && proj.getSource() != null && proj.getSource().isAlive()) {
+            if (Global.getCombatEngine().isEntityInPlay(target)) {
+
+                // stargazer hullmod
+                NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(projectile);
+                int active = swarm == null ? 0 : swarm.getNumActiveMembers();
+                int required = 1;
+                if (active >= required) {
+                    CombatEngineAPI engine = Global.getCombatEngine();
+                    NA_StargazerStardust.SwarmMember fragment = pickPrimaryFragment(swarm, projectile);
+                    if (fragment == null) {
+                        return;
+                    }
+
+                    Global.getSoundPlayer().playSound(
+                            NA_CorrosionBeamEffect.mote_sfx, 1.0f, 1.0f, fragment.loc, Misc.ZERO);
+
+                    float ang = VectorUtils.getAngle(proj.getLocation(), target.getLocation());
+                    CombatEntityAPI projfire = Global.getCombatEngine().spawnProjectile(projectile.getSource(), null,
+                            wpn_id,
+                            fragment.loc,
+                            ang + Math.signum(MathUtils.getRandomNumberInRange(-1, 1)) * 15f,
+                            projectile.getVelocity());
+                    if (projfire instanceof MissileAPI) ((MissileAPI) projfire).setEmpResistance(4);
+                    Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(projectile.getSource(),
+                            WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) projfire).getDamage());
+
+                    makeDistortion(fragment.loc);
+
+
+                    if (projfire instanceof MissileAPI) {
+                        MissileAPI missile = (MissileAPI) projfire;
+                        if (missile.getWeapon() == null || !missile.getWeapon().hasAIHint(WeaponAPI.AIHints.RANGE_FROM_SHIP_RADIUS)) {
+                            missile.setStart(new Vector2f(missile.getLocation()));
+                        }
+                        missile.getLocation().set(fragment.loc);
+
+                        swarm.removeMember(fragment);
+
+
+                        Vector2f from = projectile.getLocation();
+
+                        EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                        params.segmentLengthMult = 4f;
+
+                        params.glowSizeMult = 0.5f;
+                        params.brightSpotFadeFraction = 0.33f;
+                        params.brightSpotFullFraction = 0.5f;
+                        params.movementDurMax = 0.2f;
+                        params.flickerRateMult = 0.5f;
+
+                        float dist = Misc.getDistance(from, missile.getLocation());
+                        float minBright = 100f;
+                        if (dist * params.brightSpotFullFraction < minBright) {
+                            params.brightSpotFullFraction = minBright / Math.max(minBright, dist);
+                        }
+
+                        float thickness = 20f;
+
+                        EmpArcEntityAPI arc = engine.spawnEmpArcVisual(from, projectile,
+                                missile.getLocation(),
+                                missile,
+                                thickness, // thickness
+                                new Color(5, 5, 5),
+                                new Color(255, 25, 52),
+                                params
+                        );
+                        //arc.setCoreWidthOverride(thickness * coreWidthMult);
+                        arc.setSingleFlickerMode(true);
+                        arc.setUpdateFromOffsetEveryFrame(true);
+                        //arc.setRenderGlowAtStart(false);
+                        //arc.setFadedOutAtStart(true);
+
+
+                    }
+
+                }
+            }
+        }
+    }
+
+
+
+
+    protected NA_StargazerStardust.SwarmMember pickPrimaryFragment(NA_StargazerStardust sourceSwarm, DamagingProjectileAPI projectile) {
+        return pickOuterFragmentWithinRangeClosestTo(sourceSwarm, SHOOT_RANGE, projectile.getLocation());
+    }
+
+
+    protected NA_StargazerStardust.SwarmMember pickOuterFragmentWithinRangeClosestTo(NA_StargazerStardust sourceSwarm, float range, Vector2f otherLoc) {
+        NA_StargazerStardust.SwarmMember best = null;
+        float minDist = Float.MAX_VALUE;
+        WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker = sourceSwarm.getPicker(true, true);
+        while (!picker.isEmpty()) {
+            NA_StargazerStardust.SwarmMember p = picker.pickAndRemove();
+            float dist = Misc.getDistance(p.loc, sourceSwarm.getAttachedTo().getLocation());
+            if (sourceSwarm.params.generateOffsetAroundAttachedEntityOval) {
+                dist -= Misc.getTargetingRadius(p.loc, sourceSwarm.attachedTo, false) + sourceSwarm.params.maxOffset - range * 0.5f;
+            }
+            if (dist > range) continue;
+            dist = Misc.getDistance(p.loc, otherLoc);
+            if (dist < minDist) {
+                best = p;
+                minDist = dist;
+            }
+        }
+        return best;
+    }
+
+    public void makeDistortion(Vector2f pp) {
+        RippleDistortion ripple = new RippleDistortion(pp, Misc.ZERO);
+        ripple.setSize(16f);
+        ripple.setIntensity(10.0F +  MathUtils.getRandomNumberInRange(0, 20f));
+        ripple.setFrameRate(10 + MathUtils.getRandomNumberInRange(0, 5));
+        ripple.setCurrentFrame(MathUtils.getRandomNumberInRange(0, 10));
+        ripple.fadeInIntensity(.15F + MathUtils.getRandomNumberInRange(0, 0.25f));
+        DistortionShader.addDistortion(ripple);
+    }
+
+    public void doSelfLoop(float amount) {
+        doShootLoop(amount);
+
+        this.dmgTimer.advance(amount);
+        if (dmgTimer.intervalElapsed() && endTimer.getElapsed() < END_TIME) {
+            dmgTimer.setElapsed(0f);
+
+            Global.getCombatEngine().addSwirlyNebulaParticle(proj.getLocation(),
+                    Misc.ZERO,
+                    96f,
+                    1.25f,
+                    0.24f,
+                    0.25f,
+                    2f, new Color(95, 10, 67),
+                    true);
+            //if (endTimer.getElapsed() < 2.5f) {
+            //}
+
+        }
+    }
+}
+
+
