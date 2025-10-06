@@ -172,6 +172,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 data.id2 = MagicTrailPlugin.getUniqueID();
                                 break;
                             case HARDLIGHT_SHOT:
+                            case PYROWISP_LARGE_PROJ_ID:
                             case NAAI_MEGABLASTER_ID:
                                 data.id2 = MagicTrailPlugin.getUniqueID();
                                 break;
@@ -731,7 +732,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                     }
                     data.interval.advance(amount);
                     if (data.interval.intervalElapsed()) {
-                        float offset = 10f;
+                        float offset = 15f;
                         Vector2f offsetPoint = new Vector2f((float) Math.cos(Math.toRadians(proj.getFacing())) * offset, (float) Math.sin(Math.toRadians(proj.getFacing())) * offset);
                         spawnPosition.x += offsetPoint.x;
                         spawnPosition.y += offsetPoint.y;
@@ -741,14 +742,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 data.id, /* ID */
                                 Global.getSettings().getSprite("na_trails", "na_particletrailcore"), /* sprite */
                                 spawnPosition, /* position */
-                                0f, /* startSpeed */
+                                -100f, /* startSpeed */
                                 0f, /* endSpeed */
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                powermult * 10f + 42f, /* startSize */
+                                powermult * 10f + 92f, /* startSize */
                                 powermult * 5f + 24f, /* endSize */
-                                PYROWISP_LARGE_TRAIL_COLOR_START, /* startColor */
+                                new Color(255, 255, 255), /* startColor */
                                 PYROWISP_LARGE_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
@@ -764,7 +765,67 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
                                 1f /* frameOffsetMult */
                         );
-                    }
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id2, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_particletrailcore"), /* sprite */
+                                spawnPosition, /* position */
+                                30f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 10f + 82f, /* startSize */
+                                powermult * 5f + 24f, /* endSize */
+                                PYROWISP_LARGE_TRAIL_COLOR_START, /* startColor */
+                                PYROWISP_LARGE_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.04f * powermult + 0.3f, /* mainDuration */
+                                0.08f * powermult + 0.7f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                0f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+
+
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id2 + 0.1f, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_particletrail"), /* sprite */
+                                spawnPosition, /* position */
+                                30f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f + MathUtils.getRandomNumberInRange(-10f, 10f), /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 10f + 32f, /* startSize */
+                                powermult * 5f + 24f, /* endSize */
+                                PYROWISP_LARGE_TRAIL_COLOR_START, /* startColor */
+                                PYROWISP_LARGE_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.04f * powermult + 0.3f, /* mainDuration */
+                                0.08f * powermult + 1.0f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                0f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+
+
+                }
                     break;
                 case WAVEFRONT_SUB:
                     if (data.interval == null) {

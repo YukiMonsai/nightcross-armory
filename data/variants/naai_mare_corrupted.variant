@@ -16,14 +16,14 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "na_plasmabeam_med"
+        "WS0001": "naai_megablaster"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "na_pyrokinetic"
+        "WS0002": "na_hardlightriflereal"
       }
     },
     {

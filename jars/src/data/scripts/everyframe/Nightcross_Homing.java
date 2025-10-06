@@ -107,7 +107,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                 case PYROWISP_LARGE_PROJ_ID:
                     home_amount = spec == PYROWISP_LARGE_PROJ_ID ? PYROWISP_LARGE_HOMING_AMT : PYROWISP_HOMING_AMT;
                     home_dist = Math.max(PYROWISP_HOMING_DIST, (proj.getWeapon() != null) ? proj.getWeapon().getRange() : PYROWISP_HOMING_DIST);
-                    home_speed = PYROWISP_HOMING_SPEED;
+                    home_speed = 2 * PYROWISP_HOMING_SPEED;
                     vfactor = PYROWISP_HOMING_VFACTOR;
                     speed_reduction = spec == PYROWISP_LARGE_PROJ_ID ? 0f : PYROWISP_SPEED_FORCE_REDUCTION;
                     requireTarget = true;

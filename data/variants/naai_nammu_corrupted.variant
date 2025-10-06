@@ -49,8 +49,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "na_pyrowisp",
-        "WS0004": "na_pyrowisp"
+        "WS0003": "naai_corrosionmote",
+        "WS0004": "naai_corrosionmote"
       }
     },
     {

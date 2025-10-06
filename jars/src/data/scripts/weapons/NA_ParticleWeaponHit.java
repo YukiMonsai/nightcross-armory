@@ -53,7 +53,7 @@ public class NA_ParticleWeaponHit implements OnHitEffectPlugin {
 
         if (target instanceof ShipAPI || target instanceof AsteroidAPI) {
             float emp = proj.getEmpAmount() * EMP_PER_POINT;
-            float dmg = proj.getBaseDamageAmount() * DMG_PER_POINT;
+            float dmg = proj.getDamageAmount() * DMG_PER_POINT;
 
 
             for (int i = 1; i <= NUM_POINTS; i++) {

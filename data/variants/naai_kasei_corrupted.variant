@@ -28,7 +28,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "haas_beamer"
+        "WS0003": "naai_corrosionmote"
       }
     },
     {

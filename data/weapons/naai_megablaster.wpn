@@ -4,7 +4,7 @@
 	"type":"ENERGY",
 	"size":"MEDIUM",
 	"everyFrameEffect":"data.scripts.stardust.NA_MegablasterEffectEF",
-	#addship naai_losulci; addweapon naai_darksun 2; addweapon naai_megablaster 4;addweapon na_metahelium_ai 4;
+	#addship naai_losulci; addweapon na_pyrowisp_large 2; addweapon naai_megablaster 4;addweapon na_metahelium_ai 4;
 	"turretSprite":"graphics/weapons/naai_megablaster_turret_base.png",
 	"turretGlowSprite":"graphics/weapons/naai_megablaster_turret_glow.png",
 	"hardpointSprite":"graphics/weapons/naai_megablaster_hardpoint_base.png",

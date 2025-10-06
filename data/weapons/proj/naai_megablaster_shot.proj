@@ -3,6 +3,7 @@
 	"specClass":"projectile",
 	"spawnType":"PLASMA",
 	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
+	"onHitEffect":"data.scripts.weapons.NA_MegablasterAoE",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
 	"explosionColor":[255,125,80,255],  # purely visual, will get a white additively blended core on top of this color

@@ -2,6 +2,7 @@
 	"id":"naai_darksun_missile",
 	"specClass":"missile",
 	"onFireEffect":"data.scripts.stardust.NA_DarkSunMissileEffectProj",
+	"onHitEffect":"data.scripts.weapons.NA_DarkSunHit",
 	"missileType":"MISSILE",
 	"sprite":"graphics/fx/empty.png",
 	"size":[8,8],	

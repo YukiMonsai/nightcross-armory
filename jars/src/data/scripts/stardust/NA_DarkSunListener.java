@@ -130,38 +130,6 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
         }
     }
 
-    public void doForce(float amount, Vector2f point, float radius, float minradius, float force) {
-        List<CombatEntityAPI> entities = NAUtils.getEntitiesWithinRange(point, radius);
-
-        for (CombatEntityAPI e:entities) {
-            if (e instanceof ShipAPI && (((ShipAPI) e).isStation() || ((ShipAPI) e).isStationModule())) continue;
-            float angle = VectorUtils.getAngle(e.getLocation(), point);
-            Vector2f closest = MathUtils.getPointOnCircumference(
-                    Misc.ZERO, force,
-                    angle
-            );
-            float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
-            float amt = amount/(dist*dist/(40000)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
-            if (dist > minradius) {
-                e.getVelocity().set(
-                        e.getVelocity().x + amount*closest.x*amt,
-                        e.getVelocity().y + amount*closest.y*amt
-                );
-            }
-            // 'gravitational drag'
-            if (e instanceof ShipAPI) {
-                float len = e.getVelocity().length();
-                float maxlen = 1.5f*((ShipAPI) e).getMaxSpeed();
-                if (len > maxlen && maxlen > 1f) {
-                    e.getVelocity().set(
-                            e.getVelocity().x * maxlen/len,
-                            e.getVelocity().y * maxlen/len
-                    );
-                }
-            }
-
-        }
-    }
 
 
     public void destroy() {

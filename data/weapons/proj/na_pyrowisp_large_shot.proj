@@ -5,7 +5,7 @@
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
 	"onFireEffect":"data.scripts.weapons.NA_TrailHomingWeapon",
-	"length":16.0,
+	"length":50.0,
 	"hitGlowRadius":100,
 	"explosionColor":[255,125,80,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":140, # purely visual

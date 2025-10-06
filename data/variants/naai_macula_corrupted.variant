@@ -18,17 +18,29 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "na_chirppd_ai",
-        "WS0002": "na_chirppd_ai",
-        "WS0003": "na_wavefront_single",
-        "WS0004": "na_wavefront_single",
+        "WS0003": "naai_corrosionmote",
+        "WS0004": "naai_corrosionmote",
         "WS0006": "na_wavefront",
         "WS0009": "na_wavefront",
-        "WS0010": "na_metahelium",
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "naai_megablaster",
         "WS0017": "na_hardlightriflereal",
         "WS0018": "na_hardlightriflereal"
       }
-    }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_chirppd_ai",
+        "WS0002": "na_chirppd_ai",
+      }
+    },
   ],
   "modules": [],
   "wings": []
