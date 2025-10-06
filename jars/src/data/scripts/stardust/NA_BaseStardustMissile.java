@@ -4,7 +4,6 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import data.scripts.weapons.NA_StardustWeapon;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -18,6 +17,11 @@ public class NA_BaseStardustMissile implements OnFireEffectPlugin, EveryFrameWea
         STOP_AND_FADE,
         STOP_AND_FLASH,
         KEEP_GOING,
+    }
+
+
+    public boolean getMissileFrom() {
+        return false;
     }
 
     protected DamagingProjectileAPI projectile;
@@ -79,7 +83,8 @@ public class NA_BaseStardustMissile implements OnFireEffectPlugin, EveryFrameWea
         if (missile.getWeapon() == null || !missile.getWeapon().hasAIHint(WeaponAPI.AIHints.RANGE_FROM_SHIP_RADIUS)) {
             missile.setStart(new Vector2f(missile.getLocation()));
         }
-        missile.getLocation().set(fragment.loc);
+        if (!getMissileFrom())
+            missile.getLocation().set(fragment.loc);
 
         // picked fragment with velocity closest to that of missile, leave the missile's velocity as is
         if (!shouldPickVelocityMatchingPrimaryFragment()) {
@@ -464,19 +469,36 @@ public class NA_BaseStardustMissile implements OnFireEffectPlugin, EveryFrameWea
 
         float thickness = 20f;
 
-        EmpArcEntityAPI arc = engine.spawnEmpArcVisual(from, weapon.getShip(),
-                missile.getLocation(),
-                missile,
-                thickness, // thickness
-                getEMPFringeColor(),
-                getEMPCoreColor(),
-                params
-        );
-        //arc.setCoreWidthOverride(thickness * coreWidthMult);
-        arc.setSingleFlickerMode(true);
-        arc.setUpdateFromOffsetEveryFrame(true);
-        //arc.setRenderGlowAtStart(false);
-        //arc.setFadedOutAtStart(true);
+        if (getMissileFrom()) {
+            EmpArcEntityAPI arc = engine.spawnEmpArcVisual(
+                    missile.getLocation(),
+                    missile,from, weapon.getShip(),
+                    thickness+2f, // thickness
+                    getEMPFringeColor(),
+                    getEMPCoreColor(),
+                    params
+            );
+            //arc.setCoreWidthOverride(thickness * coreWidthMult);
+            arc.setSingleFlickerMode(true);
+            arc.setUpdateFromOffsetEveryFrame(true);
+            //arc.setRenderGlowAtStart(false);
+            //arc.setFadedOutAtStart(true);
+        } else {
+            EmpArcEntityAPI arc = engine.spawnEmpArcVisual(from, weapon.getShip(),
+                    missile.getLocation(),
+                    missile,
+                    thickness, // thickness
+                    getEMPFringeColor(),
+                    getEMPCoreColor(),
+                    params
+            );
+            //arc.setCoreWidthOverride(thickness * coreWidthMult);
+            arc.setSingleFlickerMode(true);
+            arc.setUpdateFromOffsetEveryFrame(true);
+            //arc.setRenderGlowAtStart(false);
+            //arc.setFadedOutAtStart(true);
+        }
+
     }
 
 }

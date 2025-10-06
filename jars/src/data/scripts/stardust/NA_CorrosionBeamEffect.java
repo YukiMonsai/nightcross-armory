@@ -218,7 +218,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 								missile.getLocation(),
 								missile,
 								thickness, // thickness
-								new Color(5, 5, 5),
+								new Color(85, 0, 0),
 								new Color(255, 25, 52),
 								params
 						);

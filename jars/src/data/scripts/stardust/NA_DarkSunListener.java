@@ -30,7 +30,7 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
     DamagingProjectileAPI proj;
     public static final float EXPL_RADIUS = 300f;
     public static final float SHOOT_TIMER = 0.8f;
-    public static final float SHOOT_TIMER_CLOSE = 0.4f;
+    public static final float SHOOT_TIMER_CLOSE = 0.45f;
     public static final float END_TIME = 1.5f;
     public static final float END_SUBTIME = 0.15f;
     public static final float SHOOT_RANGE = 1700f;
@@ -94,13 +94,34 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
             if (dmgTimer.intervalElapsed() && endTimer.getElapsed() < END_TIME) {
                 dmgTimer.setElapsed(0f);
 
+                EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                params.segmentLengthMult = 4f;
+
+                params.glowSizeMult = 0.5f;
+                params.brightSpotFadeFraction = 0.33f;
+                params.brightSpotFullFraction = 0.5f;
+                params.movementDurMax = 0.2f;
+                params.flickerRateMult = 0.5f;
+
+                EmpArcEntityAPI arc = Global.getCombatEngine().spawnEmpArcVisual(lastLocation, proj,
+                        MathUtils.getPointOnCircumference(lastLocation, EXPL_RADIUS + MathUtils.getRandomNumberInRange(0f, EXPL_RADIUS * 0.5f), MathUtils.getRandomNumberInRange(0f, 360f)),
+                        proj,
+                        5, // thickness
+                        new Color(85, 0, 0),
+                        new Color(255, 25, 52),
+                        params
+                );
+                //arc.setCoreWidthOverride(thickness * coreWidthMult);
+                arc.setSingleFlickerMode(true);
+                arc.setUpdateFromOffsetEveryFrame(true);
+
                 Global.getCombatEngine().addSwirlyNebulaParticle(proj.getLocation(),
                         Misc.ZERO,
                         2f*EXPL_RADIUS,
                         1.25f,
                         0.24f,
                         0.25f,
-                        8f, new Color(95, 10, 67),
+                        8f, new Color(95, 10, 67, 25),
                         true);
                 //if (endTimer.getElapsed() < 2.5f) {
                 //}
@@ -207,7 +228,7 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
 
         this.shootTimer.advance(amount);
         if (shootTimer.intervalElapsed()) {
-            shootTimer.setElapsed(0f);
+            shootTimer.setElapsed(MathUtils.getRandomNumberInRange(0.0f, 0.2f));
 
             // look for a target and shoot
             ShipAPI target = null;
@@ -254,12 +275,12 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
 
 
 
-                    releaseMissile(proj, target);
+                    NA_CorrosionMoteEffect.releaseMissile(NA_StargazerStardust.getSwarmFor(proj), proj, target.getLocation(), SHOOT_RANGE);
 
 
                     // faster shooting if close
                     if (d2 < 0.25 * SHOOT_RANGE * SHOOT_RANGE) {
-                        shootTimer.setElapsed(SHOOT_TIMER-SHOOT_TIMER_CLOSE);
+                        shootTimer.setElapsed(SHOOT_TIMER-SHOOT_TIMER_CLOSE + MathUtils.getRandomNumberInRange(0.0f, 0.2f));
                     }
                 }
             }
@@ -268,127 +289,6 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
     }
 
 
-    public final String proj_id = "na_corrosionbeambullet_shot";
-    public final String wpn_id = "na_corrosionbeambullet";
-    public void releaseMissile(DamagingProjectileAPI projectile, CombatEntityAPI target) {
-        if (target instanceof ShipAPI && proj.getSource() != null && proj.getSource().isAlive()) {
-            if (Global.getCombatEngine().isEntityInPlay(target)) {
-
-                // stargazer hullmod
-                NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(projectile);
-                int active = swarm == null ? 0 : swarm.getNumActiveMembers();
-                int required = 1;
-                if (active >= required) {
-                    CombatEngineAPI engine = Global.getCombatEngine();
-                    NA_StargazerStardust.SwarmMember fragment = pickPrimaryFragment(swarm, projectile);
-                    if (fragment == null) {
-                        return;
-                    }
-
-                    Global.getSoundPlayer().playSound(
-                            NA_CorrosionBeamEffect.mote_sfx, 1.0f, 1.0f, fragment.loc, Misc.ZERO);
-
-                    float ang = VectorUtils.getAngle(proj.getLocation(), target.getLocation());
-                    CombatEntityAPI projfire = Global.getCombatEngine().spawnProjectile(projectile.getSource(), null,
-                            wpn_id,
-                            fragment.loc,
-                            ang + Math.signum(MathUtils.getRandomNumberInRange(-1, 1)) * 15f,
-                            projectile.getVelocity());
-                    if (projfire instanceof MissileAPI) ((MissileAPI) projfire).setEmpResistance(4);
-                    Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(projectile.getSource(),
-                            WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) projfire).getDamage());
-
-                    makeDistortion(fragment.loc);
-
-
-                    if (projfire instanceof MissileAPI) {
-                        MissileAPI missile = (MissileAPI) projfire;
-                        if (missile.getWeapon() == null || !missile.getWeapon().hasAIHint(WeaponAPI.AIHints.RANGE_FROM_SHIP_RADIUS)) {
-                            missile.setStart(new Vector2f(missile.getLocation()));
-                        }
-                        missile.getLocation().set(fragment.loc);
-
-                        swarm.removeMember(fragment);
-
-
-                        Vector2f from = projectile.getLocation();
-
-                        EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
-                        params.segmentLengthMult = 4f;
-
-                        params.glowSizeMult = 0.5f;
-                        params.brightSpotFadeFraction = 0.33f;
-                        params.brightSpotFullFraction = 0.5f;
-                        params.movementDurMax = 0.2f;
-                        params.flickerRateMult = 0.5f;
-
-                        float dist = Misc.getDistance(from, missile.getLocation());
-                        float minBright = 100f;
-                        if (dist * params.brightSpotFullFraction < minBright) {
-                            params.brightSpotFullFraction = minBright / Math.max(minBright, dist);
-                        }
-
-                        float thickness = 20f;
-
-                        EmpArcEntityAPI arc = engine.spawnEmpArcVisual(from, projectile,
-                                missile.getLocation(),
-                                missile,
-                                thickness, // thickness
-                                new Color(5, 5, 5),
-                                new Color(255, 25, 52),
-                                params
-                        );
-                        //arc.setCoreWidthOverride(thickness * coreWidthMult);
-                        arc.setSingleFlickerMode(true);
-                        arc.setUpdateFromOffsetEveryFrame(true);
-                        //arc.setRenderGlowAtStart(false);
-                        //arc.setFadedOutAtStart(true);
-
-
-                    }
-
-                }
-            }
-        }
-    }
-
-
-
-
-    protected NA_StargazerStardust.SwarmMember pickPrimaryFragment(NA_StargazerStardust sourceSwarm, DamagingProjectileAPI projectile) {
-        return pickOuterFragmentWithinRangeClosestTo(sourceSwarm, SHOOT_RANGE, projectile.getLocation());
-    }
-
-
-    protected NA_StargazerStardust.SwarmMember pickOuterFragmentWithinRangeClosestTo(NA_StargazerStardust sourceSwarm, float range, Vector2f otherLoc) {
-        NA_StargazerStardust.SwarmMember best = null;
-        float minDist = Float.MAX_VALUE;
-        WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker = sourceSwarm.getPicker(true, true);
-        while (!picker.isEmpty()) {
-            NA_StargazerStardust.SwarmMember p = picker.pickAndRemove();
-            float dist = Misc.getDistance(p.loc, sourceSwarm.getAttachedTo().getLocation());
-            if (sourceSwarm.params.generateOffsetAroundAttachedEntityOval) {
-                dist -= Misc.getTargetingRadius(p.loc, sourceSwarm.attachedTo, false) + sourceSwarm.params.maxOffset - range * 0.5f;
-            }
-            if (dist > range) continue;
-            dist = Misc.getDistance(p.loc, otherLoc);
-            if (dist < minDist) {
-                best = p;
-                minDist = dist;
-            }
-        }
-        return best;
-    }
-
-    public void makeDistortion(Vector2f pp) {
-        RippleDistortion ripple = new RippleDistortion(pp, Misc.ZERO);
-        ripple.setSize(16f);
-        ripple.setIntensity(10.0F +  MathUtils.getRandomNumberInRange(0, 20f));
-        ripple.setFrameRate(10 + MathUtils.getRandomNumberInRange(0, 5));
-        ripple.setCurrentFrame(MathUtils.getRandomNumberInRange(0, 10));
-        ripple.fadeInIntensity(.15F + MathUtils.getRandomNumberInRange(0, 0.25f));
-        DistortionShader.addDistortion(ripple);
-    }
 
     public void doSelfLoop(float amount) {
         doShootLoop(amount);
@@ -398,7 +298,7 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
             dmgTimer.setElapsed(0f);
 
             Global.getCombatEngine().addSwirlyNebulaParticle(proj.getLocation(),
-                    Misc.ZERO,
+                    new Vector2f(proj.getVelocity().x * 0.5f, proj.getVelocity().y * 0.5f),
                     96f,
                     1.25f,
                     0.24f,
@@ -410,6 +310,7 @@ public class NA_DarkSunListener extends BaseEveryFrameCombatPlugin {
 
         }
     }
+
 }
 
 

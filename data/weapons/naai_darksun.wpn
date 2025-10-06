@@ -5,10 +5,10 @@
 	"type":"MISSILE",
 	"mountTypeOverride": "SYNERGY",
 	"size":"LARGE",
-	"turretSprite":"graphics/weapons/seeker_fragment_turret_base.png",
-	"turretGlowSprite":"graphics/weapons/seeker_fragment_turret_glow.png",
-	"hardpointSprite":"graphics/weapons/seeker_fragment_hardpoint_base.png",
-	"hardpointGlowSprite":"graphics/weapons/seeker_fragment_hardpoint_glow.png",
+	"turretSprite":"graphics/weapons/naai_darksun_turret_base.png",
+	"turretGlowSprite":"graphics/weapons/naai_darksun_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/naai_darksun_hardpoint_base.png",
+	"hardpointGlowSprite":"graphics/weapons/naai_darksun_hardpoint_glow.png",
 	"glowColor":[175,75,225,255],
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"hardpointOffsets":[0, 0],
@@ -20,6 +20,6 @@
 	"barrelMode":"ALTERNATING",
 	"animationType":"GLOW",
 	"interruptibleBurst":false,
-	"projectileSpecId":"seeker_fragment_missile",
+	"projectileSpecId":"naai_darksun_missile",
 	"fireSoundTwo":"seeker_fragment_fire",
 }

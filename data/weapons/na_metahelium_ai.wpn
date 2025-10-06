@@ -1,0 +1,32 @@
+{
+	"id":"na_metahelium_ai",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	"size":"MEDIUM",
+	"type": "ENERGY",
+	"everyFrameEffect": "data.scripts.weapons.NA_Metahelium",
+	"mountTypeOverride": "HYBRID",
+	"turretSprite":"graphics/weapons/na_metahelium_ai_turret_base.png",
+	"turretGlowSprite":"graphics/weapons/na_metahelium_ai_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/na_metahelium_ai_hardpoint_base.png",
+	"hardpointGlowSprite":"graphics/weapons/na_metahelium_ai_hardpoint_glow.png",
+	"visualRecoil":0.0,  # the gun sprites are only used if this is non-0
+	"renderHints":[RENDER_BARREL_BELOW],
+	"glowColor":[255,25,85,255],
+	"turretOffsets":[22, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[32, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"ALTERNATING", # LINKED or ALTERNATING.  whether barrels fire at the same time or alternate.
+	"animationType":"GLOW_AND_FLASH",
+	"muzzleFlashSpec":{"length":45.0,   # only used if animationType = MUZZLE_FLASH
+					   "spread":7.0,
+					   "particleSizeMin":20.0,
+					   "particleSizeRange":20.0,
+					   "particleDuration":0.25,
+					   "particleCount":7,
+					   "particleColor":[255,45,0,175]},	
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"projectileSpecId":"na_metahelium_shot",  # projectile that will be fired
+	#"fireSoundOne":"gigacannon_charge",
+	"fireSoundTwo":"na_metahelium_fire",
+}

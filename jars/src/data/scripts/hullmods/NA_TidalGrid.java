@@ -325,7 +325,7 @@ public class NA_TidalGrid extends BaseHullMod {
 								pos, new Vector2f(ship.getVelocity().x*0.5f, ship.getVelocity().y*0.5f),
 								sz, 3f, 0.5f, 0.5f,
 								0.8f,
-								new Color(94, 92, 0, 150)
+								new Color(94, 92, 0, 110)
 						);
 
 					}

@@ -1,11 +1,9 @@
-package data.scripts.weapons;
+package data.scripts.stardust;
 
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
-
-import data.scripts.stardust.NA_StargazerStardust;
 
 public interface NA_StardustWeapon {
     public int getNumFragmentsToFire();

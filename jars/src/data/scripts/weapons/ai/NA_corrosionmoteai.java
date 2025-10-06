@@ -65,11 +65,11 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
 
     //Target class priorities
     //set to 0 to ignore that class
-    private final int fighters = 4;
-    private final int frigates = 3;
-    private final int destroyers = 2;
-    private final int cruisers = 1;
-    private final int capitals = 0;
+    private final int fighters = 1;
+    private final int frigates = 2;
+    private final int destroyers = 3;
+    private final int cruisers = 4;
+    private final int capitals = 5;
 
     //Arc to look for targets into
     //set to 360 or more to ignore

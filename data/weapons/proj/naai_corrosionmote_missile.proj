@@ -1,16 +1,16 @@
 {
-	"id":"naai_darksun_missile",
+	"id":"naai_corrosionmote_missile",
 	"specClass":"missile",
-	"onFireEffect":"data.scripts.stardust.NA_DarkSunMissileEffectProj",
+	#"onFireEffect":"data.scripts.stardust.NA_DarkSunMissileEffectProj",
 	"missileType":"MISSILE",
 	"sprite":"graphics/fx/empty.png",
-	"size":[8,8],	
-	"center":[4,4],
-	"collisionRadius":30,
+	"size":[16,16],	
+	"center":[8,8],
+	"collisionRadius":12,
 	"collisionClass":"MISSILE_NO_FF",
 	#"explosionColor":[255,50,50,255],  # purely visual, will get a white additively blended core on top of this color
-	"explosionColor":[255,50,75,255],  # purely visual, will get a white additively blended core on top of this color
-	"explosionRadius":250, # purely visual
+	"explosionColor":[255,255,50,255],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":150, # purely visual
 	#"alwaysAccelerate":true,
 	"noCollisionWhileFading":true,
 	"useHitGlowWhenDestroyed":true,
@@ -40,23 +40,23 @@
 				  "dec":200},
 	"engineSlots":[{"id":"ES1",
 					#"loc":[-7, 0],
-					"loc":[-15, 0],
+					"loc":[0, 0],
 				    "style":"CUSTOM",
 					"styleSpec":{
 						"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
 						"engineColor":[150,100,255,0],
-						"contrailDuration":3.5,
-						"contrailWidthMult":1.5,
-						"contrailWidthAddedFractionAtEnd":-0.75,  # can be negative. makes trail spread out/narrow at the end
+						"contrailDuration":1,
+						"contrailWidthMult":1,
+						"contrailWidthAddedFractionAtEnd":2,  # can be negative. makes trail spread out/narrow at the end
 						"contrailMinSeg":5, # min segment length, in pixels
 						"contrailMaxSpeedMult":.0f,
 						"contrailAngularVelocityMult":0.5f,
 						"contrailSpawnDistMult":.5, # how far away from engine it starts
-						"contrailColor":[75,0,25,200],
-						"type":"SMOKE" # GLOW or SMOKE; additive or regular blend mode
+						"contrailColor":[155,155,70,50],
+						"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
 					},
-				    "width":20.0,
-				    "length":100.0,
+				    "width":10.0,
+				    "length":50.0,
 				    "angle":180.0}]
 }
 

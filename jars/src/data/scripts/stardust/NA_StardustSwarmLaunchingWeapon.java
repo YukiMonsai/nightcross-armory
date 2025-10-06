@@ -1,4 +1,4 @@
-package data.scripts.weapons;
+package data.scripts.stardust;
 
 import com.fs.starfarer.api.combat.WeaponAPI;
 

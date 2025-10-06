@@ -1,12 +1,10 @@
 {
-	"id":"na_pyrowisp_large_shot",
+	"id":"naai_megablaster_shot",
 	"specClass":"projectile",
 	"spawnType":"PLASMA",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
 	"collisionClass":"PROJECTILE_FF",
 	"collisionClassByFighter":"PROJECTILE_FIGHTER",
-	"onFireEffect":"data.scripts.weapons.NA_TrailHomingWeapon",
-	"length":16.0,
-	"hitGlowRadius":100,
 	"explosionColor":[255,125,80,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":140, # purely visual
 	"explosionSpec":{"duration":0.1f, # not visual
@@ -20,13 +18,18 @@
 					"sound": "system_emp_emitter_impact",
 					 "particleCount":75,
 					 "particleColor":[255,165,75,255]},
+	"length":50.0,
 	"width":50,
-	"fadeTime":0.1,
-	"fringeColor":[225,125,0,75],
-	"coreColor":[205,175,255,255],	
-
-	"passThroughMissiles":true,
-	"textureScrollSpeed":64.0,
+	"fadeTime":0.3,
+	"fringeColor":[175,25,100,255],
+	"coreColor":[255,75,127,255],
+	"glowColor":[175,25,75,75],
+	"glowRadius":50,
+	"hitGlowRadius":100,
+    "textureScrollSpeed":-256.0,
 	"pixelsPerTexel":5.0,
-	"bulletSprite":"graphics/missiles/na_pyrowisp_large.png",
+	"passThroughMissiles":true,
+	"passThroughFightersOnlyWhenDestroyed":true,
+	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
 }

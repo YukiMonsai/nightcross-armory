@@ -21,7 +21,6 @@ import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.util.ColorShifterUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
-import data.scripts.weapons.NA_StardustWeapon;
 import org.magiclib.util.MagicIncompatibleHullmods;
 
 /**
@@ -303,11 +302,11 @@ public class NA_StargazerStars extends BaseHullMod {
 
     public static float getBaseSwarmRespawnRateMult(ShipAPI.HullSize size) {
         switch (size) {
-            case CAPITAL_SHIP: return 5f;
-            case CRUISER: return 3f;
-            case DESTROYER: return 2f;
-            case FRIGATE: return 1f;
-            case FIGHTER: return 1f;
+            case CAPITAL_SHIP: return 4f;
+            case CRUISER: return 2f;
+            case DESTROYER: return 1f;
+            case FRIGATE: return 0.5f;
+            case FIGHTER: return 0.2f;
             case DEFAULT: return 1f;
             default: return 0f;
         }
@@ -351,10 +350,10 @@ public class NA_StargazerStars extends BaseHullMod {
         if (index == 2) return "" + (int)getBaseSwarmSize(ShipAPI.HullSize.CRUISER);
         if (index == 3) return "" + (int)getBaseSwarmSize(ShipAPI.HullSize.CAPITAL_SHIP);
 
-        if (index == 4) return "" + (int)getBaseSwarmRespawnRateMult(ShipAPI.HullSize.FRIGATE);
-        if (index == 5) return "" + (int)getBaseSwarmRespawnRateMult(ShipAPI.HullSize.DESTROYER);
-        if (index == 6) return "" + (int)getBaseSwarmRespawnRateMult(ShipAPI.HullSize.CRUISER);
-        if (index == 7) return "" + (int)getBaseSwarmRespawnRateMult(ShipAPI.HullSize.CAPITAL_SHIP);
+        if (index == 4) return "" + (int)(60*getBaseSwarmRespawnRateMult(ShipAPI.HullSize.FRIGATE));
+        if (index == 5) return "" + (int)(60*getBaseSwarmRespawnRateMult(ShipAPI.HullSize.DESTROYER));
+        if (index == 6) return "" + (int)(60*getBaseSwarmRespawnRateMult(ShipAPI.HullSize.CRUISER));
+        if (index == 7) return "" + (int)(60*getBaseSwarmRespawnRateMult(ShipAPI.HullSize.CAPITAL_SHIP));
 
         return null;
     }

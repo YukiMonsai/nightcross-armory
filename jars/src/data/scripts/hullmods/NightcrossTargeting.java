@@ -50,8 +50,8 @@ public class NightcrossTargeting extends BaseHullMod {
 	public static final float ARC_CHANCE_VISUAL_REPEAT = 0.03f;
 	public static final float SHIELD_RATE = 50f;
 
-	public static final Color PARTICLE_CHARGE_COLOR_SG = new Color(138, 0, 23, 90);
-	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175, 80);
+	public static final Color PARTICLE_CHARGE_COLOR_SG = new Color(138, 0, 23, 50);
+	public static final Color PARTICLE_CHARGE_COLOR = new Color(0, 75, 175, 50);
 	public static final String ACTIVATE_SOUND = "system_ammo_feeder";
 	public static final String CHARGE_SOUND = "na_chargeup";
 
@@ -242,7 +242,7 @@ public class NightcrossTargeting extends BaseHullMod {
 								sz, 3f, 0.3f, 0.3f,
 								0.8f,
 
-								NAUtils.isStargazerRed(ship) ? PARTICLE_CHARGE_COLOR_SG : new Color(51, 151, 223, 150),
+								NAUtils.isStargazerRed(ship) ? PARTICLE_CHARGE_COLOR_SG : new Color(51, 151, 223, 50),
 								true
 						);
 

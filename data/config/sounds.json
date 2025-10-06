@@ -40,9 +40,19 @@
 	
 	"naai_corrosion_mote":
 	[
-		{"file":"sounds/wpn/naai_corrosion_mote_01.ogg","pitch":1.0,"volume":0.40},
-		{"file":"sounds/wpn/naai_corrosion_mote_02.ogg","pitch":1.0,"volume":0.40},
-		{"file":"sounds/wpn/naai_corrosion_mote_03.ogg","pitch":1.0,"volume":0.40},
+		{"file":"sounds/wpn/naai_corrosion_mote_01.ogg","pitch":1.0,"volume":0.65},
+		{"file":"sounds/wpn/naai_corrosion_mote_02.ogg","pitch":1.0,"volume":0.55},
+		{"file":"sounds/wpn/naai_corrosion_mote_03.ogg","pitch":1.0,"volume":0.60},
+	],
+	"naai_megablaster_fire":
+	[
+		{"file":"sounds/wpn/naai_megablaster_fire.ogg","pitch":1.0,"volume":0.9},
+		{"file":"sounds/wpn/naai_megablaster_fire2.ogg","pitch":1.0,"volume":0.9},
+		{"file":"sounds/wpn/naai_megablaster_fire3.ogg","pitch":1.0,"volume":0.9},
+	],
+	"naai_megablaster_charge":
+	[
+		{"file":"sounds/wpn/naai_megablaster_charge.ogg","pitch":1.0,"volume":1},
 	],
 	"na_rift_explosion": # the official sound is actually pitchshifted, we use the unshifted
 	[
@@ -212,13 +222,13 @@
 	],
 	"na_metahelium_fire":
 	[
-		# {"file":"sounds/wpn/na_metahelium_fire_01.ogg","pitch":1,"volume":0.5},
-		{"file":"sounds/wpn/na_metahelium_fire_02.ogg","pitch":1,"volume":0.5},
-		{"file":"sounds/wpn/na_metahelium_fire_03.ogg","pitch":1,"volume":0.5},
+		# {"file":"sounds/wpn/na_metahelium_fire_01.ogg","pitch":1,"volume":0.3},
+		{"file":"sounds/wpn/na_metahelium_fire_02.ogg","pitch":1,"volume":0.3},
+		{"file":"sounds/wpn/na_metahelium_fire_03.ogg","pitch":1,"volume":0.3},
 	],
 	"na_superblaster_fire":
 	[
-		{"file":"sounds/wpn/na_superblaster_fire.ogg","pitch":1,"volume":0.7},
+		{"file":"sounds/wpn/na_superblaster_fire.ogg","pitch":1,"volume":0.62},
 	],
 	"na_beam":
 	[
