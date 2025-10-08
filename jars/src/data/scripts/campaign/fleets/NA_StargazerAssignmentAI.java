@@ -90,6 +90,11 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
 
         return interestingObjects.pick();
     }
+    public StarSystemAPI findNewSystem() {
+        WeightedRandomPicker<StarSystemAPI> interestingSystems = new WeightedRandomPicker<StarSystemAPI>();
+
+        return interestingSystems.pick();
+    }
 
     @Override
     public boolean isDone() {

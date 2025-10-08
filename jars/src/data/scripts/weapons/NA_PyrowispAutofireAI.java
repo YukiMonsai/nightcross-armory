@@ -27,12 +27,6 @@ public class NA_PyrowispAutofireAI implements AutofireAIPlugin {
         this.ship = weapon.getShip();
         float firingRange = weapon.getRange();
 
-        if (ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.BACKING_OFF) ||
-                ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.NEEDS_HELP)) {
-            shouldFire = false;
-            return;
-        }
-
         boolean player = (ship == Global.getCombatEngine().getPlayerShip()) && (ship.getShipAI() == null);
         ShipAPI bestTarget;
         if (!player && (ship.getAIFlags() != null) && ship.getAIFlags().getCustom(ShipwideAIFlags.AIFlags.MANEUVER_TARGET) instanceof ShipAPI) {
@@ -55,7 +49,7 @@ public class NA_PyrowispAutofireAI implements AutofireAIPlugin {
 
         if (bestTarget != null) {
             target = bestTarget;
-            shouldFire = true;
+            shouldFire = MathUtils.isWithinRange(target.getLocation(), weapon.getFirePoint(0), firingRange + target.getCollisionRadius());
             return;
         }
 

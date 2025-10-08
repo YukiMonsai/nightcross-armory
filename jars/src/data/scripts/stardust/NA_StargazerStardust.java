@@ -32,8 +32,8 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
     }
 
 
-    // 90% reduced respawn if no captain
-    public static float NO_CAPTAIN_RESPAWN = 0.1f;
+    // 50% reduced respawn if the ship is crewed by filthy humans
+    public static float NO_AUTO_RESPAWN = 0.5f;
 
     public static class StardustParams {
         public String spriteCat = "misc";
@@ -67,7 +67,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
         public float baseSpringFreeLength = 30f;
         public float springFreeLengthRange = 90f;
 
-        public float offsetRotationDegreesPerSecond = 0f;
+        public float offsetRotationDegreesPerSecond = 100f;
 
         public float lateralFrictionFactor = 10f;
         public float lateralFrictionTurnRateFactor = 0;
@@ -644,7 +644,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
                 prox = 1f - prox;
 
 
-                offset = Misc.rotateAroundOrigin(offset, attachedTo.getFacing() + elapsed * params.offsetRotationDegreesPerSecond);
+                p.vel = Misc.rotateAroundOrigin(p.vel, amount * params.offsetRotationDegreesPerSecond * Math.max(Math.max(0f, 1.4f - p.vel.length()/40f), entity.getCollisionRadius()*2f - offset.length())/(1f+entity.getCollisionRadius()));
                 //offset = Misc.rotateAroundOrigin(offset, attachedTo.getFacing());
                 offset.x += facingDir.x * leadAmount;
                 offset.y += facingDir.y * leadAmount;
@@ -764,8 +764,8 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
 
         if (!despawnAll) {
-            if (entity instanceof ShipAPI && ((ShipAPI) entity).getCaptain() == null) {
-                respawnChecker.advance(NO_CAPTAIN_RESPAWN * amount * params.memberRespawnRate);
+            if (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) {
+                respawnChecker.advance(NO_AUTO_RESPAWN * amount * params.memberRespawnRate);
             } else {
                 respawnChecker.advance(amount * params.memberRespawnRate);
             }

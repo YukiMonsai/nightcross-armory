@@ -46,9 +46,10 @@
       "mode": "LINKED",
       "weapons": {
         "WS0032": "naai_corrosionmote",
-        "WS0033": "naai_corrosionmote"}
+        "WS0033": "naai_corrosionmote",
         "WS0022": "naai_corrosionmote",
         "WS0023": "naai_corrosionmote",
+		}
     },
     {
       "autofire": true,
@@ -66,7 +67,7 @@
       "mode": "LINKED",
       "weapons": {
         "WS0009": "na_metahelium_ai",
-        "WS0010": "na_metahelium_ai"
+        "WS0010": "na_metahelium_ai",
         "WS0030": "na_metahelium_ai",
         "WS0031": "na_metahelium_ai",
       }
