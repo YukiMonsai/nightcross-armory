@@ -2,6 +2,8 @@ package data.scripts.campaign.ids;
 
 public class NightcrossID {
     public static final String TETO_CORE = "na_core_teto";
+    public static final String GHOST_CORE_ID = "na_core_ghost";
+
     public static final String GHOST = "projectghost";
     public static final String NIGHTCROSS_ARMORY = "nightcross";
     public static final String SKILL_FULLDIVE = "na_fulldive_officer";

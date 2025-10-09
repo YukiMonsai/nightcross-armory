@@ -41,6 +41,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color PYROAI_TRAIL_COLOR_START = new Color(255, 50, 50);
     private static final Color PYROAI_TRAIL_COLOR_END = new Color(85, 0, 255);
     private static final String META_PROJ_ID = "na_metahelium_shot";
+    private static final String META_PROJ_ID2 = "naai_metahelium_shot";
     private static final String MINIRAZOR_ID = "na_minirazor_shot";
     private static final Color META_TRAIL_COLOR_START = new Color(255, 45, 25);
     private static final Color META_TRAIL_COLOR_END = new Color(72, 15, 0);
@@ -122,6 +123,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case PYROAI_PROJ_ID:
 
                 case META_PROJ_ID:
+                case META_PROJ_ID2:
                 case MINIRAZOR_ID:
 
                 case PYROWISP_LARGE_PROJ_ID:
@@ -154,6 +156,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case PYRO_PROJ_ID:
                 case PYROAI_PROJ_ID:
                 case META_PROJ_ID:
+                case META_PROJ_ID2:
                 case MINIRAZOR_ID:
                 case SUPERBLASTER_PROJ_ID:
                 case HARDLIGHT_PROJ_ID:
@@ -562,6 +565,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                     }
                     break;
                 case META_PROJ_ID:
+                case META_PROJ_ID2:
                     if (data.interval == null) {
                         data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
                     }
@@ -582,14 +586,14 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 proj.getFacing() - 180f, /* angle */
                                 0f, /* startAngularVelocity */
                                 0f, /* endAngularVelocity */
-                                powermult * 4f + 8f, /* startSize */
+                                powermult * 4f + (spec.equals(META_PROJ_ID2) ? 16f : 8f), /* startSize */
                                 powermult * 25f + 32f, /* endSize */
                                 META_TRAIL_COLOR_START, /* startColor */
                                 META_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
                                 0.1f * powermult + 0.2f, /* mainDuration */
-                                0.1f * powermult + 0.3f, /* outDuration */
+                                0.1f * powermult + (spec.equals(META_PROJ_ID2) ? 0.5f : 0.3f), /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                                 256f, /* textureLoopLength */

@@ -5,12 +5,15 @@ import java.util.List;
 import java.util.Random;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.DefaultFleetInflater;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
+import com.fs.starfarer.api.impl.combat.threat.ThreatFIDConfig;
 import com.fs.starfarer.api.impl.combat.threat.ThreatFleetBehaviorScript;
 import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.stardust.NA_StargazerFIDConfig;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.Global;
@@ -158,15 +161,28 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
         f.getFleetData().sort();
 
 
+
         for (FleetMemberAPI curr : f.getFleetData().getMembersListCopy()) {
             curr.getRepairTracker().setCR(curr.getRepairTracker().getMaxCR());
+            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+                f.addDropRandom("na_stargazer_drops_cap", 1);
+            } else
+            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+                f.addDropRandom("na_stargazer_drops_cru", 1);
+            } else
+            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+                f.addDropRandom("na_stargazer_drops", 1);
+            }
         }
 
         FactionAPI faction = Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER);
         f.setName(faction.getFleetTypeName(params.fleetType));
 
+        f.getMemoryWithoutUpdate().set(MemFlags.FLEET_INTERACTION_DIALOG_CONFIG_OVERRIDE_GEN,
+                new NA_StargazerFIDConfig());
         f.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_ALLOW_LONG_PURSUIT, true);
         f.getMemoryWithoutUpdate().set(MemFlags.MAY_GO_INTO_ABYSS, true);
+
 
 
         return f;

@@ -13,8 +13,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "na_hmg",
-        "WS0002": "na_hmg"
+        "WS0001": "na_metahelium_ai",
       }
     },
     {
@@ -34,7 +33,8 @@
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS0002": "na_hmg"}
     }
   ],
   "modules": [],

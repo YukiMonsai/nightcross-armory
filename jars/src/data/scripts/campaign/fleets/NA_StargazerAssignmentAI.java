@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.RouteFleetAssignmentAI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import com.fs.starfarer.campaign.ai.CampaignFleetAI;
+import data.scripts.world.nightcross.NA_StargazerGen;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -22,13 +23,18 @@ import java.util.List;
 public class NA_StargazerAssignmentAI implements EveryFrameScript {
 
     public SectorEntityToken target = null;
+    public StarSystemAPI systemtarget = null;
     public CampaignFleetAPI fleet = null;
     public float offset = 150f;
+    public boolean wanderSystem = true;
     public IntervalUtil gazeTime = new IntervalUtil(1f, 13);
-    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target) {
+    public IntervalUtil systemTime = new IntervalUtil(15f, 45f);
+    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem) {
         this.fleet = fleet;
         this.target = target;
+        this.systemtarget = systemtarget;
         this.offset = MathUtils.getRandomNumberInRange(100f, 250f);
+        this.wanderSystem = wanderSystem;
     }
 
     @Override
@@ -38,19 +44,37 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
         float days = Global.getSector().getClock().convertToDays(amount);
 
         this.gazeTime.advance(days);
+        if (wanderSystem)
+            this.systemTime.advance(days);
 
         if (this.gazeTime.intervalElapsed() || (target instanceof FleetAPI && !target.isVisibleToSensorsOf(fleet))) {
             this.gazeTime.randomize();
-            if (Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getStarSystem() != null && Global.getSector().getPlayerFleet().getStarSystem() == fleet.getStarSystem()) {
-                this.target = findNewTarget();
-            } else if (MathUtils.getRandomNumberInRange(0, 30f) < 1f) {
-                // save perfoemance
-                this.target = findNewTarget();
+            if (fleet.getStarSystem() != null && !fleet.getStarSystem().isHyperspace()) {
+                if (Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getStarSystem() != null && Global.getSector().getPlayerFleet().getStarSystem() == fleet.getStarSystem()) {
+                    this.target = findNewTarget();
+                } else if (MathUtils.getRandomNumberInRange(0, 30f) < 5f) {
+                    // save perfoemance
+                    this.target = findNewTarget();
+                }
             }
 
+
+        } else if (wanderSystem) {
+            if (this.systemTime.intervalElapsed() ) {
+                this.systemTime.randomize();
+                if (Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getStarSystem() != null && Global.getSector().getPlayerFleet().getStarSystem() == fleet.getStarSystem()) {
+                    // do nothing, they wont leave
+                } else if (MathUtils.getRandomNumberInRange(0, 30f) < 15f) {
+                    // save perfoemance
+                    this.target = null;
+                    this.systemtarget = findNewSystem();
+                }
+
+            }
         }
 
-         if (fleet.getStarSystem() != null && fleet.getStarSystem().getAllEntities().contains(target)) {
+         if (fleet.getStarSystem() != null && !fleet.getStarSystem().isHyperspace() && fleet.getStarSystem() == systemtarget && fleet.getStarSystem().getAllEntities().contains(target)) {
+             float dd = Math.max(50f, MathUtils.getDistance(target.getLocation(), fleet.getLocation()));
             float distance = target.getRadius() + 50f;
             if (target instanceof PlanetAPI && ((PlanetAPI) target).getSpec() != null && ((PlanetAPI) target).getSpec().getCoronaSize() > 0)
                 distance += ((PlanetAPI) target).getSpec().getCoronaSize() * target.getRadius();
@@ -58,12 +82,35 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
             distance += offset;
 
             float angle = VectorUtils.getAngle(target.getLocation(), fleet.getLocation());
-            Vector2f loc = MathUtils.getPointOnCircumference(target.getLocation(), distance, angle + 15f);
+            Vector2f loc = MathUtils.getPointOnCircumference(target.getLocation(), distance, angle + 15f * Math.min(1f, offset/dd));
             fleet.setMoveDestination(loc.x, loc.y);
             if (!(MathUtils.getDistanceSquared(target.getLocation(), loc) > (distance + 100f) * (distance + 100f))) {
                 fleet.goSlowOneFrame();
             }
-        }
+             fleet.getStats().getDetectedRangeMod().unmodify("na_travelsneak");
+
+             if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.PATROL_SYSTEM ||
+                fleet.getCurrentAssignment().getTarget() != target) {
+                 if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.PATROL_SYSTEM && fleet.getCurrentAssignment().getTarget() != target) {
+                     fleet.getCurrentAssignment().expire();
+                 }
+                 fleet.addAssignment(FleetAssignment.PATROL_SYSTEM, target, 1f,
+                         (target instanceof PlanetAPI && ((PlanetAPI) target).isBlackHole()) ? "staring into the abyss" : (
+                                 (target instanceof PlanetAPI && ((PlanetAPI) target).isStar()) ? "stargazing" : (
+                                         (target instanceof PlanetAPI) ? "observing" : (fleet.isHostileTo(target) ? "//INTERRUPT kill kill kill" : "watching")
+                                 )
+                         ));
+             }
+        } else if (wanderSystem && fleet.getStarSystem() != systemtarget) {
+             if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() != FleetAssignment.PATROL_SYSTEM)
+                 fleet.getCurrentAssignment().expire();
+             if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.GO_TO_LOCATION)
+                 fleet.addAssignment(FleetAssignment.GO_TO_LOCATION, systemtarget.getStar(), 300f, "wandering");
+             else if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.GO_TO_LOCATION) {
+                 fleet.goSlowOneFrame();
+                 fleet.getStats().getDetectedRangeMod().modifyMult("na_travelsneak", 0.35f);
+             }
+         }
     }
 
     public SectorEntityToken findNewTarget() {
@@ -92,6 +139,56 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
     }
     public StarSystemAPI findNewSystem() {
         WeightedRandomPicker<StarSystemAPI> interestingSystems = new WeightedRandomPicker<StarSystemAPI>();
+
+
+        for (StarSystemAPI system: Global.getSector().getStarSystems()) {
+            if ((system).getStar() != null) {
+                if (system.getStar().getSpec() != null && (
+                        system.getStar().getSpec().isBlackHole()
+                        || (system.getStar().getSpec().isStar()
+                        && (
+                                system.getSecondary() == null // avoid binaries
+                                ))
+                        )) {
+                    if (system.isProcgen() && !system.isDeepSpace()) {
+                        boolean filtered = false;
+                        for (String tag : NA_StargazerGen.BLACKLISTED_SYSTEM_TAGS) {
+                            if (system.getTags().contains(tag)) {
+                                filtered = true;
+                                break;
+                            }
+                        }
+                        for (String name : NA_StargazerGen.BLACKLISTED_SYSTEMS) {
+                            if (system.getName().equals(name)) {
+                                filtered = true;
+                                break;
+                            }
+                        }
+
+                        // behavior is go to system => go to black hole => go to system etc
+                        if (fleet.getStarSystem() != null && fleet.getStarSystem().getStar() != null && !fleet.getStarSystem().getStar().isBlackHole()) {
+                            if (!system.getStar().isBlackHole()) filtered = true;
+                        }
+
+                        // only procgen blackholes
+                        // weigh closer stars
+                        if (!filtered)
+                        {
+                            float w = 1;
+                            if (fleet.getStarSystem() != null && fleet.getStarSystem().isHyperspace()) {
+                                w = 100f / (100f + MathUtils.getDistance(fleet.getLocation(), system.getLocation()));
+                            } else if (fleet.getStarSystem() != null) {
+                                w = 100f / (100f + MathUtils.getDistance(fleet.getStarSystem().getLocation(), system.getLocation()));
+                            }
+                            interestingSystems.add(system, w);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
 
         return interestingSystems.pick();
     }

@@ -1,3 +1,4 @@
 name,id,demand class,base price,export value,price variability,utility,origin,tags,stack size,cargo space,icon,sound id,sound id drop,order,economyTier,econUnit,iconWidthMult,plugin,desc
 # only used for her officer,,,,,,,,,,,,,,,,,,,
 Teto Core,na_core_teto,survey_data,100000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_teto.png,ai_core_pickup,ui_fighter_drop,53,,,1,,
+Ghost Core,na_ghost_core,survey_data,100000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_ghost.png,ai_core_pickup,ui_fighter_drop,53,,,1,,

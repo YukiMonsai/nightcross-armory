@@ -32,7 +32,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
         this.target = target;
 
 
-        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target));
+        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target, system, true));
         pickNext();
     }
 

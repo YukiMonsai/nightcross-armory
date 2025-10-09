@@ -25,7 +25,7 @@ Precision Drives,na_overloadweapons,2,,,defensive,"Engines, Defenses",10000,,TRU
 RCS,na_rcs,2,,,defensive,"Engines, Defenses",10000,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_EngineRCS,Visual RCS Thrusters,Visual RCS Thrusters,,graphics/hullmods/augmented_drive_field2.png
 NightcrossModuleFixer,na_fakemodule,2,,,defensive,"Engines, Defenses",10000,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_FakeModule,NightcrossModuleFixer,Visual RCS Thrusters,,graphics/hullmods/augmented_drive_field2.png
 Stargazer,na_stargazerhullmod,,,,"codex_require_related, stargazer",,,,TRUE,,0,0,0,0,data.scripts.stardust.NA_StargazerHull,Hidden hullmod for managing the special properties of Threat ships. Description created in script.,,,graphics/hullmods/the_threat.png
-Stardust Nebula,na_stargazerstars,,,,"codex_unlockable, stargazer","Weapons, Special",30000,,TRUE,,6,12,18,30,data.scripts.stardust.NA_StargazerStars,"The ship contains a Stargazer coprocessor, creating a cloud of Stardust motes that circle the ship.
+Stardust Nebula,na_stargazerstars,,,,"codex_unlockable, stargazer","Weapons, Special",30000,,,,6,12,18,30,data.scripts.stardust.NA_StargazerStars,"The ship contains a Stardust Core spurned to action by special means, creating a cloud of stardust motes that circle the ship.
 
 The maximum amount of stardust is %s/%s/%s/%s, depending on hull size, and regenerates by %s/%s/%s/%s per second.
 

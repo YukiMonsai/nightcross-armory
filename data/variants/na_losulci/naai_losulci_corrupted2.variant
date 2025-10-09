@@ -66,10 +66,10 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0009": "na_metahelium_ai",
-        "WS0010": "na_metahelium_ai",
-        "WS0030": "na_metahelium_ai",
-        "WS0031": "na_metahelium_ai",
+        "WS0009": "naai_corrosionbeam",
+        "WS0010": "naai_corrosionbeam",
+        "WS0030": "naai_corrosionbeam",
+        "WS0031": "naai_corrosionbeam",
       }
     },
     {

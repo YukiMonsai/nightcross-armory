@@ -1,37 +1,40 @@
 {
-  "variantId": "naai_mare_corrupted",
-  "hullId": "naai_mare",
-  "displayName": "Corrupted",
+  "variantId": "naai_kasei_corrupted2",
+  "hullId": "naai_kasei",
+  "displayName": "Shattered",
   "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 4,
+  "fluxVents": 5,
   "quality": 1,
   "permaMods": [],
-  "hullMods": [
-    "hardenedshieldemitter",
-    "extendedshieldemitter"
-  ],
+  "hullMods": [],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "naai_megablaster"
+        "WS0002": "naai_corrosionbeam"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "na_metahelium_ai"
+        "WS0004": "na_wavefront"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "naai_corrosionmote"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "na_interceptor"
-      }
+        "WS0001": "na_hmg",}
     }
   ],
   "modules": [],

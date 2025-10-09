@@ -19,7 +19,7 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
     public void onFire(DamagingProjectileAPI projectile, WeaponAPI weapon, CombatEngineAPI engine) {
         NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(weapon.getShip());
         int active = swarm == null ? 0 : swarm.getNumActiveMembers();
-        int required = 5;
+        int required = getNumFragmentsToFire();
         if (active >= required) {
             for (int i = 0; i < required; i++) {
                 NA_StargazerStardust.SwarmMember fragment = pickOuterFragmentWithinRangeClosestTo(swarm, 1000, weapon.getLocation());
@@ -88,7 +88,7 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
 
 
     public int getNumFragmentsToFire() {
-        return 5;
+        return 8;
     }
 
 

@@ -26,7 +26,7 @@
 					   "particleCount":7,
 					   "particleColor":[255,45,0,175]},	
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
-	"projectileSpecId":"na_metahelium_shot",  # projectile that will be fired
+	"projectileSpecId":"naai_metahelium_shot",  # projectile that will be fired
 	#"fireSoundOne":"gigacannon_charge",
 	"fireSoundTwo":"na_metahelium_fire",
 }

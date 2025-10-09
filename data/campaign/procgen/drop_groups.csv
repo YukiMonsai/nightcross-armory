@@ -13,16 +13,17 @@ nothing,na_weps_stargazer_loot,50
 "wpn_:{tags:[stargazer, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,50
 "wpn_:{tags:[na_sg_loot, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,100
 ,,
+item_na_stardust_core,na_stargazer_drops_cap,100
+na_ghost_core,na_stargazer_drops_cap,100
 ,,
+item_na_stardust_core,na_stargazer_drops_cru,50
+"wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops_cru,50
+na_ghost_core,na_stargazer_drops_cru,50
 ,,
-,,
-,,
-,,
-,,
-,,
-,,
-,,
-,,
+item_na_stardust_core,na_stargazer_drops,25
+na_ghost_core,na_stargazer_drops,25
+"wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops,50
+nothing,na_stargazer_drops,50
 ,,
 ,,
 ,,

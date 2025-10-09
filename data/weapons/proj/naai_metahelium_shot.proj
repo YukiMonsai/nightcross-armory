@@ -1,0 +1,23 @@
+{
+	"id":"naai_metahelium_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC_AS_BEAM",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeaponMeta",
+	"onHitEffect":"data.scripts.weapons.NA_ArmorAblation",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"width":20,
+	"fadeTime":0.4,
+	"fringeColor":[225,0,46,255],
+	"coreColor":[225,125,175,255],
+	"glowColor":[225,25,125,75],
+	"glowRadius":35,
+	"hitGlowRadius":40,
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"passThroughMissiles":true,
+	"passThroughFighters":true,
+	"passThroughFightersOnlyWhenDestroyed":true,
+	#"bulletSprite":"graphics/missiles/na_metahelium_missile.png",
+	"textureType":"SMOOTH",  # only needed for BEAM spawnType
+}

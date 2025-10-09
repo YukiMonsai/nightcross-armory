@@ -20,8 +20,10 @@ public class NightcrossPeople {
 
     // Kasane Teto (placeholder
     public static String TETO = "na_teto";
+    public static String GHOST_CORE = "na_ghost_core";
     public static String BLACKCAT = "na_blackcat";
     public static float TETO_POINTS = 3.5f;
+    public static float GHOST_POINTS = 2.5f;
 
     public static PersonAPI getPerson(String id) {
         return Global.getSector().getImportantPeople().getPerson(id);
@@ -40,7 +42,7 @@ public class NightcrossPeople {
             person.setId(TETO);
             person.setName(new FullName("Teto", "Kasane", Gender.FEMALE));
             person.setAICoreId(NightcrossID.TETO_CORE);
-            person.setFaction(NightcrossID.NIGHTCROSS_ARMORY);
+            person.setFaction(Factions.INDEPENDENT);
             person.setGender(Gender.FEMALE);
             person.setRankId(Ranks.SPACE_COMMANDER);
             person.setPostId(Ranks.POST_OFFICER);
@@ -62,6 +64,35 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "teto"));
             //person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
+            ip.addPerson(person);
+        }
+
+        if (getPerson(GHOST_CORE) == null) {
+            PersonAPI person = Global.getFactory().createPerson();
+            person.setId(GHOST_CORE);
+            person.setName(new FullName("Ghost", "Core", Gender.FEMALE));
+            person.setAICoreId(NightcrossID.GHOST_CORE_ID);
+            person.setFaction(NightcrossID.FACTION_STARGAZER);
+            person.setGender(Gender.FEMALE);
+            person.setRankId(Ranks.SPACE_COMMANDER);
+            person.setPostId(Ranks.POST_OFFICER);
+            person.setImportance(PersonImportance.LOW);
+            person.setPersonality(Personalities.RECKLESS);
+
+            person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, GHOST_POINTS);
+
+            person.getStats().setLevel(6);
+            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE, 2); // character
+
+            person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
+
+            person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
+            person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
+            person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+            person.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+            person.getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
+            person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
+            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
             ip.addPerson(person);
         }
 
@@ -88,7 +119,7 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
 
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "blackcat"));
-            //person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
+            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
             ip.addPerson(person);
         }
     }
