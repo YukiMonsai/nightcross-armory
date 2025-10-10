@@ -16,6 +16,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
+import data.scripts.campaign.skills.NAFulldiveOfficer;
+import data.scripts.hullmods.NA_ProjectGhost;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -65,7 +67,8 @@ public class NAGhostCorePlugin extends BaseAICoreOfficerPluginImpl implements AI
 
         float autoMult = 1f;
         try {
-            autoMult = person.getMemoryWithoutUpdate().getFloat(AICoreOfficerPlugin.AUTOMATED_POINTS_MULT);
+            if (person.getMemoryWithoutUpdate().getBoolean(NAFulldiveOfficer.TAG_SET_TO_NO_PENALTY)) autoMult = 0f;
+            else autoMult = person.getMemoryWithoutUpdate().getFloat(AICoreOfficerPlugin.AUTOMATED_POINTS_MULT);
         } catch (Exception e) {
             // beep
         }

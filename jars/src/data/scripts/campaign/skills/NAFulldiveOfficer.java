@@ -25,6 +25,9 @@ public class NAFulldiveOfficer {
     public static float CR_PENALTY = -30f;
     public static float AUTO_MULT_GHOST = 1f;
 
+
+    public static String TAG_SET_TO_NO_PENALTY = "$na_fulldive_settonopen";
+
     public static class Level1 implements ShipSkillEffect {
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
             FleetMemberAPI member = stats.getFleetMember();
@@ -65,6 +68,7 @@ public class NAFulldiveOfficer {
                     if (!member.getVariant().hasTag(NA_ProjectGhost.TAG_NOPENALTY_SET)) {
                         member.getVariant().addTag(NA_ProjectGhost.TAG_NOPENALTY_SET);
                         member.getVariant().addTag(Tags.TAG_AUTOMATED_NO_PENALTY);
+                        captainMemory.set(TAG_SET_TO_NO_PENALTY, true);
                     }
                 }
             }
@@ -79,6 +83,7 @@ public class NAFulldiveOfficer {
             if (member.getVariant().hasTag(NA_ProjectGhost.TAG_NOPENALTY_SET)) {
                 member.getVariant().removeTag(NA_ProjectGhost.TAG_NOPENALTY_SET);
                 member.getVariant().removeTag(Tags.TAG_AUTOMATED_NO_PENALTY);
+
             }
         }
 

@@ -95,6 +95,15 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
 
+        NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(weapon.getShip());
+        int active = swarm == null ? 0 : swarm.getNumActiveMembers();
+        int required = getNumFragmentsToFire();
+        boolean disable = active < required;
+        weapon.setForceDisabled(disable);
+
+        showNoFragmentSwarmWarning(weapon, weapon.getShip());
+
+
         if (weapon.getChargeLevel() > 0 && weapon.getCooldownRemaining() == 0) {
             if (chargeTimer.intervalElapsed()) {
                 chargeTimer = new IntervalUtil(0.5f * CHARGE_TICK, CHARGE_TICK);
@@ -106,7 +115,6 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
                 DistortionShader.addDistortion(ripple);
 
                 if (weapon.getShip() != null && NA_StargazerStardust.getSwarmFor(weapon.getShip()) != null) {
-                    NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(weapon.getShip());
 
                     WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker = swarm.getPicker(true, true);
                     if (!picker.isEmpty()) {

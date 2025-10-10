@@ -12,6 +12,7 @@
   "shieldRadius": 135,
   "viewOffset": 0,
   "builtInMods": [
+	"na_stargazerrage",
     "automated",
     "na_stargazerhullmod",
     "na_rcs",

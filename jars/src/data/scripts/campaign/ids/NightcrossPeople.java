@@ -56,16 +56,15 @@ public class NightcrossPeople {
 
             person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, GHOST_POINTS);
 
-            person.getStats().setLevel(6);
+            person.getStats().setLevel(5);
             person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE, 2); // character
 
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
 
-            person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
+            person.getStats().setSkillLevel(Skills.COMBAT_ENDURANCE, 2);
             person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
             person.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
-            person.getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
             person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
 

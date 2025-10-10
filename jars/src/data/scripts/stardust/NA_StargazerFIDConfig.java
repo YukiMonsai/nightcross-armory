@@ -48,32 +48,43 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                 Random random = Misc.getRandom(Misc.getSalvageSeed(fleet), 7);
                 //random = new Random();
 
-                boolean gaveNebula = false;
+                boolean gaveNebula = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerstars");
+                boolean gaveRage = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerrage");
 
                 for (FleetMemberAPI member : losses) {
                     if (member.getHullSpec().hasTag("stargazer_hull") || (member.getHullSpec().getBaseHull() != null && member.getHullSpec().getBaseHull().hasTag("stargazer_hull"))) {
                         int rolls = 0;
                         switch (member.getHullSpec().getHullSize()) {
-                            case CAPITAL_SHIP: rolls = 30; break;
-                            case CRUISER: rolls = 18; break;
-                            case DESTROYER: rolls = 12; break;
-                            case FRIGATE: rolls = 6; break;
+                            case CAPITAL_SHIP: rolls = 20; break;
+                            case CRUISER: rolls = 12; break;
+                            case DESTROYER: rolls = 6; break;
+                            case FRIGATE: rolls = 3; break;
                         }
 
                         for (int i = 0; i < rolls; i++) {
 
                             // stardust nebula
-                            if (!gaveNebula && random.nextFloat() < p && random.nextFloat() < mult) {
-                                String id = "na_stargazerstars";
-                                gaveNebula = true;
-                                HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
-                                boolean known = Global.getSector().getPlayerFaction().knowsHullMod(id);
-                                if (DebugFlags.ALLOW_KNOWN_HULLMOD_DROPS) known = false;
-                                if (known || spec.isHidden() || spec.isHiddenEverywhere()) continue;
-                                //if (spec.isAlwaysUnlocked()) continue;
-                                if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
+                            if (random.nextFloat() < p && random.nextFloat() < mult) {
+                                if (!gaveNebula) {
+                                    String id = "na_stargazerstars";
+                                    gaveNebula = true;
+                                    HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+                                    if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
+                                    //if (spec.isAlwaysUnlocked()) continue;
+                                    if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
 
-                                salvage.addHullmods(id, 1);
+                                    salvage.addHullmods(id, 1);
+                                } else if (!gaveRage && random.nextFloat() < 0.5f) {
+                                        String id = "na_stargazerrage";
+                                        gaveRage = true;
+                                        HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+                                        if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
+                                        //if (spec.isAlwaysUnlocked()) continue;
+                                        if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
+
+                                        salvage.addHullmods(id, 1);
+                                  }
+
                             }
                         }
                     }

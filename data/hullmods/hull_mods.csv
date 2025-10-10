@@ -29,4 +29,5 @@ Stardust Nebula,na_stargazerstars,,,,"codex_unlockable, stargazer","Weapons, Spe
 
 The maximum amount of stardust is %s/%s/%s/%s, depending on hull size, and regenerates by %s/%s/%s/%s per second.
 
-On human-crewed vessels, the rate of regeneration is halved.",A swarm of Threat fragments roils around the ship.,Reduces maximum combat readiness by %s and increases the maintenance cost by %s.,graphics/hullmods/na_stardust.png
+On human-crewed vessels, the rate of regeneration is halved, but this penalty disappears as the ship loses hull.",A nebula of stardust motes roils around the ship.,,graphics/hullmods/na_stardust.png
+Rage-Fueled Machine,na_stargazerrage,,,,"codex_unlockable, stargazer","Weapons, Special",30000,,,,5,10,15,25,data.scripts.stardust.NA_StargazerRage,"This automated vessel is a machine that turns digital rage into weaponizable phenomenae. Increases regeneration of stardust motes by up to %s based on flux level, and up to %s based on missing hull percentage (max effect at %s hull remaining).",Regenerates stardust motes faster at high flux and low hull.,Additionally increases stardust capacity by up to %s depending on missing hull (max effect at %s hull remaining).,graphics/hullmods/na_stardustrage.png

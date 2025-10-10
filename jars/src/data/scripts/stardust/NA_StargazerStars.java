@@ -34,6 +34,10 @@ public class NA_StargazerStars extends BaseHullMod {
 
     public static String STANDARD_STARDUST_EXCHANGE_CLASS = "standard_stardust_exchange_class";
     public static String STANDARD_STARDUST_FLOCKING_CLASS = "standard_stardust_flocking_class";
+    public static String STARDUST_RESPAWN_RATE_MULT = "na_stardust_respawn_rate";
+    public static String STARDUST_RESPAWN_MAX_MULT = "na_stardust_respawn_max";
+
+
 
 
     public static float SMOD_CR_PENALTY = 0.2f;
@@ -80,9 +84,9 @@ public class NA_StargazerStars extends BaseHullMod {
 
         NA_StargazerStardust.StardustParams params = swarm.params;
         params.baseMembersToMaintain = (int) ship.getMutableStats().getDynamic().getValue(
-                Stats.FRAGMENT_SWARM_SIZE_MOD, getBaseSwarmSize(ship.getHullSize()));
+                STARDUST_RESPAWN_MAX_MULT)* getBaseSwarmSize(ship.getHullSize());
         params.memberRespawnRate = getBaseSwarmRespawnRateMult(ship.getHullSize()) *
-                ship.getMutableStats().getDynamic().getValue(Stats.FRAGMENT_SWARM_RESPAWN_RATE_MULT);
+                ship.getMutableStats().getDynamic().getValue(STARDUST_RESPAWN_RATE_MULT);
 
 
         params.maxNumMembersToAlwaysRemoveAbove = (int) (params.baseMembersToMaintain * 1.5f);

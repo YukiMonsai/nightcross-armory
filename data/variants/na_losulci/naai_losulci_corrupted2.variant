@@ -18,8 +18,8 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "naai_megablaster",
-        "WS0003": "naai_megablaster",
+        "WS0030": "naai_megablaster",
+        "WS0031": "naai_megablaster",
       }
     },
     {
@@ -55,8 +55,8 @@
         "WS0033": "naai_corrosionmote",
         "WS0022": "naai_corrosionmote",
         "WS0023": "naai_corrosionmote",
-        "WS0004": "na_mediumchirp_ai",
-        "WS0006": "na_mediumchirp_ai",
+        "WS0004": "naai_ragelightning",
+        "WS0006": "naai_ragelightning",
         "WS0018": "na_chirppd_ai",
         "WS0019": "na_chirppd_ai",
         "WS0020": "na_chirppd_ai",
@@ -66,10 +66,10 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
+        "WS0002": "naai_corrosionbeam",
+        "WS0003": "naai_corrosionbeam",
         "WS0009": "naai_corrosionbeam",
         "WS0010": "naai_corrosionbeam",
-        "WS0030": "naai_corrosionbeam",
-        "WS0031": "naai_corrosionbeam",
       }
     },
     {

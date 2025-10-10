@@ -8,6 +8,7 @@
   "quality": 2,
   "permaMods": [],
   "hullMods": [
+	"na_stargazerrage",
     "hardenedshieldemitter",
     "targetingunit",
     "stabilizedshieldemitter",
@@ -66,16 +67,16 @@
       "autofire": true,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0009": "na_metahelium_ai",
-        "WS0010": "na_metahelium_ai",
-        "WS0030": "na_metahelium_ai",
-        "WS0031": "na_metahelium_ai",
+        "WS0030": "na_pyrolance_med",
+        "WS0031": "na_pyrolance_med",
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {}
+      "weapons": {
+        "WS0009": "na_metahelium_ai",
+        "WS0010": "na_metahelium_ai",}
     }
   ],
   "modules": [

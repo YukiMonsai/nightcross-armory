@@ -337,7 +337,7 @@ public class NA_BrokenWings extends BaseShipSystemScript {
 
         if (beamTimer.intervalElapsed()) {
             beamTimer.randomize();
-            ship.addAfterimage(new Color(255, 0, 75, (int) (50 + 70 * effectLevel)),
+            ship.addAfterimage(new Color(255, 0, 75, (int) (25 + 50 * effectLevel)),
                 0,
                 0,
                 -ship.getVelocity().x,
@@ -368,11 +368,11 @@ public class NA_BrokenWings extends BaseShipSystemScript {
                                 if (entity instanceof MissileAPI || entity instanceof CombatAsteroidAPI) size = 0.25f;
                                 if (entity instanceof ShipAPI) {
                                     switch (((ShipAPI) entity).getHullSize()) {
-                                        case FRIGATE: size = 1;
-                                        case CRUISER: size = 3.5f;
-                                        case CAPITAL_SHIP: size = 6f;
-                                        case DESTROYER: size = 2f;
-                                        case FIGHTER: size = 0.4f;
+                                        case FRIGATE: size = 1; break;
+                                        case CRUISER: size = 3.5f; break;
+                                        case CAPITAL_SHIP: size = 6f; break;
+                                        case DESTROYER: size = 2f; break;
+                                        case FIGHTER: size = 0.4f; break;
                                     }
                                 }
                                 picker.add(entity, size);
@@ -382,10 +382,11 @@ public class NA_BrokenWings extends BaseShipSystemScript {
                             if (target != null) {
                                 realshock = true;
                                 Global.getCombatEngine().spawnEmpArc(
-                                        ship, fragment.loc, target, target, DamageType.HIGH_EXPLOSIVE, 200f, 200f, 1200f, "na_rift_beam_explosion2", 30f,
+                                        ship, fragment.loc, null, target, DamageType.HIGH_EXPLOSIVE, 200f + 75f*  ship.getFluxLevel(), 200f + 75f * ship.getFluxLevel(), 1200f,
+                                        "na_rift_beam_explosion2", 22f + 11f *  ship.getFluxLevel(),
 
-                                        new Color(255, 0, 221, 50),
-                                        new Color(255, 49, 49, 250)
+                                        new Color(255, 8, 187, 50),
+                                        new Color(253, 162, 162, 250)
                                         );
                             }
                         }

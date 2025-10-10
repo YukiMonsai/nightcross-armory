@@ -765,7 +765,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
         if (!despawnAll) {
             if (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) {
-                respawnChecker.advance(NO_AUTO_RESPAWN * amount * params.memberRespawnRate);
+                respawnChecker.advance((1f - (1f - NO_AUTO_RESPAWN) * ((ShipAPI) entity).getHullLevel()) * amount * params.memberRespawnRate);
             } else {
                 respawnChecker.advance(amount * params.memberRespawnRate);
             }

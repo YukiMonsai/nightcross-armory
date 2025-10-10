@@ -36,7 +36,7 @@ public class NA_RageLightningEffect implements OnHitEffectPlugin, OnFireEffectPl
 
     @Override
     public int getNumFragmentsToFire() {
-        return 3;
+        return 2;
     }
 
     public static class FiredLightningProjectile {
@@ -75,6 +75,13 @@ public class NA_RageLightningEffect implements OnHitEffectPlugin, OnFireEffectPl
         if (engine != null && engine.isInFastTimeAdvance()) {
             return;
         }
+        NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(weapon.getShip());
+        int active = swarm == null ? 0 : swarm.getNumActiveMembers();
+        int required = getNumFragmentsToFire();
+        boolean disable = active < required;
+        weapon.setForceDisabled(disable);
+
+        showNoFragmentSwarmWarning(weapon, weapon.getShip());
 
         List<FiredLightningProjectile> remove = new ArrayList<>();
 
@@ -179,7 +186,7 @@ public class NA_RageLightningEffect implements OnHitEffectPlugin, OnFireEffectPl
             data.origin = fragment.loc;
             projectile.setCustomData(RIFT_LIGHTNING_SOURCE_POS, fragment.loc);
 
-            swarm.removeMember(fragment);
+            //swarm.removeMember(fragment);
 
             Vector2f from = weapon.getFirePoint(0);
 

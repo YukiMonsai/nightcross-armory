@@ -1,5 +1,6 @@
 name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u (base cap),cr/u,max uses,regen,charge up,active,down,cooldown,toggle,noDissipation,noHardDissipation,hardFlux,noFiring,noTurning,noStrafing,noAccel,noShield,noVent,isPhaseCloak,tags,icon
 Plasma Autoforge,na_forgevats,,,,,,0.4,,,,1,,1,60,,,,,,,,,,,,,
+Corrupted Plasmaforge,na_forgevats2,,,,,,.15,,,,1,,3,14,,,,,,,,,,TRUE,,,
 Catalyst Injector,na_afterburners,,,,,,,,3,.05,.25,0.5,2.5,1.5,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Relativity Drive,na_relativitydrive,,,,,,,,2,0.08,0.2,1.9,1.5,0.1,,,,,TRUE,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Tidal Disruption,na_tidaldisruption,,,,,,0.1,,,,0.5,10,1,10,,,,,,,,,,,,,

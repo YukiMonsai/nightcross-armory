@@ -96,6 +96,10 @@
 		{"file":"sounds/wpn/naai_corrosion_mote_02.ogg","pitch":1.0,"volume":0.55},
 		{"file":"sounds/wpn/naai_corrosion_mote_03.ogg","pitch":1.0,"volume":0.60},
 	],
+	"na_forgevats2":
+	[
+		{"file":"sounds/system/na_forgevats2.ogg","pitch":1.0,"volume":1.1},
+	],
 	"naai_megablaster_fire":
 	[
 		{"file":"sounds/wpn/naai_megablaster_fire.ogg","pitch":1.0,"volume":0.9},

@@ -95,7 +95,7 @@
 	"knownHullMods":{
 		"tags":["base", "tritachyon", "stargazer", "na_sg_loot", "nightcross_bp_restricted"],
 		"hullMods":["na_plasmaaggregator", "na_energizedarmor",
-		
+			"na_stargazerrage",
 			"advancedshieldemitter", # accelerated
 			"advancedoptics",
 			"turretgyros",
@@ -105,7 +105,6 @@
 			"converted_hangar",
 			"eccm",
 			"ecm",
-			"expanded_deck_crew",
 			"magazines",
 			"missleracks",
 			"extendedshieldemitter",
@@ -118,12 +117,16 @@
 			"targetingunit",
 			"nav_relay",
 			"adaptiveshields", # omni
-			"operations_center",
-			"recovery_shuttles",
 			"fluxbreakers",
 			"solar_shielding",
 			"stabilizedshieldemitter",
-			"surveying_equipment",
+		],
+	},
+	"priorityHullmods":{
+		"tags":[],
+		"hullMods":[
+			"na_stargazerrage",
+			"solar_shielding",
 		],
 	},
 	"factionDoctrine":{
