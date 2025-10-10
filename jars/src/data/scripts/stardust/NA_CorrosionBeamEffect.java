@@ -204,7 +204,7 @@ public class NA_CorrosionBeamEffect implements BeamEffectPlugin {
 						params.brightSpotFadeFraction = 0.33f;
 						params.brightSpotFullFraction = 0.5f;
 						params.movementDurMax = 0.2f;
-						params.flickerRateMult = 0.5f;
+						params.flickerRateMult = 0.35f;
 
 						float dist = Misc.getDistance(from, missile.getLocation());
 						float minBright = 100f;

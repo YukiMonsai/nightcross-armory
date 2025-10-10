@@ -323,6 +323,9 @@ public class NA_AriaHQ extends BaseIndustry implements RouteFleetSpawner, FleetE
         // this will get overridden by the patrol assignment AI, depending on route-time elapsed etc
         fleet.setLocation(market.getPrimaryEntity().getLocation().x, market.getPrimaryEntity().getLocation().y);
 
+
+        fleet.getMemoryWithoutUpdate().set("$combatMusicSetId","na_pirates_hostile");
+
         fleet.addScript(new PatrolAssignmentAIV4(fleet, route));
         fleet.setNoFactionInName(true);
         //market.getContainingLocation().addEntity(fleet);

@@ -7,6 +7,7 @@ Chroma Reactor,na_fastcapacitors,,,,,,,,,,1,4,0.75,8,,,,,,,,,,,,,graphics/icons/
 Plasma Surge,na_plasmasurge,,,,10,,,,2,0.08,0.5,2,1,0.2,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Gravity Mine,na_gravitymine,,,,,,.2,,2,.033,0.25,,0.25,10,,,,,,,,,,,,offensive,graphics/icons/hullsys/mine_strike.png
 Catalyst Drive,na_plasmasurge2,,,,,,,,2,.15,.25,1,0.25,0.1,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
+Broken Wings,na_brokenwings,,,,,,,,,,2.5,5,1.5,10,,,,,,,,,,TRUE,,,graphics/icons/hullsys/infernium_injector.png
 Singularity Drive,na_singdrive,1,,,,,,,,,1,6,1,10,TRUE,,,,,,TRUE,TRUE,,,,,
 Gravitational Catapult,na_gravitycatapult,,,,,,,,2,0.07,.1,.5,0.75,0.4,,,,,TRUE,TRUE,TRUE,TRUE,,TRUE,,,graphics/icons/hullsys/infernium_injector.png
 Phase Catapult,na_gravitycatapultsuper,,,,,,0.05,,3,0.07,.1,.5,.1,0.4,,,,,TRUE,TRUE,TRUE,TRUE,,TRUE,,,graphics/icons/hullsys/infernium_injector.png

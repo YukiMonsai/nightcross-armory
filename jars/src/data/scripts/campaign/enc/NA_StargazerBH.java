@@ -6,14 +6,13 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.fleet.FleetAPI;
 import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.enc.*;
-import com.fs.starfarer.api.impl.campaign.ids.Entities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.ShipRoles;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.SalvageEntityGenDataSpec;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner;
@@ -21,8 +20,15 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySp
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceAbyssPluginImpl;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.world.nightcross.NA_StargazerBehavior;
+import data.scripts.world.nightcross.NA_StargazerWandererManager;
 import org.lazywizard.lazylib.MathUtils;
+import org.lwjgl.util.vector.Vector2f;
+
+import static data.scripts.world.nightcross.NA_StargazerWandererManager.createStargazerFleet;
 
 public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
@@ -36,6 +42,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         NAMED,
         VICTIM,
         BATTLE,
+        ALIVE,
     }
 
 
@@ -111,6 +118,17 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         STARGAZER_TYPES.add(StargazerBHType.NAMED, 10f);
         STARGAZER_TYPES.add(StargazerBHType.VICTIM, 5f);
         STARGAZER_TYPES.add(StargazerBHType.BATTLE, 8f);
+        STARGAZER_TYPES.add(StargazerBHType.ALIVE, 5f);
+    }
+
+
+    public static HashMap<StargazerBHType, String> MUSIC_CHOICE = new HashMap<StargazerBHType, String>();
+    static {
+        MUSIC_CHOICE.put(StargazerBHType.LONE_SHIP, "mekaloton_Numbered_Rooms");
+        MUSIC_CHOICE.put(StargazerBHType.GROUP, "mekaloton_Numbered_Rooms");
+        MUSIC_CHOICE.put(StargazerBHType.NAMED, "mekaloton_Numbered_Rooms");
+        MUSIC_CHOICE.put(StargazerBHType.ALIVE, "mekaloton_Off_Air");
+        MUSIC_CHOICE.put(StargazerBHType.BATTLE, "Kocaeli_Core");
     }
     public static WeightedRandomPicker<VictimType> STARGAZER_VICTIM_TYPES = new WeightedRandomPicker<VictimType>();
     static {
@@ -176,6 +194,10 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         do {
             StargazerBHType type = picker.pickAndRemove();
 
+            if (MUSIC_CHOICE.containsKey(type)) {
+                system.getMemoryWithoutUpdate().set("$musicSetId",MUSIC_CHOICE.get(type));
+            }
+
 //			type = AbyssalDireHintType.MINING_OP;
 //			type = AbyssalDireHintType.GAS_GIANT_TURBULENCE;
 //			type = AbyssalDireHintType.BLACK_HOLE_READINGS;
@@ -214,7 +236,42 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                 }
 
 
+            } else if (type == StargazerBHType.ALIVE) {
+                NA_StargazerWandererManager.StargazerFleetParams params = new NA_StargazerWandererManager.StargazerFleetParams(
+                        null,
+                        null, // loc in hyper; don't need if have market
+                        NightcrossID.FACTION_STARGAZER,
+                        -1.5f, // quality override
+                        FleetTypes.PATROL_SMALL,
+                        MathUtils.getRandomNumberInRange(10, (float) (100 + 70*Math.sqrt(data.depth))), // combatPts
+                        0, // freighterPts
+                        0, // tankerPts
+                        0f, // transportPts
+                        0f, // linerPts
+                        0f, // utilityPts
+                        0.1f
+                );
+                params.averageSMods = Math.max(0, Math.min(3, Math.round(1 + data.depth)));
+                //params.random = random;
+                params.random = new Random(); //for easier testing
+                params.modeOverride = FactionAPI.ShipPickMode.PRIORITY_ONLY;
+
+                CampaignFleetAPI f = createStargazerFleet(params, null);
+
+                system.addEntity(f);
+                f.getMemoryWithoutUpdate().set("$combatMusicSetId","Kocaeli_Core");
+
+                //float radius = 100f + star.getRadius() + star.getSpec().getCoronaSize();
+                Vector2f loc = Misc.getPointAtRadius(system.getCenter().getLocation(), MathUtils.getRandomNumberInRange(200f, 500f));
+                f.setLocation(loc.x, loc.y);
+
+                NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, system.getStar(), false, true);
+                behavior.setSeenByPlayer();
+                f.addScript(behavior);
+
+
             }
+
         } while (!picker.isEmpty() && !done);
     }
 
@@ -279,6 +336,8 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
             if (variantId == null) return false;
             addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1f);
         }
+
+
 
 
         Global.getSector().getMemoryWithoutUpdate().set(type.getTimeoutKey(), true, 90f);
@@ -369,6 +428,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         ship.getVelocity().set(planet.getVelocity());
 
         ship.getMemoryWithoutUpdate().set("$gsType", "NA_" + gsType);
+        ship.getMemoryWithoutUpdate().set("$musicSetId","Kocaeli_Core");
 
         return ship;
     }

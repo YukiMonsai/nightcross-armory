@@ -1,0 +1,26 @@
+{
+	"id":"na_brokenwings",
+	"type":"ENGINE_MOD",
+	"aiType":"MANEUVERING_JETS",
+	"aiHints":{
+		"activeSpeedIncrease":25,
+		"burstMovementPotential":25,
+		"averageSpeedIncrease":25,
+	},
+	
+	"statsScript":"data.scripts.NA_BrokenWings",
+	"canUseWhileRightClickSystemOn":true,
+	
+	"runScriptWhileIdle":true, # unapply() never gets called
+		
+	"fadeActivationSoundOnChargedown":true,
+	
+	
+	"loopSound":"na_brokenwings",
+	"outOfUsesSound":"engine_disabled",
+	
+}
+
+
+
+

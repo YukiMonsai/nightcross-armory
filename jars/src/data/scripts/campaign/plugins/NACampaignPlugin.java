@@ -21,6 +21,8 @@ public class NACampaignPlugin extends BaseCampaignPlugin {
         switch (commodityId) {
             case NightcrossID.TETO_CORE:
                 return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
+            case NightcrossID.GHOST_CORE_ID:
+                return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
             default:
                 return null;
         }

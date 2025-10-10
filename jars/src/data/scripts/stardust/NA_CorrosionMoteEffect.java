@@ -78,7 +78,7 @@ public class NA_CorrosionMoteEffect implements OnFireEffectPlugin, EveryFrameWea
                     params.brightSpotFadeFraction = 0.33f;
                     params.brightSpotFullFraction = 0.5f;
                     params.movementDurMax = 0.2f;
-                    params.flickerRateMult = 0.5f;
+                    params.flickerRateMult = 0.35f;
 
                     float dist = Misc.getDistance(from, missile.getLocation());
                     float minBright = 100f;
@@ -147,7 +147,7 @@ public class NA_CorrosionMoteEffect implements OnFireEffectPlugin, EveryFrameWea
         RippleDistortion ripple = new RippleDistortion(pp, Misc.ZERO);
         ripple.setSize(16f);
         ripple.setIntensity(10.0F +  MathUtils.getRandomNumberInRange(0, 20f));
-        ripple.setFrameRate(10 + MathUtils.getRandomNumberInRange(0, 5));
+        ripple.setFrameRate(30 + MathUtils.getRandomNumberInRange(0, 15));
         ripple.setCurrentFrame(MathUtils.getRandomNumberInRange(0, 10));
         ripple.fadeInIntensity(.15F + MathUtils.getRandomNumberInRange(0, 0.25f));
         DistortionShader.addDistortion(ripple);

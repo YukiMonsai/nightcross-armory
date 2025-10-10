@@ -1,9 +1,9 @@
 {
     id:"stargazer",
 	"displayName":"Stargazer",
-	"displayNameWithArticle":"the Stargazer",
+	"displayNameWithArticle":"the Stargazers",
 	"displayNameLong":"Stargazer",
-	"displayNameLongWithArticle":"the Stargazer",
+	"displayNameLongWithArticle":"the Stargazers",
 	"entityNamePrefix":"",
 	"personNamePrefix":"",
 	"personNamePrefixAOrAn":"is",
@@ -61,7 +61,7 @@
 		],
 	},
 	"knownWeapons":{
-        "tags":["stargazer", "na_sg_loot", "nightcross_bp_fast", "nightcross_bp_heavy", "nightcross_bp_rare", "nightcross_bp_restricted"],
+        "tags":["stargazer", "na_sg_loot", "nightcross_bp_rare", "nightcross_bp_restricted"],
         "weapons":[
 			"amblaster",
 			
@@ -78,12 +78,14 @@
 			"locust",
 			
 			"na_hardlightrifle",
+			"na_hardlightriflereal",
         ],
     },
 	"priorityWeapons":{
 		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
 		"weapons":[
 			"na_hardlightrifle",
+			"na_hardlightriflereal",
 			"reaper",
 			"na_chirppd_ai",
 			"na_mediumchirp_ai",
@@ -158,19 +160,18 @@
 	"portraits":{
 		"standard_male":[
 			"graphics/portraits/naai/naai_dead1.png",
-			"graphics/portraits/naai/naai_dead2.png",
 			"graphics/portraits/naai/naai_dead3.png",
-			"graphics/portraits/naai/naai_dead4.png",
 			"graphics/portraits/naai/naai_dead5.png",
-			"graphics/portraits/naai/naai_dead6.png",
+			#"graphics/portraits/characters/na_officer_ghostcore.png",
+			#"graphics/portraits/characters/na_officer_ghostcore2.png",
 		],
 		"standard_female":[
-			"graphics/portraits/naai/naai_dead1.png",
 			"graphics/portraits/naai/naai_dead2.png",
-			"graphics/portraits/naai/naai_dead3.png",
 			"graphics/portraits/naai/naai_dead4.png",
-			"graphics/portraits/naai/naai_dead5.png",
 			"graphics/portraits/naai/naai_dead6.png",
+			#"graphics/portraits/characters/na_officer_ghostcore.png",
+			#"graphics/portraits/characters/na_officer_ghostcore2.png",
+			
 		],
 	},
 	"ranks":{
@@ -197,16 +198,16 @@
 		"battlestation":"Gathering",
 	},
 	"music":{
-		"battle_advantage":"nightcross_pascal_music",
-        "battle_retreat":"nightcross_pascal_music",
-        "battle_losing":"nightcross_pascal_music",
-        "battle":"nightcross_pascal_music",
+		"battle_advantage":"mekaloton_Off_Air",
+        "battle_retreat":"mekaloton_Off_Air",
+        "battle_losing":"mekaloton_Off_Air",
+        "battle":"Kocaeli_Core",
 		"theme":"mekaloton_Red_Mask",
-		"market_neutral":"nightcross_enc_friendly",
-		"market_hostile":"nightcross_market_hostile",
-		"market_friendly":"nightcross_market_friendly",
-		"encounter_neutral":"mekaloton_Red_Mask",
+		"market_neutral":"mekaloton_Quarters_and_Seconds",
+		"market_hostile":"mekaloton_Quarters_and_Seconds",
+		"market_friendly":"mekaloton_Quarters_and_Seconds",
+		"encounter_neutral":"mekaloton_Quarters_and_Seconds",
 		"encounter_hostile":"mekaloton_Red_Mask",
-		"encounter_friendly":"mekaloton_Red_Mask",
+		"encounter_friendly":"mekaloton_Quarters_and_Seconds",
 	},	
 }

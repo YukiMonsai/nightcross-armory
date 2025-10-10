@@ -5,15 +5,19 @@ import java.util.List;
 import java.util.Random;
 
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.DefaultFleetInflater;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.combat.threat.ThreatFIDConfig;
 import com.fs.starfarer.api.impl.combat.threat.ThreatFleetBehaviorScript;
+import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.stardust.NA_StargazerFIDConfig;
+import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
 import com.fs.starfarer.api.Global;
@@ -28,11 +32,6 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.enc.AbyssalRogueStellarObjectEPEC;
 import com.fs.starfarer.api.impl.campaign.fleets.DisposableFleetManager;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.ShipRoles;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 
@@ -59,9 +58,19 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
     }
 
 
+    public static WeightedRandomPicker<String> STARGAZER_WANDERER_NAMES = new WeightedRandomPicker<String>();
+    static {
+        STARGAZER_WANDERER_NAMES.add("Wanderers", 10f);
+        STARGAZER_WANDERER_NAMES.add("Travelers", 10f);
+        STARGAZER_WANDERER_NAMES.add("Observers", 10f);
+        STARGAZER_WANDERER_NAMES.add("Stargazers", 30f);
+    }
+
     @Override
     public void advance(float amount) {
         super.advance(amount);
+
+
 
         // want Threat fleets to basically "be there" not gradually spawn in
         if (spawnRateMult > 0) {
@@ -75,7 +84,7 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
         f.getStats().getDetectedRangeMod().modifyMult("na_stargazer_hidden", 0.5f);
 
-        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar());
+        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar(), false, true);
         behavior.setSeenByPlayer();
         f.addScript(behavior);
 
@@ -167,11 +176,29 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
             if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
                 f.addDropRandom("na_stargazer_drops_cap", 1);
             } else
-            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CRUISER) {
                 f.addDropRandom("na_stargazer_drops_cru", 1);
             } else
-            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+            if (curr.getHullSpec() != null && curr.getHullSpec().getHullSize() != ShipAPI.HullSize.FIGHTER) {
                 f.addDropRandom("na_stargazer_drops", 1);
+            }
+
+            if (curr.isFlagship()) { //  && MathUtils.getRandomNumberInRange(0, 100) < 25
+                // commander sometimes more skilled
+                /*
+                // use the creepy grid based commander and level up
+                curr.getCaptain().setPortraitSprite("graphics/portraits/characters/na_officer_ghostcore2.png");
+                curr.getCaptain().setName(new FullName("Stargazer", "Matrix", FullName.Gender.ANY));*/
+                curr.getCaptain().getStats().setLevel(7);
+                curr.getCaptain().getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+                curr.getCaptain().getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+            } else if (MathUtils.getRandomNumberInRange(0, 100) < 75) {
+                if (curr.getHullSpec() != null
+                    && ((curr.getHullSpec().getHullSize() == ShipAPI.HullSize.DESTROYER && MathUtils.getRandomNumberInRange(0, 100) < 50)
+                        || (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.FRIGATE && MathUtils.getRandomNumberInRange(0, 100) < 75)
+                        || (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CRUISER && MathUtils.getRandomNumberInRange(0, 100) < 25)))
+                    // use AI core image instead of dead face
+                    curr.getCaptain().setPortraitSprite("graphics/portraits/characters/na_officer_ghostcore.png");
             }
         }
 
@@ -180,8 +207,11 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
         f.getMemoryWithoutUpdate().set(MemFlags.FLEET_INTERACTION_DIALOG_CONFIG_OVERRIDE_GEN,
                 new NA_StargazerFIDConfig());
-        f.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_ALLOW_LONG_PURSUIT, true);
+        f.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_ALLOW_LONG_PURSUIT, false);
         f.getMemoryWithoutUpdate().set(MemFlags.MAY_GO_INTO_ABYSS, true);
+
+
+        f.setName(STARGAZER_WANDERER_NAMES.pick());
 
 
 

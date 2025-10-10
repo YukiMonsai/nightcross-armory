@@ -24,7 +24,7 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
 
         config.alwaysAttackVsAttack = true;
         //config.alwaysPursue = true;
-        config.alwaysHarry = true;
+        //config.alwaysHarry = true;
         config.showTransponderStatus = false;
         //config.showEngageText = false;
         config.lootCredits = false;
@@ -48,8 +48,10 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                 Random random = Misc.getRandom(Misc.getSalvageSeed(fleet), 7);
                 //random = new Random();
 
+                boolean gaveNebula = false;
+
                 for (FleetMemberAPI member : losses) {
-                    if (member.getHullSpec().hasTag("stargazer")) {
+                    if (member.getHullSpec().hasTag("stargazer_hull") || (member.getHullSpec().getBaseHull() != null && member.getHullSpec().getBaseHull().hasTag("stargazer_hull"))) {
                         int rolls = 0;
                         switch (member.getHullSpec().getHullSize()) {
                             case CAPITAL_SHIP: rolls = 30; break;
@@ -61,8 +63,9 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                         for (int i = 0; i < rolls; i++) {
 
                             // stardust nebula
-                            if (random.nextFloat() < p && random.nextFloat() < mult) {
+                            if (!gaveNebula && random.nextFloat() < p && random.nextFloat() < mult) {
                                 String id = "na_stargazerstars";
+                                gaveNebula = true;
                                 HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
                                 boolean known = Global.getSector().getPlayerFaction().knowsHullMod(id);
                                 if (DebugFlags.ALLOW_KNOWN_HULLMOD_DROPS) known = false;

@@ -160,7 +160,10 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                 Vector2f loc = Misc.getPointAtRadius(star.getLocation(), radius);
                 f.setLocation(loc.x, loc.y);
 
-                NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, star);
+                f.getMemoryWithoutUpdate().set("$combatMusicSetId","na_stargazer_battle");
+
+
+                NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, star, true, false);
                 behavior.setSeenByPlayer();
                 f.addScript(behavior);
 
@@ -169,6 +172,8 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
 
             return false;
     }
+
+
 
 
 

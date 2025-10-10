@@ -48,7 +48,7 @@ public class NA_DarkSunMissileEffect extends NA_BaseStardustMissile {
                         params.brightSpotFadeFraction = 0.33f;
                         params.brightSpotFullFraction = 0.5f;
                         params.movementDurMax = 0.2f;
-                        params.flickerRateMult = 0.5f;
+                        params.flickerRateMult = 0.45f;
 
                         float dist = Misc.getDistance(from, from);
                         float minBright = 100f;

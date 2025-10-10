@@ -25,6 +25,7 @@ na_fastcapacitors,SHIP_SYSTEM,"Reroute engine power to supercharge all energy ha
 na_singdrive,SHIP_SYSTEM,"Drags a bubble of space-time forward, dragging following ships along while pulling in anything that approaches from the front.",Movement,Moves forward while dragging nearby ships along.,,
 na_plasmasurge,SHIP_SYSTEM,"Supercharges the ship's energy grid, increasing mobility and instantly reloading 10s worth of ammo for Energy and Synergy weapons. Energy flux costs reduced by 30% for the duration.",Movement,Reloads 10s of energy and synergy weapon ammo while increasing mobility and reducing energy flux costs.,,
 na_plasmasurge2,SHIP_SYSTEM,"Provides a brief burst of movement speed and maneuverability, depending on current flux level.",Movement,"Provides a brief but extreme boost to speed and maneuverability, increasing with current flux level.",,
+na_brokenwings,SHIP_SYSTEM,"Disables venting, doubles energy/missile ammo regeneration, and increases mobility and flux dissipation. Supercharges the ship's Stardust Nebula, emitting EMP arcs at nearby ships.",Assault,"Disables venting, doubles energy/missile ammo regeneration, and increases mobility and flux dissipation. Supercharges the ship's Stardust Nebula, emitting EMP arcs at nearby ships.",,
 na_gravitymine,SHIP_SYSTEM,"Teleports a powerful gravity bomb to the target location. If it explodes, it deals 500 Energy damage in a wide radius, overloads, and drags nearby ships toward the explosion.",Offense,Teleports a disruptive gravity bomb to the target location that overloads and pulls in ships if it explodes.,,
 na_heavyparticlecannon,WEAPON,Fires a powerful barrage capable of producing Bremsstrahlung radiation as the projectiles pass through hull. ,,,,
 na_particlecannon,WEAPON,"Accelerated-Magnetic-Particle Cannon. Fires a burst of particles at near-relativistic speeds. Generates deadly radiation as particles pass through hull materials, leading to adverse effect on electronics and crew life expectancy.",,,,
@@ -170,7 +171,7 @@ naai_kasei,SHIP,"Closest match found to archive entry for ""Kasei Valles""-class
 Processing. ERROR//
 
 The application has encountered an unexpected error. Please contact your administrator.",,,,
-naai_losulsi,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 81.27% confidence. Querying database...
+naai_losulci,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class hull, 81.27% confidence. Querying database...
 
 // process complete. total file size: -43kb
 

@@ -309,6 +309,8 @@ public class NCACBStargazer extends BaseCustomBountyCreator {
             }
 
             context.fleet.getMemoryWithoutUpdate().set(MemFlags.FLEET_BUSY, true);
+
+            context.fleet.getMemoryWithoutUpdate().set("$combatMusicSetId","na_stargazer_battlebounty");
             //context.fleet.getMemoryWithoutUpdate().set("$LP_titheAskedFor", true);
 
             context.allFleets.add(context.fleet);

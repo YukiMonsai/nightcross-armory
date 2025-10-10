@@ -30,13 +30,22 @@ public class NAGen implements SectorGeneratorPlugin {
         FactionAPI church = sector.getFaction(Factions.LUDDIC_CHURCH);
         FactionAPI path = sector.getFaction(Factions.LUDDIC_PATH);
         FactionAPI nightcross = sector.getFaction(NightcrossID.NIGHTCROSS_ARMORY);
+        FactionAPI stargazer = sector.getFaction(NightcrossID.FACTION_STARGAZER);
 
         nightcross.setRelationship(path.getId(), RepLevel.SUSPICIOUS);
         nightcross.setRelationship(hegemony.getId(), RepLevel.VENGEFUL);
         nightcross.setRelationship(pirates.getId(), RepLevel.HOSTILE);
         nightcross.setRelationship(tritachyon.getId(), RepLevel.SUSPICIOUS);
         nightcross.setRelationship(church.getId(), RepLevel.SUSPICIOUS);
-        nightcross.setRelationship(kol.getId(), RepLevel.FAVORABLE);
+        nightcross.setRelationship(kol.getId(), RepLevel.SUSPICIOUS);
+
+        stargazer.setRelationship(kol.getId(), RepLevel.VENGEFUL);
+        stargazer.setRelationship(church.getId(), RepLevel.VENGEFUL);
+        stargazer.setRelationship(sector.getFaction(Factions.SCAVENGERS).getId(), RepLevel.HOSTILE);
+        stargazer.setRelationship(sector.getFaction(Factions.PIRATES).getId(), RepLevel.HOSTILE);
+        stargazer.setRelationship(sector.getFaction(Factions.INDEPENDENT).getId(), RepLevel.SUSPICIOUS);
+        stargazer.setRelationship(sector.getFaction(Factions.PLAYER).getId(), RepLevel.SUSPICIOUS);
+        stargazer.setRelationship(sector.getFaction(Factions.REMNANTS).getId(), RepLevel.SUSPICIOUS);
     }
 
     boolean NightcrossGenerated = false;

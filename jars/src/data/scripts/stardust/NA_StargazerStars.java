@@ -326,12 +326,21 @@ public class NA_StargazerStars extends BaseHullMod {
         }
         return false;
     }
+    public static boolean hasStardustHull(ShipAPI ship) {
+        if (ship == null || ship.getVariant() == null) return false;
+        for (String id : ship.getVariant().getHullMods()) {
+            HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+            if (spec != null && (spec.getId().equals("na_stargazerhullmod"))) return true;
+        }
+        return false;
+    }
 
     public boolean isApplicableToShip(ShipAPI ship) {
         if (ship != null && ship.getHullSpec().isPhase()) {
             return false;
         }
         if (hasShroudedOrThreatHullmods(ship)) return false;
+        if (hasStardustHull(ship)) return false;
 
         return true;
     }
@@ -340,7 +349,7 @@ public class NA_StargazerStars extends BaseHullMod {
         if (ship != null && ship.getHullSpec().isPhase()) {
             return "Can not be installed on a phase ship due to instability";
         }
-        return "Incompatible with Shrouded or Threat hullmods";
+        return hasStardustHull(ship) ? "This ship already possesses a Stardust Nebula" : "Incompatible with Shrouded or Threat hullmods";
     }
 
     public String getDescriptionParam(int index, ShipAPI.HullSize hullSize) {

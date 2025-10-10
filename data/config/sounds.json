@@ -24,10 +24,54 @@
 		"mekaloton_Red_Mask":[
 			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.45}, 
 		],
+		
+		
+		"mekaloton_Quarters_and_Seconds":[
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		"na_pirates_hostile":[
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+		],
+		"na_nightcross_battle":[
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"nightcross_enc_hostile.ogg","source":"sounds/music/factions","volume":0.35}, 
+		],
+		"na_stargazer_battle":[
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		"na_stargazer_battlebounty":[
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		"mekaloton_Numbered_Rooms":[
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		"mekaloton_Off_Air":[
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		"Kocaeli_Core":[
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+		],
 	},
 
 #collapseopen WEAPONS	
 	
+	"NA_SFX_BAD_OMEN":[
+		{"file":"sounds/fx/na_bad_omen.ogg","volume":0.45}, 
+	],
+	"NA_SFX_GRAVE_MISTAKE":[
+		{"file":"sounds/fx/na_grave_mistake.ogg","volume":0.45}, 
+	],
 	
 	"na_rift_beam_explosion": # the official sound is actually pitchshifted, we use the unshifted
 	[
@@ -35,6 +79,14 @@
             {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_02.ogg","pitch":1,"volume":1},
             {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_03.ogg","pitch":1,"volume":1},
             {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_04.ogg","pitch":1,"volume":1},
+	],
+	
+	"na_rift_beam_explosion2":
+	[
+            {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_01.ogg","pitch":1,"volume":0.4},
+            {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_02.ogg","pitch":1,"volume":0.4},
+            {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_03.ogg","pitch":1,"volume":0.4},
+            {"file":"sounds/sfx_wpn_energy/rift_beam_explosion_04.ogg","pitch":1,"volume":0.4 },
 	],
 	
 	
@@ -54,9 +106,13 @@
 	[
 		{"file":"sounds/wpn/naai_megablaster_charge.ogg","pitch":1.0,"volume":1},
 	],
-	"na_rift_explosion": # the official sound is actually pitchshifted, we use the unshifted
+	"na_rift_explosion":
 	[
 		{"file":"sounds/wpn/na_rift_explosion.ogg","pitch":1.0,"volume":1.00},
+	],
+	"na_rift_explosion2": 
+	[
+		{"file":"sounds/wpn/na_rift_explosion.ogg","pitch":1.0,"volume":0.60},
 	],
 	"naai_corrosionlancefire":
 	[
@@ -299,6 +355,10 @@
 	"na_system_relativity_loop_old":
 	[
 		{"file":"sounds/system/na_system_relativity_loop_old.ogg","pitch":1,"volume":5.5},
+	],
+	"na_brokenwings":
+	[
+		{"file":"sounds/system/na_brokenwings.ogg","pitch":1,"volume":1.0},
 	],
 	
 	"na_plasmasurge":

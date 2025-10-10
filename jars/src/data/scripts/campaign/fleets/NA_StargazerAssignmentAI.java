@@ -27,14 +27,16 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
     public CampaignFleetAPI fleet = null;
     public float offset = 150f;
     public boolean wanderSystem = true;
+    public boolean despawn = false;
     public IntervalUtil gazeTime = new IntervalUtil(1f, 13);
     public IntervalUtil systemTime = new IntervalUtil(15f, 45f);
-    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem) {
+    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem, boolean despawn) {
         this.fleet = fleet;
         this.target = target;
         this.systemtarget = systemtarget;
         this.offset = MathUtils.getRandomNumberInRange(100f, 250f);
         this.wanderSystem = wanderSystem;
+        this.despawn = despawn;
     }
 
     @Override
@@ -44,10 +46,11 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
         float days = Global.getSector().getClock().convertToDays(amount);
 
         this.gazeTime.advance(days);
-        if (wanderSystem)
-            this.systemTime.advance(days);
+        this.systemTime.advance(days);
 
-        if (this.gazeTime.intervalElapsed() || (target instanceof FleetAPI && !target.isVisibleToSensorsOf(fleet))) {
+        if (this.gazeTime.intervalElapsed() || (target instanceof FleetAPI && !target.isVisibleToSensorsOf(fleet))
+            || (Global.getSector().getPlayerFleet().getMemoryWithoutUpdate().getBoolean("$na_stargazer_warn")) && (target != Global.getSector().getPlayerFleet()) && Global.getSector().getPlayerFleet() != null &&
+                Global.getSector().getPlayerFleet().isVisibleToSensorsOf(fleet)) {
             this.gazeTime.randomize();
             if (fleet.getStarSystem() != null && !fleet.getStarSystem().isHyperspace()) {
                 if (Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getStarSystem() != null && Global.getSector().getPlayerFleet().getStarSystem() == fleet.getStarSystem()) {
@@ -71,8 +74,19 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
                 }
 
             }
+        } else if (despawn) {
+            if (this.systemTime.intervalElapsed() ) {
+                this.systemTime.randomize();
+                if (Global.getSector().getPlayerFleet() != null && fleet.getStarSystem() != Global.getSector().getPlayerFleet().getStarSystem()) {
+                    fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, fleet.getStarSystem().getCenter(), 300f, "vanishing");
+                }
+            }
         }
 
+        if (fleet.isVisibleToSensorsOf(Global.getSector().getPlayerFleet()) && fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_MAKE_HOSTILE)) {
+
+            fleet.getStats().getDetectedRangeMod().unmodify("na_travelsneak");
+        } else
          if (fleet.getStarSystem() != null && !fleet.getStarSystem().isHyperspace() && fleet.getStarSystem() == systemtarget && fleet.getStarSystem().getAllEntities().contains(target)) {
              float dd = Math.max(50f, MathUtils.getDistance(target.getLocation(), fleet.getLocation()));
             float distance = target.getRadius() + 50f;
@@ -84,22 +98,26 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
             float angle = VectorUtils.getAngle(target.getLocation(), fleet.getLocation());
             Vector2f loc = MathUtils.getPointOnCircumference(target.getLocation(), distance, angle + 15f * Math.min(1f, offset/dd));
             fleet.setMoveDestination(loc.x, loc.y);
-            if (!(MathUtils.getDistanceSquared(target.getLocation(), loc) > (distance + 100f) * (distance + 100f))) {
+            if (!fleet.getMemoryWithoutUpdate().getBoolean("$na_stargazersuspicion") && (!(MathUtils.getDistanceSquared(target.getLocation(), loc) > (distance + 100f) * (distance + 100f))
+                && !(fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_MAKE_HOSTILE) && Global.getSector().getPlayerFleet() != null && fleet.isHostileTo(Global.getSector().getPlayerFleet())))) {
                 fleet.goSlowOneFrame();
             }
-             fleet.getStats().getDetectedRangeMod().unmodify("na_travelsneak");
+            fleet.getStats().getDetectedRangeMod().unmodify("na_travelsneak");
 
              if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.PATROL_SYSTEM ||
                 fleet.getCurrentAssignment().getTarget() != target) {
                  if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.PATROL_SYSTEM && fleet.getCurrentAssignment().getTarget() != target) {
                      fleet.getCurrentAssignment().expire();
                  }
-                 fleet.addAssignment(FleetAssignment.PATROL_SYSTEM, target, 1f,
-                         (target instanceof PlanetAPI && ((PlanetAPI) target).isBlackHole()) ? "staring into the abyss" : (
-                                 (target instanceof PlanetAPI && ((PlanetAPI) target).isStar()) ? "stargazing" : (
-                                         (target instanceof PlanetAPI) ? "observing" : (fleet.isHostileTo(target) ? "//INTERRUPT kill kill kill" : "watching")
-                                 )
-                         ));
+                 fleet.addAssignment(FleetAssignment.PATROL_SYSTEM, target, 1f);
+             }
+             if (fleet.getCurrentAssignment() != null && !fleet.getMemoryWithoutUpdate().getBoolean("$na_stargazersuspicion")) {
+                 String text = (target instanceof PlanetAPI && ((PlanetAPI) target).isBlackHole()) ? "staring into the abyss" : (
+                         (target instanceof PlanetAPI && ((PlanetAPI) target).isStar()) ? "stargazing" : (
+                                 (target instanceof PlanetAPI) ? "observing" : "watching"
+                         )
+                 );
+                 fleet.getCurrentAssignment().setActionText(text);
              }
         } else if (wanderSystem && fleet.getStarSystem() != systemtarget) {
              if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() != FleetAssignment.PATROL_SYSTEM)
@@ -107,8 +125,15 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
              if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.GO_TO_LOCATION)
                  fleet.addAssignment(FleetAssignment.GO_TO_LOCATION, systemtarget.getStar(), 300f, "wandering");
              else if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.GO_TO_LOCATION) {
-                 fleet.goSlowOneFrame();
-                 fleet.getStats().getDetectedRangeMod().modifyMult("na_travelsneak", 0.35f);
+
+                 if (
+                 !fleet.getMemoryWithoutUpdate().getBoolean("$na_stargazersuspicion") && (
+                         !(fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_MAKE_HOSTILE) && Global.getSector().getPlayerFleet() != null && fleet.isHostileTo(Global.getSector().getPlayerFleet())))) {
+                     fleet.goSlowOneFrame();
+                     fleet.getStats().getDetectedRangeMod().modifyMult("na_travelsneak", 0.35f);
+                 } else {
+                     fleet.getStats().getDetectedRangeMod().unmodify("na_travelsneak");
+                 }
              }
          }
     }

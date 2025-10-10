@@ -330,6 +330,7 @@ public class NA_DefenseHQ  extends BaseIndustry implements RouteManager.RouteFle
             custom.spawnFP = fleet.getFleetPoints();
         }
         fleet.addScript(new NA_FleetAssignmentAI(fleet, route, "nightcross"));
+        fleet.getMemoryWithoutUpdate().set("$combatMusicSetId","na_nightcross_battle");
         fleet.addTag("NightcrossArmory");
         return fleet;
     }

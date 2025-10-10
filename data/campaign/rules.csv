@@ -252,7 +252,7 @@ have you come to gaze at the stars with us?",cutCommLink:Cut the comm link,
 redmaskDialogHostile,OpenCommLink,"$faction.id == stargazer score:1000
 $entity.isHostile
 ","SetTextHighlightColors na_redmasktext
-SetTextHighlights ""who reminds Oblivion of the suffering in this world?""
+SetTextHighlights ""who reminds oblivion of the suffering in this world?""
 $entity.ignorePlayerCommRequests = true 1","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping into a menacing voice.
 
 who reminds oblivion of the suffering in this world?
