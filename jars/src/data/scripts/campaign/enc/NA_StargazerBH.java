@@ -494,6 +494,14 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                 }
 
 
+                if (type == StargazerBHType.SWARM) {
+                    picker = new WeightedRandomPicker<>();
+                    picker.add(StargazerBHType.BATTLE, 100f);
+                } else {
+                    picker = new WeightedRandomPicker<>();
+                    picker.add(StargazerBHType.BATTLE, 30f);
+                    picker.add(StargazerBHType.VICTIM, 60f);
+                }
 
             }
 

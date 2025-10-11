@@ -478,7 +478,9 @@ FireAll PopulateOptions","The Director's eyes snap to you, like magic.
 ""A pleasant surprise, captain. These have proven... elusive. Rumors from spacers, missing fleets, mysterious sightings..."" she looks elsewhere. ""But nothing concrete. Until now.""",,
 na_ZGRtechPlayerHasOption,PopulateZGRturnInOpts,$player.encounteredStargazer,,,0:na_zgr_techSelectCargo:Select Stargazer specimens to turn in,
 na_ZGRstartPitch8resp,ZGRstartPitch8opts,$player.encounteredStargazer,,,"na_zgr_makePitch9stargazer:""I've seen automated Nightcross Armory vessels surrounded by motes.""",
-na_ZGRstartPitch9stargazer,DialogOptionSelected,$option == na_zgr_makePitch9stargazer,"Highlight ""100,000""","""-Motes, you say?"" She blinks. Her eyes seem suddenly present for the first time.
+na_ZGRstartPitch9stargazer,DialogOptionSelected,$option == na_zgr_makePitch9stargazer,"Highlight ""100,000""","""-Motes, you say?"" a singular bead of sweat rolls down her brow.
+
+Her eyes seem suddenly present for the first time.
 
 ""Nightcross Armory is a known unknown. We'd be more certain of their activites if not for their... blunt approaches to data security. There are reasons Tri-Tachyon leads them on so many metrics-
 

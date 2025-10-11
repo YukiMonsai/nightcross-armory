@@ -36,6 +36,9 @@ public class NAGhostCorePlugin extends BaseAICoreOfficerPluginImpl implements AI
             case NightcrossID.GHOST_CORE_ID:
                 person = NightcrossPeople.createAIPerson(NightcrossPeople.GHOST_CORE, Factions.PLAYER, random);
                 break;
+            case NightcrossID.GHOST_MATRIX_ID:
+                person = NightcrossPeople.createAIPerson(NightcrossPeople.GHOST_MATRIX, Factions.PLAYER, random);
+                break;
             default:
                 return null;
         }

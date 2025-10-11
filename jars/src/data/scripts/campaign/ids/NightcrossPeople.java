@@ -23,11 +23,13 @@ import static com.fs.starfarer.api.campaign.AICoreOfficerPlugin.AUTOMATED_POINTS
 public class NightcrossPeople {
 
     // Kasane Teto (placeholder
-    public static String TETO = "na_teto";
+    public static String TETO = "na_teto_person";
     public static String GHOST_CORE = "na_ghost_core";
+    public static String GHOST_MATRIX = "na_ghost_matrix";
     public static String BLACKCAT = "na_blackcat";
     public static float TETO_POINTS = 3.5f;
     public static float GHOST_POINTS = 2.5f;
+    public static float MATRIX_POINTS = 4.0f;
 
     public static PersonAPI getPerson(String id) {
         return Global.getSector().getImportantPeople().getPerson(id);
@@ -43,6 +45,7 @@ public class NightcrossPeople {
 
         CommoditySpecAPI spec = Global.getSettings().getCommoditySpec(aiCoreId);
         boolean ghost = GHOST_CORE.equals(aiCoreId);
+        boolean matrix = GHOST_MATRIX.equals(aiCoreId);
 
         person.getStats().setSkipRefresh(true);
 
@@ -57,7 +60,28 @@ public class NightcrossPeople {
             person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, GHOST_POINTS);
 
             person.getStats().setLevel(5);
-            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE, 2); // character
+            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_GHOST, 2); // character
+
+            person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
+
+            person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
+            person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
+            person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+            person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
+            person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
+            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
+
+            points = 0;
+            mult = GHOST_POINTS;
+        } else if (matrix) {
+            person.setId(GHOST_MATRIX);
+            person.setName(new FullName("Stargazer", "Matrix", Gender.FEMALE));
+            person.setGender(Gender.ANY);
+
+            person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, MATRIX_POINTS);
+
+            person.getStats().setLevel(7);
+            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_MATRIX, 2); // character
 
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
 
@@ -65,7 +89,9 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
             person.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
-            person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
+            person.getStats().setSkillLevel(Skills.POLARIZED_ARMOR, 2);
+            person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
+            person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "stargazermatrix"));
             person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
 
             points = 0;
@@ -108,14 +134,13 @@ public class NightcrossPeople {
 
             person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, TETO_POINTS);
 
-            person.getStats().setLevel(7);
-            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE, 2); // character
+            person.getStats().setLevel(6);
+            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_TETO, 2); // character
 
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
 
             person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
             person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
-            person.getStats().setSkillLevel(Skills.GUNNERY_IMPLANTS, 2);
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
             person.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
             person.getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);

@@ -23,6 +23,8 @@ public class NACampaignPlugin extends BaseCampaignPlugin {
                 return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
             case NightcrossID.GHOST_CORE_ID:
                 return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
+            case NightcrossID.GHOST_MATRIX_ID:
+                return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
             default:
                 return null;
         }

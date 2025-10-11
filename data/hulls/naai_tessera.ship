@@ -12,7 +12,6 @@
   "shieldRadius": 135,
   "viewOffset": 0,
   "builtInMods": [
-	"na_stargazerrage",
     "automated",
     "na_stargazerhullmod",
     "na_rcs",
@@ -187,7 +186,7 @@
     {
       "id": "WS0003",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 90,
       "angle": 0,
@@ -196,7 +195,7 @@
     {
       "id": "WS0004",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 90,
       "angle": -0,
@@ -205,7 +204,7 @@
     {
       "id": "WS0006",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 135,
       "angle": 45,
@@ -215,7 +214,7 @@
     {
       "id": "WS0009",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 135,
       "angle": -45,
@@ -245,7 +244,7 @@
     {
       "id": "WS0024",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 157,
       "angle": 153.5,
@@ -254,7 +253,7 @@
     {
       "id": "WS0025",
       "size": "SMALL",
-      "type": "ENERGY",
+      "type": "UNIVERSAL",
       "mount": "TURRET",
       "arc": 157,
       "angle": -153.5,

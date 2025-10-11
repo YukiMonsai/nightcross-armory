@@ -63,15 +63,17 @@ public class NA_StargazerRage extends BaseHullMod {
 
         if (amount > 0 && MathUtils.getRandomNumberInRange(0, 1f) < (0.2f + 0.4f * ship.getFluxLevel() + 0.6f * (1f - ship.getHullLevel())) * amount) {
             NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
-            WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
-            NA_StargazerStardust.SwarmMember fragment = picker2.pick();
-            NA_StargazerStardust.SwarmMember fragment2 = picker2.pick();
-            if (fragment2 != null && fragment != null && fragment2 != fragment) {
-                Global.getCombatEngine().spawnEmpArcVisual(
-                        fragment.loc, ship, fragment2.loc, ship, 15f,
-                        new Color(132, 0, 255, 50),
-                        new Color(255, 222, 234, 150)
-                );
+            if (swarm != null) {
+                WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
+                NA_StargazerStardust.SwarmMember fragment = picker2.pick();
+                NA_StargazerStardust.SwarmMember fragment2 = picker2.pick();
+                if (fragment2 != null && fragment != null && fragment2 != fragment) {
+                    Global.getCombatEngine().spawnEmpArcVisual(
+                            fragment.loc, ship, fragment2.loc, ship, 15f,
+                            new Color(132, 0, 255, 50),
+                            new Color(255, 222, 234, 150)
+                    );
+                }
             }
         }
 

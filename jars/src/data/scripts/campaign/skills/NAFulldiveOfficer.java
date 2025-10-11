@@ -88,7 +88,7 @@ public class NAFulldiveOfficer {
         }
 
         public String getEffectDescription(float level) {
-            return "*Can pilot automated ships equipped with Project: GHOST interfaces without penalty. " + (int) CR_PENALTY + " Combat Readiness otherwise.";
+            return "*Can pilot automated ships equipped with Project: GHOST interfaces without penalty. " + (int) CR_PENALTY + "% Combat Readiness otherwise.";
         }
 
         public String getEffectPerLevelDescription() {
