@@ -22,13 +22,16 @@ public class NA_HardlightMatrix extends BaseHullMod {
 		mag.put(HullSize.CAPITAL_SHIP, 350f);
 	}
 
+
+	public static float AMT_HULL = 0.1f;
 	private String ID = "NA_HardlightMatrix";
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
-		if (index == 0) return "" + ((Float) mag.get(HullSize.FRIGATE));
-		if (index == 1) return "" + ((Float) mag.get(HullSize.DESTROYER));
-		if (index == 2) return "" + ((Float) mag.get(HullSize.CRUISER));
-		if (index == 3) return "" + ((Float) mag.get(HullSize.CAPITAL_SHIP));
+		if (index == 0) return "" + (int)(100f * AMT_HULL) + "%";
+		if (index == 1) return "" + ((Float) mag.get(HullSize.FRIGATE));
+		if (index == 2) return "" + ((Float) mag.get(HullSize.DESTROYER));
+		if (index == 3) return "" + ((Float) mag.get(HullSize.CRUISER));
+		if (index == 4) return "" + ((Float) mag.get(HullSize.CAPITAL_SHIP));
 		return null;
 	}
 
@@ -44,30 +47,32 @@ public class NA_HardlightMatrix extends BaseHullMod {
 		ShipAPI player = Global.getCombatEngine().getPlayerShip();
 
 		if (!ship.isAlive()) return;
-		if (ship.getFluxTracker().isOverloadedOrVenting()) return;
 
 		float armorBonus = 0;
 		float bonuses = 0;
 
 		List<ShipAPI> modules = ship.getChildModulesCopy();
-		for (ShipAPI module : modules) {
-			if (module.isAlive()) {
-				if (module.getHullSpec().hasTag("hardlight_generator")) {
-					List<WeaponAPI> weapons = module.getAllWeapons();
-					if (weapons.size() == 0 || !weapons.get(0).isDisabled()) {
-						armorBonus += (float) mag.get(ship.getHullSize());
-						bonuses += 1;
-						if (weapons.size() > 0) {
-							weapons.get(0).setForceFireOneFrame(true);
+		if (!ship.getFluxTracker().isOverloadedOrVenting())
+			for (ShipAPI module : modules) {
+				if (module.isAlive()) {
+					if (module.getHullSpec().hasTag("hardlight_generator")) {
+						List<WeaponAPI> weapons = module.getAllWeapons();
+						if (weapons.size() == 0 || !weapons.get(0).isDisabled()) {
+							armorBonus += (float) mag.get(ship.getHullSize());
+							bonuses += 1;
+							if (weapons.size() > 0) {
+								weapons.get(0).setForceFireOneFrame(true);
+							}
 						}
-					}
 
+					}
 				}
 			}
-		}
 
 		if (armorBonus > 0) {
 			ship.getMutableStats().getEffectiveArmorBonus().modifyFlat(ID, armorBonus);
+			ship.getMutableStats().getHullDamageTakenMult().modifyMult(ID, 1f - AMT_HULL*bonuses);
+			ship.getMutableStats().getArmorDamageTakenMult().modifyMult(ID, 1f - AMT_HULL*bonuses);
 
 			if (Global.getCombatEngine().getPlayerShip().getId().equals(ship.getId())) {
 				Global.getCombatEngine().maintainStatusForPlayerShip(
@@ -94,6 +99,9 @@ public class NA_HardlightMatrix extends BaseHullMod {
 			}
 
 			ship.getMutableStats().getEffectiveArmorBonus().unmodify(ID);
+			ship.getMutableStats().getHullDamageTakenMult().unmodify(ID);
+			ship.getMutableStats().getArmorDamageTakenMult().unmodify(ID);
+
 		}
 
 	}

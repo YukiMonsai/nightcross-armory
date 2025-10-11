@@ -25,7 +25,7 @@ import java.util.Map;
 public class NA_ProjectGhost extends BaseHullMod {
 
 
-	public static float COMBAT_READINESS_PEN = -30f;
+	public static float COMBAT_READINESS_PEN = -20f;
 	public static float REPAIR_PEN = 50f;
 	public static float EMP_PEN = 25f;
 	public static float ACCELERATION = 50f;
@@ -64,18 +64,21 @@ public class NA_ProjectGhost extends BaseHullMod {
 		stats.getBallisticAmmoBonus().modifyPercent(ID, MAG_CAP);
 		stats.getBallisticAmmoRegenMult().modifyPercent(ID, -RELOAD_TIME);
 		stats.getMissileAmmoBonus().modifyPercent(ID, MISSILE_CAP);
-		if (member == null || !member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
-			stats.getMaxCombatReadiness().modifyPercent(ID, COMBAT_READINESS_PEN);
-			if (member != null && (member.getCaptain() == null || !member.getCaptain().hasTag(NA_ProjectGhost.CAPTAIN_TAG))) {
-				if (member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
-					member.getVariant().removeTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY);
-				}
+		if (member != null && (member.getCaptain() == null || !member.getCaptain().hasTag(NA_ProjectGhost.CAPTAIN_TAG))) {
+			if (member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
+				member.getVariant().removeTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY);
 			}
+		}
+		if (member == null || !member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
+			stats.getMaxCombatReadiness().modifyFlat("Project: Ghost", COMBAT_READINESS_PEN/100f);
+
 
 			if (member != null && member.getVariant().hasTag(NA_ProjectGhost.TAG_NOPENALTY_SET)) {
 				member.getVariant().removeTag(NA_ProjectGhost.TAG_NOPENALTY_SET);
 				member.getVariant().removeTag(Tags.TAG_AUTOMATED_NO_PENALTY);
 			}
+		} else {
+			stats.getMaxCombatReadiness().unmodify("Project: Ghost");
 		}
 
 	}

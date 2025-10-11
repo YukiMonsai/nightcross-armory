@@ -313,7 +313,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 		@Override
 		public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
 			if (!shieldHit && hullmod != null && target instanceof ShipAPI target_ship
-					&& ship != null && ship.isAlive() && target_ship.isAlive() && target_ship.getId().equals(ship.getId())) {
+					&& ship != null && ship.isAlive() && target_ship.isAlive() && target_ship == ship) {
 
 
 				String key = hullmod.ID + "_" + ship.getId();

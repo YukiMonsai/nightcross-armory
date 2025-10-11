@@ -88,7 +88,7 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
 
 
     public int getNumFragmentsToFire() {
-        return 8;
+        return 6;
     }
 
 

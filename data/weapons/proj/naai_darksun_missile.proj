@@ -7,7 +7,7 @@
 	"sprite":"graphics/fx/empty.png",
 	"size":[8,8],	
 	"center":[4,4],
-	"collisionRadius":30,
+	"collisionRadius":15,
 	"collisionClass":"MISSILE_NO_FF",
 	#"explosionColor":[255,50,50,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionColor":[255,50,75,255],  # purely visual, will get a white additively blended core on top of this color

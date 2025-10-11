@@ -43,15 +43,15 @@
 	
 	"NIGHTCROSSAIHULL":{
 		"hyperspaceJitterColor":[255,125,80,255],
-		"baseCampaignExplosionColor":[255,125,80,255],
-		"baseCombatExplosionColor":[255,125,80,255],
-		"fighterRepairFlickerColor":[255,125,80,255],
-		"fighterChipIconColor":[255,125,80,255],
+		"baseCampaignExplosionColor":[170,25,225,255],
+		"baseCombatExplosionColor":[170,25,225,255],
+		"fighterRepairFlickerColor":[170,25,225,255],
+		"fighterChipIconColor":[255,125,175,255],
 		"weaponDisabledExplosionColor":[255,125,60,255],
 		"shieldRingColor":[255,125,175,255],
-		"shieldInnerColor":[255,25,25,75],
-		"fluxVentCoreColor":[255,225,170,255],
-		"fluxVentFringeColor":[225,0,155,255],
+		"shieldInnerColor":[170,25,225,75],
+		"fluxVentCoreColor":[170,225,225,225],
+		"fluxVentFringeColor":[225,0,75,255],
 		"engineLoopSet":"engine_loop", 					# id of entry in sounds.json
 		"engineAccelerateSet":"engine_accelerate",		# id of entry in sounds.json
 		"empLoopSet":"emp_loop",						# id of entry in sounds.json

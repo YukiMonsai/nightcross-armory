@@ -8,11 +8,10 @@
   "quality": 2,
   "permaMods": [],
   "hullMods": [
-	"na_stargazerrage",
     "hardenedshieldemitter",
     "targetingunit",
     "stabilizedshieldemitter",
-    "auxiliarythrusters"
+    "autorepair",
   ],
   "weaponGroups": [
     {

@@ -185,13 +185,20 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
             if (curr.isFlagship()) { //  && MathUtils.getRandomNumberInRange(0, 100) < 25
                 // commander sometimes more skilled
-                /*
-                // use the creepy grid based commander and level up
-                curr.getCaptain().setPortraitSprite("graphics/portraits/characters/na_officer_ghostcore2.png");
-                curr.getCaptain().setName(new FullName("Stargazer", "Matrix", FullName.Gender.ANY));*/
-                curr.getCaptain().getStats().setLevel(7);
-                curr.getCaptain().getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
-                curr.getCaptain().getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+
+                if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+                    // use the creepy grid based commander and level up
+                    curr.getCaptain().setPortraitSprite("graphics/portraits/characters/na_officer_ghostcore2.png");
+                    curr.getCaptain().setName(new FullName("Stargazer", "Matrix", FullName.Gender.ANY));
+                    curr.getCaptain().getStats().setLevel(8);
+                    curr.getCaptain().getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+                    curr.getCaptain().getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+                    curr.getCaptain().getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
+                } else {
+                    curr.getCaptain().getStats().setLevel(7);
+                    curr.getCaptain().getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+                    curr.getCaptain().getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+                }
             } else if (MathUtils.getRandomNumberInRange(0, 100) < 75) {
                 if (curr.getHullSpec() != null
                     && ((curr.getHullSpec().getHullSize() == ShipAPI.HullSize.DESTROYER && MathUtils.getRandomNumberInRange(0, 100) < 50)
