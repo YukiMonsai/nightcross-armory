@@ -27,6 +27,8 @@ public class NA_StargazerRage extends BaseHullMod {
     public static float MIN_HULL = .3f;
     public static String id = "na_stargazerrage";
 
+
+
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
         /*stats.getDynamic().getStat(Stats.FRAGMENT_SWARM_RESPAWN_RATE_MULT).modifyPercent(id, RATE_INCREASE);
@@ -111,6 +113,8 @@ public class NA_StargazerRage extends BaseHullMod {
         if (index == 2) return "" + (int)MIN_HULL + "%";
         return null;
     }
+
+
 
     @Override
     public String getSModDescriptionParam(int index, ShipAPI.HullSize hullSize, ShipAPI ship) {

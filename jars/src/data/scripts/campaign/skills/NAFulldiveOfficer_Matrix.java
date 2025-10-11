@@ -20,6 +20,8 @@ import org.lwjgl.util.vector.Vector2f;
 import java.awt.*;
 import java.util.List;
 
+import static data.scripts.stardust.NA_StargazerHull.STARGAZER_RED;
+
 public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
 
     public static float RANGE_BONUS = 30f;
@@ -112,7 +114,7 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
 
             info.addPara("Up to %s damage to engines and weapons, depending on ECM advantage. Max at %s net ECM rating.", 0f, hc, hc,
                     "+" + (int)(EMP_SCALE) + "%", (int)(100*EMP_SCALE_MAXAT) + "%");
-            info.addPara("\nIf this shielded ship has a %s and at least %s, consumes %s per second while hard flux is over %s, to convert %s current hard flux into soft flux.", 0f, hc, hc2,
+            info.addPara("\nIf this shielded ship has a %s and at least %s, consumes %s per second while hard flux is over %s, to convert %s current hard flux into soft flux.", 0f, hc, STARGAZER_RED,
                     "Stardust Nebula", "10 Stardust", "4 Stardust", "50%", "4%");
         }
 
