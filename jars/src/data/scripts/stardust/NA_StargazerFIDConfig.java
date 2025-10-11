@@ -25,6 +25,7 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
         config.alwaysAttackVsAttack = true;
         //config.alwaysPursue = true;
         //config.alwaysHarry = true;
+        config.leaveAlwaysAvailable = true;
         config.showTransponderStatus = false;
         //config.showEngageText = false;
         config.lootCredits = false;
@@ -105,7 +106,7 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                 }*/
 
                 Global.getSector().getPlayerMemoryWithoutUpdate().set("$encounteredStargazer", true);
-                //Global.getSector().getPlayerMemoryWithoutUpdate().set("$encounteredWeird", true); // not setting this as it might break ZGR dialogue for now
+                Global.getSector().getPlayerMemoryWithoutUpdate().set("$encounteredWeird", true);
                 //bcc.enemyDeployAll = true;
             }
         };

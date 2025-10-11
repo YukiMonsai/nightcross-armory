@@ -83,7 +83,6 @@ public class NA_HardlightMatrix2 extends BaseHullMod {
 
 				if (damage.getDamage() > 0 && data.HitTimer.intervalElapsed()) {
 
-
 					List<ShipAPI> modules = ship.getChildModulesCopy();
 					EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
 					params.maxZigZagMult = 0.35f;
@@ -101,7 +100,7 @@ public class NA_HardlightMatrix2 extends BaseHullMod {
 												new Color(166, 71, 255, 50),
 												new Color(255, 205, 224, 150), params
 										);
-										arc.setSingleFlickerMode(true);
+										//arc.setSingleFlickerMode(true);
 										arc.setRenderGlowAtEnd(false);
 										data.HitTimer.setElapsed(0);
 									}

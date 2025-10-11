@@ -62,4 +62,6 @@
 			
 		},
 	},
+	
+	"ruleCommandPackages":["data.scripts.campaign.rulecmd.nca"]
 }

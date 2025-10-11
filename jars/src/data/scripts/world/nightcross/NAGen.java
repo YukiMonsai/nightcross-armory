@@ -46,6 +46,7 @@ public class NAGen implements SectorGeneratorPlugin {
         stargazer.setRelationship(sector.getFaction(Factions.INDEPENDENT).getId(), RepLevel.SUSPICIOUS);
         stargazer.setRelationship(sector.getFaction(Factions.PLAYER).getId(), RepLevel.SUSPICIOUS);
         stargazer.setRelationship(sector.getFaction(Factions.REMNANTS).getId(), RepLevel.SUSPICIOUS);
+        stargazer.setRelationship(sector.getFaction(Factions.THREAT).getId(), RepLevel.HOSTILE);
     }
 
     boolean NightcrossGenerated = false;

@@ -1,0 +1,119 @@
+id,trigger,conditions,script,text,options,notes    
+# WIP until I figure out how to inject stargazer options into the tech return,,,,,,
+na_greetingTTweirdHM,OpenCommLink,"$faction.id == tritachyon
+!$failedWeirdHullmodCheck
+!$faction.isHostile
+$player.transponderOn
+!$player.gotTTweirdHullmodPitch
+!$player.receivedGlamorRotanevInvite
+$player.encounteredWeird",FireBest na_TTpatrolWeirdHullmodCheck,,,
+na_TTpatrolWeirdHullmods1,na_TTpatrolWeirdHullmodCheck,NA_PlayerFleetHasStargazerShips,"$option = na_TTpatrol_weirdMods0 0
+FireBest DialogOptionSelected",,,
+na_TTpatrolWeirdHullmods4,na_TTpatrolWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
+FireBest OpenCommLink",,,
+na_TTpatrolWeirdMods0,DialogOptionSelected,$option == na_TTpatrol_weirdMods0,,"""On behalf of Tri-Tachyon, it is my pleasure to...""
+
+The $post halts $hisOrHer cheerfully plastic greeting. 
+
+""Captain."" $HisOrHer eyes dart to another display, ""... $playerLastName. Please accept my greetings on behalf of the Tri-Tachyon corporation. I...""","na_TTpatrol_weirdMods1a:""Greetings to you too.""
+na_TTpatrol_weirdMods1b:""Is there a problem, $post?""
+na_TTpatrol_weirdMods1c:""Is this about a bribe? Just tell me how much.""",
+na_TTpatrolWeirdMods1a,DialogOptionSelected,$option == na_TTpatrol_weirdMods1a,"$option = na_TTpatrol_weirdMods2 0
+FireBest DialogOptionSelected","""Yes, hello..."" $heOrShe says. ""But... I...""",,
+na_TTpatrolWeirdMods1b,DialogOptionSelected,$option == na_TTpatrol_weirdMods1b,"$option = TTpatrol_weirdMods2 0
+FireBest DialogOptionSelected","""No, not at all. Nothing really. I think. Actually... no, hold on...""",,
+na_TTpatrolWeirdMods1c,DialogOptionSelected,$option == na_TTpatrol_weirdMods1c,"$option = na_TTpatrol_weirdMods2 0
+FireBest DialogOptionSelected","""A bribe? Ah, no no no no no, captain. Not at all. It's...""",,
+na_TTpatrolWeirdMods2,DialogOptionSelected,$option == na_TTpatrol_weirdMods2,,"$HeOrShe pauses, then begins again.
+
+""Your $shipOrFleet features some... unusual modifications."" $HeOrShe glances at a secondary display. ""Very unusual.""
+
+$HisOrHer eyes dart back to stare through the comm-link.","na_TTpatrol_weirdMods3a:""Huh, I wasn't aware.""
+na_TTpatrol_weirdMods3b:""They're pretty cool, right?""
+na_TTpatrol_weirdMods3c:""Is there going to be some kind of trouble?""",
+na_TTpatrolWeirdMods2OMKI,DialogOptionSelected,"$option == TTpatrol_weirdMods2
+NA_PlayerFleetHasStargazerHulls",,"$HeOrShe pauses, then begins again.
+
+""Captain, there are unusual craft in your fleet,"" $HeOrShe looks, a surprisingly reverent look on $HisOrHer face as she glances at a secondary display.","na_TTpatrol_weirdMods3OMKI:""I salvaged them. Seems they're not in very good shape.""
+na_TTpatrol_weirdMods3a:""I didn't know there was anything unusual about my fleet.""
+na_TTpatrol_weirdMods3c:""Is there going to be some kind of trouble?""",
+na_TTpatrolWeirdMods3a,DialogOptionSelected,$option == na_TTpatrol_weirdMods3a,"$option = na_TTpatrol_weirdMods4 0
+FireBest DialogOptionSelected","""Captain, with all due respect-"" $HeOrShe clears $hisOrHer throat. ""Those readings are... hard to miss.""",,
+na_TTpatrolWeirdMods3b,DialogOptionSelected,$option == na_TTpatrol_weirdMods3b,,"The $post's face contorts into something in between fear and anger. After several agonized seconds, $heOrShe manages to produce a response.
+
+""I... I suppose. But... something's not right.""",na_TTpatrol_weirdMods4:Continue,
+na_TTpatrolWeirdMods3c,DialogOptionSelected,$option == na_TTpatrol_weirdMods3c,"$option = na_TTpatrol_weirdMods4 0
+FireBest DialogOptionSelected","""I don't... no, no trouble."" $HeOrShe clears $hisOrHer throat.",,
+na_TTpatrolWeirdMods3OMKI,DialogOptionSelected,$option == na_TTpatrol_weirdMods3OMKI,"$option = na_TTpatrol_weirdMods4 0
+FireBest DialogOptionSelected","""...that much is obvious,"" $heOrShe says.",,
+na_TTpatrolWeirdMods4,DialogOptionSelected,$option == na_TTpatrol_weirdMods4,FireAll na_TTpatrolWeirdModsHub,"""There's a message I am supposed to deliver."" $HeOrShe looks at $hisOrHer secondary display.
+
+""Tri-Tachyon's Director of Special Acquisitions, Zunya Glamor-Rotanev, would like to invite you to a meeting. On Eochu Bres.""
+
+$HeOrShe looks back to you. ""'At your earliest convenience', it says. And something about a reward.""",,
+na_TTpatrolWeirdMods5optA,na_TTpatrolWeirdModsHub,!$didReward,,,"na_TTpatrol_weirdMods5a:""There's a reward, you say?""",
+na_TTpatrolWeirdMods5optB,na_TTpatrolWeirdModsHub,!$didEntail,,,"na_TTpatrol_weirdMods5b:""Tell me, what does 'special acquisitions' entail?""",
+na_TTpatrolWeirdMods5optC,na_TTpatrolWeirdModsHub,"$didReward
+$didEntail","$option = na_TTpatrol_weirdMods6 0
+FireBest DialogOptionSelected",,,
+na_TTpatrolWeirdMods5a,DialogOptionSelected,$option == na_TTpatrol_weirdMods5a,"AdjustRepActivePerson FRIENDLY 3
+$didReward = true
+FireAll na_TTpatrolWeirdModsHub","$HeOrShe looks aside again. ""My apologies, I wasn't meant to tell you that part. The reward is for me.""
+
+A smile breaks through $hisOrHer nervous demeanor. ""-For finding you. I should thank you, Captain $playerLastName.""
+
+""So... Thank you.""",,
+na_TTpatrolWeirdMods5b,DialogOptionSelected,$option == na_TTpatrol_weirdMods5b,"$didEntail = true
+FireAll na_TTpatrolWeirdModsHub","$HeOrShe looks skeptical. ""You don't... You haven't heard of Director Glamor-Rotanev? Hmm.""
+
+The $post takes a conflicted moment to think.
+
+""Let's just say it's above my pay grade.""",,
+na_TTpatrolWeirdMods6,DialogOptionSelected,$option == na_TTpatrol_weirdMods6,"AddTextSmall ""Director of Special Acquisitions Zunya Glamor-Rotanev""
+AddTextSmall ""Suite 1000, Skyarco II Executive Annex""
+AddTextSmall ""Xanadu Geodivision""
+AddTextSmall ""Eochu Bres, Hybrasil system""
+AddTextSmall ""Persean Sector""
+AddTextSmall ""Received invitation to speak with VP Glamor-Rotanev on Hybrasil"" highlight
+$player.receivedGlamorRotanevInvite = true
+SetPersonHidden glamor_rotanev false
+$player.gotTTweirdHullmodPitch = true","$HeOrShe pretends to cough, then says ""I'll send you the attached address. Good luck.""","cutCommLink:""Thanks. I think.""",
+,,,,,,
+# Zunya Glamor-Rotanev,,,,,,
+# ZGR return after encountering Stargazers,,,,,,
+na_ZGRgreetingPostWeirdStargazer,DialogOptionSelected,"$option == zgr_greetingPostWeird
+$player.encounteredStargazer",,,"na_zgr_postWeirdOptStargazer:""I found something anomalous. Nightcross armory tech... but... wrong.""
+na_zgr_postWeirdNothingLie:""Nope, nothing yet."" (lie)",
+na_ZGRpostWeirdOptStargazer,DialogOptionSelected,$option == na_zgr_postWeirdOptStargazer,"$didReturnEver = true
+$saidTechReturn = true 0
+FireAll PopulateZGRturnInOpts","""Nightcross?"" She raises an eyebrow.
+
+""Tell me something I don't already know."" Already her soul seems elsewhere. ",,
+na_ZGRtechTurnInResponseStargazer,na_ZGRItemsTurnedIn,!$didFirstSale,"$didFirstSaleStargazer = true
+$didFirstSale = true
+FireAll PopulateOptions","The Director's eyes snap to you, like magic.
+
+""I'm impressed, captain. These ones have proven... elusive. Rumors from spacers, missing fleets, mysterious sightings..."" she looks elsewhere. ""But nothing concrete. Until now.""",,
+na_ZGRtechPlayerHasOption,PopulateZGRturnInOpts,,,,0:na_zgr_techSelectCargo:Select Stargazer specimens to turn in,
+na_ZGRstartPitch8resp,ZGRstartPitch8opts,$player.encounteredStargazer,,,"na_zgr_makePitch9stargazer:""I've seen some kind of anomalous Nightcross Armory tech. Automated vessels surrounded by a strange nebula.""",
+na_ZGRstartPitch9stargazer,DialogOptionSelected,$option == na_zgr_makePitch9stargazer,"Highlight ""100,000""","She blinks. Her eyes seem suddenly present for the first time.
+
+""That does not... quite fit with our working knowledge of the issue. Nightcross Armory is a known unknown. We would know more about their specific antics if they were not so reliant on easily-destroyed paper documentation for much of their research...
+
+Would you part with recordings of these... entities? I offer 100,000 credits for immediate transfer.""","na_zgr_makePitch9stargazer2:""I accept.""
+na_zgr_makePitch9No:""Perhaps another time.""",
+na_ZGRstartPitch9stargazer2,DialogOptionSelected,$option == na_zgr_makePitch9stargazer2,"AddTextSmall ""Transferred 'Stargazer' encounter data"" highlight
+$global.gaveZGRstargazerData = true
+$option = na_zgr_makePitch9stargazer3 0
+FireBest DialogOptionSelected",,,
+na_ZGRstartPitch9stargazer3,DialogOptionSelected,$option == na_zgr_makePitch9stargazer3,"AddCredits 100000
+$didAsale = true 0","For a full two seconds her eyes close, moving rapidly.
+
+""Interesting,"" she says. ""This confirms previous reports. You did well, Captain,""
+
+Your TriPad pings a credits transfer.
+
+""There are always spacer rumors. Mysterious sightings. The works. You, however, are the first to substantiate those claims.""","na_zgr_makePitch11:""'Previous'? Was there another expedition before me?""",
+,,,,,,
+,,,,,,
+,,,,,,
