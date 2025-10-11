@@ -24,10 +24,13 @@
 		"mekaloton_Red_Mask":[
 			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.45}, 
 		],
+		"mekaloton_Red_Maskq":[
+			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.3}, 
+		],
 		
 		
 		"mekaloton_Quarters_and_Seconds":[
-			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.3}, 
 		],
 		"na_pirates_hostile":[
 			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
@@ -54,13 +57,13 @@
 			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
 		],
 		"mekaloton_Numbered_Rooms":[
-			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.3}, 
 		],
 		"mekaloton_Off_Air":[
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.3}, 
 		],
 		"Kocaeli_Core":[
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.3}, 
 		],
 	},
 

@@ -262,16 +262,16 @@ na_NCAnasa_techReturnneverMind,DialogOptionSelected,"$option == na_nasa_techRetu
 !$NCANasadidFirstSaleStargazer",FireAll PopulateOptions,$personName cuts the comm link.,,
 na_NCAnasa_techReturnneverMind_nice,DialogOptionSelected,"$option == na_nasa_techReturnneverMind
 $NCANasadidFirstSaleStargazer",FireAll PopulateOptions,"""Okay, please do bring back any experimental hardware you find, and we'll pay you."" $personName cuts the comm link.",,
-NCANasatechTurnInResponseStargazer2,NCANasaItemsTurnedIn,"$itemValueSoldToNCANasaJustNowStargazer > 0 score: 4
+NCANasatechTurnInResponseStargazer2,NCANasaItemsTurnedIn,"$player.itemValueSoldToNCANasaJustNowStargazer > 0 score: 400
 $NCANasadidFirstSaleStargazer",FireAll PopulateOptions,"The President nods as $HeOrShe reads the manifest.
 
 ""More confidential hardware... sending payment now.""",,
-NCANasatechTurnInResponseStargazer,NCANasaItemsTurnedIn,$itemValueSoldToNCANasaJustNowStargazer > 0 score: 3,"$NCANasadidFirstSaleStargazer = true
+NCANasatechTurnInResponseStargazer,NCANasaItemsTurnedIn,$player.itemValueSoldToNCANasaJustNowStargazer > 0 score 300,"$NCANasadidFirstSaleStargazer = true
 $NCANasadidFirstSale = true
 FireAll PopulateOptions","The President looks deeply troubled.
 
 ""...Where did you find this? Nevermind, that was rhetorical-"" $PersonName shuffles around a datapad, frantically searching through folders. ""I can't elaborate, but we'll offer a bonus plus hazard pay... It'd be best for all of us if you kept quiet about all... this.""",,
-NCANasatechTurnInResponseFirst,NCANasaItemsTurnedIn,$itemValueSoldToNCANasaJustNowStargazer == 0,FireAll PopulateOptions,"""Looks like I've got another call,"" $personName cuts the comm link.",,
+NCANasatechTurnInResponseFirst,NCANasaItemsTurnedIn,,FireAll PopulateOptions,"""Looks like I've got another call,"" $personName cuts the comm link.",,
 ,,,,,,
 #RED MASK,,,,,,
 redmaskDialogFriendly,OpenCommLink,"$faction.id == stargazer score:1000
