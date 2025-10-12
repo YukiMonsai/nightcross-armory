@@ -3,8 +3,8 @@
   "hullId": "naai_nammu",
   "displayName": "Corrupted",
   "goalVariant": true,
-  "fluxCapacitors": 5,
-  "fluxVents": 11,
+  "fluxCapacitors": 0,
+  "fluxVents": 15,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -17,15 +17,14 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0008": "na_pyrolance_med",
-        "WS0011": "na_pyrolance_med"
+        "WS0008": "naai_hil",
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0017": "na_wavefront_pod"
+        "WS0017": "na_corrosion_pod"
       }
     },
     {
@@ -59,8 +58,8 @@
       "weapons": {
         "WS0001": "na_chirppd_ai",
         "WS0002": "na_chirppd_ai",
-        "WS0006": "na_mediumchirp_ai",
-        "WS0009": "na_mediumchirp_ai"
+        "WS0006": "naai_ragelightning",
+        "WS0009": "naai_ragelightning"
       }
     }
   ],

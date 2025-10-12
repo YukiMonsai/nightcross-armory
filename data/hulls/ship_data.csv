@@ -2,6 +2,7 @@ name,id,designation,tech/manufacturer,system id,fleet pts,hitpoints,armor rating
 ,module_hightech_lazor,Aria Module,Nightcross,recalldevice,200,9000,1500,10000,12500,500,1000,4,0,0,0,10,10,2500,NONE,,0,0.4,1,,,0,0,0,0,1,0,,500000,,1,,,0,0,,,,,,,"UNBOARDABLE, HIDE_IN_CODEX, MODULE",,,,,0.5,2
 Energy Orb,na_energyorb,,Nightcross,,,250,10,500,,100,0,,325,500,450,180,360,10,NONE,,0,0,0,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
 Spark Bolt,na_sparkbolt,,Nightcross,,,200,10,500,,100,0,,325,500,450,180,360,10,FRONT,,45,0,1,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
+Locust,naai_locust,,Stargazer,,,500,75,800,,200,0,,225,500,450,240,450,10,NONE,,0,0,1,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
 Plasma Cutter,na_luminousdrill,,Nightcross,,,200,25,350,,100,0,,250,500,450,180,360,10,NONE,,0,0,1,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
 Healing Bolt,na_luminousdrill_repair,,Nightcross,,,200,25,350,,100,0,,250,500,450,180,360,10,NONE,,0,0,1,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
 Energy Shield,na_shieldbattery,,Nightcross,,,175,10,250,,150,0,,250,500,450,180,360,10,FRONT,,360,0,1,,,0,0,,,,,,,,,,,,,,,,,,,,,,0,,,
@@ -27,7 +28,7 @@ Zal Patera,na_zal,Patrol Craft,Nightcross,na_afterburners,5,900,225,2000,900,175
 Krun Macula,na_macula,Destroyer,Nightcross,na_tidaldisruption,12,3200,400,6800,6667,400,100,,95,90,60,30,90,300,FRONT,,240,0.3,0.6,,,25,50,50,40,2,20,9,60000,5,20,300,0.25,13,13,,,,,,,,nightcross_bp_rare,,.6,2,3,19575
 Safronov Regio,naai_macula,Crusher,Stargazer,na_tidaldisruption,13,3200,400,6800,6667,400,110,,95,90,60,30,90,320,FRONT,,240,0.3,0.6,,,0,0,50,40,2,20,9,60000,5,20,220,0.25,15,15,,,,,,,,"stargazer_hull, auto_rec, codex_unlockable, limited_tooltip_if_locked, no_dealer",,.6,2,3,19575
 Occator,na_nammu,Utility Vessel,Nightcross,forgevats,9,3800,650,5000,6667,250,80,2,80,75,50,20,50,320,OMNI,,180,.2,0.9,,,20,180,225,160,1.5,60,9,37000,4,20,380,0.25,9,9,,,,,,,CARRIER,nightcross_bp_heavy,,.6,2,3,19575
-Cerealia ,naai_nammu,Harvester,Stargazer,na_forgevats2,13,6000,250,8000,6667,325,110,2,80,75,50,20,50,400,OMNI,,180,.3,.8,,,0,0,300,300,3,60,9,37000,4,20,280,0.25,14,14,,,,,,,,"stargazer_hull, auto_rec, codex_unlockable, limited_tooltip_if_locked, no_dealer",,.6,2,3,19575
+Cerealia ,naai_nammu,Harvester,Stargazer,na_forgevats2,13,6000,250,8000,6667,400,100,2,80,75,50,20,50,400,OMNI,,180,.3,.8,,,0,0,300,300,3,60,9,37000,4,20,280,0.25,14,12,,,,,,,,"stargazer_hull, auto_rec, codex_unlockable, limited_tooltip_if_locked, no_dealer",,.6,2,3,19575
 Fossa Magna,na_fossa,Fast Destroyer,Nightcross,na_fastcapacitors,8,2700,320,5000,6667,325,90,,120,150,60,40,120,250,OMNI,,180,0.3,0.65,,,20,35,75,50,1.5,20,10,45000,5,20,320,.125,11,11,,,,,,,,"nightcross_bp_fast, merc",,.6,2,3,19575
 Fossa Narmada,naai_fossa,Reaper,Stargazer,na_fastcapacitors,8,3000,175,7000,6667,300,95,,140,160,60,50,130,225,FRONT,,240,0.3,0.6,,,0,0,75,50,2,20,10,45000,5,20,250,.125,11,11,,,,,,,,"stargazer_hull, auto_rec, codex_unlockable, limited_tooltip_if_locked, no_dealer",,.6,2,3,19575
 Tempus Spatium,na_tempus,Experimental Cruiser,Nightcross,na_fastcapacitors,17,6500,900,9500,6667,600,140,,80,65,45,30,27,1050,FRONT,,240,0.3,0.65,,,40,80,100,120,3,40,8,130000,4,24,380,.125,26,26,,,,,,,,"rare_bp, merc",,.6,2,3,19575

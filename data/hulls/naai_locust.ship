@@ -1,0 +1,54 @@
+{
+  "hullName": "Locust",
+  "hullId": "naai_locust",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/naai/naai_locust.png",
+  "style": "NIGHTCROSSAIHULL",
+  "height": 42,
+  "width": 42,
+  "center": [21, 21],
+  "collisionRadius": 25,
+  "shieldCenter": [1, 0],
+  "shieldRadius": 15,
+  "viewOffset": 0,
+  "builtInWeapons": {
+    "WS0001": "blinker_na_red"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "HIDDEN",
+      "arc": 25,
+      "angle": 0,
+      "locations": [6, -3]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-1.5, 2.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-12, 0],
+      "length": 24,
+      "width": 6,
+      "angle": 180,
+      "contrailSize": 64,
+      "style": "NA_STARGAZER_SEC"
+    },
+  ],
+  "bounds": [
+    8, 8,
+    -7, -7,
+    -7, 8,
+    9, -7,
+    4, 0
+  ]
+}

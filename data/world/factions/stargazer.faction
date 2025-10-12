@@ -51,13 +51,15 @@
 		],
 	},
 	"knownFighters":{
-		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
+		"tags":["stargazer",],
 		"fighters":[
+		"naai_locust_wing"
 		],
 	},
 	"priorityFighters":{
 		"tags":["stargazer", "na_sg_loot", "nightcross_bp_restricted"],
 		"fighters":[
+		"naai_locust_wing"
 		],
 	},
 	"knownWeapons":{

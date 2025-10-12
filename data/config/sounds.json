@@ -121,6 +121,14 @@
 	[
 		{"file":"sounds/wpn/na_rift_explosion.ogg","pitch":1.0,"volume":0.60},
 	],
+	"na_bassdestroyer": 
+	[
+		{"file":"sounds/wpn/na_bassdestroyer.ogg","pitch":1.0,"volume":0.6},
+	],
+	"na_bassdestroyer_charge": 
+	[
+		{"file":"sounds/wpn/na_bassdestroyer_charge.ogg","pitch":1.0,"volume":0.8},
+	],
 	"naai_corrosionlancefire":
 	[
 		{"file":"sounds/wpn/naai_corrosionlancefire.ogg","pitch":1.0,"volume":0.70},

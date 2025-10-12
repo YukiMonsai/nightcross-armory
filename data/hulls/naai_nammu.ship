@@ -16,14 +16,14 @@
     "na_fulldive",
     "na_stargazerhullmod",
     "na_rcs",
-    "na_repairdrones",
     "repair_gantry"
   ],
   "builtInWings": [
-    "na_luminousdrill_repair_wing",
-    "na_shieldbattery_wing"
+	"naai_locust_wing",
+	"naai_locust_wing",
   ],
   "builtInWeapons": {
+	"WS0008": "naai_hil",
     "WS0005": "blinker_na_red",
     "WS0007": "blinker_na_red",
     "WS0012": "naai_eye",
@@ -72,7 +72,7 @@
     {
       "id": "WS0001",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 182,
       "angle": 141,
@@ -82,7 +82,7 @@
     {
       "id": "WS0002",
       "size": "SMALL",
-      "type": "HYBRID",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 182,
       "angle": -141,
@@ -195,21 +195,12 @@
     },
     {
       "id": "WS0008",
-      "size": "MEDIUM",
-      "type": "ENERGY",
+      "size": "LARGE",
+      "type": "BUILT_IN",
       "mount": "HARDPOINT",
       "arc": 5,
       "angle": -0,
-      "locations": [78, 25]
-    },
-    {
-      "id": "WS0011",
-      "size": "MEDIUM",
-      "type": "ENERGY",
-      "mount": "HARDPOINT",
-      "arc": 5,
-      "angle": -0,
-      "locations": [78, -25]
+      "locations": [40, 25]
     },
     {
       "id": "WS0012",
