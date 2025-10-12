@@ -1,5 +1,5 @@
 V1.2.4
-- Corrosion torpedoes have a stronger pull, but only pull for 1 second rather than the full 4 second duration
+- Corrosion torpedoes now have a stronger pull, but only pull for 1 second rather than the full 4 second duration. Less pulling power overall, but still disrupts enemy formation.
 - Heavymetals now deal frag damage to hull and armor
 - HPF weapon hp, ammo regeneration and fire rate considerably increased
 - Xanthe terra system now has 2 charges, 30s charge time

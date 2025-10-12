@@ -98,8 +98,8 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
             init(stats, skill);
 
 
-            info.addPara("+%s flux dissipation while overloaded, +%s while venting", 0f, hc, hc,
-                    "" + (int)(OVERLOAD_RATE) + "%", (int)(VENT_RATE) + "%");
+            info.addPara("+%s flux dissipation while venting, +%s while overloaded", 0f, hc, hc,
+                    "" + (int)(VENT_RATE) + "%", (int)(OVERLOAD_RATE) + "%");
         }
         public String getEffectPerLevelDescription() {
             return null;

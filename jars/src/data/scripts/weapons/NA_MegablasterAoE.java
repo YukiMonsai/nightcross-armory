@@ -86,7 +86,7 @@ public class NA_MegablasterAoE implements OnHitEffectPlugin {
                                                 return NUM_TICKS;
                                             }
                                             protected boolean canDamageHull() {
-                                                return true;
+                                                return false;
                                             }
                                             protected int getNumParticlesPerTick() {
                                                 return 5;

@@ -58,35 +58,74 @@ public class NA_SoulEater implements BeamEffectPlugin {
 
 
 			if (amount > 0 && target != null) {
+				if (target instanceof ShipAPI && ((ShipAPI) target).isAlive() && (((ShipAPI) target).getShield() == null || ((ShipAPI) target).getShield().isOff() || !((ShipAPI) target).getShield().isWithinArc(beam.getTo()))) {
+					NA_StargazerStardust sourceSwarm = NA_StargazerStardust.getSwarmFor(beam.getSource());
+					if (sourceSwarm != null) {
+						// check if armor is pierced
 
-				NA_StargazerStardust sourceSwarm = NA_StargazerStardust.getSwarmFor(beam.getSource());
-				if (sourceSwarm != null) {
-					if (target instanceof ShipAPI && ((ShipAPI) target).getFleetMember().getMaxCrew() > 0) {
-						float dur = beam.getDamage().getDpsDuration();
-						// needed because when the ship is in fast-time, dpsDuration will not be reset every frame as it should be
-						if (!wasZero) dur = 0;
-						wasZero = beam.getDamage().getDpsDuration() <= 0;
+						ArmorGridAPI grid = ((ShipAPI) target).getArmorGrid();
+						int[] cell = grid.getCellAtLocation(beam.getTo());
+						if (cell == null) return;
 
-						data.dmgStored += amount * beam.getDamage().getDamage() * dur;
-						float crew = 0.5f * (((ShipAPI) target).getFleetMember().getMinCrew() + ((ShipAPI) target).getFleetMember().getMaxCrew());
-						if (((ShipAPI) target).getFleetMember().getCrewFraction() < 0.99f) {
-							crew = ((ShipAPI) target).getFleetMember().getMinCrew() * ((ShipAPI) target).getFleetMember().getCrewFraction();
+						int gridWidth = grid.getGrid().length;
+						int gridHeight = grid.getGrid()[0].length;
+
+						float armorTotal = 0f;
+						for (int i = -2; i <= 2; i++) {
+							for (int j = -2; j <= 2; j++) {
+								if ((i == 2 || i == -2) && (j == 2 || j == -2)) continue; // skip corners
+
+								int cx = cell[0] + i;
+								int cy = cell[1] + j;
+
+								if (cx < 0 || cx >= gridWidth || cy < 0 || cy >= gridHeight) continue;
+
+								float damMult = 1/30f;
+								if (i == 0 && j == 0) {
+									damMult = 1/15f;
+								} else if (i <= 1 && i >= -1 && j <= 1 && j >= -1) { // S hits
+									damMult = 1/15f;
+								} else { // T hits
+									damMult = 1/30f;
+								}
+
+								float armorInCell = grid.getArmorValue(cx, cy);
+								armorTotal += armorInCell;
+							}
 						}
-						float dmgNeededForSoul = target.getMaxHitpoints() / (1 + crew);
 
-						if (data.dmgStored > Math.max(MIN_DMG_PER_CREW, dmgNeededForSoul)) {
-							data.dmgStored = Math.max(0, data.dmgStored * 0.9f - Math.max(MIN_DMG_PER_CREW, dmgNeededForSoul));
-							NA_StargazerStardust.SwarmMember p = sourceSwarm.addMember();
-							p.loc.set(beam.getTo());
-							p.fader.setDurationIn(0.3f);
+						if (armorTotal < ((ShipAPI) target).getArmorGrid().getArmorRating() * 0.33) {
+							if (target instanceof ShipAPI && ((ShipAPI) target).getFleetMember().getMaxCrew() > 0) {
+								float dur = beam.getDamage().getDpsDuration();
+								// needed because when the ship is in fast-time, dpsDuration will not be reset every frame as it should be
+								if (!wasZero) dur = 0;
+								wasZero = beam.getDamage().getDpsDuration() <= 0;
+
+								data.dmgStored += beam.getDamage().computeDamageDealt(dur);
+								float crew = 0.5f * (((ShipAPI) target).getFleetMember().getMinCrew() + ((ShipAPI) target).getFleetMember().getMaxCrew());
+								if (((ShipAPI) target).getFleetMember().getCrewFraction() < 0.99f) {
+									crew = ((ShipAPI) target).getFleetMember().getMinCrew() * ((ShipAPI) target).getFleetMember().getCrewFraction();
+								}
+								float dmgNeededForSoul = target.getMaxHitpoints() / (1 + crew);
+
+								if (data.dmgStored > Math.max(MIN_DMG_PER_CREW, dmgNeededForSoul)) {
+									data.dmgStored = Math.max(0, data.dmgStored * 0.7f - Math.max(MIN_DMG_PER_CREW, dmgNeededForSoul));
+									NA_StargazerStardust.SwarmMember p = sourceSwarm.addMember();
+									p.loc.set(beam.getTo());
+									p.fader.setDurationIn(0.3f);
+								}
+							}
 						}
+
+
+
 					}
 				}
 
 
-				Global.getCombatEngine().addSwirlyNebulaParticle(
-						beam.getTo(), Misc.ZERO, 25f, 1.5f, amount, amount*2f, amount*4f,
-						new Color(57, 1, 85), true
+				Global.getCombatEngine().addNegativeSwirlyNebulaParticle(
+						beam.getTo(), Misc.ZERO, 55f, 1.5f, amount, amount*2f, amount*4f,
+						new Color(85, 71, 1)
 				);
 			}
 

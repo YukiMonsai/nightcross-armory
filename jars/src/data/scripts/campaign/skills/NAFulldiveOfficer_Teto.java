@@ -105,10 +105,10 @@ public class NAFulldiveOfficer_Teto extends NAFulldiveOfficer {
                 float bonus = Math.min(1f, Math.max(0, Vector2f.dot(ship.getVelocity(), MathUtils.getPointOnCircumference(Misc.ZERO, 1f, ship.getFacing()))/BASE_SPEED));
 
 
-                ship.getMutableStats().getBallisticAmmoRegenMult().modifyMult(DMG_BONUS_ID, bonus * DMG_BOOST);
-                ship.getMutableStats().getEnergyAmmoRegenMult().modifyMult(DMG_BONUS_ID, bonus * DMG_BOOST);
-                ship.getMutableStats().getBallisticWeaponDamageMult().modifyMult(DMG_BONUS_ID, bonus * DMG_BOOST);
-                ship.getMutableStats().getEnergyWeaponDamageMult().modifyMult(DMG_BONUS_ID, bonus * DMG_BOOST);
+                ship.getMutableStats().getBallisticAmmoRegenMult().modifyMult(DMG_BONUS_ID, 1f + 0.01f * bonus * DMG_BOOST);
+                ship.getMutableStats().getEnergyAmmoRegenMult().modifyMult(DMG_BONUS_ID, 1f + 0.01f * bonus * DMG_BOOST);
+                ship.getMutableStats().getBallisticWeaponDamageMult().modifyMult(DMG_BONUS_ID, 1f + 0.01f * bonus * DMG_BOOST);
+                ship.getMutableStats().getEnergyWeaponDamageMult().modifyMult(DMG_BONUS_ID, 1f + 0.01f * bonus * DMG_BOOST);
 
 
                 String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_electronic_warfare");

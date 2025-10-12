@@ -85,7 +85,7 @@ public class NA_DarkSunHit implements OnHitEffectPlugin {
                                                 return NUM_TICKS;
                                             }
                                             protected boolean canDamageHull() {
-                                                return true;
+                                                return false;
                                             }
                                             protected int getNumParticlesPerTick() {
                                                 return 5;

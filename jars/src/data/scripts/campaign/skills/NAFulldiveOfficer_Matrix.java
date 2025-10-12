@@ -24,7 +24,8 @@ import static data.scripts.stardust.NA_StargazerHull.STARGAZER_RED;
 
 public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
 
-    public static float RANGE_BONUS = 30f;
+    public static float RANGE_BONUS = 15f;
+    public static float RANGE_EXTRA = 15f;
     public static float ZERO_FLUX_PEN = -50f;
     public static float EMP_SCALE = 100f;
     public static float EMP_SCALE_MAXAT = 0.1f;
@@ -99,6 +100,8 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getDamageToTargetWeaponsMult().unmodify(ECM_BONUS_ID);
             stats.getDamageToTargetEnginesMult().unmodify(ECM_BONUS_ID);
+            stats.getEnergyWeaponRangeBonus().unmodify(ECM_BONUS_ID);
+            stats.getBallisticWeaponRangeBonus().unmodify(ECM_BONUS_ID);
         }
 
         public String getEffectDescription(float level) {
@@ -112,8 +115,8 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
             init(stats, skill);
 
 
-            info.addPara("Up to %s damage to engines and weapons, depending on ECM advantage. Max at %s net ECM rating.", 0f, hc, hc,
-                    "+" + (int)(EMP_SCALE) + "%", (int)(100*EMP_SCALE_MAXAT) + "%");
+            info.addPara("Up to %s damage to engines and weapons, and %s additional weapon range, based on ECM advantage. Max at %s net ECM rating.", 0f, hc, hc,
+                    "+" + (int)(EMP_SCALE) + "%", "+" + (int)(RANGE_EXTRA) + "%", (int)(100*EMP_SCALE_MAXAT) + "%");
             info.addPara("\nIf this shielded ship has a %s and at least %s, consumes %s per second while hard flux is over %s, to convert %s current hard flux into soft flux.", 0f, hc, STARGAZER_RED,
                     "Stardust Nebula", "10 Stardust", "4 Stardust", "50%", "4%");
         }
@@ -193,16 +196,18 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
                 int [] enemy = getTotalAndMaximum(engine.getFleetManager(1));
                 float pTotal = player[0];
                 float eTotal = enemy[0];
-                float ecmdmgboost = (int) Math.round(Math.max(0, Math.min(1f, (pTotal - eTotal)/EMP_SCALE_MAXAT)*EMP_SCALE));
+                float ecmdmgboost = (int) Math.round(Math.max(0, Math.min(1f, (pTotal - eTotal)/EMP_SCALE_MAXAT)));
 
                 if (ecmdmgboost < 0) ecmdmgboost = 0;
 
-                ship.getMutableStats().getDamageToTargetWeaponsMult().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost/100f);
-                ship.getMutableStats().getDamageToTargetEnginesMult().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost/100f);
+                ship.getMutableStats().getDamageToTargetWeaponsMult().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost*EMP_SCALE/100f);
+                ship.getMutableStats().getDamageToTargetEnginesMult().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost*EMP_SCALE/100f);
+                ship.getMutableStats().getEnergyWeaponRangeBonus().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost*RANGE_EXTRA/100f);
+                ship.getMutableStats().getBallisticWeaponRangeBonus().modifyMult(ECM_BONUS_ID, 1f + ecmdmgboost*RANGE_EXTRA/100f);
 
                 String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_electronic_warfare");
                 if (ship == Global.getCombatEngine().getPlayerShip()) Global.getCombatEngine().maintainStatusForPlayerShip("NA_FulldiveMatrix", icon, "Stargazer Matrix",
-                        (int)ecmdmgboost + "% increased damage vs weapon/engines based on ECM difference", false);
+                        ((int)(ecmdmgboost * EMP_SCALE)) + "% damage to weapon/engines, +" + ((int)(ecmdmgboost * RANGE_EXTRA)) +  "% energy and ballistic range", false);
 
 
             }

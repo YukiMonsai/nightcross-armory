@@ -53,7 +53,7 @@ public class NA_Pyrolance implements BeamEffectPlugin {
 
 
 			if (amount > 0 && target != null) {
-				if (target instanceof ShipAPI && (((ShipAPI) target).getShield() == null || ((ShipAPI) target).getShield().isOff() || ((ShipAPI) target).getShield().isWithinArc(beam.getTo()))) {
+				if (target instanceof ShipAPI && (((ShipAPI) target).getShield() == null || ((ShipAPI) target).getShield().isOff() || !((ShipAPI) target).getShield().isWithinArc(beam.getTo()))) {
 					// do the damage
 					float dmg = DMG_SMALL;
 					if (weapon.getId().equals("na_pyrolance_drill")) dmg = DMG_LARGE;
