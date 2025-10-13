@@ -254,7 +254,7 @@
     "custom":{
 		"decentralized":true,
 		"allowsTransponderOffTrade":true,
-        "offersCommissions":false,
+        "offersCommissions":true,
         "engagesInHostilities":false,
         "buysAICores":true,
         "AICoreValueMult":2.75,

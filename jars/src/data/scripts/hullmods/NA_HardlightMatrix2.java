@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
+import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import com.fs.starfarer.combat.C;
@@ -13,6 +14,7 @@ import org.dark.shaders.distortion.DistortionShader;
 import org.dark.shaders.distortion.RippleDistortion;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicIncompatibleHullmods;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -31,6 +33,15 @@ public class NA_HardlightMatrix2 extends BaseHullMod {
 		return null;
 	}
 
+	@Override
+	public void applyEffectsAfterShipCreation(ShipAPI ship, String id){
+		if (ship.getVariant().getHullMods().contains(HullMods.OMNI_SHIELD_CONVERSION)) {
+			MagicIncompatibleHullmods.removeHullmodWithWarning(ship.getVariant(), HullMods.OMNI_SHIELD_CONVERSION, "na_hardlightmatrix2");
+		}
+		if (ship.getVariant().getHullMods().contains(HullMods.EXTENDED_SHIELDS)) {
+			MagicIncompatibleHullmods.removeHullmodWithWarning(ship.getVariant(), HullMods.EXTENDED_SHIELDS, "na_hardlightmatrix2");
+		}
+	}
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		//stats.getBallisticWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));

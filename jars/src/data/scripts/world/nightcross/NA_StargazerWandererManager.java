@@ -85,7 +85,7 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
         f.getStats().getDetectedRangeMod().modifyMult("na_stargazer_hidden", 0.5f);
 
-        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar(), false, true);
+        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar(), false, true, true);
         behavior.setSeenByPlayer();
         f.addScript(behavior);
 
@@ -183,7 +183,7 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
             }
 
         }
-        editStargazerFleetAICores(f);
+        editStargazerFleetAICores(f, random);
 
         FactionAPI faction = Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER);
         f.setName(faction.getFleetTypeName(params.fleetType));
@@ -200,16 +200,44 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
         return f;
     }
 
-    public static void editStargazerFleetAICores(CampaignFleetAPI f) {
+    public static void editStargazerFleetAICores(CampaignFleetAPI f, Random random) {
+        if (random == null) random = new Random();
+
 
         for (FleetMemberAPI curr : f.getFleetData().getMembersListCopy()) {
             boolean keepPortrait = (curr.isFlagship()) ?
                     Math.random() < 0.75f :
                     Math.random() < 0.25f;
 
+            float chance_matrix = 0;
+            float chance_grid = 0.33f;
+            float chance_ghost = 1f;
+
+            if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
+                chance_matrix = 0.33f;
+                chance_grid = 0.5f;
+            }
+            if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CRUISER) {
+                chance_matrix = 0.25f;
+                chance_grid = 0.6f;
+            }
+            if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.DESTROYER) {
+                chance_matrix = 0.1f;
+                chance_grid = 0.33f;
+            }
+            if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.FRIGATE) {
+                chance_matrix = 0.05f;
+                chance_grid = 25;
+            }
 
 
-
+            if (random.nextFloat() < chance_matrix) {
+                setStargazerAICore(curr, NightcrossID.GHOST_MATRIX_ID, keepPortrait);
+            } else if (random.nextFloat() < chance_grid) {
+                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait);
+            } else if (random.nextFloat() < chance_ghost) {
+                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait);
+            }
         }
     }
 

@@ -488,7 +488,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                     Vector2f loc = Misc.getPointAtRadius(system.getCenter().getLocation(), MathUtils.getRandomNumberInRange(600f, 1300f));
                     f.setLocation(loc.x, loc.y);
 
-                    NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, system.getStar(), false, true);
+                    NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, system.getStar(), false, true, true);
                     behavior.setSeenByPlayer();
                     f.addScript(behavior);
                 }

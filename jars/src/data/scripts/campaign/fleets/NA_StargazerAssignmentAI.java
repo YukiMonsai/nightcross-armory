@@ -27,15 +27,18 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
     public CampaignFleetAPI fleet = null;
     public float offset = 150f;
     public boolean wanderSystem = true;
+    public boolean wanderTarget = true;
+
     public boolean despawn = false;
     public IntervalUtil gazeTime = new IntervalUtil(1f, 13);
     public IntervalUtil systemTime = new IntervalUtil(15f, 45f);
-    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem, boolean despawn) {
+    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem, boolean wanderTarget, boolean despawn) {
         this.fleet = fleet;
         this.target = target;
         this.systemtarget = systemtarget;
         this.offset = MathUtils.getRandomNumberInRange(100f, 250f);
         this.wanderSystem = wanderSystem;
+        this.wanderTarget = wanderTarget;
         this.despawn = despawn;
     }
 
@@ -48,16 +51,18 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
         this.gazeTime.advance(days);
         this.systemTime.advance(days);
 
-        if (this.gazeTime.intervalElapsed() || (target instanceof FleetAPI && !target.isVisibleToSensorsOf(fleet))
+        SectorEntityToken target = this.target;
+
+        if (this.wanderTarget && (this.gazeTime.intervalElapsed() || (target instanceof FleetAPI && !target.isVisibleToSensorsOf(fleet))
             || (Global.getSector().getPlayerFleet().getMemoryWithoutUpdate().getBoolean("$na_stargazer_warn")) && (target != Global.getSector().getPlayerFleet()) && Global.getSector().getPlayerFleet() != null &&
-                Global.getSector().getPlayerFleet().isVisibleToSensorsOf(fleet)) {
+                Global.getSector().getPlayerFleet().isVisibleToSensorsOf(fleet))) {
             this.gazeTime.randomize();
             if (fleet.getStarSystem() != null && !fleet.getStarSystem().isHyperspace()) {
                 if (Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getStarSystem() != null && Global.getSector().getPlayerFleet().getStarSystem() == fleet.getStarSystem()) {
-                    this.target = findNewTarget();
+                    target = findNewTarget();
                 } else if (MathUtils.getRandomNumberInRange(0, 30f) < 5f) {
                     // save perfoemance
-                    this.target = findNewTarget();
+                    target = findNewTarget();
                 }
             }
 
@@ -136,6 +141,8 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
                  }
              }
          }
+
+         if (wanderTarget) this.target = target;
     }
 
     public SectorEntityToken findNewTarget() {

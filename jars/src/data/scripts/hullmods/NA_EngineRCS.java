@@ -133,20 +133,35 @@ public class NA_EngineRCS extends BaseHullMod {
 				} else {
 					ship.setCustomData("NA_AfterburnerStatsInfo", new NA_AfterburnerStatsInfo(angVel));
 				}
-				float Agility_scaling = Math.max(1f, 150f / Math.max(1f, ship.getMutableStats().getMaxTurnRate().getModifiedValue()));
-				float changeInAngVel = 40* Agility_scaling * ANG_RATE*(angVel - lastAngVel);
+				float smol = 1.8f* ship.getMutableStats().getTurnAcceleration().getModifiedValue() / (1f + ship.getMutableStats().getMaxTurnRate().getModifiedValue());
+				float smold = 2.2f* ship.getMutableStats().getTurnAcceleration().getModifiedValue() / (1f + ship.getMutableStats().getMaxTurnRate().getModifiedValue());
+				float Agility_scaling = Math.max(1f, (80f * (float)Math.sqrt(ship.getMutableStats().getMaxTurnRate().getModifiedValue())) / Math.max(1f, ship.getMutableStats().getTurnAcceleration().getModifiedValue()));
+				float changeInAngVel = 2.5f* Agility_scaling* Agility_scaling * ANG_RATE*(angVel - lastAngVel);
 				float changeInAngVelOrig = changeInAngVel;
+				changeInAngVel += Math.signum(angVel) * Math.min(24f * smold, Math.max(0f, 50f * smold - 10f* Math.abs(angVel)));
 
-				if (changeInAngVel <= 0 && angVel < 0) changeInAngVel = Math.min(angVel, changeInAngVel);
-				else if (changeInAngVel >= 0 && angVel > 0) changeInAngVel = Math.max(angVel, changeInAngVel);
-				else if (Math.abs(changeInAngVel) < 10f) changeInAngVel = angVel;
+				if (changeInAngVel <= 0 && angVel < 1f) changeInAngVel = Math.min(angVel, changeInAngVel);
+				else if (changeInAngVel >= 0 && angVel > smol) changeInAngVel = Math.max(angVel, changeInAngVel);
+				else if (changeInAngVel <= 0 && angVel > changeInAngVel) changeInAngVel = Math.min(angVel, changeInAngVel);
+				else if (changeInAngVel >= 0 && angVel < changeInAngVel) changeInAngVel = Math.max(angVel, changeInAngVel);
+				else if (Math.abs(changeInAngVel) < smol*20f) changeInAngVel = Math.abs(angVel) > smol ? -angVel : 0;
+
  				float angVel_smooth = ((NA_AfterburnerStatsInfo) ship.getCustomData().get("NA_AfterburnerStatsInfo")).Value_Smooth;
 
-				if (Math.abs(changeInAngVel - angVel_smooth) < 0.3f*RATE * amount) angVel_smooth = 0;
+				/*if (Math.abs(changeInAngVel - angVel_smooth) < 0.7f*RATE * amount) angVel_smooth = 0;
 				else if (changeInAngVel > 0 || (changeInAngVel == 0 && angVel == 0 && angVel_smooth < 0))
-					angVel_smooth += ((angVel_smooth < 0 || Math.abs(changeInAngVel) < 0.01 || changeInAngVelOrig > 1f / Agility_scaling) ? 2f * RATE * amount : 0.7f * RATE * amount);
+					angVel_smooth += ((angVel_smooth < 0 || Math.abs(changeInAngVel) < 0.01 || changeInAngVelOrig > 2f / Agility_scaling) ? 3f * RATE * amount : 0.7f * RATE * amount);
 				else if (changeInAngVel < 0 || (changeInAngVel == 0 && angVel == 0 && angVel_smooth > 0))
-					angVel_smooth -= ((angVel_smooth > 0 || Math.abs(changeInAngVel) < 0.01 || changeInAngVelOrig < -1f / Agility_scaling) ? 2f * RATE * amount : 0.7f * RATE * amount);
+					angVel_smooth -= ((angVel_smooth > 0 || Math.abs(changeInAngVel) < 0.01 || changeInAngVelOrig < -2f / Agility_scaling) ? 3f * RATE * amount : 0.7f * RATE * amount);*/
+				if ((Math.abs(changeInAngVelOrig) < smol + 1f))
+					angVel_smooth = 2f/16f * (15f * angVel_smooth/2f + Math.signum(changeInAngVel) * Math.min(1f, Math.max(Math.min(105f, Math.abs(changeInAngVel))/100f - 0.4f, 0f)));
+				else if ((angVel_smooth < .8 && changeInAngVel > smol) || (angVel_smooth > -.8 && changeInAngVel < -smol))
+					angVel_smooth = 2f/10f * (9f * angVel_smooth/2f + Math.signum(changeInAngVel) * Math.min(1f, Math.max(Math.min(150f, Math.abs(changeInAngVel))/100f - 0.4f, 0f)));
+				else
+					angVel_smooth = 2f/21f * (20f * angVel_smooth/2f + Math.signum(changeInAngVel) * Math.min(1f, Math.max(Math.min(105f, Math.abs(changeInAngVel))/100f - 0.4f, 0f)));
+
+
+				float maxx = (0.8f + 0.4f * Math.min(1f, Math.abs(angVel)/ship.getMutableStats().getMaxTurnRate().getModifiedValue()));
 				if (angVel_smooth > 2f) angVel_smooth = 2f;
 				else if (angVel_smooth < -2f) angVel_smooth = -2f;
 				((NA_AfterburnerStatsInfo) ship.getCustomData().get("NA_AfterburnerStatsInfo")).Value_Smooth = angVel_smooth;
@@ -161,8 +176,9 @@ public class NA_EngineRCS extends BaseHullMod {
 								e.getEngineSlot().computePosition(Misc.ZERO, 0f)
 						);
 
-						ship.getEngineController().setFlameLevel(e.getEngineSlot(), (float) (Math.max(0f, Math.min(1f, Math.signum(cross) *
-								(Math.abs(angVel_smooth) > 0.25 ? Math.signum(angVel_smooth) * Math.sqrt(Math.abs(angVel_smooth)) : angVel_smooth)- 0.01f))));
+						ship.getEngineController().setFlameLevel(e.getEngineSlot(), maxx
+								*(float) (Math.max(0f, Math.min(1f, Math.signum(cross) *
+								Math.signum(angVel_smooth) * Math.max(0, 1.2f * Math.abs(angVel_smooth)- 0.27f)))));
 					}
 				}
 			}

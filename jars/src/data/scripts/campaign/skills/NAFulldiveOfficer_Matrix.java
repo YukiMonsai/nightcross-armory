@@ -109,6 +109,7 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
             return null;//"Up to +" + (int)EMP_SCALE + "% damage to engines and weapons, depending on ECM advantage. Max at +10% net ECM rating.";
         }
 
+
         Color hc2 = new Color(255, 75, 138);
         public void createCustomDescription(MutableCharacterStatsAPI stats, SkillSpecAPI skill,
                                             TooltipMakerAPI info, float width) {

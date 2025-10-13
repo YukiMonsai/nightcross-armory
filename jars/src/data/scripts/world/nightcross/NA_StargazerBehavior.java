@@ -37,13 +37,13 @@ public class NA_StargazerBehavior implements EveryFrameScript {
 
 
 
-    public NA_StargazerBehavior(CampaignFleetAPI fleet, StarSystemAPI system, PlanetAPI target, boolean wanderSystem, boolean despawn) {
+    public NA_StargazerBehavior(CampaignFleetAPI fleet, StarSystemAPI system, PlanetAPI target, boolean wanderSystem, boolean wanderTarget, boolean despawn) {
         this.fleet = fleet;
         this.system = system;
         this.target = target;
 
 
-        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target, system, wanderSystem, despawn));
+        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target, system, wanderSystem, wanderTarget, despawn));
     }
 
     protected void pickNext() {

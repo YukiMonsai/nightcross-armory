@@ -2,7 +2,7 @@
   "hullName": "String of Pearls",
   "hullId": "naai_sop",
   "hullSize": "FRIGATE",
-  "spriteName": "graphics/ships/na/sop/na_sop.png",
+  "spriteName": "graphics/ships/naai/sop/na_sop.png",
   "style": "NIGHTCROSSAIHULL",
   "height": 112,
   "width": 112,

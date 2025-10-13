@@ -226,7 +226,7 @@ public class NA_SoulEater implements BeamEffectPlugin {
 					arc.setSingleFlickerMode(true);
 					arc.setRenderGlowAtStart(false);
 				} else {
-					EmpArcEntityAPI arc = engine.spawnEmpArcVisual(
+					/*EmpArcEntityAPI arc = engine.spawnEmpArcVisual(
 							beam.getFrom(), null,
 							MathUtils.getRandomPointInCone(beam.getFrom(),
 									80f,
@@ -238,7 +238,7 @@ public class NA_SoulEater implements BeamEffectPlugin {
 							beam.getCoreColor(), params
 					);
 					arc.setSingleFlickerMode(true);
-					arc.setRenderGlowAtEnd(false);
+					arc.setRenderGlowAtEnd(false);*/
 				}
 			} else {
 				data.shockInterval.advance(amount);

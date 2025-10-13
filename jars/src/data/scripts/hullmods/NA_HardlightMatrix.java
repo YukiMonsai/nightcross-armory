@@ -6,6 +6,8 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+import org.magiclib.util.MagicIncompatibleHullmods;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -39,8 +41,18 @@ public class NA_HardlightMatrix extends BaseHullMod {
 		//stats.getBallisticWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		//stats.getMissileRoFMult().modifyMult(ID, ROF_PENALTY);
+
 	}
 
+	@Override
+	public void applyEffectsAfterShipCreation(ShipAPI ship, String id){
+		if (ship.getVariant().getHullMods().contains(HullMods.OMNI_SHIELD_CONVERSION)) {
+			MagicIncompatibleHullmods.removeHullmodWithWarning(ship.getVariant(), HullMods.OMNI_SHIELD_CONVERSION, "na_hardlightmatrix");
+		}
+		if (ship.getVariant().getHullMods().contains(HullMods.EXTENDED_SHIELDS)) {
+			MagicIncompatibleHullmods.removeHullmodWithWarning(ship.getVariant(), HullMods.EXTENDED_SHIELDS, "na_hardlightmatrix");
+		}
+	}
 	@Override
 	public void advanceInCombat(ShipAPI ship, float amount) {
 		super.advanceInCombat(ship, amount);
