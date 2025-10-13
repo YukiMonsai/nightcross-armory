@@ -3,12 +3,14 @@ package data.scripts.campaign.ids;
 public class NightcrossID {
     public static final String TETO_CORE = "na_core_teto";
     public static final String GHOST_CORE_ID = "na_ghost_core";
+    public static final String GHOST_GRID_ID = "na_ghost_grid";
     public static final String GHOST_MATRIX_ID = "na_ghost_matrix";
 
     public static final String GHOST = "projectghost";
     public static final String NIGHTCROSS_ARMORY = "nightcross";
     public static final String SKILL_FULLDIVE = "na_fulldive_officer";
     public static final String SKILL_FULLDIVE_GHOST = "na_fulldive_officer_ghost";
+    public static final String SKILL_FULLDIVE_GRID = "na_fulldive_officer_grid";
     public static final String SKILL_FULLDIVE_MATRIX = "na_fulldive_officer_matrix";
     public static final String SKILL_FULLDIVE_TETO = "na_fulldive_officer_teto";
 

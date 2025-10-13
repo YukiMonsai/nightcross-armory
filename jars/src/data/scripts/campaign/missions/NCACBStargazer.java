@@ -26,6 +26,8 @@ import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.world.nightcross.NA_StargazerFleets;
+import data.scripts.world.nightcross.NA_StargazerWandererManager;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -277,7 +279,7 @@ public class NCACBStargazer extends BaseCustomBountyCreator {
                 params.qualityOverride = qualityOverride + params.qualityMod;;
             }
 
-            context.fleet = FleetFactoryV3.createFleet(params);
+            context.fleet = NA_StargazerFleets.createStargazerFleet(params, random);
             context.fleet.setFacing(random.nextFloat() * 360f);
 
             if (this.faction != null) {
@@ -309,6 +311,7 @@ public class NCACBStargazer extends BaseCustomBountyCreator {
             }
 
             context.fleet.getMemoryWithoutUpdate().set(MemFlags.FLEET_BUSY, true);
+
 
             context.fleet.getMemoryWithoutUpdate().set("$combatMusicSetId","na_stargazer_battlebounty");
             //context.fleet.getMemoryWithoutUpdate().set("$LP_titheAskedFor", true);

@@ -1,21 +1,21 @@
 package data.scripts.world.nightcross;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.LocationAPI;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
+import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.Constellation;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.*;
-import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.DomainSurveyDerelictSpecial;
+import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.SurveyDataSpecial;
 import com.fs.starfarer.api.plugins.SurveyPlugin;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import com.fs.starfarer.ui.P;
+import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.world.NightcrossTags;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -24,10 +24,10 @@ import java.util.*;
 public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
 
-    static {
-        //generators.add(new SpecialThemeGenerator());
-        SectorThemeGenerator.generators.add(new NA_NightcrossThemeGenerator());
-    }
+
+
+    public static final String NIGHTCROSS_RESEARCH_OUTPOST = "na_research_outpost";
+    public static final String NIGHTCROSS_RESEARCH_STATION = "naai_research_stargazerstation";
 
     @Override
     public float getWeight() {
@@ -53,7 +53,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
 
     public String getThemeId() {
-        return NightcrossTags.NIGHTCROSS;
+        return NightcrossTags.THEME_NIGHTCROSS;
     }
 
 
@@ -199,13 +199,13 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         // probes in mothership system
         //int probesNearMothership = (int) Math.round(StarSystemGenerator.getRandom(2, 4));
         int derelictsNearStargazerStation = getNumProbesForSystem(stargazerStation.entity.getContainingLocation());
-        List<BaseThemeGenerator.AddedEntity> added = addToSystem(mainSystem, Entities.DERELICT_SURVEY_PROBE, derelictsNearStargazerStation);
+        List<BaseThemeGenerator.AddedEntity> added = addToSystem(mainSystem, Entities.WRECK, derelictsNearStargazerStation);
         all.addAll(added);
 
 
         linkFractionToParent(stargazerStation, added,
-                BASE_LINK_FRACTION,
-                DomainSurveyDerelictSpecial.SpecialType.LOCATION_MOTHERSHIP);
+                1f,
+                NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
 
         // survey ships in mothership constellation
         int outpostsNearMainStation = (int) Math.round(StarSystemGenerator.getRandom(0, 3));
@@ -213,7 +213,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         if (DEBUG) {
             System.out.println(String.format("Adding %d research stations near stargazerstation", outpostsNearMainStation));
         }
-        List<BaseThemeGenerator.AddedEntity> addedShips = addToConstellation(main, Entities.DERELICT_SURVEY_SHIP, outpostsNearMainStation, false);
+        List<BaseThemeGenerator.AddedEntity> addedShips = addToConstellation(main, NIGHTCROSS_RESEARCH_OUTPOST, outpostsNearMainStation, false);
         all.addAll(addedShips);
 
         // derelicts in each station with outpost
@@ -225,12 +225,12 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
             linkFractionToParent(e, added,
                     BASE_LINK_FRACTION,
-                    DomainSurveyDerelictSpecial.SpecialType.LOCATION_SURVEY_SHIP);
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_OUTPOST);
         }
 
         linkFractionToParent(stargazerStation, addedShips,
-                BASE_LINK_FRACTION,
-                DomainSurveyDerelictSpecial.SpecialType.LOCATION_MOTHERSHIP);
+                1f,
+                NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
 
         //if (true) return;
 
@@ -259,7 +259,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
                 System.out.println("  Picked for research outpost: [" + c.getNameWithType() + "]");
             }
 
-            addedShips = addToConstellation(c, Entities.DERELICT_SURVEY_SHIP, 1, true);
+            addedShips = addToConstellation(c, NIGHTCROSS_RESEARCH_OUTPOST, 1, true);
             if (addedShips.isEmpty()) continue;
 
             all.addAll(addedShips);
@@ -274,18 +274,18 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
             linkFractionToParent(ship, added,
                     BASE_LINK_FRACTION,
-                    DomainSurveyDerelictSpecial.SpecialType.LOCATION_SURVEY_SHIP);
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_OUTPOST);
 
             int probesInSameConstellation = (int) Math.round(StarSystemGenerator.getRandom(2, 5));
             int max = c.getSystems().size() + 2;
             if (probesInSameConstellation > max) probesInSameConstellation = max;
 
-            added = addToConstellation(c, Entities.DERELICT_SURVEY_PROBE, probesInSameConstellation, false);
+            added = addToConstellation(c, Entities.WRECK, probesInSameConstellation, false);
             all.addAll(added);
 
             linkFractionToParent(ship, added,
                     BASE_LINK_FRACTION,
-                    DomainSurveyDerelictSpecial.SpecialType.LOCATION_SURVEY_SHIP);
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_OUTPOST);
 
 
 
@@ -308,18 +308,18 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
                 k++;
                 context.majorThemes.put(pick, Themes.NO_THEME);
                 int probesInConstellation = (int) Math.round(StarSystemGenerator.getRandom(1, 3));
-                derelicts3.addAll(addToConstellation(pick, Entities.DERELICT_SURVEY_PROBE, probesInConstellation, false));
+                derelicts3.addAll(addToConstellation(pick, Entities.WRECK, probesInConstellation, false));
             }
 
             all.addAll(derelicts3);
             linkFractionToParent(ship, derelicts3,
-                    BASE_LINK_FRACTION,
-                    DomainSurveyDerelictSpecial.SpecialType.LOCATION_MOTHERSHIP);
+                    1f,
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
         }
 
         linkFractionToParent(stargazerStation, outerShips,
-                BASE_LINK_FRACTION,
-                DomainSurveyDerelictSpecial.SpecialType.LOCATION_MOTHERSHIP);
+                1f,
+                NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
 
 
 
@@ -360,17 +360,17 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
             if (hasSpecial(e.entity)) continue;
 
             SurveyDataSpecial.SurveyDataSpecialType type = null;
-
+/*
             if (StarSystemGenerator.random.nextFloat() < ABYSSDATA_FRACTION) {
-                /*int min = 0;
+                int min = 0;
                 int max = 0;
-                if (Entities.DERELICT_SURVEY_PROBE.equals(e.entityType)) {
+                if (Entities.WRECK.equals(e.entityType)) {
                     min = HTPoints.LOW_MIN;
                     max = HTPoints.LOW_MAX;
-                } else if (Entities.DERELICT_SURVEY_SHIP.equals(e.entityType)) {
+                } else if (NIGHTCROSS_RESEARCH_OUTPOST.equals(e.entityType)) {
                     min = HTPoints.MEDIUM_MIN;
                     max = HTPoints.MEDIUM_MAX;
-                } else if (Entities.DERELICT_MOTHERSHIP.equals(e.entityType)) {
+                } else if (NIGHTCROSS_RESEARCH_STATION.equals(e.entityType)) {
                     min = HTPoints.HIGH_MIN;
                     max = HTPoints.HIGH_MAX;
                 }
@@ -379,15 +379,15 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
                     TopographicDataSpecial.TopographicDataSpecialData data = new TopographicDataSpecial.TopographicDataSpecialData(points);
                     Misc.setSalvageSpecial(e.entity, data);
                     continue;
-                }*/
+                }
             }
             if (StarSystemGenerator.random.nextFloat() < SALVAGE_SPECIAL_FRACTION) {
                 float pNothing = 0.1f;
-                if (Entities.DERELICT_SURVEY_PROBE.equals(e.entityType)) {
+                if (Entities.WRECK.equals(e.entityType)) {
                     pNothing = 0.5f;
-                } else if (Entities.DERELICT_SURVEY_SHIP.equals(e.entityType)) {
+                } else if (NIGHTCROSS_RESEARCH_OUTPOST.equals(e.entityType)) {
                     pNothing = 0.25f;
-                } else if (Entities.DERELICT_MOTHERSHIP.equals(e.entityType)) {
+                } else if (NIGHTCROSS_RESEARCH_STATION.equals(e.entityType)) {
                     pNothing = 0f;
                 }
 
@@ -396,7 +396,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
                     type = SurveyDataSpecial.SurveyDataSpecialType.PLANET_SURVEY_DATA;
                 }
             }
-
+*/
             //type = SpecialType.PLANET_SURVEY_DATA;
 
             if (type == SurveyDataSpecial.SurveyDataSpecialType.PLANET_SURVEY_DATA) {
@@ -408,7 +408,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
                     Misc.setSalvageSpecial(e.entity, data);
                     usedPlanets.add(planet);
 
-//					DomainSurveyDerelictSpecialData special = new DomainSurveyDerelictSpecialData(type);
+//					NightcrossThemeSpecialData special = new NightcrossThemeSpecialData(type);
 //					special.entityId = planet.getId();
 //					usedPlanets.add(planet);
 //					e.entity.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
@@ -518,7 +518,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
         return base;
     }
-    protected void linkFractionToParent(BaseThemeGenerator.AddedEntity parent, List<BaseThemeGenerator.AddedEntity> children, float p, DomainSurveyDerelictSpecial.SpecialType type) {
+    protected void linkFractionToParent(BaseThemeGenerator.AddedEntity parent, List<BaseThemeGenerator.AddedEntity> children, float p, NA_NightcrossThemeSpecial.SpecialType type) {
 
         WeightedRandomPicker<BaseThemeGenerator.AddedEntity> picker = new WeightedRandomPicker<BaseThemeGenerator.AddedEntity>(StarSystemGenerator.random);
         for (BaseThemeGenerator.AddedEntity c : children) {
@@ -544,10 +544,10 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 //		return result;
 //	}
 
-    protected void linkToParent(SectorEntityToken from, SectorEntityToken parent, DomainSurveyDerelictSpecial.SpecialType type) {
+    protected void linkToParent(SectorEntityToken from, SectorEntityToken parent, NA_NightcrossThemeSpecial.SpecialType type) {
         if (hasSpecial(from)) return;
 
-        DomainSurveyDerelictSpecial.DomainSurveyDerelictSpecialData special = new DomainSurveyDerelictSpecial.DomainSurveyDerelictSpecialData(type);
+        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(type);
         special.entityId = parent.getId();
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
     }
@@ -555,7 +555,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected void linkToMothership(SectorEntityToken from, SectorEntityToken mothership) {
         if (hasSpecial(from)) return;
 
-        DomainSurveyDerelictSpecial.DomainSurveyDerelictSpecialData special = new DomainSurveyDerelictSpecial.DomainSurveyDerelictSpecialData(DomainSurveyDerelictSpecial.SpecialType.LOCATION_MOTHERSHIP);
+        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
         special.entityId = mothership.getId();
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
     }
@@ -590,11 +590,11 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
         for (int i = 0; i < num; i++) {
             BaseThemeGenerator.AddedEntity e = null;
-            if (Entities.DERELICT_MOTHERSHIP.equals(type)) {
+            if (NIGHTCROSS_RESEARCH_STATION.equals(type)) {
                 e = addStargazerStation(system);
-            } else if (Entities.DERELICT_SURVEY_SHIP.equals(type)) {
+            } else if (NIGHTCROSS_RESEARCH_OUTPOST.equals(type)) {
                 e = add_NightcrossResearchStation(system);
-            } else if (Entities.DERELICT_SURVEY_PROBE.equals(type)) {
+            } else if (Entities.WRECK.equals(type)) {
                 result.addAll(addDerelicts(system, 1));
             }
             if (e != null) {
@@ -609,7 +609,6 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected BaseThemeGenerator.AddedEntity addStargazerStation(StarSystemAPI system) {
         LinkedHashMap<BaseThemeGenerator.LocationType, Float> weights = new LinkedHashMap<BaseThemeGenerator.LocationType, Float>();
         weights.put(BaseThemeGenerator.LocationType.PLANET_ORBIT, 10f);
-        weights.put(BaseThemeGenerator.LocationType.JUMP_ORBIT, 1f);
         weights.put(BaseThemeGenerator.LocationType.NEAR_STAR, 1f);
         weights.put(BaseThemeGenerator.LocationType.OUTER_SYSTEM, 5f);
         weights.put(BaseThemeGenerator.LocationType.IN_ASTEROID_BELT, 10f);
@@ -631,7 +630,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 //			}
 //		}
 
-        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, Entities.DERELICT_MOTHERSHIP, Factions.DERELICT);
+        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_STATION, Factions.DERELICT);
         if (entity != null) {
             system.addTag(Tags.THEME_INTERESTING);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS);
@@ -653,9 +652,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected BaseThemeGenerator.AddedEntity add_NightcrossResearchStation(StarSystemAPI system) {
         LinkedHashMap<BaseThemeGenerator.LocationType, Float> weights = new LinkedHashMap<BaseThemeGenerator.LocationType, Float>();
         weights.put(BaseThemeGenerator.LocationType.PLANET_ORBIT, 10f);
-        weights.put(BaseThemeGenerator.LocationType.JUMP_ORBIT, 1f);
         weights.put(BaseThemeGenerator.LocationType.NEAR_STAR, 1f);
-        weights.put(BaseThemeGenerator.LocationType.OUTER_SYSTEM, 5f);
         weights.put(BaseThemeGenerator.LocationType.IN_ASTEROID_BELT, 10f);
         weights.put(BaseThemeGenerator.LocationType.IN_RING, 10f);
         weights.put(BaseThemeGenerator.LocationType.IN_ASTEROID_FIELD, 10f);
@@ -664,7 +661,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         weights.put(BaseThemeGenerator.LocationType.L_POINT, 1f);
         WeightedRandomPicker<BaseThemeGenerator.EntityLocation> locs = getLocations(random, system, 100f, weights);
 
-        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, Entities.DERELICT_SURVEY_SHIP, Factions.DERELICT);
+        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_OUTPOST, Factions.DERELICT);
 
         if (entity != null) {
             system.addTag(Tags.THEME_INTERESTING);
@@ -682,12 +679,72 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         return entity;
     }
 
+    public AddedEntity addWreckedShip(StarSystemAPI system, EntityLocation loc, NA_DerelictType type, ShipRecoverySpecial.ShipCondition condition,
+                                                       String shipName, Random random, boolean pruneWeapons) {
+        ShipRecoverySpecial.PerShipData psd = new ShipRecoverySpecial.PerShipData(type.id, condition, 0f);
+        if (shipName != null) {
+            psd.shipName = shipName;
+            psd.nameAlwaysKnown = true;
+            psd.pruneWeapons = pruneWeapons;
+        }
+        DerelictShipEntityPlugin.DerelictShipData params = new DerelictShipEntityPlugin.DerelictShipData(psd, true);
+
+        CustomCampaignEntityAPI ship = (CustomCampaignEntityAPI) BaseThemeGenerator.addSalvageEntity(
+                random, system, Entities.WRECK, Factions.NEUTRAL, params);
+
+        if (loc.orbit != null) {
+            ship.setOrbit(loc.orbit);
+            loc.orbit.setEntity(ship);
+        } else {
+            ship.setOrbit(null);
+            ship.getLocation().set(loc.location);
+        }
+
+        //SalvageSpecialAssigner.assignSpecials(ship, false, data.random);
+        if (!type.recoverable)
+            ship.addTag(Tags.UNRECOVERABLE);
+
+        ship.setDiscoverable(true);
+
+        return new AddedEntity(ship, loc, ship.getCustomEntityType());
+    }
+
+    protected static class NA_DerelictType {
+        public String id;
+        public boolean recoverable;
+        public NA_DerelictType(String id, boolean recoverable) {
+            this.id = id;
+            this.recoverable = recoverable;
+        }
+    }
+
+    public static WeightedRandomPicker<NA_DerelictType> derelictShipTypes = new WeightedRandomPicker<NA_DerelictType>();
+    static {
+        derelictShipTypes.add(new NA_DerelictType("na_nammu_support", true), 1.5f);
+        derelictShipTypes.add(new NA_DerelictType("na_echo_assault", true), 0.25f);
+        derelictShipTypes.add(new NA_DerelictType("na_sop_elite", true), 0.6f);
+        derelictShipTypes.add(new NA_DerelictType("na_mare_exp", true), 0.5f);
+        derelictShipTypes.add(new NA_DerelictType("na_zal_strike", true), 1.0f);
+        derelictShipTypes.add(new NA_DerelictType("na_tempus_Experimental", true), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("na_fossa_sniper", true), 0.25f);
+        derelictShipTypes.add(new NA_DerelictType("na_macula_overdriven", true), 0.3f);
+        derelictShipTypes.add(new NA_DerelictType("na_xanthe_standard", true), 0.25f);
+        derelictShipTypes.add(new NA_DerelictType("na_kasei_x_assault", true), 0.4f);
+        // broken beyond repair
+        derelictShipTypes.add(new NA_DerelictType("na_losulci_defense", false), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("naai_sop_corrupted", false), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("naai_mare_corrupted", false), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("naai_macula_corrupted", false), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("naai_nammu_corrupted", false), 0.1f);
+    }
+
+
     protected List<BaseThemeGenerator.AddedEntity> addDerelicts(StarSystemAPI system, int num) {
         LinkedHashMap<BaseThemeGenerator.LocationType, Float> weights = new LinkedHashMap<BaseThemeGenerator.LocationType, Float>();
         weights.put(BaseThemeGenerator.LocationType.PLANET_ORBIT, 20f);
         weights.put(BaseThemeGenerator.LocationType.JUMP_ORBIT, 10f);
         weights.put(BaseThemeGenerator.LocationType.NEAR_STAR, 10f);
-        weights.put(BaseThemeGenerator.LocationType.OUTER_SYSTEM, 5f);
+        //weights.put(BaseThemeGenerator.LocationType.OUTER_SYSTEM, 5f);
         weights.put(BaseThemeGenerator.LocationType.IN_ASTEROID_BELT, 5f);
         weights.put(BaseThemeGenerator.LocationType.IN_RING, 5f);
         weights.put(BaseThemeGenerator.LocationType.IN_ASTEROID_FIELD, 5f);
@@ -698,7 +755,9 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
         List<BaseThemeGenerator.AddedEntity> result = new ArrayList<BaseThemeGenerator.AddedEntity>();
         for (int i = 0; i < num; i++) {
-            BaseThemeGenerator.AddedEntity probe = addEntity(random, system, locs, Entities.DERELICT_SURVEY_PROBE, Factions.DERELICT);
+
+            BaseThemeGenerator.AddedEntity probe = addWreckedShip(system, locs.pick(), derelictShipTypes.pick(), ShipRecoverySpecial.ShipCondition.BATTERED,
+                    null, random, false);
             if (probe != null) {
                 result.add(probe);
 

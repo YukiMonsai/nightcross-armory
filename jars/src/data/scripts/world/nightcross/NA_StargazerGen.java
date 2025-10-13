@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static data.scripts.world.nightcross.NA_StargazerWandererManager.createStargazerFleet;
+import static data.scripts.world.nightcross.NA_StargazerFleets.createStargazerFleet;
 
 public class NA_StargazerGen implements SectorGeneratorPlugin {
     // generates happy friendly ai fleets to greet the player on their adventures

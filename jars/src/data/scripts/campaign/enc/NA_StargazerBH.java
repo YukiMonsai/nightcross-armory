@@ -29,7 +29,7 @@ import data.scripts.world.nightcross.NA_StargazerWandererManager;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
-import static data.scripts.world.nightcross.NA_StargazerWandererManager.createStargazerFleet;
+import static data.scripts.world.nightcross.NA_StargazerFleets.createStargazerFleet;
 
 public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 

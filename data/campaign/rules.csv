@@ -501,3 +501,25 @@ Your TriPad pings a credits transfer.
 # ZGR weirdtech return,,,,,,
 na_ZGRtechNeverMindOptionSelected,DialogOptionSelected,$option == na_zgr_techSelectCargo,NA_ZGRTurnIn selectSellableItems,,,
 na_ZGRtechReturnDontDisable,ZGRdisableTurnInTech,NA_ZGRTurnIn playerHasSellableItems score:1000,SetEnabled zgr_techReturn true,,,
+,,,,,,
+#Nightcross Research Outpost,,,,,,
+na_NightcrossResearchOutpostOpenDialog,OpenInteractionDialog,$customType == na_research_outpost score:100,,"Your $shipOrFleet approaches a silent outpost built into an asteroid. As reports come in, it seems too good to be true: no signs of damage, radiation or otherwise. No notable energy signatures.
+","na_researchoutpost1:""Continue""",
+na_NightcrossResearchOutpostOpenDialog2,DialogOptionSelected,$option == na_researchoutpost1,"SalvageGenFromSeed
+ShowDefaultVisual
+FireBest SalvageCheckHostile","The quiet is soon broken by alerts, however, and your bridge crew springs to action. Sensors reports energy signatures from the asteroid itself- the outpost is too small to host any meaningful weapon batteries of its own. Like clockwork, a fleet of Nightcross Armory-flagged vessels burns to intercept your own, a level of discipline uncharacteristic of corporate security. It seems that your approach was not as discreet as you'd hoped.",,
+na_NightcrossResearchOutpostdefender_Desc,TriggerAutomatedDefenses,$customType == na_research_outpost score:100,NA_NightcrossHumanDefenderCMD,,,
+,,,,,,
+#Stargazer Research Outpost,,,,,,
+na_NightcrossResearchStationOpenDialog,OpenInteractionDialog,$customType == naai_research_stargazerstation score:100,,"Your $shipOrFleet approaches an old station, pockmarked with craters. Unusual energy signatures dot the bulk of the station- its owners made little effort to clean up after themselves. 
+
+Assuming, of course, that the station is uninhabited.","naai_stargazerresearch1:""I don't like the look of this...""
+naai_stargazerresearch2:Order a thorough scan.",
+na_NightcrossResearchStationOpenDialog2,DialogOptionSelected,$option == naai_stargazerresearch1,"SalvageGenFromSeed
+ShowDefaultVisual
+FireBest SalvageCheckHostile","As if on cue, ominous looking vessels emerge from the craters. An unhealthy red haze seems to follow them- your sensors officer has no time to explain the minutiae of what they're seeing as combat alarms start blaring.",,
+na_NightcrossResearchStationOpenDialog2b,DialogOptionSelected,$option == naai_stargazerresearch2,"SalvageGenFromSeed
+ShowDefaultVisual
+FireBest SalvageCheckHostile","Scanners reveal numerous energy signatures ramping sharply as they're observed. A red haze pours out of the gaps in the station's superstructure, followed by a fleet of combat vessels with clear intentions.",,
+na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType == naai_research_stargazerstation score:100,NA_NightcrossStargazerDefenderCMD,"""$SirOrMadam, you have to see this..."" Tactical forwards you a video feed. The vessels- TODO",,
+,,,,,,

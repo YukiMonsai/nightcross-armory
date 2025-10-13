@@ -4,10 +4,12 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignPlugin;
+import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
+import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
 import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
@@ -18,6 +20,8 @@ import data.scripts.weapons.ai.NA_RKKVAI;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
 import data.scripts.world.MarketHelpers;
 import data.scripts.world.nightcross.NAGen;
+import data.scripts.world.nightcross.NA_NightcrossDefenderPlugin;
+import data.scripts.world.nightcross.NA_NightcrossThemeGenerator;
 import data.scripts.world.nightcross.NA_StargazerGen;
 import exerelin.campaign.SectorManager;
 import org.dark.shaders.util.ShaderLib;
@@ -42,6 +46,10 @@ public class NAModPlugin extends BaseModPlugin {
     public static final String MEMKEY_NCA_PERSON_ADMIN = "$nightcross_nca_person_admin";
 
 
+    static {
+        //generators.add(new SpecialThemeGenerator());
+        SectorThemeGenerator.generators.add(new NA_NightcrossThemeGenerator());
+    }
 
 
     private static void initNA() {
@@ -148,6 +156,16 @@ public class NAModPlugin extends BaseModPlugin {
 
 
         NAUtils.NAGenPeople();
+
+        syncScripts();
+    }
+
+    private void syncScripts() {
+
+        GenericPluginManagerAPI plugins = Global.getSector().getGenericPlugins();
+        if (!plugins.hasPlugin(NA_NightcrossDefenderPlugin.class)) {
+            plugins.addPlugin(new NA_NightcrossDefenderPlugin(), true);
+        }
     }
 
     protected void addToOngoingGame() {

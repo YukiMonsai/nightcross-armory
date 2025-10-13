@@ -69,7 +69,7 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
             person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
-            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
+            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic_3");
 
             points = 0;
             mult = GHOST_POINTS;
@@ -92,7 +92,7 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.POLARIZED_ARMOR, 2);
             person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "stargazermatrix"));
-            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic");
+            person.getMemoryWithoutUpdate().set("$chatterChar", "binary");
 
             points = 0;
             mult = GHOST_POINTS;
