@@ -332,11 +332,11 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
     public static HashMap<StargazerBHType, String> MUSIC_CHOICE = new HashMap<StargazerBHType, String>();
     static {
         //MUSIC_CHOICE.put(StargazerBHType.LONE_SHIP, "mekaloton_Numbered_Rooms");
-        MUSIC_CHOICE.put(StargazerBHType.GROUP, "mekaloton_Numbered_Rooms");
+        MUSIC_CHOICE.put(StargazerBHType.GROUP, "kocaeli_nightcross_remnant");
         //MUSIC_CHOICE.put(StargazerBHType.NAMED, "mekaloton_Numbered_Rooms");
         MUSIC_CHOICE.put(StargazerBHType.ALIVE, "mekaloton_Off_Air");
         MUSIC_CHOICE.put(StargazerBHType.SWARM, "mekaloton_Red_Maskq");
-        MUSIC_CHOICE.put(StargazerBHType.BATTLE, "mekaloton_Numbered_Rooms");
+        MUSIC_CHOICE.put(StargazerBHType.BATTLE, "kocaeli_nightcross_remnant");
     }
     public static WeightedRandomPicker<VictimType> STARGAZER_VICTIM_TYPES = new WeightedRandomPicker<VictimType>();
     static {
@@ -482,7 +482,8 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                     CampaignFleetAPI f = createStargazerFleet(params, null);
 
                     system.addEntity(f);
-                    f.getMemoryWithoutUpdate().set("$combatMusicSetId","Kocaeli_Core");
+                    if (system.getStar() != null && system.getStar().isBlackHole())
+                        f.getMemoryWithoutUpdate().set("$combatMusicSetId","Kocaeli_Core");
 
                     //float radius = 100f + star.getRadius() + star.getSpec().getCoronaSize();
                     Vector2f loc = Misc.getPointAtRadius(system.getCenter().getLocation(), MathUtils.getRandomNumberInRange(600f, 1300f));

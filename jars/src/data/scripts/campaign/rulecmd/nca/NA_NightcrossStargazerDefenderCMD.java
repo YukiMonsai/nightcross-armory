@@ -41,17 +41,18 @@ public class NA_NightcrossStargazerDefenderCMD extends BaseCommandPlugin {
         if (defenders == null) return false;
 
         dialog.setInteractionTarget(defenders);
+        defenders.getMemoryWithoutUpdate().set("$entity.na_stargazerdefCMD", true);
 
         final FIDConfig config = new FIDConfig();
         config.leaveAlwaysAvailable = true;
-        config.showCommLinkOption = true; // yes: want to talk to him
+        config.showCommLinkOption = true;
         config.showEngageText = false;
         config.showFleetAttitude = false;
         config.showTransponderStatus = false;
         config.showWarningDialogWhenNotHostile = false;
         config.alwaysAttackVsAttack = true;
         config.impactsAllyReputation = true;
-        config.impactsEnemyReputation = false;
+        config.impactsEnemyReputation = true;
         config.pullInAllies = true; // yes: want option of bringing Courser
         config.pullInEnemies = true;
         config.pullInStations = false;

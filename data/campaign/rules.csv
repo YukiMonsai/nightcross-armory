@@ -503,14 +503,47 @@ na_ZGRtechNeverMindOptionSelected,DialogOptionSelected,$option == na_zgr_techSel
 na_ZGRtechReturnDontDisable,ZGRdisableTurnInTech,NA_ZGRTurnIn playerHasSellableItems score:1000,SetEnabled zgr_techReturn true,,,
 ,,,,,,
 #Nightcross Research Outpost,,,,,,
-na_NightcrossResearchOutpostOpenDialog,OpenInteractionDialog,$customType == na_research_outpost score:100,,"Your $shipOrFleet approaches a silent outpost built into an asteroid. As reports come in, it seems too good to be true: no signs of damage, radiation or otherwise. No notable energy signatures.
+na_nightcrosssecretrevengefleet,NCASECRETREVENGEHAIL,,$entity.ignorePlayerCommRequests = true,"""Oh, I thought it was pretty clear what this was about- ahem,""
+
+The $post sits up in $hisOrHer seat.
+
+""You know too much, Captain $playerName. Prepare to die.""
+
+OR
+
+""Captain $playerName. A pleasure, truly.""
+
+The $post's eye twitches with the subtle flash of an ocular implant.
+
+""It will be my pleasure to erase your name from the stars.""
+
+OR
+
+""Captain $playerName, correct?"" The $post looks over what looks to be a paper contract, signed in bright blue ink.
+
+$HeOrShe then terminates the comms.","cutCommLink2:Power up weapons
+cutCommLink:Say nothing",
+na_nightcrosshumandefenders,OpenCommLink,"$entity.na_nightcrossdefCMD score:1001
+!$na_bothereddefenders","$na_bothereddefenders = true 10
+$cutCommLinkPolite = true 0
+SetShortcut cutCommLinkNoText ""ESCAPE""
+","""Attention $shipOrFleet captain. This is a restricted area. Leave now, or this facility will take aggressive action to protect the Corporation's intellectual property.""",cutCommLinkNoText:Continue,
+na_nightcrosshumandefenders2,OpenCommLink,"$entity.na_nightcrossdefCMD score:1000
+","$entity.ignorePlayerCommRequests = true 1
+SetShortcut cutCommLinkNoText ""ESCAPE""","""You again? Your $shipOrFleet data has been transmitted to headquarters. Any further trespassing will be met with deadly force.""",cutCommLinkNoText:Continue,
+na_NightcrossResearchOutpostOpenDialog,OpenInteractionDialog,"$customType == na_research_outpost score:100
+","NA_NightcrossRevengeFleetSpawn
+$entity.na_didRevengeSpawn = true
+","Your $shipOrFleet approaches a silent outpost built into an asteroid. As reports come in, it seems too good to be true: no signs of damage, radiation or otherwise. No notable energy signatures.
 ","na_researchoutpost1:""Continue""",
 na_NightcrossResearchOutpostOpenDialog2,DialogOptionSelected,$option == na_researchoutpost1,"SalvageGenFromSeed
 ShowDefaultVisual
 FireBest SalvageCheckHostile","The quiet is soon broken by alerts, however, and your bridge crew springs to action. Sensors reports energy signatures from the asteroid itself- the outpost is too small to host any meaningful weapon batteries of its own. Like clockwork, a fleet of Nightcross Armory-flagged vessels burns to intercept your own, a level of discipline uncharacteristic of corporate security. It seems that your approach was not as discreet as you'd hoped.",,
-na_NightcrossResearchOutpostdefender_Desc,TriggerAutomatedDefenses,$customType == na_research_outpost score:100,NA_NightcrossHumanDefenderCMD,,,
+na_NightcrossResearchOutpostdefender_Desc,TriggerAutomatedDefenses,$customType == na_research_outpost score:1000,NA_NightcrossHumanDefenderCMD,,,
+na_NightcrossResearchOutpostdefender_Descb,TriggerAutomatedDefenses,$entity.na_nightcrossdefCMD score:100,NA_NightcrossHumanDefenderCMD,,,
 ,,,,,,
-#Stargazer Research Outpost,,,,,,
+,,,,,,
+#Stargazer Research Outpost ,,,,,,
 na_NightcrossResearchStationOpenDialog,OpenInteractionDialog,$customType == naai_research_stargazerstation score:100,,"Your $shipOrFleet approaches an old station, pockmarked with craters. Unusual energy signatures dot the bulk of the station- its owners made little effort to clean up after themselves. 
 
 Assuming, of course, that the station is uninhabited.","naai_stargazerresearch1:""I don't like the look of this...""
@@ -521,5 +554,8 @@ FireBest SalvageCheckHostile","As if on cue, ominous looking vessels emerge from
 na_NightcrossResearchStationOpenDialog2b,DialogOptionSelected,$option == naai_stargazerresearch2,"SalvageGenFromSeed
 ShowDefaultVisual
 FireBest SalvageCheckHostile","Scanners reveal numerous energy signatures ramping sharply as they're observed. A red haze pours out of the gaps in the station's superstructure, followed by a fleet of combat vessels with clear intentions.",,
-na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType == naai_research_stargazerstation score:100,NA_NightcrossStargazerDefenderCMD,"""$SirOrMadam, you have to see this..."" Tactical forwards you a video feed. The vessels- TODO",,
+na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType == naai_research_stargazerstation score:1000,NA_NightcrossStargazerDefenderCMD,"""$sirOrMadam, you have to see this-"" Tactical is cut off by static from every instrument aboard the bridge. One by one, instruments reboot, systems return to nominal.
+
+""That-that was..."" Your comms officer stutters between breaths. ""I- comms were secured. I don't know how they got through...""",,
+na_NightcrossResearchStationdefender_Descb,TriggerAutomatedDefenses,$entity.na_stargazerdefCMD score:1100,NA_NightcrossStargazerDefenderCMD,,,
 ,,,,,,

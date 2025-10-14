@@ -11,12 +11,17 @@
 		],
 		"nightcross_market_friendly":[
 			{"file":"nightcross_market_friendly.ogg","source":"sounds/music/factions","volume":0.25}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
 		],
 		"nightcross_market_hostile":[
 			{"file":"nightcross_market_hostile.ogg","source":"sounds/music/factions","volume":0.25}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
 		],
 		"nightcross_market_neutral":[
 			{"file":"nightcross_market_neutral.ogg","source":"sounds/music/factions","volume":0.25}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.5}, 
 		],
 		"nightcross_pascal_music":[
 			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
@@ -25,45 +30,51 @@
 			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.45}, 
 		],
 		"mekaloton_Red_Maskq":[
-			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.3}, 
+			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.37}, 
 		],
 		
 		
 		"mekaloton_Quarters_and_Seconds":[
-			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.3}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.4}, 
 		],
 		"na_pirates_hostile":[
-			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.45}, 
 		],
 		"na_nightcross_battle":[
-			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.4}, 
-			{"file":"nightcross_enc_hostile.ogg","source":"sounds/music/factions","volume":0.35}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"nightcross_enc_hostile.ogg","source":"sounds/music/factions","volume":0.45}, 
 		],
 		"na_stargazer_battle":[
-			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
 		],
 		"na_stargazer_battlebounty":[
-			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.45}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
 		],
 		"mekaloton_Numbered_Rooms":[
-			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.3}, 
+			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.4}, 
 		],
 		"mekaloton_Off_Air":[
-			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.3}, 
+			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.4}, 
 		],
 		"Kocaeli_Core":[
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.3}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.4}, 
+		],
+		"kocaeli_nightcross_remnant":[
+			{"file":"kocaeli_nightcross_remnant.ogg","source":"sounds/music","volume":0.4}, 
+		],
+		"kocaeli_nightcross_armory":[
+			{"file":"kocaeli_nightcross_armory.ogg","source":"sounds/music","volume":0.37}, 
 		],
 	},
 

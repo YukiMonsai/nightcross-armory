@@ -632,6 +632,8 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
         BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_STATION, Factions.DERELICT);
         if (entity != null) {
+
+            entity.entity.getMemoryWithoutUpdate().set("$musicSetId", "mekaloton_Numbered_Rooms");
             system.addTag(Tags.THEME_INTERESTING);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS_STARGAZERSTATION);
@@ -667,6 +669,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
             system.addTag(Tags.THEME_INTERESTING);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS_STATION);
+            entity.entity.getMemoryWithoutUpdate().set("$musicSetId", "mekaloton_Quarters_and_Seconds");
         }
 
         if (DEBUG) {

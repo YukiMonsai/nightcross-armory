@@ -27,6 +27,7 @@
   "fighterBays": 0,
   "fleetPoints": 5,
   "fpMod": 0,
+  	"tags":["rare_bp", "nightcross"],
   "hullDesignation": "frigate",
   "hullName": "Kasei Valles (X)",
   "manufacturer": "",

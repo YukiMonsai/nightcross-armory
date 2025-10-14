@@ -19,10 +19,7 @@ import data.scripts.weapons.ai.NA_HomingLaserAI;
 import data.scripts.weapons.ai.NA_RKKVAI;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
 import data.scripts.world.MarketHelpers;
-import data.scripts.world.nightcross.NAGen;
-import data.scripts.world.nightcross.NA_NightcrossDefenderPlugin;
-import data.scripts.world.nightcross.NA_NightcrossThemeGenerator;
-import data.scripts.world.nightcross.NA_StargazerGen;
+import data.scripts.world.nightcross.*;
 import exerelin.campaign.SectorManager;
 import org.dark.shaders.util.ShaderLib;
 import org.dark.shaders.util.TextureData;
@@ -165,6 +162,9 @@ public class NAModPlugin extends BaseModPlugin {
         GenericPluginManagerAPI plugins = Global.getSector().getGenericPlugins();
         if (!plugins.hasPlugin(NA_NightcrossDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossDefenderPlugin(), true);
+        }
+        if (!plugins.hasPlugin(NA_NightcrossHumanDefenderPlugin.class)) {
+            plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
         }
     }
 

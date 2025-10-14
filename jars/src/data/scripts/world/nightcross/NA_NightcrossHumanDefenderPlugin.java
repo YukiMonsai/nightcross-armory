@@ -1,7 +1,9 @@
 package data.scripts.world.nightcross;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.BaseGenericPlugin;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.SalvageGenFromSeed;
@@ -11,7 +13,11 @@ import java.util.Random;
 public class NA_NightcrossHumanDefenderPlugin extends BaseGenericPlugin implements SalvageGenFromSeed.SalvageDefenderModificationPlugin {
 
     public float getStrength(SalvageGenFromSeed.SDMParams p, float strength, Random random, boolean withOverride) {
-        // TODO increase strength based on how many you killed
+
+        MemoryAPI mem = Global.getSector().getMemoryWithoutUpdate();
+        if (mem.contains("$na_secretrevengecount")) {
+            strength += 60 * Math.min(4f, mem.getFloat("$na_secretrevengecount"));
+        }
         return strength;
     }
     public float getMinSize(SalvageGenFromSeed.SDMParams p, float minSize, Random random, boolean withOverride) {
@@ -28,14 +34,12 @@ public class NA_NightcrossHumanDefenderPlugin extends BaseGenericPlugin implemen
     }
 
     public void modifyFleet(SalvageGenFromSeed.SDMParams p, CampaignFleetAPI fleet, Random random, boolean withOverride) {
-
+        fleet.setName("Defense Fleet");
         NA_StargazerFleets.modifyStargazerFleet(fleet, random);
 
         for (FleetMemberAPI m : fleet.getMembersWithFightersCopy()) {
             m.getRepairTracker().setCR(m.getRepairTracker().getMaxCR());
         }
-
-        // TODO dont automate humans
 
 
     }

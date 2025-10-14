@@ -22,6 +22,7 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
 
 
     public final float DAMAGE_AMOUNT = 100;
+    public final float STARGAZER_DAMAGE_AMOUNT = 250;
     public final int SHOCK_COUNT = 1;
 
     private static class BeamEffect {
@@ -118,7 +119,7 @@ public class NA_ChirpEffect implements BeamEffectPlugin {
             Vector2f point = beam.getRayEndPrevFrame();
             float dam = DAMAGE_AMOUNT;
 
-            if (weapon.getSpec().hasTag("stargazer")) dam *= 1.5f;
+            if (weapon.getSpec().hasTag("stargazer")) dam = STARGAZER_DAMAGE_AMOUNT;
 
 
 

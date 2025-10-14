@@ -39,6 +39,9 @@ public class NA_NightcrossHumanDefenderCMD extends BaseCommandPlugin {
 
         dialog.setInteractionTarget(defenders);
 
+        defenders.getMemoryWithoutUpdate().set("$hailing", true, 0);
+        defenders.getMemoryWithoutUpdate().set("$na_nightcrossdefCMD", true);
+
         final FIDConfig config = new FIDConfig();
         config.leaveAlwaysAvailable = true;
         config.showCommLinkOption = true; // yes: want to talk to him
@@ -48,7 +51,7 @@ public class NA_NightcrossHumanDefenderCMD extends BaseCommandPlugin {
         config.showWarningDialogWhenNotHostile = false;
         config.alwaysAttackVsAttack = true;
         config.impactsAllyReputation = true;
-        config.impactsEnemyReputation = false;
+        config.impactsEnemyReputation = true;
         config.pullInAllies = true; // yes: want option of bringing Courser
         config.pullInEnemies = true;
         config.pullInStations = false;
@@ -63,7 +66,6 @@ public class NA_NightcrossHumanDefenderCMD extends BaseCommandPlugin {
 
         long seed = memory.getLong(MemFlags.SALVAGE_SEED);
         config.salvageRandom = Misc.getRandom(seed, 75);
-
 
         Global.getSector().getCampaignUI().restartEncounterMusic(defenders);
 
