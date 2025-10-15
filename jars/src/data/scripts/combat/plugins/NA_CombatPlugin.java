@@ -72,6 +72,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
         CombatEngineAPI engine = Global.getCombatEngine();
 
         if (!engine.isInCampaignSim() && !engine.isInCampaign()) return false;
+        if (e != null && e.isConsumed()) return false;
 
         // get
         List<DeployedFleetMemberAPI> members = engine.getFleetManager(0).getDeployedCopyDFM();
@@ -181,19 +182,19 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.RETREAT_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                    events.remove(e);
+                    e.consume();
                     return true;
                 } else if (e.getX() > XX + textSpacing && e.getX() < XX + 2 * textSpacing
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.ESCORT_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                    events.remove(e);
+                    e.consume();
                     return true;
                 } else if (e.getX() > XX + 2*textSpacing && e.getX() < XX + 3 * textSpacing
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.SEARCHANDDESTROY_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_patrol", 1f, 1f);
-                    events.remove(e);
+                    e.consume();
                     return true;
                 }
             } else {
@@ -279,7 +280,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
 
 
-                        events.remove(e);
+                        e.consume();
                         return true;
                     }
                 } else {

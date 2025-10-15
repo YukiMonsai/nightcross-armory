@@ -1,4 +1,11 @@
 V1.2.4
+- Added the Nightcross Tactical Display, a submod feature that's currently experimental, lets you see your fleet status at a glance
+- Added spooky things in the abyss
+- Added Kasane Teto
+- Added additional 'top secret' bounties for nightcross contacts
+- Added exploration content
+- Added LunaConfig
+- Occator no longer has the shield drones, but now has a flux transfer ship system
 - Corrosion torpedoes now have a stronger pull, but only pull for 1 second rather than the full 4 second duration. Less pulling power overall, but still disrupts enemy formation.
 - Heavymetals now deal frag damage to hull and armor
 - HPF weapon hp, ammo regeneration and fire rate considerably increased
@@ -7,10 +14,6 @@ V1.2.4
 - Trance super blaster ammo/sec increased 0.5 -> 0.65
 - Light Pyrolance max charges 4 -> 8, flux 375 -> 400, dmg 850 -> 1000, range 800 -> 750, armor dmg 100 -> 75
 - Pyrolance max charges 7 -> 8, dps 1150 -> 1500, flux 450 -> 600, ammo regen .5 -> .3, range 900 -> 850, armor dmg 200 -> 150
-- Added spooky things in the abyss
-- Added additional 'top secret' bounties for nightcross contacts
-- Added Kasane Teto
-- Added LunaConfig
 
 V1.2.3
 - Increased Xanthe Terra acceleration

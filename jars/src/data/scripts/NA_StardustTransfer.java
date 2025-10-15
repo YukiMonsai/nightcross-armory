@@ -232,6 +232,7 @@ public class NA_StardustTransfer extends BaseShipSystemScript {
 				engine.addFloatingDamageText(target.getLocation(), amt, new Color(218, 95, 255, 255), target, ship);
 			}
 			target.getFluxTracker().setCurrFlux(Math.max(fluxAfter, 0));
+			target.getFluxTracker().setHardFlux(Math.max(hfafter, 0));
 
 		}
 	}

@@ -86,7 +86,7 @@ public class NA_RepairDrones extends BaseHullMod {
 						"na_repairdrones",
 						"graphics/icons/hullsys/high_energy_focus.png",
 						"Repair Coordinator",
-						"ERROR: Please contact NCA customer support for assistance.",
+						ship.getFluxTracker().isOverloaded() ? "ERROR: Please contact NCA customer support for assistance." : "Venting flux, system offline.",
 						false);
 			}
 			return;

@@ -30,7 +30,7 @@ public class NA_FluxTransference extends BaseShipSystemScript {
 	public static float FLUX_PER_DUST = 2000;
 	public static float FLUX_PER_DUST_HF_MOD = 0.5f;
 	public static float SELF_TRANSFER = 0.5f;
-	public static float ARC_2_DELAY = 0.5f;
+	public static float ARC_2_DELAY = 0.2f;
 
 	public static Color COLOR_ARC_1 = new Color(125, 175, 255, 150);
 	public static Color COLOR_ARC_2 = new Color(249, 169, 255, 226);
@@ -204,6 +204,7 @@ public class NA_FluxTransference extends BaseShipSystemScript {
 			engine.addFloatingDamageText(target.getLocation(), amt, new Color(218, 95, 255, 255), target, ship);
 		}
 		target.getFluxTracker().setCurrFlux(Math.max(fluxAfter, 0));
+		target.getFluxTracker().setHardFlux(Math.max(hfafter, 0));
 
 		if ((ship.getFluxTracker().getCurrFlux() + FLUX_PER_DUST) > ship.getMaxFlux()) {
 			ship.getFluxTracker().setCurrFlux(ship.getMaxFlux());
@@ -217,7 +218,6 @@ public class NA_FluxTransference extends BaseShipSystemScript {
 	protected void applyEffectToTarget(ShipAPI ship, ShipAPI target) {
 		if (target == null || target.getSystem() == null || target.isHulk()) return;
 		if (ship == null || ship.getSystem() == null || ship.isHulk()) return;
-		if (NA_StargazerStardust.getSwarmFor(ship) == null) return;
 		
 		if (ship.getOwner() == target.getOwner()) {
 			hitWithFriendshipLash(ship, target);
