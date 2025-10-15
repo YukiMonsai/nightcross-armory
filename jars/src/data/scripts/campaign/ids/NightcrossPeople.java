@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.missions.hub.BaseMissionHub;
 import com.fs.starfarer.api.loading.Description;
 import com.fs.starfarer.api.util.Misc;
+import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.hullmods.NA_ProjectGhost;
 
 import java.util.Random;
@@ -25,16 +26,48 @@ public class NightcrossPeople {
     // Kasane Teto (placeholder
     public static String TETO = "na_teto_person";
     public static String GHOST_CORE = "na_ghost_core";
+    public static String GHOST_GRID = "na_ghost_grid";
     public static String GHOST_MATRIX = "na_ghost_matrix";
     public static String BLACKCAT = "na_blackcat";
     public static float TETO_POINTS = 3.5f;
     public static float GHOST_POINTS = 2.5f;
+    public static float GRID_POINTS = 3.5f;
     public static float MATRIX_POINTS = 4.0f;
 
     public static PersonAPI getPerson(String id) {
         return Global.getSector().getImportantPeople().getPerson(id);
     }
 
+
+    public static WeightedRandomPicker<String> chatter_ghost_core = new WeightedRandomPicker<String>();
+    static {
+        chatter_ghost_core.add("robotic", 5f);
+        chatter_ghost_core.add("robotic_2", 5f);
+        chatter_ghost_core.add("robotic_4", 5f);
+        chatter_ghost_core.add("shortphrases", 7f);
+        chatter_ghost_core.add("deadsun_executor", 3f);
+        chatter_ghost_core.add("warframe_cephaloncy", 1f);
+    }
+    public static WeightedRandomPicker<String> chatter_ghost_grid = new WeightedRandomPicker<String>();
+    static {
+        chatter_ghost_grid.add("robotic", 5f);
+        chatter_ghost_grid.add("robotic_3", 5f);
+        chatter_ghost_grid.add("robotic_4", 5f);
+        chatter_ghost_grid.add("ra3_gigafortress", 5f);
+        chatter_ghost_grid.add("robotic_5", 7f);
+        chatter_ghost_grid.add("warframe_cephaloncy", 3f);
+        chatter_ghost_grid.add("tt_medusa", 1f);
+        chatter_ghost_grid.add("darklord", 0.3f);
+        chatter_ghost_core.add("shortphrases", 2f);
+    }
+    // not very talkative
+    public static WeightedRandomPicker<String> chatter_ghost_matrix = new WeightedRandomPicker<String>();
+    static {
+        chatter_ghost_matrix.add("binary", 2f);
+        chatter_ghost_matrix.add("emote", 5f);
+        chatter_ghost_matrix.add("none", 0.25f);
+        chatter_ghost_core.add("shortphrases", 1f);
+    }
 
     public static PersonAPI createAIPerson(String aiCoreId, String factionId, Random random) {
         if (random == null) random = new Random();
@@ -46,6 +79,7 @@ public class NightcrossPeople {
         CommoditySpecAPI spec = Global.getSettings().getCommoditySpec(aiCoreId);
         boolean ghost = GHOST_CORE.equals(aiCoreId);
         boolean matrix = GHOST_MATRIX.equals(aiCoreId);
+        boolean grid = GHOST_GRID.equals(aiCoreId);
 
         person.getStats().setSkipRefresh(true);
 
@@ -63,16 +97,41 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_GHOST, 2); // character
 
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
+            person.setPersonality(Personalities.RECKLESS);
 
             person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
             person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
             person.getStats().setSkillLevel(Skills.HELMSMANSHIP, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostcore"));
-            person.getMemoryWithoutUpdate().set("$chatterChar", "robotic_3");
+            // some of them have more personality than others
+            person.getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_core.pick());
 
             points = 0;
             mult = GHOST_POINTS;
+        } else if (grid) {
+            person.setId(GHOST_GRID);
+            person.setName(new FullName("Stargazer", "Grid", Gender.FEMALE));
+            person.setGender(Gender.ANY);
+
+            person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, GRID_POINTS);
+
+            person.getStats().setLevel(6);
+            person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_GRID, 2); // character
+
+            person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
+            person.setPersonality(Personalities.AGGRESSIVE);
+
+            person.getStats().setSkillLevel(Skills.ORDNANCE_EXPERTISE, 2);
+            person.getStats().setSkillLevel(Skills.GUNNERY_IMPLANTS, 2);
+            person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
+            person.getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
+            person.getStats().setSkillLevel(Skills.FIELD_MODULATION, 2);
+            person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "stargazergrid"));
+            person.getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_grid.pick());
+
+            points = 0;
+            mult = GRID_POINTS;
         } else if (matrix) {
             person.setId(GHOST_MATRIX);
             person.setName(new FullName("Stargazer", "Matrix", Gender.FEMALE));
@@ -82,6 +141,7 @@ public class NightcrossPeople {
 
             person.getStats().setLevel(7);
             person.getStats().setSkillLevel(NightcrossID.SKILL_FULLDIVE_MATRIX, 2); // character
+            person.setPersonality(Personalities.STEADY);
 
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
 
@@ -92,7 +152,7 @@ public class NightcrossPeople {
             person.getStats().setSkillLevel(Skills.POLARIZED_ARMOR, 2);
             person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
             person.setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "stargazermatrix"));
-            person.getMemoryWithoutUpdate().set("$chatterChar", "binary");
+            person.getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_matrix.pick());
 
             points = 0;
             mult = GHOST_POINTS;
@@ -102,7 +162,6 @@ public class NightcrossPeople {
         }
         person.getMemoryWithoutUpdate().set(AUTOMATED_POINTS_MULT, mult);
 
-        person.setPersonality(Personalities.RECKLESS);
         person.setRankId(Ranks.SPACE_CAPTAIN);
         person.setPostId(null);
 

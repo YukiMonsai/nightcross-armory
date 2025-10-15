@@ -50,9 +50,9 @@
 			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
 			{"file":"mekaloton_QuartersAndSeconds.ogg","source":"sounds/music","volume":0.5}, 
 			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.5}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.5}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.37}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.37}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.37}, 
 		],
 		"na_stargazer_battlebounty":[
 			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
@@ -67,14 +67,20 @@
 		"mekaloton_Off_Air":[
 			{"file":"mekaloton_OffAir.ogg","source":"sounds/music","volume":0.4}, 
 		],
+		"Kocaeli_Coreq":[
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.3}, 
+		],
 		"Kocaeli_Core":[
-			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"Kocaeli_Core.ogg","source":"sounds/music","volume":0.33}, 
 		],
 		"kocaeli_nightcross_remnant":[
-			{"file":"kocaeli_nightcross_remnant.ogg","source":"sounds/music","volume":0.4}, 
+			{"file":"kocaeli_nightcross_remnant.ogg","source":"sounds/music","volume":0.6}, 
 		],
 		"kocaeli_nightcross_armory":[
 			{"file":"kocaeli_nightcross_armory.ogg","source":"sounds/music","volume":0.37}, 
+		],
+		"kocaeli_blackhole":[
+			{"file":"kocaeli_blackhole.ogg","source":"sounds/music","volume":0.37}, 
 		],
 	},
 

@@ -6,5 +6,5 @@
 	"description":"Contains the remnants of the Nightcross Armory Corporation. LazyLib, GraphicsLib and MagicLib Required. Credit to Mekaloton for one of the tracks",
 	"gameVersion":"0.98a",
 	"jars":["jars/nightcross.jar"],
-    "modPlugin":"data.scripts.NAModPlugin",
+    "modPlugin":"data.scripts.campaign.plugins.NAModPlugin",
 }

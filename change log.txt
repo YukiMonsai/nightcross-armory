@@ -10,6 +10,7 @@ V1.2.4
 - Added spooky things in the abyss
 - Added additional 'top secret' bounties for nightcross contacts
 - Added Kasane Teto
+- Added LunaConfig
 
 V1.2.3
 - Increased Xanthe Terra acceleration

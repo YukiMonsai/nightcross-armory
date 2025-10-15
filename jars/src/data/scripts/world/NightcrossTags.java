@@ -7,5 +7,6 @@ public class NightcrossTags {
     public static String THEME_NIGHTCROSS_STARGAZERSTATION = "sectortheme_na_nightcross_SSS";
     public static String THEME_NIGHTCROSS = "theme_na_nightcross";
     public static String NIGHTCROSS = "nightcross_armory";
+    public static String NEBULA_GHOST = "na_neb_ghost";
 
 }

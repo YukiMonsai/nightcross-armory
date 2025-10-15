@@ -3,3 +3,4 @@ name,id,demand class,base price,export value,price variability,utility,origin,ta
 Teto Core,na_core_teto,survey_data,75000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_teto.png,ai_core_pickup,ui_fighter_drop,53,,,1,,
 Ghost Core,na_ghost_core,survey_data,25000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_ghost.png,ai_core_pickup,ui_fighter_drop,53,,,1,,
 Stargazer Matrix,na_ghost_matrix,survey_data,50000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_matrix.png,ai_core_pickup,ui_fighter_drop,53,,,1,,
+Stargazer Grid,na_ghost_grid,survey_data,35000,,,200,,"nonecon, no_loss_from_combat, hide_in_codex",1000,1,graphics/icons/cargo/na_ai_core_grid.png,ai_core_pickup,ui_fighter_drop,53,,,1,,

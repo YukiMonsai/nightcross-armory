@@ -3,15 +3,14 @@ package data.scripts;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.campaign.plugins.NAUtils;
 import org.dark.shaders.distortion.DistortionShader;
 import org.dark.shaders.distortion.RippleDistortion;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
-import org.magiclib.util.MagicLensFlare;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NA_GravityMineExplosion  implements ProximityExplosionEffect {

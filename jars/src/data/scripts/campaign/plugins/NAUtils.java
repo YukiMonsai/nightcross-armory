@@ -1,4 +1,4 @@
-package data.scripts;
+package data.scripts.campaign.plugins;
 
 
 
@@ -10,8 +10,6 @@ import com.fs.starfarer.api.characters.ImportantPeopleAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.campaign.ids.*;
-import com.fs.starfarer.api.impl.combat.DisintegratorEffect;
-import com.fs.starfarer.combat.entities.Missile;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 

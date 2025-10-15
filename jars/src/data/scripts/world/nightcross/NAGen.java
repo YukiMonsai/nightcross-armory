@@ -180,7 +180,6 @@ public class NAGen implements SectorGeneratorPlugin {
 
 
     public void generate_nightcross(SectorAPI sector) {
-        initFactionRelationships(sector);
 
         new Pascal().generate(sector);
 

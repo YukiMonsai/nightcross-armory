@@ -1,9 +1,7 @@
 package data.scripts.hullmods;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.SoundAPI;
@@ -12,12 +10,11 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.util.IntervalUtil;
 import org.lwjgl.util.vector.Vector2f;
 
-import org.dark.shaders.distortion.DistortionShader;
 import org.dark.shaders.distortion.WaveDistortion;
 import org.dark.shaders.light.LightShader;
 import org.dark.shaders.light.StandardLight;
 import java.awt.Color;
-import data.scripts.NAUtils;
+import data.scripts.campaign.plugins.NAUtils;
 
 public class NightcrossTargeting extends BaseHullMod {
 

@@ -16,3 +16,4 @@ Temporal Inverter,na_reversaldrive,,,,,,.1,,2,0.125,.5,,.5,3,,,,,TRUE,TRUE,TRUE,
 Temporal Eversion,na_reversaldrivesuper,,,,,,.1,,2,0.1,.5,,.5,4,,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,,,graphics/icons/hullsys/infernium_injector.png
 Tidal Cloak,na_phasecloak,,,,,,,,,,.25,,.25,1.5,TRUE,,TRUE,TRUE,TRUE,,,,TRUE,,TRUE,defensive,graphics/icons/hullsys/phase_cloak.png
 Stardust Conduit,na_stardustlash,,,,,,,,3,5,.75,,0.1,,,,,,,,,,,,,"restricted, defensive",graphics/icons/hullsys/energy_lash.png
+Flux Stabilizer,na_fluxtransfer,,,,,,,,2,10,.6,,0.1,,,,,,,,,,,,,"restricted, defensive",graphics/icons/hullsys/energy_lash.png

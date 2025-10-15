@@ -285,14 +285,24 @@ have you come to gaze at the stars with us?",cutCommLink:Cut the comm link,
 redmaskDialogHostile,OpenCommLink,"$faction.id == stargazer score:1000
 $entity.isHostile
 ","SetTextHighlightColors na_redmasktext
-SetTextHighlights ""who reminds oblivion of the suffering in this world?""
+SetTextHighlights ""who reminds oblivion of what used to be?"" ""die."" ""never""
 $entity.ignorePlayerCommRequests = true 1","An unusual amount of noise rumbles over the comm, twisting, pulsating, warping into a menacing voice.
 
-who reminds oblivion of the suffering in this world?
+who reminds oblivion of what used to be?
 
 INTERRUPT
 
 ""--unit is not cleared for approach. This incident has been logged.""
+
+OR
+
+An unusual amount of noise rumbles over the comm, twisting, pulsating, warping into a menacing voice punctuated by infosec warnings on the dashboard.
+
+die.
+
+INTERRUPT
+
+""--medical team approved for dispatch. Estimated arrival: never""
 ",,
 redmaskDialogNeutral,OpenCommLink,"$faction.id == stargazer score:1000
 !$entity.isHostile
@@ -384,6 +394,16 @@ Without a proper classification, your salvors are forced to proceed slowly, taki
 The chief sighs. ""I don't like this. I don't like this one bit.""","salExplore:Assess the ship's salvage value
 defaultLeave:Leave",
 ,,,,,,
+nca_stargazer_abyssinterest,OpenInteractionDialog,"$na_stargazerabyssinterest > 0 score:1000
+!HostileFleetNearbyAndAware
+$tag:salvageable","ShowImageVisual na_abysswreck
+NA_AddStargazerAbyssInterest $na_stargazerabyssinterest
+$salvageLeaveText = Leave 0
+FireAll PopulateSalvageOptions1
+","A $shortName drifts alone in the abyss.
+
+Surface scans indicate it has been dormant for decades, at the least. Its battered surface has been scarred by weapons fire, though there is no way to tell the status of the internals without a closer inspection.",,
+,,,,,,
 na_greetingTTweirdHM,OpenCommLink,"$faction.id == tritachyon
 !$failedWeirdHullmodCheck
 !$faction.isHostile
@@ -391,7 +411,9 @@ $player.transponderOn
 !$player.gotTTweirdHullmodPitch
 !$player.receivedGlamorRotanevInvite
 $player.encounteredWeird",FireBest na_TTpatrolWeirdHullmodCheck,,,
-na_TTpatrolWeirdHullmods1,na_TTpatrolWeirdHullmodCheck,NA_PlayerFleetHasStargazerShips,"$option = na_TTpatrol_weirdMods0 0
+na_TTpatrolWeirdHullmods1,na_TTpatrolWeirdHullmodCheck,"$na_stargazerabyssinterest > 0 score:1000
+!HostileFleetNearbyAndAware
+$tag:salvageable","$option = na_TTpatrol_weirdMods0 0
 FireBest DialogOptionSelected",,,
 na_TTpatrolWeirdHullmods4,na_TTpatrolWeirdHullmodCheck,,"$failedWeirdHullmodCheck = true 1
 FireBest OpenCommLink",,,
@@ -537,7 +559,7 @@ $entity.na_didRevengeSpawn = true
 ","Your $shipOrFleet approaches a silent outpost built into an asteroid. As reports come in, it seems too good to be true: no signs of damage, radiation or otherwise. No notable energy signatures.
 ","na_researchoutpost1:""Continue""",
 na_NightcrossResearchOutpostOpenDialog2,DialogOptionSelected,$option == na_researchoutpost1,"SalvageGenFromSeed
-ShowDefaultVisual
+ShowImageVisual vacuum_colony
 FireBest SalvageCheckHostile","The quiet is soon broken by alerts, however, and your bridge crew springs to action. Sensors reports energy signatures from the asteroid itself- the outpost is too small to host any meaningful weapon batteries of its own. Like clockwork, a fleet of Nightcross Armory-flagged vessels burns to intercept your own, a level of discipline uncharacteristic of corporate security. It seems that your approach was not as discreet as you'd hoped.",,
 na_NightcrossResearchOutpostdefender_Desc,TriggerAutomatedDefenses,$customType == na_research_outpost score:1000,NA_NightcrossHumanDefenderCMD,,,
 na_NightcrossResearchOutpostdefender_Descb,TriggerAutomatedDefenses,$entity.na_nightcrossdefCMD score:100,NA_NightcrossHumanDefenderCMD,,,
@@ -549,12 +571,12 @@ na_NightcrossResearchStationOpenDialog,OpenInteractionDialog,$customType == naai
 Assuming, of course, that the station is uninhabited.","naai_stargazerresearch1:""I don't like the look of this...""
 naai_stargazerresearch2:Order a thorough scan.",
 na_NightcrossResearchStationOpenDialog2,DialogOptionSelected,$option == naai_stargazerresearch1,"SalvageGenFromSeed
-ShowDefaultVisual
+ShowImageVisual na_stargazerstation
 FireBest SalvageCheckHostile","As if on cue, ominous looking vessels emerge from the craters. An unhealthy red haze seems to follow them- your sensors officer has no time to explain the minutiae of what they're seeing as combat alarms start blaring.",,
 na_NightcrossResearchStationOpenDialog2b,DialogOptionSelected,$option == naai_stargazerresearch2,"SalvageGenFromSeed
-ShowDefaultVisual
+ShowImageVisual na_stargazerstation
 FireBest SalvageCheckHostile","Scanners reveal numerous energy signatures ramping sharply as they're observed. A red haze pours out of the gaps in the station's superstructure, followed by a fleet of combat vessels with clear intentions.",,
-na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType == naai_research_stargazerstation score:1000,NA_NightcrossStargazerDefenderCMD,"""$sirOrMadam, you have to see this-"" Tactical is cut off by static from every instrument aboard the bridge. One by one, instruments reboot, systems return to nominal.
+na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType == naai_research_stargazerstation score:1000,NA_NightcrossStargazerDefenderCMD,"""$playerSirOrMadam, you have to see this-"" Tactical is cut off by static from every instrument aboard the bridge. One by one, instruments reboot, systems return to nominal.
 
 ""That-that was..."" Your comms officer stutters between breaths. ""I- comms were secured. I don't know how they got through...""",,
 na_NightcrossResearchStationdefender_Descb,TriggerAutomatedDefenses,$entity.na_stargazerdefCMD score:1100,NA_NightcrossStargazerDefenderCMD,,,

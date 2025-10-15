@@ -6,9 +6,17 @@
 		"Stargazer":[230,10,10,255],
 		"TWINDRILL":[240,15,30,255],
 	},
+	"plugins": {
+		"NA_CombatECMPlugin":"data.scripts.combat.plugins.NA_CombatECMPlugin",
+		"NA_CombatPlugin":"data.scripts.combat.plugins.NA_CombatPlugin",
+	},
 	"na_redmasktext":[230,10,10,255],
 	"na_tetotext":[250,15,35,255],
 	"graphics":{
+		"illustrations": {
+			"na_stargazerstation": "graphics/illustrations/na_stargazerstation.jpg",
+			"na_abysswreck":"graphics/illustrations/na_abysswreck.jpg",
+		},
 		
 		
 		"blueprint_packages":{
@@ -54,6 +62,7 @@
 			"teto":"graphics/portraits/characters/na_officer_teto.png",
 			"ghostcore":"graphics/portraits/characters/na_officer_ghostcore.png",
 			"stargazermatrix":"graphics/portraits/characters/na_officer_ghostcore2.png",
+			"stargazergrid":"graphics/portraits/characters/na_officer_ghostgrid.png",
 			"teto_mini":"graphics/icons/cargo/na_ai_core_teto.png",
 			"rei":"graphics/portraits/characters/na_rei.png",
 			"rei_mini":"graphics/icons/cargo/na_rei.png",

@@ -1,31 +1,37 @@
-package data.scripts;
+package data.scripts.campaign.plugins;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignPlugin;
 import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
+import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
+import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import data.scripts.campaign.enc.NA_StargazerBH;
+import data.scripts.campaign.enc.NA_StargazerDrifter;
+import data.scripts.campaign.enc.NA_StargazerGhostManager;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
-import data.scripts.campaign.plugins.NACampaignPlugin;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
 import data.scripts.weapons.ai.NA_HomingLaserAI;
 import data.scripts.weapons.ai.NA_RKKVAI;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
-import data.scripts.world.MarketHelpers;
 import data.scripts.world.nightcross.*;
 import exerelin.campaign.SectorManager;
-import org.dark.shaders.util.ShaderLib;
 import org.dark.shaders.util.TextureData;
-import org.dark.shaders.light.LightData;
-import org.magiclib.ai.MagicMissileAI;
+import org.lazywizard.lazylib.JSONUtils;
 import org.magiclib.util.MagicVariables;
+
+import lunalib.lunaSettings.LunaSettings;
+
+import java.util.List;
 
 public class NAModPlugin extends BaseModPlugin {
 
@@ -33,10 +39,14 @@ public class NAModPlugin extends BaseModPlugin {
     public static boolean hasLazyLib = false;
     public static boolean hasGraphicsLib = false;
     public static boolean hasMagicLib = false;
+    public static boolean hasLunaLib = false;
 
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
+    public static final String MEMKEY_FACTION_INTIALIZED = "$nightcross_faction_initialized";
     public static final String MEMKEY_INTIALIZEDSG = "$nightcross_stargazer_initialized";
+    public static final String MEMKEY_INTIALIZEDBC = "$nightcross_blackcat_initialized";
+
     public static final String MEMKEY_PLACED_MARE_CRISIUM = "$nightcross_placed_mare_crisium2";
     public static final String MEMKEY_PLACED_STRINGOFPEARLS = "$nightcross_placed_sop2";
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
@@ -56,14 +66,22 @@ public class NAModPlugin extends BaseModPlugin {
 
         NightcrossPeople.create();
 
-        NAGen gen = new NAGen();
-        gen.generate(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
 
 
-        NA_StargazerGen gen2 = new NA_StargazerGen();
-        gen2.init(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+        NAGen.initFactionRelationships(Global.getSector());
+        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_FACTION_INTIALIZED, true);
+
+        if (!hasLunaLib || NA_SettingsListener.na_pascal_system) {
+            NAGen gen = new NAGen();
+            gen.generate(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+        }
+
+        if (!hasLunaLib || NA_SettingsListener.na_stargazer_spawn) {
+            NA_StargazerGen gen2 = new NA_StargazerGen();
+            gen2.init(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+        }
 
 
     }
@@ -93,10 +111,12 @@ public class NAModPlugin extends BaseModPlugin {
         return null;
     }
 
+    public static final boolean HAVE_LUNALIB = Global.getSettings().getModManager().isModEnabled("lunalib");
     @Override
     public void onApplicationLoad() {
 
         EncounterManager.CREATORS.add(new NA_StargazerBH());
+        EncounterManager.CREATORS.add(new NA_StargazerDrifter());
 
         isExerelin = Global.getSettings().getModManager().isModEnabled("nexerelin");
         {
@@ -115,12 +135,19 @@ public class NAModPlugin extends BaseModPlugin {
                 throw new RuntimeException("Nightcross Armory requires GraphicsLib!" +
                         "\nGet it at http://fractalsoftworks.com/forum/index.php?topic=10982");
             }
+            hasLunaLib = Global.getSettings().getModManager().isModEnabled("lunalib");
+            if (hasLunaLib) {
+                LunaSettings.addSettingsListener(new NA_SettingsListener());
+            }
             hasMagicLib = Global.getSettings().getModManager().isModEnabled("MagicLib");
             if (!hasMagicLib) {
                 throw new RuntimeException("Nightcross Armory requires MagicLib!" +
                         "\nGet it at http://fractalsoftworks.com/forum/index.php?topic=13718.0");
             }
+
         }
+
+
     }
 
 
@@ -166,6 +193,51 @@ public class NAModPlugin extends BaseModPlugin {
         if (!plugins.hasPlugin(NA_NightcrossHumanDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
         }
+
+        SectorAPI sector = Global.getSector();
+        if (!sector.hasScript(NA_StargazerGhostManager.class)) {
+            sector.addScript(new NA_StargazerGhostManager());
+        }
+
+        // add no_drop_salvage tags to weapons
+        // remove rare_bp from ships
+        // make the blueprint packages hidden
+
+        if (hasLunaLib && NA_SettingsListener.na_faction_gear) {
+            List<WeaponSpecAPI> weapons = Global.getSettings().getAllWeaponSpecs();
+            List<FighterWingSpecAPI> wings = Global.getSettings().getAllFighterWingSpecs();
+            List<ShipHullSpecAPI> ships = Global.getSettings().getAllShipHullSpecs();
+            List<SpecialItemSpecAPI> bps = Global.getSettings().getAllSpecialItemSpecs();
+            for (WeaponSpecAPI weapon : weapons) {
+                if (weapon.hasTag("nightcross_bp_rare")
+                        || weapon.hasTag("nightcross_bp_fast")
+                        || weapon.hasTag("nightcross_bp_heavy")) weapon.addTag("no_drop_salvage");
+            }
+            for (FighterWingSpecAPI wing : wings) {
+                if (wing.hasTag("nightcross")) wing.addTag("no_drop_salvage");
+                if (wing.hasTag("nightcross") && wing.hasTag("rare_bp")) wing.addTag("no_drop");
+            }
+            for (ShipHullSpecAPI ship : ships) {
+                if (ship.hasTag("nightcross") && ship.hasTag("rare_bp")) ship.addTag("no_drop");
+            }
+            for (SpecialItemSpecAPI bp : bps) {
+                if (bp.hasTag("nightcross")) bp.getTags().add("no_drop");
+            }
+        }
+        if (hasLunaLib && NA_SettingsListener.na_faction_merc) {
+            List<WeaponSpecAPI> weapons = Global.getSettings().getAllWeaponSpecs();
+            List<FighterWingSpecAPI> wings = Global.getSettings().getAllFighterWingSpecs();
+            List<ShipHullSpecAPI> ships = Global.getSettings().getAllShipHullSpecs();
+            for (WeaponSpecAPI weapon : weapons) {
+                if (weapon.hasTag("merc")) weapon.getTags().remove("merc");
+            }
+            for (FighterWingSpecAPI wing : wings) {
+                if (wing.hasTag("merc")) wing.getTags().remove("merc");
+            }
+            for (ShipHullSpecAPI ship : ships) {
+                if (ship.hasTag("merc")) ship.getTags().remove("merc");
+            }
+        }
     }
 
     protected void addToOngoingGame() {
@@ -173,10 +245,21 @@ public class NAModPlugin extends BaseModPlugin {
 
 
             NAGen gen = new NAGen();
-            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZED)) {
-                gen.generate(Global.getSector());
-                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+
+
+
+            NAGen.initFactionRelationships(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_FACTION_INTIALIZED, true);
+
+            if (!hasLunaLib || NA_SettingsListener.na_pascal_system) {
+                if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZED)) {
+                    gen.generate(Global.getSector());
+                    Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZED, true);
+                }
             }
+
+
+
             if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_MARE_CRISIUM)) {
                 gen.place_mare(Global.getSector());
                 Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
@@ -187,12 +270,26 @@ public class NAModPlugin extends BaseModPlugin {
             }
 
 
-            NA_StargazerGen gensg = new NA_StargazerGen();
-            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZEDSG)) {
-                gensg.init(Global.getSector());
-                gensg.generate(Global.getSector());
-                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+            if (!hasLunaLib || NA_SettingsListener.na_stargazer_spawn) {
+                NA_StargazerGen gensg = new NA_StargazerGen();
+                if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZEDSG)) {
+                    gensg.init(Global.getSector());
+                    gensg.generate(Global.getSector());
+                    Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+                }
             }
+            //if (!hasLunaLib || NA_SettingsListener.na_stargazer_spawn) {
+            NA_BlackcatGen genbc = new NA_BlackcatGen();
+                if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZEDBC)) {
+                    genbc.init(Global.getSector());
+                    genbc.generate(Global.getSector());
+                    if (genbc.BlackcatGenerated)
+                        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDBC, true);
+                }
+            //}
+
+
+
 
             //MarketHelpers.generateMarketsFromEconJson("na_pascal");
         }
@@ -225,9 +322,26 @@ public class NAModPlugin extends BaseModPlugin {
         Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
 
 
-        NA_StargazerGen gensg = new NA_StargazerGen();
-        gensg.generate(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+
+
+        if (!NAModPlugin.hasLunaLib
+                || NA_SettingsListener.na_stargazer_spawn)
+        {
+            NA_StargazerGen gensg = new NA_StargazerGen();
+            gensg.init(Global.getSector());
+            gensg.generate(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDSG, true);
+        }
+
+        //if (!NAModPlugin.hasLunaLib
+        //       || NA_SettingsListener.na_stargazer_spawn)
+        //{
+        NA_BlackcatGen genbc = new NA_BlackcatGen();
+        genbc.init(Global.getSector());
+        genbc.generate(Global.getSector());
+        if (genbc.BlackcatGenerated)
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDBC, true);
+        //}
     }
 
     @Override

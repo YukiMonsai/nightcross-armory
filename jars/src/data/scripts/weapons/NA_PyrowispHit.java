@@ -3,12 +3,7 @@ package data.scripts.weapons;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
-import data.scripts.NAUtils;
-import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
-
-import java.awt.*;
-import java.util.List;
 
 public class NA_PyrowispHit implements OnHitEffectPlugin {
 

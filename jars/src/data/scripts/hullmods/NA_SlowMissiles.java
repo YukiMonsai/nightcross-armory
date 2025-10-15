@@ -1,20 +1,9 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.SoundAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
-import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.NAUtils;
-import org.dark.shaders.distortion.WaveDistortion;
-import org.dark.shaders.light.LightShader;
-import org.dark.shaders.light.StandardLight;
-import org.lwjgl.util.vector.Vector2f;
-
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
 
 public class NA_SlowMissiles extends BaseHullMod {
 	public static final float ROF_PENALTY = 0.65f;

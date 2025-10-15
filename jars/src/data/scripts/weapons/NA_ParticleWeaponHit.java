@@ -1,19 +1,14 @@
 package data.scripts.weapons;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
-import com.fs.starfarer.api.combat.listeners.DamageListener;
-import com.fs.starfarer.api.util.Misc;
-import data.scripts.NAUtils;
-import data.scripts.everyframe.Nightcross_Trails;
+import data.scripts.campaign.plugins.NAUtils;
+
 import java.awt.Color;
 import java.util.List;
 
-import data.scripts.util.NAUtil;
 import org.lazywizard.lazylib.CollisionUtils;
-import org.lazywizard.lazylib.LazyLib;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 

@@ -3,22 +3,13 @@ package data.scripts.everyframe;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.impl.campaign.ghosts.BaseSensorGhost;
 import com.fs.starfarer.api.input.InputEventAPI;
-import com.fs.starfarer.api.loading.ProjectileSpawnType;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.NAModPlugin;
-import data.scripts.NAUtils;
-import data.scripts.util.NAUtil;
-import data.scripts.weapons.NA_CorrosionListener;
-import org.lazywizard.lazylib.LazyLib;
+import data.scripts.campaign.plugins.NAModPlugin;
+import data.scripts.campaign.plugins.NAUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
-import org.magiclib.plugins.MagicTrailPlugin;
 
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 

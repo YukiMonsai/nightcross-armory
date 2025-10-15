@@ -1,28 +1,26 @@
 package data.scripts.campaign.enc;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
-import com.fs.starfarer.api.fleet.FleetAPI;
 import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.enc.*;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.*;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
-import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceAbyssPluginImpl;
 import com.fs.starfarer.api.impl.campaign.world.GateHaulerLocation;
-import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.plugins.NAModPlugin;
+import data.scripts.campaign.plugins.NA_SettingsListener;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.world.nightcross.NA_StargazerBehavior;
 import data.scripts.world.nightcross.NA_StargazerWandererManager;
@@ -34,18 +32,35 @@ import static data.scripts.world.nightcross.NA_StargazerFleets.createStargazerFl
 public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
     public static final float DEPTH_THRESHOLD_FOR_ABYSSAL_STARGAZER_ENC = 0.15f;
-    public static final float STARGAZER_FREQ = 3f;
+    public static final float STARGAZER_FREQ = 7f;
     public static final float STARGAZER_BASE_POWER = 5f;
 
-    public static WeightedRandomPicker<RogueStellarObjectType> ALT_STELLAR_OBJECT_TYPES = new WeightedRandomPicker<RogueStellarObjectType>();
+    public static WeightedRandomPicker<NA_RogueStellarObjectType> ALT_STELLAR_OBJECT_TYPES = new WeightedRandomPicker<NA_RogueStellarObjectType>();
+    public static enum NA_RogueStellarObjectType {
+        PLANETOID,
+        GAS_GIANT,
+        BLACK_HOLE,
+        BROWN_DWARF,
+        BLACK_DWARF,
+    }
+
+
 
     static {
 
-        ALT_STELLAR_OBJECT_TYPES.add(RogueStellarObjectType.PLANETOID, 75);
-        //STELLAR_OBJECT_TYPES.add(RogueStellarObjectType.GAS_GIANT, 20f);
-        ALT_STELLAR_OBJECT_TYPES.add(RogueStellarObjectType.BLACK_HOLE, 25f);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.PLANETOID, 75);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.GAS_GIANT, 12f);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.BLACK_HOLE, 5f);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.BROWN_DWARF, 8f);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.BLACK_DWARF, 7f);
         // black holes much more common
     }
+
+
+    public static float PROB_BLACK_HOLE_ORBITERS = 0.14f;
+    public static float PROB_BROWN_DWARF_ORBITERS = 0.45f;
+    public static float PROB_BLACK_DWARF_ORBITERS = 0.75f;
+    public static float CACHE_CHANCE = 0.2f;
 
 
     @Override
@@ -104,7 +119,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         system.setLightColor(GateHaulerLocation.ABYSS_AMBIENT_LIGHT_COLOR);
         center.addTag(Tags.AMBIENT_LS);
 
-        RogueStellarObjectType objectType = ALT_STELLAR_OBJECT_TYPES.pick(data.random);
+        NA_RogueStellarObjectType objectType = ALT_STELLAR_OBJECT_TYPES.pick(data.random);
         if (objectType == null) return;
 
         WeightedRandomPicker<StarAge> agePicker = new WeightedRandomPicker<StarAge>(data.random);
@@ -142,7 +157,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         PlanetAPI main = null;
 
 
-        if (objectType == RogueStellarObjectType.BLACK_HOLE) {
+        if (objectType == NA_RogueStellarObjectType.BLACK_HOLE) {
             main = addBlackHole(system, context, data);
 
             if (main != null) {
@@ -151,15 +166,45 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                 system.removeEntity(center);
                 center = main;
 
-                if (data.random.nextFloat() < PROB_BLACK_HOLE_ORBITERS || true) {
+                if (data.random.nextFloat() < PROB_BLACK_HOLE_ORBITERS) {
                     context.starData = (StarGenDataSpec)
                             Global.getSettings().getSpec(StarGenDataSpec.class, StarTypes.BLACK_HOLE, false);
                     StarSystemGenerator.addOrbitingEntities(system, main, age, 1, 3, 500, 0, false, false);
                 }
             }
+        } else  if (objectType == NA_RogueStellarObjectType.BROWN_DWARF) {
+            main = addBrownDwarf(system, context, data);
+
+            if (main != null) {
+                system.setStar(main);
+                system.setCenter(main);
+                system.removeEntity(center);
+                center = main;
+
+                if (data.random.nextFloat() < PROB_BROWN_DWARF_ORBITERS) {
+                    context.starData = (StarGenDataSpec)
+                            Global.getSettings().getSpec(StarGenDataSpec.class, StarTypes.BROWN_DWARF, false);
+                    StarSystemGenerator.addOrbitingEntities(system, main, age, 1, 1, 400 + main.getRadius(), 0, false, false);
+                }
+            }
+        } else  if (objectType == NA_RogueStellarObjectType.BLACK_DWARF) {
+            main = addBlackDwarf(system, context, data);
+
+            if (main != null) {
+                system.setStar(main);
+                system.setCenter(main);
+                system.removeEntity(center);
+                center = main;
+
+                if (data.random.nextFloat() < PROB_BLACK_DWARF_ORBITERS) {
+                    context.starData = (StarGenDataSpec)
+                            Global.getSettings().getSpec(StarGenDataSpec.class, StarTypes.WHITE_DWARF, false);
+                    StarSystemGenerator.addOrbitingEntities(system, main, age, 1, 2, 2000, 0, false, false);
+                }
+            }
         } else {
             String planetType;
-            if (objectType == RogueStellarObjectType.PLANETOID) {
+            if (objectType == NA_RogueStellarObjectType.PLANETOID) {
                 planetType = PLANETOID_TYPES.pick(data.random);
             } else {
                 planetType = GAS_GIANT_TYPES.pick(data.random);
@@ -250,6 +295,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         BATTLE,
         ALIVE,
         SWARM,
+        NONE,
     }
 
 
@@ -326,6 +372,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         STARGAZER_TYPES.add(StargazerBHType.VICTIM, 5f);
         STARGAZER_TYPES.add(StargazerBHType.BATTLE, 9f);
         STARGAZER_TYPES.add(StargazerBHType.ALIVE, 6f);
+        STARGAZER_TYPES.add(StargazerBHType.NONE, 100f);
     }
 
 
@@ -363,6 +410,10 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
 
     public float getFrequencyForPoint(EncounterManager manager, EncounterPoint point) {
+        if (NAModPlugin.hasLunaLib)
+        {
+            if (!NA_SettingsListener.na_stargazer_abyss) return 0;
+        }
 
         if (!isPointSuited(point, true, DEPTH_THRESHOLD_FOR_ABYSSAL_STARGAZER_ENC)) {
             return 0f;
@@ -370,7 +421,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (DebugFlags.ABYSSAL_GHOST_SHIPS_DEBUG) {
             return 1000000000f;
         }
-        return STARGAZER_FREQ;
+        return STARGAZER_FREQ + 1.5f * NA_StargazerGhostManager.getAbyssInterest();
     }
 
 
@@ -383,9 +434,28 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
             picker.add(StargazerBHType.BATTLE, 9f);
             picker.add(StargazerBHType.ALIVE, 6f);
             picker.add(StargazerBHType.SWARM, 1f);
+        } else if (system.getStar() != null && system.getStar().isStar()) {
+
+            picker.add(StargazerBHType.VICTIM, 4f);
+            picker.add(StargazerBHType.LONE_SHIP, 5f);
+            picker.add(StargazerBHType.BATTLE, 4f);
+            picker.add(StargazerBHType.ALIVE, 6f);
+            picker.add(StargazerBHType.SWARM, 4f);
+            picker.addAll(STARGAZER_TYPES);
         } else {
             picker.addAll(STARGAZER_TYPES);
         }
+
+        if (picker.getItems().contains(StargazerBHType.NONE)) {
+            picker.remove(StargazerBHType.NONE);
+            picker.add(StargazerBHType.NONE, STARGAZER_TYPES.getWeight(StargazerBHType.NONE) / (1f + NA_StargazerGhostManager.getAbyssInterest()));
+        }
+        if (picker.getItems().contains(StargazerBHType.VICTIM)) {
+            picker.remove(StargazerBHType.VICTIM);
+            picker.add(StargazerBHType.VICTIM, STARGAZER_TYPES.getWeight(StargazerBHType.VICTIM) / (1f + NA_StargazerGhostManager.getAbyssInterest()));
+        }
+
+
 
 
         SharedData.UniqueEncounterData ueData = SharedData.getData().getUniqueEncounterData();
@@ -419,14 +489,31 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 //			type = AbyssalDireHintType.GAS_GIANT_TURBULENCE;
 //			type = AbyssalDireHintType.BLACK_HOLE_READINGS;
             if (type == StargazerBHType.LONE_SHIP) {
+                system.removeTag(Tags.SYSTEM_CAN_SPAWN_THREAT);
                 LoneShipType ghostType = ghostShipPicker.pickAndRemove();
                 if (ghostType != null) {
-                    done = addGhostShip(system, ghostType, point, data, null);
+                    done = addGhostShip(system, ghostType, point, data, null, 4);
                 }
+            } else if (type == StargazerBHType.NONE) {
+                // nope!!
+                if (!system.hasTag(Tags.SYSTEM_CAN_SPAWN_THREAT)) {
+                    // only for empty systems we add the music
+                    if (system.getStar() != null && (system.getStar().isBlackHole()
+                            || system.getStar().hasTag("na_whitedwarf"))) {
+                        system.getMemoryWithoutUpdate().set("$musicSetId", "kocaeli_blackhole");
+                    }
+                    if (data.random.nextFloat() < CACHE_CHANCE + (1f - 1f / (1f + NA_StargazerGhostManager.getAbyssInterest()))) {
+                        NA_StargazerGhostManager.addAbyssInterest(5f);
+                        // chance to add a stargazer cache
+                        addEntity(system, Entities.SUPPLY_CACHE, data, 2f, 3);
+                    }
+                }
+                done = true;
             } else if (type == StargazerBHType.NAMED) {
+                system.removeTag(Tags.SYSTEM_CAN_SPAWN_THREAT);
                 LoneShipType ghostType = namedShipPicker.pickAndRemove();
                 if (ghostType != null) {
-                    done = addGhostShip(system, ghostType, point, data, NamedShipname.get(ghostType));
+                    done = addGhostShip(system, ghostType, point, data, NamedShipname.get(ghostType), 5);
                 }
             } else if (type == StargazerBHType.VICTIM) {
                 done = addVictim(system, STARGAZER_VICTIM_TYPES_LONE.pick(), point, data);
@@ -435,16 +522,17 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                 for (int i = 0; i < count; i++) {
                     LoneShipType ghostType = ghostShipPicker.pick();
                     if (ghostType != null) {
-                        done = addGhostShip(system, ghostType, point, data, null);
+                        done = addGhostShip(system, ghostType, point, data, null, 2);
                     }
                 }
             } else if (type == StargazerBHType.BATTLE) {
+                NA_StargazerGhostManager.addAbyssInterest(4.5f);
                 VictimType vt = STARGAZER_VICTIM_TYPES.pick();
                 int count = MathUtils.getRandomNumberInRange(1, (int) Math.max(1, 2.5f* VictimTypePower.get(vt)/STARGAZER_BASE_POWER));
                 for (int i = 0; i < count; i++) {
                     LoneShipType ghostType = ghostShipPicker.pick();
                     if (ghostType != null) {
-                        done = addGhostShip(system, ghostType, point, data, null);
+                        done = addGhostShip(system, ghostType, point, data, null, 0f);
                     }
                 }
                 int vcount = MathUtils.getRandomNumberInRange(1, (int) Math.max(1, 2.5f* STARGAZER_BASE_POWER/VictimTypePower.get(vt)));
@@ -454,6 +542,8 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
 
             } else if (type == StargazerBHType.ALIVE || type == StargazerBHType.SWARM) {
+                NA_StargazerGhostManager.addAbyssInterest(10f);
+                system.removeTag(Tags.SYSTEM_CAN_SPAWN_THREAT);
                 int count = 1;
                 if (type == StargazerBHType.SWARM) count = MathUtils.getRandomNumberInRange(6, 10);
 
@@ -511,7 +601,40 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
 
 
-    protected boolean addGhostShip(StarSystemAPI system,LoneShipType type, EncounterPoint point, HyperspaceAbyssPluginImpl.AbyssalEPData data, String shipname) {
+
+    public CustomCampaignEntityAPI addEntity(StarSystemAPI system, String entityType, HyperspaceAbyssPluginImpl.AbyssalEPData data, float distMult, float abyssInterest) {
+
+        WeightedRandomPicker<PlanetAPI> picker = new WeightedRandomPicker<PlanetAPI>(data.random);
+        for (PlanetAPI planet : system.getPlanets()) {
+            picker.add(planet);
+        }
+        PlanetAPI planet = picker.pick();
+        if (planet == null) return null;
+
+        Random random = data.random;
+
+        CustomCampaignEntityAPI ship = (CustomCampaignEntityAPI) BaseThemeGenerator.addSalvageEntity(
+                data.random, planet.getContainingLocation(), entityType, Factions.NEUTRAL);
+        //SalvageSpecialAssigner.assignSpecials(ship, false, data.random);
+        //ship.addTag(Tags.EXPIRES);
+
+        ship.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
+
+        ship.setDiscoverable(true);
+        float orbitRadius = planet.getRadius() + (500f + random.nextFloat() * 100f) * distMult;
+        float orbitDays = orbitRadius / (10f + random.nextFloat() * 5f);
+        ship.setCircularOrbit(planet, random.nextFloat() * 360f, orbitRadius, orbitDays);
+
+        ship.setLocation(planet.getLocation().x, planet.getLocation().y);
+        ship.getVelocity().set(planet.getVelocity());
+
+        ship.getMemoryWithoutUpdate().set("$gsType", "NA_stargazerabyss");
+
+        return ship;
+    }
+
+
+    protected boolean addGhostShip(StarSystemAPI system,LoneShipType type, EncounterPoint point, HyperspaceAbyssPluginImpl.AbyssalEPData data, String shipname, float abyssInterest) {
         WeightedRandomPicker<PlanetAPI> picker = new WeightedRandomPicker<PlanetAPI>(data.random);
         for (PlanetAPI planet : system.getPlanets()) {
             picker.add(planet);
@@ -523,52 +646,73 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (type == LoneShipType.TESSERA) {
             String variantId = "naai_tessera_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 3f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 3f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops_cru", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest + 0.5);
+
         } else
         if (type == LoneShipType.TEMPUS) {
             String variantId = "naai_tempus_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 4f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops_cru", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest + 0.5);
         }else
         if (type == LoneShipType.KASEI) {
             String variantId = "naai_kasei_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), shipname, data.random, false, 2f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
         }else
         if (type == LoneShipType.FOSSA) {
             String variantId = "naai_fossa_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1.5f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
         }else
         if (type == LoneShipType.MACULA) {
             String variantId = "naai_macula_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops_cru", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest + 1);
         }else
         if (type == LoneShipType.SOP) {
             String variantId = "naai_sop_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
         }else
         if (type == LoneShipType.MARE) {
             String variantId = "naai_mare_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.PRISTINE, type.name(), shipname, data.random, false, 1f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
         }else
         if (type == LoneShipType.LOSULCI) {
             String variantId = "naai_losulci_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 5f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops_cap", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest + 3);
         }else
         if (type == LoneShipType.ELYURIAS) {
             String variantId = "naai_elyurias_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), shipname, data.random, false, 2f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops_cap", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest + 1);
         }else
         if (type == LoneShipType.NAMMU) {
             String variantId = "naai_nammu_corrupted";
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1f);
+            CustomCampaignEntityAPI e = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), shipname, data.random, false, 1.5f,"kocaeli_nightcross_remnant");
+            e.addDropRandom("na_stargazer_drops", 1);
+            e.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
         }
 
 
@@ -605,26 +749,26 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (type == VictimType.NIGHTCROSS) {
             String variantId = pickVariant("nightcross", size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f, null, 3);
         } else if (type == VictimType.TRITACH) {
             String variantId = pickVariant(Factions.TRITACHYON, size, data.random);
             if (variantId == null) return false;
-            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f);
+            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.AVERAGE, type.name(), data.random, true, 1f, null, 3);
             if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$player.nca_abyss_sgvs_tritach")) {
                 addStargazerWeapons(ship, 3);
             }
         } else if (type == VictimType.PIRATE) {
             String variantId = pickVariant(Factions.PIRATES, size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.WRECKED, type.name(), data.random, true, 1f);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.WRECKED, type.name(), data.random, true, 1f, null, 3);
         } else if (type == VictimType.MERC) {
             String variantId = pickVariant(Factions.MERCENARY, size, data.random);
             if (variantId == null) return false;
-            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), data.random, true, 1f);
+            addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.GOOD, type.name(), data.random, true, 1f, null, 3);
         } else if (type == VictimType.THREAT) {
             String variantId = pickVariant(Factions.THREAT, size, data.random);
             if (variantId == null) return false;
-            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), data.random, true, 1f);
+            CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, ShipRecoverySpecial.ShipCondition.BATTERED, type.name(), data.random, true, 1f, "Kocaeli_Coreq", 3);
             if (!Global.getSector().getMemoryWithoutUpdate().getBoolean("$player.nca_abyss_sgvs_threat")) {
                 addThreatWeapons(ship, 3);
             }
@@ -635,11 +779,14 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
     }
 
     public CustomCampaignEntityAPI addShipAroundPlanet(SectorEntityToken planet, String variantId, ShipRecoverySpecial.ShipCondition condition,
-                                    String gsType, Random random, boolean pruneWeapons, float distMult) {
-        return this.addShipAroundPlanet(planet, variantId, condition, gsType, null, random, pruneWeapons, distMult);
+                                    String gsType, Random random, boolean pruneWeapons, float distMult, String music, float abyssInterest) {
+        CustomCampaignEntityAPI ship = addShipAroundPlanet(planet, variantId, condition, gsType, null, random, pruneWeapons, distMult, music);
+        ship.getMemoryWithoutUpdate().set(NA_StargazerGhostManager.ABYSS_INTEREST_KEY, abyssInterest);
+
+        return ship;
     }
     public CustomCampaignEntityAPI addShipAroundPlanet(SectorEntityToken planet, String variantId, ShipRecoverySpecial.ShipCondition condition,
-                                    String gsType, String shipName, Random random, boolean pruneWeapons, float distMult) {
+                                    String gsType, String shipName, Random random, boolean pruneWeapons, float distMult, String music) {
         ShipRecoverySpecial.PerShipData psd = new ShipRecoverySpecial.PerShipData(variantId, condition, 0f);
         if (shipName != null) {
             psd.shipName = shipName;
@@ -662,7 +809,8 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         ship.getVelocity().set(planet.getVelocity());
 
         ship.getMemoryWithoutUpdate().set("$gsType", "NA_" + gsType);
-        ship.getMemoryWithoutUpdate().set("$musicSetId","Kocaeli_Core");
+        if (music != null)
+            ship.getMemoryWithoutUpdate().set("$musicSetId", music);
 
         return ship;
     }
@@ -673,6 +821,57 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (picks == null || picks.isEmpty()) return null;
         return picks.get(0).variantId;
 
+    }
+
+
+
+    public PlanetAPI addBrownDwarf(StarSystemAPI system, StarSystemGenerator.GenContext context, HyperspaceAbyssPluginImpl.AbyssalEPData data) {
+
+        StarGenDataSpec starData = (StarGenDataSpec)
+                Global.getSettings().getSpec(StarGenDataSpec.class, StarTypes.BROWN_DWARF, false);
+
+        system.setLightColor(starData.getLightColorMin());
+
+        float radius = starData.getMinRadius() +
+                (starData.getMaxRadius() - starData.getMinRadius()) * data.random.nextFloat();
+
+        PlanetAPI planet = system.addPlanet(null, null, null, StarTypes.BROWN_DWARF, 0, radius, 0, 0);
+
+        // add ring disk
+        if (data.random.nextFloat() < 0.33)
+            system.addRingBand(planet, "misc", "rings_dust0", 256f, 3, Color.red, 128 + data.random.nextFloat() * 256f, radius + 100 + data.random.nextFloat() * 300, 30 + data.random.nextFloat() * 30f, null, null);
+
+        StarSystemGenerator.GeneratedPlanet p = new StarSystemGenerator.GeneratedPlanet(null, planet, false, 0, 0, 0);
+        context.generatedPlanets.add(p);
+
+        return planet;
+    }
+
+    public static final WeightedRandomPicker<String> BLACK_DWARF_TYPES = new WeightedRandomPicker<String>();
+    static {
+        BLACK_DWARF_TYPES.add("na_whitedwarf", 3f);
+        BLACK_DWARF_TYPES.add("na_blackdwarf", 4f);
+        BLACK_DWARF_TYPES.add("na_blackdwarf2", 5f);
+    }
+
+    public PlanetAPI addBlackDwarf(StarSystemAPI system, StarSystemGenerator.GenContext context, HyperspaceAbyssPluginImpl.AbyssalEPData data) {
+        String bdType = BLACK_DWARF_TYPES.pick();
+        StarGenDataSpec starData = (StarGenDataSpec)
+                Global.getSettings().getSpec(StarGenDataSpec.class,  bdType, false);
+
+        system.setLightColor(starData.getLightColorMin());
+
+        float radius = starData.getMinRadius() +
+                (starData.getMaxRadius() - starData.getMinRadius()) * data.random.nextFloat();
+
+        PlanetAPI planet = system.addPlanet(null, null, null, bdType, 0, radius, 0, 0);
+
+        planet.addTag("na_whitedwarf");
+
+        StarSystemGenerator.GeneratedPlanet p = new StarSystemGenerator.GeneratedPlanet(null, planet, false, 0, 0, 0);
+        context.generatedPlanets.add(p);
+
+        return planet;
     }
 }
 

@@ -2,18 +2,13 @@ package data.scripts.weapons;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
+
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
-import java.util.Set;
 
-import data.scripts.NAUtils;
-import data.scripts.util.NAUtil;
-import org.lazywizard.lazylib.LazyLib;
+import data.scripts.campaign.plugins.NAUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.combat.entities.SimpleEntity;
 import org.lwjgl.util.vector.Vector2f;
 
 

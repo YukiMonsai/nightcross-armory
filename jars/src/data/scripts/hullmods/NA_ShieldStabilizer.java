@@ -4,13 +4,10 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.NAUtils;
+import data.scripts.campaign.plugins.NAUtils;
 import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
-import org.magiclib.util.MagicFakeBeam;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NA_ShieldStabilizer extends BaseHullMod {

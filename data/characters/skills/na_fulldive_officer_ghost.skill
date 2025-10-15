@@ -10,8 +10,8 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer$Level1"},
-				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Ghost$Level3"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Ghost$Level2"},
+				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Ghost$Level3"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Ghost$Level4"},
 			]
 		},

@@ -30,8 +30,10 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 		public SpecialType type = SpecialType.SCRAMBLED;
 		public String entityId = null;
 		public String secondaryId = null;
-		public NightcrossThemeSpecialData(SpecialType type) {
+		public String entityType = null;
+		public NightcrossThemeSpecialData(SpecialType type, String entityType) {
 			this.type = type;
+			this.entityType = entityType;
 		}
 		public SalvageSpecialPlugin createSpecialPlugin() {
 			return new NA_NightcrossThemeSpecial();
@@ -61,7 +63,8 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 		
 		switch (data.type) {
 		case SCRAMBLED:
-			initNothing();
+			if (data.entityType == NA_NightcrossThemeGenerator.NIGHTCROSS_RESEARCH_OUTPOST) initNothingBase();
+			else initNothing();
 			break;
 //		case PLANET_INTERESTING_PROPERTY:
 //			initInterestingProperty();
@@ -110,13 +113,15 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 
 	private void initSurveyParentEntity() {
 		if (data.entityId == null) {
-			initNothing();
+			if (data.entityType == NA_NightcrossThemeGenerator.NIGHTCROSS_RESEARCH_OUTPOST) initNothingBase();
+			else initNothing();
 			return;
 		}
 
 		SectorEntityToken parent = Global.getSector().getEntityById(data.entityId);
 		if (parent == null || !parent.hasSensorProfile()) {
-			initNothing();
+			if (data.entityType == NA_NightcrossThemeGenerator.NIGHTCROSS_RESEARCH_OUTPOST) initNothingBase();
+			else initNothing();
 			return;
 		}
 
@@ -161,7 +166,13 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 
 	public void initNothing() {
 		addText("The $shortName's memory banks have been scrubbed clean by hard radiation, and the systems are largely inert and non-functional.");
-		
+
+		//unsetData();
+		setDone(true);
+	}
+	public void initNothingBase() {
+		addText("The $shortName's records contain a trove of salvage, rare tech, and Nightcross equipment.");
+
 		//unsetData();
 		setDone(true);
 	}

@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.stardust.NA_StargazerStardust;
 import org.lazywizard.lazylib.MathUtils;
 

@@ -3,4 +3,5 @@ na_fulldive_officer,Project: GHOST,7777,1,0,,"Are you living or dead? What did t
 na_fulldive_officer_teto,No Turning Back,7777,1,0,,What if everything started from some doodles you scribbled without a second thought?,Kasane Teto,TRUE,,,npc_only,graphics/icons/skills/na_twin_drills.png,
 na_fulldive_officer_ghost,Soul-Powered Machine,7777,1,0,,"Instead of fighting like people do, fight like ships do. Fight like plastic toys do. Fight like you don't have a body, like you don't hate your body. Fight your way into a new body.",[REDACTED],TRUE,,,npc_only,graphics/icons/skills/strike_commander.png,
 na_fulldive_officer_matrix,Ghost in the Machine,7777,1,0,,"...the crackling, broken radio's song is louder and more lovely every minute. We are our own company now.",[REDACTED],TRUE,,,npc_only,graphics/icons/skills/evasive_maneuvering.png,
-"#""If I could lock myself up in my memories and let my heartbeat alone take the reins, how much simpler would life be?""",,,,,,,,,,,,,
+na_fulldive_officer_grid,Cybernetic Avenger,7777,1,0,,"If I could lock myself up in my memories and let my heartbeat alone take the reins, how much simpler would life be?",[REDACTED],TRUE,,,npc_only,graphics/icons/skills/cybernetic_augmentation.png,
+,,,,,,,,,,,,,

@@ -1,0 +1,19 @@
+{
+	"id":"na_fluxtransfer",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.NA_FluxTransferenceAI",	
+	
+	"runScriptWhileIdle":true,
+	#"canUseWhileRightClickSystemOn":true,
+	
+	"statsScript":"data.scripts.NA_FluxTransference",
+	
+	"useSound":"energy_lash_activate",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+}
+
+
+
+

@@ -16,7 +16,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import data.scripts.NAModPlugin;
+import data.scripts.campaign.plugins.NAModPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -9,21 +9,34 @@ nothing,na_weps_threat,50
 nothing,na_loot_dweller,50
 item_shrouded_substrate,na_loot_dweller,100
 ,,
+"wpn_:{tags:[nightcross_bp_rare, !no_drop, !no_drop_salvage]}",na_nightcross_tech,50
+"wpn_:{tags:[nightcross_bp_restricted, !no_drop, !no_drop_salvage]}",na_nightcross_tech,20
+nothing,na_nightcross_tech,40
+,,
+"wpn_:{tags:[nightcross_bp_rare, !no_drop, !no_drop_salvage]}",na_nightcross_tech_g,50
+"wpn_:{tags:[nightcross_bp_restricted, !no_drop, !no_drop_salvage]}",na_nightcross_tech_g,20
+,,
+,,
 nothing,na_weps_stargazer_loot,50
 "wpn_:{tags:[stargazer, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,50
 "wpn_:{tags:[na_sg_loot, !no_drop, !no_drop_salvage]}",na_weps_stargazer_loot,100
 ,,
 item_na_stardust_core,na_stargazer_drops_cap,100
 na_ghost_core,na_stargazer_drops_cap,33
+"wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops_cap,70
 ,,
 item_na_stardust_core,na_stargazer_drops_matrix,34
 na_ghost_matrix,na_stargazer_drops_matrix,16
+,,
+item_na_stardust_core,na_stargazer_drops_grid,30
+na_ghost_grid,na_stargazer_drops_grid,24
+"wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops_grid,30
 ,,
 item_na_stardust_core,na_stargazer_drops_cru,25
 "wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops_cru,50
 na_ghost_core,na_stargazer_drops_cru,15
 ,,
-item_na_stardust_core,na_stargazer_drops,20
+item_na_stardust_core,na_stargazer_drops,8
 na_ghost_core,na_stargazer_drops,5
 "wpn_:{tags:[na_sg_loot, !no_drop_salvage]}",na_stargazer_drops,25
 nothing,na_stargazer_drops,35

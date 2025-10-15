@@ -4,6 +4,8 @@ package data.scripts.campaign.plugins;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.campaign.ai.ModularFleetAIAPI;
+import com.fs.starfarer.api.campaign.ai.TacticalModulePlugin;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.campaign.listeners.CommodityIconProvider;
 import com.fs.starfarer.api.impl.PlayerFleetPersonnelTracker;
@@ -25,11 +27,12 @@ public class NACampaignPlugin extends BaseCampaignPlugin {
                 return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
             case NightcrossID.GHOST_MATRIX_ID:
                 return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
+            case NightcrossID.GHOST_GRID_ID:
+                return new PluginPick<AICoreOfficerPlugin>(new NAGhostCorePlugin(), PickPriority.MOD_SET);
             default:
                 return null;
         }
     }
-
 }
 
 

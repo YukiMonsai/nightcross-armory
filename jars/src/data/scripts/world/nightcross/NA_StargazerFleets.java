@@ -121,21 +121,21 @@ public class NA_StargazerFleets {
 
 
             if (random.nextFloat() < chance_matrix) {
-                setStargazerAICore(curr, NightcrossID.GHOST_MATRIX_ID, keepPortrait, random);
+                setStargazerAICore(curr, NightcrossID.GHOST_MATRIX_ID, keepPortrait, random, true);
             } else if (random.nextFloat() < chance_grid) {
-                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random);
+                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random, true);
             } else if (random.nextFloat() < chance_ghost) {
-                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random);
+                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random, false);
             }
         }
     }
 
 
-    public static void setStargazerAICore(FleetMemberAPI curr, String aiCoreID, boolean keepPortrait, Random random) {
+    public static void setStargazerAICore(FleetMemberAPI curr, String aiCoreID, boolean keepPortrait, Random random, boolean addDrops) {
         if (curr.getCaptain() == null) {
             AICoreOfficerPlugin plugin = new NAGhostCorePlugin();
             //PersonAPI person = OfficerManagerEvent.createOfficer(fleet.getFaction(), 20, true, SkillPickPreference.NON_CARRIER, random);
-            PersonAPI person = plugin.createPerson(Commodities.BETA_CORE, curr.getFleetData().getFleet().getFaction().getId(), random);
+            PersonAPI person = plugin.createPerson(aiCoreID, curr.getFleetData().getFleet().getFaction().getId(), random);
             curr.setCaptain(person);
         }
 
@@ -174,6 +174,10 @@ public class NA_StargazerFleets {
                 curr.getCaptain().getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
                 curr.getCaptain().getStats().setSkillLevel(random.nextFloat() < 0.5f ? Skills.FIELD_MODULATION : Skills.POLARIZED_ARMOR, 2);
                 curr.getCaptain().getStats().setSkillLevel(random.nextFloat() < 0.5f ? Skills.DAMAGE_CONTROL : Skills.COMBAT_ENDURANCE, 2);
+
+                if (addDrops) {
+                    curr.getFleetData().getFleet().addDropRandom("na_stargazer_drops_matrix", 1);
+                }
                 break;
             case NightcrossID.GHOST_CORE_ID:
                 if (!keepPortrait) {
@@ -207,6 +211,9 @@ public class NA_StargazerFleets {
                 curr.getCaptain().getStats().setSkillLevel(Skills.SYSTEMS_EXPERTISE, 2);
                 curr.getCaptain().getStats().setSkillLevel(Skills.TARGET_ANALYSIS, 2);
                 curr.getCaptain().getStats().setSkillLevel(random.nextFloat() < 0.5f ? Skills.GUNNERY_IMPLANTS : Skills.ORDNANCE_EXPERTISE, 2);
+                if (addDrops) {
+                    curr.getFleetData().getFleet().addDropRandom("na_stargazer_drops_grid", 1);
+                }
                 break;
         }
     }

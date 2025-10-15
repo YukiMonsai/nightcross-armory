@@ -9,7 +9,7 @@ import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.ProjectileSpawnType;
 import com.fs.starfarer.api.util.IntervalUtil;
-import data.scripts.NAModPlugin;
+import data.scripts.campaign.plugins.NAModPlugin;
 import java.awt.Color;
 import java.util.Iterator;
 import java.util.LinkedHashMap;

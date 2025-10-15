@@ -6,7 +6,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.combat.entities.Ship;
+import data.scripts.campaign.plugins.NAUtils;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -14,12 +14,9 @@ import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.plugins.MagicTrailPlugin;
-import org.magiclib.util.MagicRender;
 
 import java.awt.*;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Vector;
 
 public class NA_GravityCatapult extends BaseShipSystemScript {
 

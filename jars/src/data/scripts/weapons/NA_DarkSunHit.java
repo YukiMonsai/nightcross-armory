@@ -7,7 +7,7 @@ import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.impl.combat.DisintegratorEffect;
 import com.fs.starfarer.api.impl.combat.RiftLanceEffect;
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.NAUtils;
+import data.scripts.campaign.plugins.NAUtils;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;

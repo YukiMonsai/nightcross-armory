@@ -117,8 +117,8 @@ Tessera L1,na_tessera_L1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop
 Tessera R1,na_tessera_R1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage, system_turn_right",,,,,,,,,,,,,,
 Tessera L2,na_tessera_L2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage, system_turn_left",,,,,,,,,,,,,,
 Tessera R2,na_tessera_R2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SYSTEM,"no_drop, no_drop_salvage, system_turn_right",,,,,,,,,,,,,,
-GATE Interceptor,na_interceptor,1,0.75,700,800,,200,,3,100,8,8,.7,4,FRAGMENTATION,20,,0.1,0.9,4,.35,0,25,10,10,,325,175,8,30,,,"DO_NOT_AIM, DO_NOT_CONSERVE, PD, ANTI_FTR, PD_ONLY","pd12, missile0, nightcross_package_fast",,Nightcross Armory,,Point Defense (Area),Slow,Excellent,,,%s max ammo when mounted in a %s slot.,"+50% | Missile, Universal, or Synergy",,,,145
-Filter PD,na_filter,1,0.35,400,800,,200,,3,100,3,2,.25,1,FRAGMENTATION,20,,0.1,0.9,3,.15,0,25,10,10,,325,175,8,30,,,"DO_NOT_AIM, DO_NOT_CONSERVE, PD, ANTI_FTR, PD_ONLY","pd12, missile0, nightcross_package_fast",,Nightcross Armory,,Point Defense (Area),Slow,Excellent,,,%s max ammo when mounted in a %s slot.,"+50% | Missile, Universal, or Synergy",,,,144
+GATE Interceptor,na_interceptor,1,0.75,700,800,,200,,3,100,8,8,.7,4,FRAGMENTATION,20,,0.1,0.9,4,.35,0,25,10,10,,325,175,8,30,,,"DO_NOT_AIM, DO_NOT_CONSERVE, PD, ANTI_FTR, PD_ONLY","pd12, missile0, nightcross_bp_fast, na_sg_loot",,Nightcross Armory,,Point Defense (Area),Slow,Excellent,,,%s max ammo when mounted in a %s slot.,"+50% | Missile, Universal, or Synergy",,,,145
+Filter PD,na_filter,1,0.35,400,800,,200,,3,100,3,2,.25,1,FRAGMENTATION,20,,0.1,0.9,3,.15,0,25,10,10,,325,175,8,30,,,"DO_NOT_AIM, DO_NOT_CONSERVE, PD, ANTI_FTR, PD_ONLY","pd12, missile0, nightcross_bp_fast, na_sg_loot",,Nightcross Armory,,Point Defense (Area),Slow,Excellent,,,%s max ammo when mounted in a %s slot.,"+50% | Missile, Universal, or Synergy",,,,144
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 Rift Lance Minelayer,na_corrosionbh,0,,,,,1000,,100,,,,,,FRAGMENTATION,0,,,,1,,,,,,,0,0,20,1000,,,SYSTEM,,,Nightcross Armory,,,,,,,,,,,,38.5
 ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

@@ -70,7 +70,7 @@ public class NA_StardustTransferAI implements ShipSystemAIScript {
 		for (ShipAPI other : getPossibleTargets()) {
 			float w = 0f;
 			if (ship.getOwner() == other.getOwner()) {
-				if (other.getSystem() != null && other.getSystem().getId() == system.getId()) continue; // dont hugbox
+				if (other.getSystem() != null && other.getSystem().getId().equals(system.getId())) continue; // dont hugbox
 				NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(other);
 
 				if (other.getFluxLevel() == 0 && swarm == null) continue;

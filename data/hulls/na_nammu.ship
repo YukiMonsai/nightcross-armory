@@ -19,7 +19,6 @@
   ],
   "builtInWings": [
     "na_luminousdrill_repair_wing",
-    "na_shieldbattery_wing"
   ],
   "builtInWeapons": {
     "WS0005": "blinker_na_cyan",

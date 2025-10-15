@@ -2,27 +2,19 @@ package data.scripts.weapons.ai;
 
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
-import com.fs.starfarer.api.impl.hullmods.Automated;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.combat.CombatEngine;
-import com.fs.starfarer.combat.entities.Ship;
 import com.fs.starfarer.combat.entities.terrain.Asteroid;
-import data.scripts.NAUtils;
-import data.scripts.util.NAUtil;
-import data.scripts.weapons.NA_BlackholeRenderer;
+import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.weapons.NA_RKKVRenderer;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
-import org.lwjgl.util.vector.Vector;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.util.MagicFakeBeam;
 import org.magiclib.util.MagicTargeting;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {

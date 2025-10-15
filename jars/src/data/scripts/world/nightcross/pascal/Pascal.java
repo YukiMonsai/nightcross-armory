@@ -17,7 +17,8 @@ import com.fs.starfarer.api.impl.campaign.terrain.MagneticFieldTerrainPlugin.Mag
 import com.fs.starfarer.api.impl.campaign.terrain.AsteroidFieldTerrainPlugin.AsteroidFieldParams;
 
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.NAModPlugin;
+import data.scripts.campaign.plugins.NAModPlugin;
+import data.scripts.campaign.plugins.NA_SettingsListener;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.world.nightcross.addMarketplace;
 import java.awt.Color;
@@ -284,15 +285,20 @@ public class Pascal {
 
         /* ----------PLANETS------------- */
 
+        String graveyardfaction = "independent";
+        if (NAModPlugin.hasLunaLib && NA_SettingsListener.na_faction_nex) {
+            graveyardfaction = "nightcross";
+        }
+
         SectorEntityToken graveyard
                 = system.addCustomEntity("na_graveyard_station", "Graveyard Station", "station_side06",
-                "independent");
+                graveyardfaction);
         graveyard.setCircularOrbitPointingDown(watergiant, 120, 800, 30);
         graveyard.setCustomDescriptionId("na_graveyard_station");
         graveyard.setInteractionImage("illustrations", "industrial_megafacility");
 
         //if (!NAModPlugin.isExerelin) {
-            MarketAPI naGraveyardMarket = addMarketplace.addMarketplace("independent", graveyard,
+            MarketAPI naGraveyardMarket = addMarketplace.addMarketplace(graveyardfaction, graveyard,
                     null,
                     "Graveyard Station",
                     5,

@@ -14,8 +14,8 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.SurveyDataSpec
 import com.fs.starfarer.api.plugins.SurveyPlugin;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import com.fs.starfarer.ui.P;
-import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.campaign.plugins.NAModPlugin;
+import data.scripts.campaign.plugins.NA_SettingsListener;
 import data.scripts.world.NightcrossTags;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -31,6 +31,10 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
     @Override
     public float getWeight() {
+        if (NAModPlugin.hasLunaLib)
+        {
+            if (!NA_SettingsListener.na_stargazer_gen) return 0;
+        }
         return 50;
     }
 
@@ -204,7 +208,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
 
         linkFractionToParent(stargazerStation, added,
-                1f,
+                BASE_LINK_FRACTION,
                 NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
 
         // survey ships in mothership constellation
@@ -313,13 +317,20 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
             all.addAll(derelicts3);
             linkFractionToParent(ship, derelicts3,
-                    1f,
+                    BASE_LINK_FRACTION * 1.33f,
                     NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
         }
 
-        linkFractionToParent(stargazerStation, outerShips,
-                1f,
-                NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
+        if (random.nextFloat() < BASE_LINK_FRACTION * 1.33f && addedShips.size() > 0) {
+            linkFractionToParent(addedShips.get(random.nextInt(0, addedShips.size())), outerShips,
+                    1f,
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_OUTPOST);
+        } else {
+
+            linkFractionToParent(stargazerStation, outerShips,
+                    1f,
+                    NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
+        }
 
 
 
@@ -547,7 +558,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected void linkToParent(SectorEntityToken from, SectorEntityToken parent, NA_NightcrossThemeSpecial.SpecialType type) {
         if (hasSpecial(from)) return;
 
-        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(type);
+        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(type, from.getCustomEntityType());
         special.entityId = parent.getId();
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
     }
@@ -555,7 +566,8 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected void linkToMothership(SectorEntityToken from, SectorEntityToken mothership) {
         if (hasSpecial(from)) return;
 
-        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION);
+        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION
+                , from.getCustomEntityType());
         special.entityId = mothership.getId();
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
     }
@@ -728,7 +740,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         derelictShipTypes.add(new NA_DerelictType("na_sop_elite", true), 0.6f);
         derelictShipTypes.add(new NA_DerelictType("na_mare_exp", true), 0.5f);
         derelictShipTypes.add(new NA_DerelictType("na_zal_strike", true), 1.0f);
-        derelictShipTypes.add(new NA_DerelictType("na_tempus_Experimental", true), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("na_tempus_experimental", true), 0.1f);
         derelictShipTypes.add(new NA_DerelictType("na_fossa_sniper", true), 0.25f);
         derelictShipTypes.add(new NA_DerelictType("na_macula_overdriven", true), 0.3f);
         derelictShipTypes.add(new NA_DerelictType("na_xanthe_standard", true), 0.25f);
