@@ -24,7 +24,7 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
     public static float RANGE_EXTRA = 25f;
     public static float ZERO_FLUX_PEN = -25f;
     public static float HARDFLUX_DISS = 0.01f;
-    public static float EMP_SCALE_MAXAT = 0.2f;
+    public static float EMP_SCALE_MAXAT = 20f;
     public static float ECM = 3f;
 
 

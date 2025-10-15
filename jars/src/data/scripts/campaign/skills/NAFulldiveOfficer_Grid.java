@@ -28,7 +28,7 @@ public class NAFulldiveOfficer_Grid extends NAFulldiveOfficer  {
     public static final float ECM = 2f;
 
     public static float SHIELD_SCALE = 20f;
-    public static float EMP_SCALE_MAXAT = 0.1f;
+    public static float EMP_SCALE_MAXAT = 20f;
 
     public static float EMP_VULNERABILITY = 50f;
 
@@ -107,12 +107,12 @@ public class NAFulldiveOfficer_Grid extends NAFulldiveOfficer  {
     public static class ECMBonus extends BaseSkillEffectDescription implements AfterShipCreationSkillEffect {
         public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
             if (ship.isStationModule()) return;
-            ship.addListener(new NAFulldiveOfficer_Matrix.ECMBonus.NA_GhostMatrixListener(ship));
+            ship.addListener(new NA_GhostMatrixListener(ship));
         }
 
         public void unapplyEffectsAfterShipCreation(ShipAPI ship, String id) {
             if (ship.isStationModule()) return;
-            ship.removeListenerOfClass(NAFulldiveOfficer_Matrix.ECMBonus.NA_GhostMatrixListener.class);
+            ship.removeListenerOfClass(NA_GhostMatrixListener.class);
         }
 
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {

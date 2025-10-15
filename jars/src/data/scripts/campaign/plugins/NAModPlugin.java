@@ -212,6 +212,9 @@ public class NAModPlugin extends BaseModPlugin {
                 if (weapon.hasTag("nightcross_bp_rare")
                         || weapon.hasTag("nightcross_bp_fast")
                         || weapon.hasTag("nightcross_bp_heavy")) weapon.addTag("no_drop_salvage");
+                if (NA_SettingsListener.na_faction_gearrare
+                        && weapon.hasTag("nightcross_bp_restricted")) weapon.addTag("no_drop_salvage");
+
             }
             for (FighterWingSpecAPI wing : wings) {
                 if (wing.hasTag("nightcross")) wing.addTag("no_drop_salvage");

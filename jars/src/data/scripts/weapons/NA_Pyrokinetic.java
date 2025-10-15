@@ -80,9 +80,9 @@ public class NA_Pyrokinetic implements EveryFrameWeaponEffectPlugin {
                 if (param instanceof DamagingProjectileAPI) {
                     DamagingProjectileAPI projectile = (DamagingProjectileAPI) param;
                     if (projectile.getWeapon() == this.weapon) {
-                        if (MathUtils.getRandomNumberInRange(0, 100) < 50) {
+                        if (MathUtils.getRandomNumberInRange(0, 100) < 20) {
                             float emp = projectile.getDamageAmount();
-                            float dam = projectile.getDamageAmount();
+                            float dam = 1.5f * projectile.getDamageAmount();
 
                             Global.getCombatEngine().spawnEmpArc(projectile.getSource(), point, target, target,
                                     DamageType.ENERGY,

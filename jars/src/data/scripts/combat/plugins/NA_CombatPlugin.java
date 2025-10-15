@@ -22,6 +22,11 @@ import java.util.List;
 
 public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
+
+    public static Color TEXT_COLOR_OFF = new Color(255, 255, 255, 115);
+    public static Color TEXT_COLOR_ON = new Color(255, 255, 255, 255);
+    public static Color TEXT_COLOR_HIGHLIGHT = new Color(255, 255, 255, 180);
+
     enum CommandMode {
         RETREAT_COMMAND,
         ESCORT_COMMAND,
@@ -33,7 +38,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
     @Override
     public void processInputPreCoreControls(float amount, List<InputEventAPI> events) {
-        if (NAModPlugin.hasLunaLib && NA_SettingsListener.na_combatui_enable) {
+        if (NAModPlugin.hasLunaLib && NA_SettingsListener.na_combatui_enable && !NA_SettingsListener.na_combatui_nocontrol) {
             CombatEngineAPI engine = Global.getCombatEngine();
             if (engine.isUIShowingHUD() && (!NA_SettingsListener.na_combatui_pause
                     || engine.isPaused()
@@ -107,19 +112,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
         }
 
         HashMap<String, CombatFleetManagerAPI.AssignmentInfo> escortList = new HashMap<>();
-        float YY = Global.getSettings().getScreenHeightPixels() - NA_SettingsListener.tacticalRenderHeightOffset;
-        float XXstart = NA_SettingsListener.tacticalRenderSideOffset;
-        float XX = XXstart;
-        float Xspacing = 85;
-        float Yspacing = -90;
-        float w = 80;
-        float h = 60;
-        if (NA_SettingsListener.na_combatui_compact) {
-            w = 60f;
-            h = 40f;
-            Xspacing = 65f;
-            Yspacing = -60f;
-        }
+
 
 
         /*for (List<DeployedFleetMemberAPI> list : display) {
@@ -164,70 +157,74 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
 
         // render
-        YY = Global.getSettings().getScreenHeightPixels() - NA_SettingsListener.tacticalRenderHeightOffset;
-        XXstart = NA_SettingsListener.tacticalRenderSideOffset;
-        XX = XXstart;
-        Xspacing = 85;
-        Yspacing = -90;
-        w = 80;
-        h = 60;
-        float TEXTHEIGHT = 20;
-        float textSpacing = 100;
+        float YY = Global.getSettings().getScreenHeightPixels() - NA_SettingsListener.tacticalRenderHeightOffset;
+        float XXstart = NA_SettingsListener.tacticalRenderSideOffset;
+        float XX = XXstart;
+        float Xspacing = 85;
+        float Yspacing = -90;
+        float w = 80;
+        float h = 60;
         if (NA_SettingsListener.na_combatui_compact) {
             w = 60f;
             h = 40f;
             Xspacing = 65f;
             Yspacing = -60f;
         }
+        float TEXTHEIGHT = 20;
+        float textSpacing = 100;
         float TEXTOFF = 20 + h;
         double sineAmt = Math.sin(9f * engine.getTotalElapsedTime(true) % (2*Math.PI));
 
-        if (input) {
-            if (e.getX() > XX && e.getX() < XX + textSpacing
-                    && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
-                commandMode = CommandMode.RETREAT_COMMAND;
-                Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                events.remove(e);
-                return true;
-            } else if (e.getX() > XX + textSpacing && e.getX() < XX + 2 * textSpacing
-                    && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
-                commandMode = CommandMode.ESCORT_COMMAND;
-                Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                events.remove(e);
-                return true;
-            } else if (e.getX() > XX + 2*textSpacing && e.getX() < XX + 3 * textSpacing
-                    && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
-                commandMode = CommandMode.SEARCHANDDESTROY_COMMAND;
-                Global.getSoundPlayer().playUISound("ui_button_patrol", 1f, 1f);
-                events.remove(e);
-                return true;
+        if (!NA_SettingsListener.na_combatui_nocontrol) {
+            if (input) {
+                if (e.getX() > XX && e.getX() < XX + textSpacing
+                        && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
+                    commandMode = CommandMode.RETREAT_COMMAND;
+                    Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
+                    events.remove(e);
+                    return true;
+                } else if (e.getX() > XX + textSpacing && e.getX() < XX + 2 * textSpacing
+                        && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
+                    commandMode = CommandMode.ESCORT_COMMAND;
+                    Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
+                    events.remove(e);
+                    return true;
+                } else if (e.getX() > XX + 2*textSpacing && e.getX() < XX + 3 * textSpacing
+                        && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
+                    commandMode = CommandMode.SEARCHANDDESTROY_COMMAND;
+                    Global.getSoundPlayer().playUISound("ui_button_patrol", 1f, 1f);
+                    events.remove(e);
+                    return true;
+                }
+            } else {
+                Color textColor_OFF = TEXT_COLOR_OFF;
+                Color textColor_ON = TEXT_COLOR_ON;
+                Color textColor_HL = TEXT_COLOR_HIGHLIGHT;
+                if (Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getCommandPointsLeft() == 0) textColor_ON = textColor_OFF;
+                boolean hl_ret = false;
+                boolean hl_esc = false;
+                boolean hl_snd = false;
+
+                if (Global.getSettings().getMouseX() > XX && Global.getSettings().getMouseX() < XX + textSpacing
+                        && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
+                    hl_ret = true;
+                } else if (Global.getSettings().getMouseX() > XX + textSpacing && Global.getSettings().getMouseX() < XX + 2 * textSpacing
+                        && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
+                    hl_esc = true;
+                } else if (Global.getSettings().getMouseX() > XX + 2*textSpacing && Global.getSettings().getMouseX() < XX + 3 * textSpacing
+                        && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
+                    hl_snd = true;
+                }
+
+                if (!NA_SettingsListener.na_combatui_copyright)
+                    MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Nightcross Tactical Display", textColor_OFF, new Vector2f(XX+20, YY + TEXTOFF + TEXTHEIGHT), false);
+                MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Retreat", commandMode == CommandMode.RETREAT_COMMAND ? textColor_ON : hl_ret ? textColor_HL : textColor_OFF, new Vector2f(XX, YY + TEXTOFF), false);
+                MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Escort", commandMode == CommandMode.ESCORT_COMMAND ? textColor_ON : hl_esc ? textColor_HL : textColor_OFF, new Vector2f(XX + textSpacing, YY + TEXTOFF), false);
+                MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "S&D", commandMode == CommandMode.SEARCHANDDESTROY_COMMAND ? textColor_ON : hl_snd ? textColor_HL : textColor_OFF, new Vector2f(XX + 2 * textSpacing, YY + TEXTOFF), false);
+
             }
-        } else {
-            Color textColor_OFF = new Color(255, 255, 255, 100);
-            Color textColor_ON = new Color(255, 255, 255, 255);
-            Color textColor_HL = new Color(255, 255, 255, 180);
-            if (Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getCommandPointsLeft() == 0) textColor_ON = textColor_OFF;
-            boolean hl_ret = false;
-            boolean hl_esc = false;
-            boolean hl_snd = false;
-
-            if (Global.getSettings().getMouseX() > XX && Global.getSettings().getMouseX() < XX + textSpacing
-                    && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
-                hl_ret = true;
-            } else if (Global.getSettings().getMouseX() > XX + textSpacing && Global.getSettings().getMouseX() < XX + 2 * textSpacing
-                    && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
-                hl_esc = true;
-            } else if (Global.getSettings().getMouseX() > XX + 2*textSpacing && Global.getSettings().getMouseX() < XX + 3 * textSpacing
-                    && Global.getSettings().getMouseY() > YY + TEXTOFF - TEXTHEIGHT && Global.getSettings().getMouseY() < YY + TEXTOFF) {
-                hl_snd = true;
-            }
-
-            MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Nightcross Tactical Display", textColor_OFF, new Vector2f(XX, YY + TEXTOFF + TEXTHEIGHT), false);
-            MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Retreat", commandMode == CommandMode.RETREAT_COMMAND ? textColor_ON : hl_ret ? textColor_HL : textColor_OFF, new Vector2f(XX, YY + TEXTOFF), false);
-            MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Escort", commandMode == CommandMode.ESCORT_COMMAND ? textColor_ON : hl_esc ? textColor_HL : textColor_OFF, new Vector2f(XX + textSpacing, YY + TEXTOFF), false);
-            MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "S&D", commandMode == CommandMode.SEARCHANDDESTROY_COMMAND ? textColor_ON : hl_snd ? textColor_HL : textColor_OFF, new Vector2f(XX + 2 * textSpacing, YY + TEXTOFF), false);
-
         }
+
 
 
         for (List<DeployedFleetMemberAPI> list : display) {

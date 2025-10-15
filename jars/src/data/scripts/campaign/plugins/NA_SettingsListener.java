@@ -16,6 +16,9 @@ public class NA_SettingsListener implements LunaSettingsListener {
     public static boolean na_combatui_pause = LunaSettings.getBoolean("Nightcross", "na_combatui_pause");
     public static boolean na_combatui_compact = LunaSettings.getBoolean("Nightcross", "na_combatui_compact");
     public static boolean na_combatui_colorblind = LunaSettings.getBoolean("Nightcross", "na_combatui_colorblind");
+    public static boolean na_faction_gearrare = LunaSettings.getBoolean("Nightcross", "na_faction_gearrare");
+    public static boolean na_combatui_nocontrol = LunaSettings.getBoolean("Nightcross", "na_combatui_nocontrol");
+    public static boolean na_combatui_copyright = LunaSettings.getBoolean("Nightcross", "na_combatui_copyright");
     public static float tacticalRenderHeightOffset = LunaSettings.getFloat("Nightcross", "na_combatui_height");
     public static float tacticalRenderSideOffset = LunaSettings.getFloat("Nightcross", "na_combatui_side");
 
@@ -38,6 +41,9 @@ public class NA_SettingsListener implements LunaSettingsListener {
         na_combatui_pause = LunaSettings.getBoolean("Nightcross", "na_combatui_pause");
         na_combatui_compact = LunaSettings.getBoolean("Nightcross", "na_combatui_compact");
         na_combatui_colorblind = LunaSettings.getBoolean("Nightcross", "na_combatui_colorblind");
+        na_faction_gearrare = LunaSettings.getBoolean("Nightcross", "na_faction_gearrare");
+        na_combatui_nocontrol = LunaSettings.getBoolean("Nightcross", "na_combatui_nocontrol");
+        na_combatui_copyright = LunaSettings.getBoolean("Nightcross", "na_combatui_copyright");
 
         tacticalRenderHeightOffset = LunaSettings.getFloat("Nightcross", "na_combatui_height");
         tacticalRenderSideOffset = LunaSettings.getFloat("Nightcross", "na_combatui_side");

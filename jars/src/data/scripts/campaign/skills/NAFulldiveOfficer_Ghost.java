@@ -20,7 +20,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
     public static float OVERLOAD_DUR = 30f;
 
     public static float EMP_SCALE = 100f;
-    public static float EMP_SCALE_MAXAT = 0.1f;
+    public static float EMP_SCALE_MAXAT = 20f;
 
     public static float OVERLOAD_RATE = .1f;
     public static float VENT_RATE = 200f;
