@@ -21,6 +21,11 @@ public class NA_SettingsListener implements LunaSettingsListener {
     public static boolean na_combatui_copyright = LunaSettings.getBoolean("Nightcross", "na_combatui_copyright");
     public static boolean na_combatui_info = LunaSettings.getBoolean("Nightcross", "na_combatui_info");
     public static boolean na_combatui_bars = LunaSettings.getBoolean("Nightcross", "na_combatui_bars");
+    public static boolean na_ships_spawn = LunaSettings.getBoolean("Nightcross", "na_ships_spawn");
+    public static boolean na_combatui_force = LunaSettings.getBoolean("Nightcross", "na_combatui_force");
+
+
+
 
 
     public static float tacticalRenderHeightOffset = LunaSettings.getFloat("Nightcross", "na_combatui_height");
@@ -52,6 +57,11 @@ public class NA_SettingsListener implements LunaSettingsListener {
         na_combatui_copyright = LunaSettings.getBoolean("Nightcross", "na_combatui_copyright");
         na_combatui_info = LunaSettings.getBoolean("Nightcross", "na_combatui_info");
         na_combatui_bars = LunaSettings.getBoolean("Nightcross", "na_combatui_bars");
+        na_ships_spawn = LunaSettings.getBoolean("Nightcross", "na_ships_spawn");
+        na_combatui_force = LunaSettings.getBoolean("Nightcross", "na_combatui_force");
+
+
+
 
         tacticalRenderHeightOffset = LunaSettings.getFloat("Nightcross", "na_combatui_height");
         tacticalRenderSideOffset = LunaSettings.getFloat("Nightcross", "na_combatui_side");

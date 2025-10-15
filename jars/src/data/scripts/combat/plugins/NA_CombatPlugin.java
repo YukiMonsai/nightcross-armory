@@ -27,6 +27,11 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     public static Color TEXT_COLOR_OFF = new Color(255, 255, 255, 115);
     public static Color TEXT_COLOR_ON = new Color(255, 255, 255, 255);
     public static Color TEXT_COLOR_HIGHLIGHT = new Color(255, 255, 255, 180);
+    public static Color ESCORT_COLOR = new Color(75, 253, 63);
+    public static Color YOU_COLOR = new Color(255, 255, 255);
+    public static Color SND_COLOR = new Color(250, 39, 190);
+    public static Color RETREAT_COLOR = new Color(250, 222, 39);
+
 
     enum CommandMode {
         RETREAT_COMMAND,
@@ -41,7 +46,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     public void processInputPreCoreControls(float amount, List<InputEventAPI> events) {
         if (NAModPlugin.hasLunaLib && NA_SettingsListener.na_combatui_enable && !NA_SettingsListener.na_combatui_nocontrol) {
             CombatEngineAPI engine = Global.getCombatEngine();
-            if (engine.isUIShowingHUD() && (!NA_SettingsListener.na_combatui_pause
+            if ((engine.isUIShowingHUD() || NA_SettingsListener.na_combatui_force) && !engine.getCombatUI().isShowingCommandUI() && (!NA_SettingsListener.na_combatui_pause
                     || engine.isPaused()
             )) {
                 for (InputEventAPI e: events) {
@@ -61,11 +66,11 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
 
+
     }
 
     @Override
     public void renderInWorldCoords(ViewportAPI viewport) {
-
 
     }
 
@@ -183,19 +188,19 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.RETREAT_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                    e.consume();
+                    e.consume(); events.remove(e);
                     return true;
                 } else if (e.getX() > XX + textSpacing && e.getX() < XX + 2 * textSpacing
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.ESCORT_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_full_retreat", 1f, 1f);
-                    e.consume();
+                    e.consume(); events.remove(e);
                     return true;
                 } else if (e.getX() > XX + 2*textSpacing && e.getX() < XX + 3 * textSpacing
                         && e.getY() > YY + TEXTOFF - TEXTHEIGHT && e.getY() < YY + TEXTOFF) {
                     commandMode = CommandMode.SEARCHANDDESTROY_COMMAND;
                     Global.getSoundPlayer().playUISound("ui_button_patrol", 1f, 1f);
-                    e.consume();
+                    e.consume(); events.remove(e);
                     return true;
                 }
             } else {
@@ -219,7 +224,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                 }
 
                 if (!NA_SettingsListener.na_combatui_copyright)
-                    MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Nightcross Tactical Display", textColor_OFF, new Vector2f(XX+20, YY + TEXTOFF + TEXTHEIGHT), false);
+                    MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Nightcross Tactical Display", textColor_OFF, new Vector2f(XX+12, YY + TEXTOFF + TEXTHEIGHT), false);
                 MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Retreat", commandMode == CommandMode.RETREAT_COMMAND ? textColor_ON : hl_ret ? textColor_HL : textColor_OFF, new Vector2f(XX, YY + TEXTOFF), false);
                 MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "Escort", commandMode == CommandMode.ESCORT_COMMAND ? textColor_ON : hl_esc ? textColor_HL : textColor_OFF, new Vector2f(XX + textSpacing, YY + TEXTOFF), false);
                 MagicUI.addText(Global.getCombatEngine().getPlayerShip(), "S&D", commandMode == CommandMode.SEARCHANDDESTROY_COMMAND ? textColor_ON : hl_snd ? textColor_HL : textColor_OFF, new Vector2f(XX + 2 * textSpacing, YY + TEXTOFF), false);
@@ -281,7 +286,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
 
 
-                        e.consume();
+                        e.consume(); events.remove(e);
                         return true;
                     }
                 } else {
@@ -299,7 +304,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
                     sprite.setSize(scale * sprite.getWidth(), scale * sprite.getHeight());
                     sprite.setColor(color);
-                    sprite.setCenter(sprite.getWidth(), sprite.getHeight());
+                    //sprite.setCenter(sprite.getWidth(), sprite.getHeight());
 
 
                     boolean retreating = Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
@@ -318,26 +323,30 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         sprite.setAlphaMult(0.6f + 0.39f * (float)sineAmt);
                     }
 
-                    sprite.render(XX + w * 0.5f, YY + h * 0.5f);
+                    sprite.renderAtCenter(XX + w * 0.5f, YY + h * 0.5f);
                     sprite.setAdditiveBlend();
-                    sprite.render(XX + w * 0.5f, YY + h * 0.5f);
+                    sprite.renderAtCenter(XX + w * 0.5f, YY + h * 0.5f);
                     sprite.setNormalBlend();
 
                     float yyy = 0;
+                    if (member.getShip() == Global.getCombatEngine().getPlayerShip()) {
+                        MagicUI.addText(member.getShip(), "you", YOU_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
+                        yyy -= 6;
+                    }
                     if (snd) {
-                        MagicUI.addText(member.getShip(), "S&D", new Color(250, 39, 190), new Vector2f(XX + 6, YY + h + yyy), false);
+                        MagicUI.addText(member.getShip(), "S&D", SND_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         yyy -= 6;
                     }
                     if (!NA_SettingsListener.na_combatui_info && escortList.containsKey(member.getShip().getId())) {
                         if (escortList.get(member.getShip().getId()).getAssignedMembers().isEmpty()) {
-                            MagicUI.addText(member.getShip(), "-", new Color(100, 255, 100), new Vector2f(XX + 6, YY + h + yyy), false);
+                            MagicUI.addText(member.getShip(), "-", ESCORT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         } else
                         if (escortList.get(member.getShip().getId()).getType().equals(CombatAssignmentType.MEDIUM_ESCORT))
-                            MagicUI.addText(member.getShip(), "M", new Color(100, 255, 100), new Vector2f(XX + 6, YY + h + yyy), false);
+                            MagicUI.addText(member.getShip(), "M", ESCORT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         else if (escortList.get(member.getShip().getId()).getType().equals(CombatAssignmentType.HEAVY_ESCORT))
-                            MagicUI.addText(member.getShip(), "H", new Color(100, 255, 100), new Vector2f(XX + 6, YY + h + yyy), false);
+                            MagicUI.addText(member.getShip(), "H", ESCORT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         else if (escortList.get(member.getShip().getId()).getType().equals(CombatAssignmentType.LIGHT_ESCORT))
-                            MagicUI.addText(member.getShip(), "L", new Color(100, 255, 100), new Vector2f(XX + 6, YY + h + yyy), false);
+                            MagicUI.addText(member.getShip(), "L", ESCORT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         yyy -= 6;
                     }
                     if (!snd && escort) {
@@ -346,12 +355,12 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         if (Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.LIGHT_ESCORT)
                                 || Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.MEDIUM_ESCORT)
                                 || Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.HEAVY_ESCORT)) {
-                            MagicUI.addText(member.getShip(), "esc", new Color(46, 207, 46), new Vector2f(XX + 6, YY + h + yyy), false);
+                            MagicUI.addText(member.getShip(), "esc", ESCORT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         }
                     }
 
                     if (!NA_SettingsListener.na_combatui_info && retreating) {
-                        MagicUI.addText(member.getShip(), "retreat", new Color(216, 237, 26), new Vector2f(XX + 6, YY + h + yyy), false);
+                        MagicUI.addText(member.getShip(), "retreat", RETREAT_COLOR, new Vector2f(XX + 6, YY + h + yyy), false);
                         yyy -= 6;
                     }
 
@@ -369,7 +378,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                             float crTimeFrac = member.getShip().getPeakTimeRemaining()/
                                     (1f + member.getMember().getStats().getPeakCRDuration().computeEffective(member.getShip().getHullSpec().getNoCRLossTime()));
                             //if (NA_SettingsListener.na_combatui_compact) {
-                            MagicUI.addBar(member.getShip(), crTimeFrac, fill2, border, member.getShip().getCurrentCR(), new Vector2f(XX + w * 0.125f, YY - 12), 6, w*0.75f, true);
+                            MagicUI.addBar(member.getShip(), member.getShip().getCurrentCR(), fill2, border2, crTimeFrac * member.getShip().getCurrentCR(), new Vector2f(XX + w * 0.125f, YY - 12), 6, w*0.75f, true);
                         }
                     }
 
@@ -392,7 +401,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     public void renderInUICoords(ViewportAPI viewport) {
         if (NAModPlugin.hasLunaLib && NA_SettingsListener.na_combatui_enable) {
             CombatEngineAPI engine = Global.getCombatEngine();
-            if (engine.isUIShowingHUD() && (!NA_SettingsListener.na_combatui_pause
+            if ((engine.isUIShowingHUD() || NA_SettingsListener.na_combatui_force) && !engine.getCombatUI().isShowingCommandUI() && (!NA_SettingsListener.na_combatui_pause
                     || engine.isPaused()
             )) {
                 drawNightcrossTactical(false, null, null);

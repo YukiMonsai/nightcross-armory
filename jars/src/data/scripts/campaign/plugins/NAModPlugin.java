@@ -263,14 +263,17 @@ public class NAModPlugin extends BaseModPlugin {
 
 
 
-            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_MARE_CRISIUM)) {
-                gen.place_mare(Global.getSector());
-                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+            if (!hasLunaLib || NA_SettingsListener.na_ships_spawn) {
+                if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_MARE_CRISIUM)) {
+                    gen.place_mare(Global.getSector());
+                    Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+                }
+                if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_STRINGOFPEARLS)) {
+                    gen.place_sop(Global.getSector());
+                    Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+                }
             }
-            if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_PLACED_STRINGOFPEARLS)) {
-                gen.place_sop(Global.getSector());
-                Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
-            }
+
 
 
             if (!hasLunaLib || NA_SettingsListener.na_stargazer_spawn) {
@@ -319,10 +322,13 @@ public class NAModPlugin extends BaseModPlugin {
     public void onNewGameAfterProcGen() {
 
         NAGen gen = new NAGen();
-        gen.place_mare(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
-        gen.place_sop(Global.getSector());
-        Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+
+        if (!hasLunaLib || NA_SettingsListener.na_ships_spawn) {
+            gen.place_mare(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_MARE_CRISIUM, true);
+            gen.place_sop(Global.getSector());
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_PLACED_STRINGOFPEARLS, true);
+        }
 
 
 

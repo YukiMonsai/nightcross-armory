@@ -25,7 +25,7 @@ import static data.scripts.stardust.NA_StargazerHull.STARGAZER_RED;
 
 public class NA_FluxTransference extends BaseShipSystemScript {
 	
-	public static float MAX_LASH_RANGE = 1400f;
+	public static float MAX_LASH_RANGE = 1550f;
 
 	public static float FLUX_PER_DUST = 2000;
 	public static float FLUX_PER_DUST_HF_MOD = 0.5f;
