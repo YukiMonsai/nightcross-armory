@@ -1,16 +1,16 @@
 {
 	"NA_Kasane_Teto": {
-		"trigger_marketFaction_any": ["independent"],
+		"trigger_marketFaction_any": ["independent", "nightcross"],
 		"trigger_marketFaction_alliedWith": true,
-		"trigger_player_minLevel": 3,
-		"trigger_min_days_elapsed": 60,
-		"trigger_weight_mult": 3,
+		"trigger_player_minLevel": 4,
+		"trigger_min_days_elapsed": 170,
+		"trigger_weight_mult": 1.5,
 
 		"job_name": "Twin Drills to Pierce the Heavens",
 		"job_description": "A popular virtual singer from Nightcross has retired. Normally, this wouldn't be newsworthy to a starship captain (except a devotee of this particular artist), but leaked behind-the-scenes footage shows that the singer was actually an AI core all along, prompting a COMSEC investigation into the matter. Coincidentally, certain interests within Nightcross Armory Corporation have posted a bounty on an unusual prototype that has been painted garish colors and heavily modified by the errant AI core, escorted by a fleet of devoted fans. It would be a shame if an independent captain just happened to catch this one before the Hegemony.",
 		"job_comm_reply": "You really are an idiot, aren't you?",
 		"job_intel_success": "Kasane Teto's flagship has been destroyed, and with it, any hope of Nightcross Armory's competitors recovering its secrets. As for the AI core, nothing in the contract stipulated anything about Teto herself, who has stated she would be happy to join your fleet.",
-		"job_intel_failure": "Kasane Teto's flagship has won you over with its awe-inspiring firepower. And naturally, you have a certain AI core to pilot it - wait, is that a pear!?",
+		"job_intel_failure": "Kasane Teto's flagship has won you over with its awe-inspiring firepower. And naturally, you have a certain AI core to pilot it- wait, is that a pear!?",
 
 		"job_forFaction": "nightcross",
 		"job_deadline": 400,
@@ -82,7 +82,11 @@
 			"jump_point"
 		],
 		"location_prioritizeUnexplored": true,
-		"location_defaultToAnyEntity": true
+		"location_defaultToAnyEntity": true,
+        "trigger_memKeys_all": { # Default: no values. The job will show if ANY of the listed memKeys exist with the specified boolean value.
+            "$na_enableaibounties":true,
+            "$na_found_nca_research":true,
+        },
 	},
 
 

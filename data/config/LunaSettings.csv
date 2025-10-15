@@ -6,6 +6,8 @@ na_factiontech,Remove Tech,Header,,,,,,
 na_faction_gear,Remove gear from caches,Boolean,false,,Removes Nightcross Armory gear from random drops and loot in exploration content. Secret content is unaffected.,,,
 na_faction_gearrare,Remove restricted gear,Boolean,false,,"Removes just gear with the ""Nightcross Restricted"" design type from salvage. Has no effect unless ""remove gear from caches"" is true.",,,
 na_faction_merc,Remove gear from mercs,Boolean,false,,"Remove the merc tag from Nightcross Armory equipment, so mercenaries won't use them.",,,
+na_bounty,Nightcross Armory,Header,,,,,,
+na_bounties,Enable AI Bounties,Boolean,true,,Enables bounties from the mod that give unique AI cores to the player. Can be enabled or disabled mid-save.,,,
 ,,,,,,,,
 na_combatUI,Usability,Header,,,,,,Tactical Display
 na_combatui_enable,Enable Nightcross Tactical Display,Boolean,false,,"Enables the Nightcross Tactical Display, an experimental fleet status display during combat.",,,Tactical Display

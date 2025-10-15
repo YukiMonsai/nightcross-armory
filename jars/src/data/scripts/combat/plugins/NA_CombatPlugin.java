@@ -66,7 +66,6 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
 
-
     }
 
     @Override

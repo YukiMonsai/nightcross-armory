@@ -23,6 +23,9 @@ public class NA_SettingsListener implements LunaSettingsListener {
     public static boolean na_combatui_bars = LunaSettings.getBoolean("Nightcross", "na_combatui_bars");
     public static boolean na_ships_spawn = LunaSettings.getBoolean("Nightcross", "na_ships_spawn");
     public static boolean na_combatui_force = LunaSettings.getBoolean("Nightcross", "na_combatui_force");
+    public static boolean na_bounties = LunaSettings.getBoolean("Nightcross", "na_bounties");
+
+
 
 
 
@@ -59,6 +62,8 @@ public class NA_SettingsListener implements LunaSettingsListener {
         na_combatui_bars = LunaSettings.getBoolean("Nightcross", "na_combatui_bars");
         na_ships_spawn = LunaSettings.getBoolean("Nightcross", "na_ships_spawn");
         na_combatui_force = LunaSettings.getBoolean("Nightcross", "na_combatui_force");
+        na_bounties = LunaSettings.getBoolean("Nightcross", "na_bounties");
+
 
 
 

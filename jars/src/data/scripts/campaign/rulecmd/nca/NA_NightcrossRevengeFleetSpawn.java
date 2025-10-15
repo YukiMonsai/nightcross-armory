@@ -35,7 +35,7 @@ public class NA_NightcrossRevengeFleetSpawn extends BaseCommandPlugin {
         e.setLocationCoreOnly(true, faction);
         e.setEncounterInHyper();
         e.beginCreate();
-        HubMissionWithTriggers.FleetSize size = HubMissionWithTriggers.FleetSize.MEDIUM;
+        HubMissionWithTriggers.FleetSize size = HubMissionWithTriggers.FleetSize.SMALL;
         String type = FleetTypes.MERC_BOUNTY_HUNTER;
         HubMissionWithTriggers.FleetQuality q = HubMissionWithTriggers.FleetQuality.SMOD_1;
 
@@ -45,9 +45,9 @@ public class NA_NightcrossRevengeFleetSpawn extends BaseCommandPlugin {
             if (mem.getFloat("$na_secretrevengecount") >= 2.9f) {
                 size = HubMissionWithTriggers.FleetSize.VERY_LARGE;
             } else if (mem.getFloat("$na_secretrevengecount") >= 1.9f) {
-                size = HubMissionWithTriggers.FleetSize.LARGER;
-            } else if (mem.getFloat("$na_secretrevengecount") >= .9f) {
                 size = HubMissionWithTriggers.FleetSize.LARGE;
+            } else if (mem.getFloat("$na_secretrevengecount") >= .9f) {
+                size = HubMissionWithTriggers.FleetSize.MEDIUM;
             }
 
 
@@ -68,9 +68,11 @@ public class NA_NightcrossRevengeFleetSpawn extends BaseCommandPlugin {
             }
         }
         e.triggerCreateFleet(size, q, faction, type, new Vector2f());
-        e.triggerSetAdjustStrengthBasedOnQuality(true, 2.0f);
+        e.triggerSetAdjustStrengthBasedOnQuality(true, 0.5f);
         e.triggerSetStandardAggroPirateFlags();
         e.triggerSetStandardAggroInterceptFlags();
+        
+        mem.set("na_found_nca_research", 1f);
         if (!mem.contains("$na_secretrevengecount")) {
             mem.set("$na_secretrevengecount", 1f);
         } else {

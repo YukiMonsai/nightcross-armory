@@ -181,6 +181,12 @@ public class NAModPlugin extends BaseModPlugin {
 
         NAUtils.NAGenPeople();
 
+
+        if (!hasLunaLib || NA_SettingsListener.na_bounties) {
+            Global.getSector().getMemoryWithoutUpdate().set("$na_enableaibounties", true);
+        } else
+            Global.getSector().getMemoryWithoutUpdate().unset("$na_enableaibounties");
+
         syncScripts();
     }
 

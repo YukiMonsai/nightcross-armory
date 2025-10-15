@@ -492,7 +492,7 @@ $player.encounteredStargazer",,,"na_zgr_postWeirdOptStargazer:""I found automate
 na_zgr_postWeirdNothingLie:""Nope, nothing yet."" (lie)",
 na_ZGRpostWeirdOptStargazer,DialogOptionSelected,$option == na_zgr_postWeirdOptStargazer,"$didReturnEver = true
 $saidTechReturn = true 0
-FireAll PopulateZGRturnInOpts","""There are many automated vessels in the sector,"" the Director raises a brow. ""I'm sure you know that, Captain. I trust there's something more... interesting about the ones you found. Show me.""",,
+FireAll PopulateZGRturnInOpts","""There are many automated vessels in this sector,"" the Director raises a brow. ""I'm sure you know that, Captain. I trust there's something more... interesting about the ones you found. Show me.""",,
 na_ZGRtechTurnInResponseStargazer,na_ZGRItemsTurnedIn,!$didFirstSale,"$didFirstSaleStargazer = true
 $didFirstSale = true
 FireAll PopulateOptions","The Director's eyes snap to you, like magic.
@@ -543,7 +543,7 @@ OR
 
 ""Captain $playerName, correct?"" The $post looks over what looks to be a paper contract, signed in bright blue ink.
 
-$HeOrShe then terminates the comms.","cutCommLink2:Power up weapons
+""Looks like you're wanted for- er... trespassing. Damn."" $HeOrShe shrugs, then reaches for the comms shut-off.","cutCommLink2:Power up weapons
 cutCommLink:Say nothing",
 na_nightcrosshumandefenders,OpenCommLink,"$entity.na_nightcrossdefCMD score:1001
 !$na_bothereddefenders","$na_bothereddefenders = true 10
