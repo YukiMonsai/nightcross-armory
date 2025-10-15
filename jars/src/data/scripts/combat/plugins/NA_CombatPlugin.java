@@ -22,6 +22,7 @@ import java.util.List;
 
 public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
+    // TODO add optional display for other side (for tournaments maybe?)
 
     public static Color TEXT_COLOR_OFF = new Color(255, 255, 255, 115);
     public static Color TEXT_COLOR_ON = new Color(255, 255, 255, 255);
@@ -304,13 +305,13 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                     boolean retreating = Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
                             && Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.RETREAT);
 
-                    boolean escort = !retreating && Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
+                    boolean escort = !NA_SettingsListener.na_combatui_info && !retreating && Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
                             && (
                             Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.LIGHT_ESCORT)
                                     || Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.MEDIUM_ESCORT)
                                     || Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.HEAVY_ESCORT)
                     );
-                    boolean snd = Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
+                    boolean snd = !NA_SettingsListener.na_combatui_info && Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()) != null
                             && Global.getCombatEngine().getFleetManager(0).getTaskManager(false).getAssignmentFor(member.getShip()).getType().equals(CombatAssignmentType.SEARCH_AND_DESTROY);
 
                     if (retreating) {
@@ -327,7 +328,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         MagicUI.addText(member.getShip(), "S&D", new Color(250, 39, 190), new Vector2f(XX + 6, YY + h + yyy), false);
                         yyy -= 6;
                     }
-                    if (escortList.containsKey(member.getShip().getId())) {
+                    if (!NA_SettingsListener.na_combatui_info && escortList.containsKey(member.getShip().getId())) {
                         if (escortList.get(member.getShip().getId()).getAssignedMembers().isEmpty()) {
                             MagicUI.addText(member.getShip(), "-", new Color(100, 255, 100), new Vector2f(XX + 6, YY + h + yyy), false);
                         } else
@@ -349,26 +350,29 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                         }
                     }
 
-                    if (retreating) {
+                    if (!NA_SettingsListener.na_combatui_info && retreating) {
                         MagicUI.addText(member.getShip(), "retreat", new Color(216, 237, 26), new Vector2f(XX + 6, YY + h + yyy), false);
                         yyy -= 6;
                     }
 
                     // bars
-                    Color fill = new Color(210, member.getShip().getFluxTracker().isOverloaded() ? 150 : 82, 237, member.getShip().getFluxTracker().isOverloadedOrVenting() ? (int) (200 + 50 * sineAmt) : 255);
-                    Color border = new Color(175, 134, 227, 180);
-                    //if (NA_SettingsListener.na_combatui_compact)
-                    MagicUI.addBar(member.getShip(), member.getShip().getFluxLevel(), fill, border, member.getShip().getHardFluxLevel(), new Vector2f(XX + w * 0.125f, YY - 4), 6, w*0.75f, true);
-                    //else MagicUI.addInterfaceStatusBar(member.getShip(), new Vector2f(XX, YY - 4), member.getShip().getFluxLevel(), fill, border, member.getShip().getHardFluxLevel());
-                    Color fill2 = new Color(202, 197, 197, member.getShip().getPeakTimeRemaining() < 1f ? (int) (200 + 50 * sineAmt) : 255);
-                    Color border2 = new Color(169, 232, 8, 180);
+                    if (!NA_SettingsListener.na_combatui_bars) {
+                        Color fill = new Color(210, member.getShip().getFluxTracker().isOverloaded() ? 150 : 82, 237, member.getShip().getFluxTracker().isOverloadedOrVenting() ? (int) (200 + 50 * sineAmt) : 255);
+                        Color border = new Color(175, 134, 227, 180);
+                        //if (NA_SettingsListener.na_combatui_compact)
+                        MagicUI.addBar(member.getShip(), member.getShip().getFluxLevel(), fill, border, member.getShip().getHardFluxLevel(), new Vector2f(XX + w * 0.125f, YY - 4), 6, w*0.75f, true);
+                        //else MagicUI.addInterfaceStatusBar(member.getShip(), new Vector2f(XX, YY - 4), member.getShip().getFluxLevel(), fill, border, member.getShip().getHardFluxLevel());
+                        Color fill2 = new Color(202, 197, 197, member.getShip().getPeakTimeRemaining() < 1f ? (int) (200 + 50 * sineAmt) : 255);
+                        Color border2 = new Color(169, 232, 8, 180);
 
-                    if (!retreating) {
-                        float crTimeFrac = member.getShip().getPeakTimeRemaining()/
-                                (1f + member.getMember().getStats().getPeakCRDuration().computeEffective(member.getShip().getHullSpec().getNoCRLossTime()));
-                        //if (NA_SettingsListener.na_combatui_compact) {
-                        MagicUI.addBar(member.getShip(), crTimeFrac, fill2, border, member.getShip().getCurrentCR(), new Vector2f(XX + w * 0.125f, YY - 12), 6, w*0.75f, true);
+                        if (!retreating) {
+                            float crTimeFrac = member.getShip().getPeakTimeRemaining()/
+                                    (1f + member.getMember().getStats().getPeakCRDuration().computeEffective(member.getShip().getHullSpec().getNoCRLossTime()));
+                            //if (NA_SettingsListener.na_combatui_compact) {
+                            MagicUI.addBar(member.getShip(), crTimeFrac, fill2, border, member.getShip().getCurrentCR(), new Vector2f(XX + w * 0.125f, YY - 12), 6, w*0.75f, true);
+                        }
                     }
+
 
                     //MagicUI.drawSystemBar(member.getShip(), new Vector2f(XX + w/2, YY - 4), crTimeFrac <= 0.1f ? border2 : fill2, crTimeFrac <= 0.1f ? crTimeFrac : member.getShip().getCurrentCR(), 0);
                     //}
