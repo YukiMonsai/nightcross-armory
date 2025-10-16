@@ -286,6 +286,7 @@ public class NA_StardustTransfer extends BaseShipSystemScript {
 		if (other.isHulk() || other.getOwner() == 100) return false;
 		if (ship.getOwner() != other.getOwner()) return false;
 		if (other.isShuttlePod()) return false;
+		if (other.isPhased()) return false;
 		if (other.hasTag(ThreatShipConstructionScript.SHIP_UNDER_CONSTRUCTION)) return false;
 
 		NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
