@@ -8,11 +8,15 @@
 	},
 	"plugins": {
 		"NA_CombatECMPlugin":"data.scripts.combat.plugins.NA_CombatECMPlugin",
-		"NA_CombatPlugin":"data.scripts.combat.plugins.NA_CombatPlugin",
+		#"NA_CombatPlugin":"data.scripts.combat.plugins.NA_CombatPlugin",
 	},
 	"na_redmasktext":[230,10,10,255],
 	"na_tetotext":[250,15,35,255],
 	"graphics":{
+		"icons": {
+			"na_icon_select":"graphics/icons/na_icon_select.png",
+		},
+			
 		"illustrations": {
 			"na_stargazerstation": "graphics/illustrations/na_stargazerstation.jpg",
 			"na_abysswreck":"graphics/illustrations/na_abysswreck.jpg",

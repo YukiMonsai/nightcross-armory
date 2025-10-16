@@ -1,28 +1,13 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
-na_faction,Nightcross Armory,Header,,,,,,
+na_faction,Nightcross Armory,Header,Nightcross Armory,,,,,
 na_pascal_system,Enable Pascal System,Boolean,true,,Adds the Pascal system on world generation. Will apply to existing saves if the system has not yet been generated.,,,
 na_faction_nex,Nightcross Armory owns Graveyard Station,Boolean,false,,"Gives Graveyard Station to the Nightcross Armory faction on sector generation. Only applies when the Pascal System is being generated, otherwise requires a new game.",,,
-na_factiontech,Remove Tech,Header,,,,,,
+na_factiontech,Remove Tech,Header,Remove Tech,,,,,
 na_faction_gear,Remove gear from caches,Boolean,false,,Removes Nightcross Armory gear from random drops and loot in exploration content. Secret content is unaffected.,,,
 na_faction_gearrare,Remove restricted gear,Boolean,false,,"Removes just gear with the ""Nightcross Restricted"" design type from salvage. Has no effect unless ""remove gear from caches"" is true.",,,
 na_faction_merc,Remove gear from mercs,Boolean,false,,"Remove the merc tag from Nightcross Armory equipment, so mercenaries won't use them.",,,
-na_bounty,Nightcross Armory,Header,,,,,,
-na_bounties,Enable AI Bounties,Boolean,true,,Enables bounties from the mod that give unique AI cores to the player. Can be enabled or disabled mid-save.,,,
-,,,,,,,,
-na_combatUI,Usability,Header,,,,,,Tactical Display
-na_combatui_enable,Enable Nightcross Tactical Display,Boolean,false,,"Enables the Nightcross Tactical Display, an experimental fleet status display during combat.",,,Tactical Display
-na_combatui_pause,Show only when paused,Boolean,false,,Shows the Nightcross Tactical Display only when paused.,,,Tactical Display
-na_combatui_force,Show with UI disabled,Boolean,false,,Shows the Nightcross Tactical Display even when UI is turned off (via F11 key by default),,,Tactical Display
-na_combatui_compact,Compact Mode,Boolean,false,,Makes the Nightcross Tactical Display smaller.,,,Tactical Display
-na_combatui_colorblind,Colorblind-Friendly,Boolean,false,,Uses blue instead of green for ship sprites.,,,Tactical Display
-na_combatUIpos,Position,Header,,,,,,Tactical Display
-na_combatui_height,Height offset from top,Int,300,,Distance of Nightcross Tactical Display from top of screen.,50,800,Tactical Display
-na_combatui_side,Height offset from left,Int,30,,Distance of Nightcross Tactical Display from left edge of screen.,5,500,Tactical Display
-na_combatUI2,Disable Features,Header,,,,,,Tactical Display
-na_combatui_bars,Hide Flux & PPT Bars,Boolean,false,,Does not display flux bars and PPT/CR time for ships.,,,Tactical Display
-na_combatui_info,Remove Assignment Info ,Boolean,false,,"Does not display assignment info text (e.g. 'S&D' 'retreat') next to ships. Note: Does not remove controls, thats a separate option.",,,Tactical Display
-na_combatui_nocontrol,No Controls,Boolean,false,,"Removes the ability to click on the Nightcross Tactical Display, making it purely informational.",,,Tactical Display
-na_combatui_copyright,Remove Trademark ,Boolean,false,,Removes the 'Nightcross Tactical Display' label. Note: This voids the warranty.,,,Tactical Display
+na_bounty,Bounties,Header,Bounties,,,,,
+na_bounties,Enable Non-Story Bounties,Boolean,true,,Enables bounties from the mod that are not particularly relevant to Nightcross Armory or its lore. Can be enabled or disabled mid-save.,,,
 ,,,,,,,,
 ,,,,,,,,
 na_stargazer_abyss,Enable Abyssal Encounters,Boolean,true,,Enables encounters in the abyss. Applies to existing saves.,,,Secrets
