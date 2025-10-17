@@ -501,6 +501,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                     if (system.getStar() != null && (system.getStar().isBlackHole()
                             || system.getStar().hasTag("na_whitedwarf"))) {
                         system.getMemoryWithoutUpdate().set("$musicSetId", "kocaeli_blackhole");
+                        system.getStar().addScript(new NA_BlackHoleMoteScript(system.getStar(), 0.05f));
                     }
                     if (data.random.nextFloat() < CACHE_CHANCE + (1f - 1f / (1f + NA_StargazerGhostManager.getAbyssInterest()))) {
                         NA_StargazerGhostManager.addAbyssInterest(5f);
