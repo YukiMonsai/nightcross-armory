@@ -32,7 +32,7 @@ public class NA_HomingLaserAI implements MissileAIPlugin, GuidedMissileAI {
 
 
     private float target_angle = 0f;
-    private final float STAGE_ONE_ANGLE = 30f;
+    private final float STAGE_ONE_ANGLE = 45f;
     private final float ANGLE_MIN_ZIGZAG = 25f;
     private final float ANGLE_MAX_ZIGZAG = 40f;
 
@@ -45,8 +45,11 @@ public class NA_HomingLaserAI implements MissileAIPlugin, GuidedMissileAI {
         // left or right
         if (missile.getWeapon() != null && missile.getWeapon().getSlot() != null) {
             WeaponSlotAPI slot = missile.getWeapon().getSlot();
-
             stage = slot.getLocation().y > 0 ? 1 : -1;
+            if (missile.getWeapon() != null && missile.getWeapon().getShip() != null
+            && Math.abs(MathUtils.getShortestRotation(missile.getFacing(), missile.getWeapon().getShip().getFacing())) > 90) {
+                stage *= -1; // for backwards firing slots we invert
+            }
         } else {
             stage = MathUtils.getRandomNumberInRange(0, 1f) > 0.5 ? -1 : 1;
         }

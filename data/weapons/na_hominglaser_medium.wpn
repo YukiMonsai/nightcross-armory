@@ -21,26 +21,35 @@
     9,
     4.5,
     9,
-    -4.5,
+    1.5,
     9,
     -1.5,
     9,
-    1.5
+    -4.5
   ],
   "turretAngleOffsets": [
     30,
-    -30,
-    -15,
-    15
+    10,
+    -10,
+    -30
   ],
   "hardpointOffsets": [
     18,
-    0
+    4.5,
+    18,
+    1.5,
+    18,
+    -1.5,
+    18,
+    -4.5
   ],
   "hardpointAngleOffsets": [
-    0
+    30,
+    10,
+    -10,
+    -30
   ],
-  "barrelMode": "LINKED",
+  "barrelMode": "ALTERNATING",
   "animationType": "GLOW",
 	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
 	"interruptibleBurst":false,

@@ -22,7 +22,7 @@
 	"explosionColor":[75,100,255,235],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":50, # purely visual
 	"engineSpec":{"turnAcc":800,
-				  "turnRate":600,
+				  "turnRate":300,
 				  "acc":2400,
 				  "dec":1900},	
 	#"length":0,

@@ -212,6 +212,10 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
                             } else if (fleet.getStarSystem() != null) {
                                 w = 100f / (100f + MathUtils.getDistance(fleet.getStarSystem().getLocation(), system.getLocation()));
                             }
+                            if (system.getPlanets() != null && system.getPlanets().isEmpty()) {
+                                w *= 3;
+                            }
+                            // empty systems get higher weighting actually
                             interestingSystems.add(system, w);
                         }
                     }

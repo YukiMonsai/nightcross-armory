@@ -1,5 +1,5 @@
 {
-    "playableFaction":false,
+    "playableFaction":true,
 	"startingFaction":true,
     "corvusCompatible":true,
     "freeStart":true,
