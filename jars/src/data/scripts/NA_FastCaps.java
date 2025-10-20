@@ -173,13 +173,17 @@ public class NA_FastCaps extends BaseShipSystemScript {
 
         }
 
-        if (state == State.IDLE && !playedCooledDown) {
-            Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
-            playedCooledDown = true;
-        } else if (state == State.OUT || state == State.COOLDOWN) {
-            if (!playedEnd) {
-                Global.getSoundPlayer().playSound("na_steamoff", 1f, 1f, ship.getLocation(), ship.getVelocity());
-                playedEnd = true;
+
+        float amount = Global.getCombatEngine().getElapsedInLastFrame();
+        if (amount > 0) {
+            if (state == State.IDLE && !playedCooledDown) {
+                Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                playedCooledDown = true;
+            } else if (state == State.OUT || state == State.COOLDOWN) {
+                if (!playedEnd) {
+                    Global.getSoundPlayer().playSound("na_steamoff", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                    playedEnd = true;
+                }
             }
         }
 

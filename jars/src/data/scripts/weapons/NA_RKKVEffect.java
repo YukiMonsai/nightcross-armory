@@ -8,7 +8,7 @@ import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 
 public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
 
-    public static float DAMAGE_MULT_PER_SPEED = 1f/1300f;
+    public static float DAMAGE_MULT_PER_SPEED = 1f/1400f;
     public static float DAMAGE_MAX_MULT = 1f;
     public static float DAMAGE_MIN = 0.1f;
 
@@ -34,7 +34,7 @@ public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
                 if (!shieldHit) {
                     damage.setType(DamageType.FRAGMENTATION);
                 }
-                damage.setDamage(base * Math.min(DAMAGE_MAX_MULT, Math.max(DAMAGE_MIN, 0.1f + DAMAGE_MULT_PER_SPEED * relvel)));
+                damage.setDamage(base * Math.min(DAMAGE_MAX_MULT, Math.max(DAMAGE_MIN, 0.02f + DAMAGE_MULT_PER_SPEED * relvel)));
                 return "na_rkkv";
             }
         }

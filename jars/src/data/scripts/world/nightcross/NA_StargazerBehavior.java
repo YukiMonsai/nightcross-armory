@@ -103,7 +103,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_NON_HOSTILE, true);
                 }
             }
-        } else if (Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER).getRelationship(Factions.PLAYER) < -0.1f) {
+        } else if (!(Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER).getRelationship(Factions.PLAYER) > 0.1f)) {
             if (seenByPlayerTime > KILL || seenByPlayerTimeTotal > KILL * NO_FORGET) {
 
                 if (MathUtils.getRandomNumberInRange(1, 10) < 3) {

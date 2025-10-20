@@ -208,16 +208,19 @@ public class NA_PlasmaSurge2 extends BaseShipSystemScript {
             }
             return;
         }
-
-        if (state == State.IDLE && !playedCooledDown && ship.getSystem().getAmmo() > 0) {
-            Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
-            playedCooledDown = true;
-        } else if (state == State.COOLDOWN) {
-            if (!playedEnd) {
-                //Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
-                playedEnd = true;
+        float amount = Global.getCombatEngine().getElapsedInLastFrame();
+        if (amount > 0) {
+            if (state == State.IDLE && !playedCooledDown && ship.getSystem().getAmmo() > 0) {
+                Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                playedCooledDown = true;
+            } else if (state == State.COOLDOWN) {
+                if (!playedEnd) {
+                    //Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                    playedEnd = true;
+                }
             }
         }
+
 
         init(ship);
 

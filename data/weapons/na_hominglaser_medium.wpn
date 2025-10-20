@@ -18,11 +18,20 @@
     255
   ],
   "turretOffsets": [
-    24,
-    0
+    9,
+    4.5,
+    9,
+    -4.5,
+    9,
+    -1.5,
+    9,
+    1.5
   ],
   "turretAngleOffsets": [
-    0
+    30,
+    -30,
+    -15,
+    15
   ],
   "hardpointOffsets": [
     18,

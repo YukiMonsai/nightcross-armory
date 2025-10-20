@@ -49,7 +49,7 @@ public class NA_NightcrossHumanDefenderPlugin extends BaseGenericPlugin implemen
         if (!(params instanceof SalvageGenFromSeed.SDMParams)) return 0;
         SalvageGenFromSeed.SDMParams p = (SalvageGenFromSeed.SDMParams) params;
 
-        if (p.entity!=null && p.entity.getCustomEntitySpec().getId().startsWith("na_research")) {
+        if (p.entity!=null && p.entity.getCustomEntitySpec() != null && p.entity.getCustomEntitySpec().getId().startsWith("na_research")) {
             return 2;
         }
         return 0;

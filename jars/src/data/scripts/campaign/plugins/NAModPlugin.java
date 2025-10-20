@@ -3,10 +3,7 @@ package data.scripts.campaign.plugins;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.PluginPick;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignPlugin;
-import com.fs.starfarer.api.campaign.GenericPluginManagerAPI;
-import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
@@ -14,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.loading.LoadingUtils;
 import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.enc.NA_StargazerDrifter;
 import data.scripts.campaign.enc.NA_StargazerGhostManager;
@@ -114,6 +112,7 @@ public class NAModPlugin extends BaseModPlugin {
     public static final boolean HAVE_LUNALIB = Global.getSettings().getModManager().isModEnabled("lunalib");
     @Override
     public void onApplicationLoad() {
+
 
         EncounterManager.CREATORS.add(new NA_StargazerBH());
         EncounterManager.CREATORS.add(new NA_StargazerDrifter());
@@ -326,6 +325,19 @@ public class NAModPlugin extends BaseModPlugin {
 
     @Override
     public void onNewGameAfterProcGen() {
+
+        // any vanilla generated systems with black dwarf or wolf rayet gets custom music
+
+        for (StarSystemAPI system : Global.getSector().getStarSystems()) {
+            if (system.getStar() != null && system.getStar().getSpec() != null) {
+                if (system.getStar().getSpec().getName().equals("na_blackdwarf2")
+                    || system.getStar().getSpec().getName().equals("na_blackdwarf")) {
+                    system.getMemoryWithoutUpdate().set("$musicSetId","kocaeli_blackhole");
+                } else if (system.getStar().getSpec().getName().equals("star_rayet")) {
+                    system.getMemoryWithoutUpdate().set("$musicSetId","nightcross_pascal_music");
+                }
+            }
+        }
 
         NAGen gen = new NAGen();
 
