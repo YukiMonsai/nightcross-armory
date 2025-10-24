@@ -22,22 +22,22 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
 
     //Angle with the target beyond which the missile turn around without accelerating. Avoid endless circling.
     //  Set to a negative value to disable
-    private final float OVERSHOT_ANGLE = 120;
+    private final float OVERSHOT_ANGLE = 0;
 
     //Time to complete a wave in seconds.
-    private final float WAVE_TIME = 1.5f;
+    private final float WAVE_TIME = 3.4f;
 
     //Max angle of the waving in degree (divided by 3 with ECCM). Set to a negative value to avoid all waving.
     private final float WAVE_AMPLITUDE = 60f;
 
     //Damping of the turn speed when closing on the desired aim. The smaller the snappier.
-    private final float DAMPING = 0.05f;
+    private final float DAMPING = 0.4f;
 
     //Does the missile try to correct it's velocity vector as fast as possible or just point to the desired direction and drift a bit?
     //  Can create strange results with large waving
     //  Require a projectile with a decent turn rate and around twice that in turn acceleration
     //  Usefull for slow torpedoes with low forward acceleration, or ultra precise anti-fighter missiles.
-    private final boolean OVERSTEER = false;  //REQUIRE NO OVERSHOOT ANGLE!
+    private final boolean OVERSTEER = true;  //REQUIRE NO OVERSHOOT ANGLE!
 
     //Does the missile switch its target if it has been destroyed?
     private final boolean TARGET_SWITCH = true;
@@ -61,29 +61,29 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
      * The missile will pick the closest target of interest. Useful for custom MIRVs.
      *
      */
-    private final MagicTargeting.targetSeeking seeking = MagicTargeting.targetSeeking.FULL_RANDOM;
+    private final MagicTargeting.targetSeeking seeking = MagicTargeting.targetSeeking.LOCAL_RANDOM;
 
     //Target class priorities
     //set to 0 to ignore that class
     private final int fighters = 1;
-    private final int frigates = 2;
-    private final int destroyers = 3;
+    private final int frigates = 3;
+    private final int destroyers = 4;
     private final int cruisers = 4;
     private final int capitals = 5;
 
     //Arc to look for targets into
     //set to 360 or more to ignore
-    private final int SEARCH_CONE = 360;
+    private final int SEARCH_CONE = 180;
 
     //range in which the missile seek a target in game units.
-    private final int MAX_SEARCH_RANGE = 800;
+    private final int MAX_SEARCH_RANGE = 1500;
 
     //should the missile fall back to the closest enemy when no target is found within the search parameters
     //only used with limited search cones
     private final boolean FAILSAFE = false;
 
     //range under which the missile start to get progressively more precise in game units.
-    private float PRECISION_RANGE = 150;
+    private float PRECISION_RANGE = 350;
 
     //Is the missile lead the target or tailchase it?
     private final boolean LEADING = true;
@@ -93,7 +93,7 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
     //   2: half precision without ECCM
     //   3: a third as precise without ECCM. Default
     //   4, 5, 6 etc : 1/4th, 1/5th, 1/6th etc precision.
-    private float ECCM = 3;   //A VALUE BELOW 1 WILL PREVENT THE MISSILE FROM EVER HITTING ITS TARGET!
+    private float ECCM = 1;   //A VALUE BELOW 1 WILL PREVENT THE MISSILE FROM EVER HITTING ITS TARGET!
 
 
     //////////////////////
@@ -184,7 +184,7 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
                 //best intercepting point
                 lead = AIUtils.getBestInterceptPoint(
                         MISSILE.getLocation(),
-                        MAX_SPEED * ECCM, //if eccm is intalled the point is accurate, otherwise it's placed closer to the target (almost tailchasing)
+                        MISSILE.getMoveSpeed() * ECCM, //if eccm is intalled the point is accurate, otherwise it's placed closer to the target (almost tailchasing)
                         target.getLocation(),
                         target.getVelocity()
                 );
@@ -223,8 +223,9 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
 
         if (WAVE_AMPLITUDE > 0) {
             //waving
-            correctAngle += WAVE_AMPLITUDE * Math.cos(OFFSET + MISSILE.getElapsed() * (4 * MathUtils.FPI / WAVE_TIME));
+            correctAngle += Math.min(1f, Math.max(0.25f, MISSILE.getMoveSpeed() / (100f + MISSILE.getMaxSpeed()))) * WAVE_AMPLITUDE * Math.cos(OFFSET + MISSILE.getElapsed() * (4 * MathUtils.FPI / WAVE_TIME));
         }
+
 
         //target angle for interception
         float aimAngle = MathUtils.getShortestRotation(MISSILE.getFacing(), correctAngle);

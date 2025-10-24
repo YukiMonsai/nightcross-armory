@@ -28,8 +28,8 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0004": "na_corrosion_pod",
-        "WS0006": "na_corrosion_pod"
+        "WS0004": "naai_starkiller",
+        "WS0006": "naai_starkiller"
       }
     },
     {

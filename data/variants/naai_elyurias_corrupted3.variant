@@ -1,5 +1,5 @@
 {
-  "variantId": "naai_elyurias_corrupted2",
+  "variantId": "naai_elyurias_corrupted3",
   "hullId": "naai_elyurias",
   "displayName": "Shattered",
   "goalVariant": true,
@@ -44,8 +44,8 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0026": "na_hardlightrifle",
-        "WS0027": "na_hardlightrifle"
+        "WS0026": "naai_megablaster",
+        "WS0027": "naai_megablaster"
       }
     },
     {

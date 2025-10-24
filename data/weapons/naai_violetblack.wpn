@@ -1,0 +1,31 @@
+{
+	"id":"naai_violetblack",  # this id must match what's in the spreadsheet
+	"specClass":"projectile",
+	"type":"ENERGY",
+	"size":"LARGE",
+	"everyFrameEffect":"data.scripts.stardust.NA_VioletBlackEffectEF",
+	#addship naai_losulci; addweapon na_pyrowisp_large 2; addweapon naai_megablaster 4;addweapon na_metahelium_ai 4;
+	"turretSprite":"graphics/weapons/naai_violetblack_turret_base.png",
+	"turretGlowSprite":"graphics/weapons/naai_violetblack_turret_glow.png",
+	"hardpointSprite":"graphics/weapons/naai_violetblack_hardpoint_base.png",
+	"hardpointGlowSprite":"graphics/weapons/naai_violetblack_hardpoint_glow.png",
+	"visualRecoil":0,  # the gun sprites are only used if this is non-0
+	"glowColor":[255,50,150,255],
+	"turretOffsets":[20, 0],
+	"turretAngleOffsets":[0],
+	"hardpointOffsets":[30, 0],
+	"hardpointAngleOffsets":[0],
+	"barrelMode":"ALTERNATING", # LINKED or ALTERNATING.  whether barrels fire at the same time or alternate.
+	"animationType":"GLOW_AND_FLASH",
+	"muzzleFlashSpec":{"length":100.0,   # only used if animationType = MUZZLE_FLASH
+					   "spread":5.0,
+					   "particleSizeMin":20.0,
+					   "particleSizeRange":20.0,
+					   "particleDuration":0.25,
+					   "particleCount":8,
+					   "particleColor":[200,100,125,175]},	
+	"autocharge":true,  # whether the weapon will continue charging and fire if the LMB is tapped instead of held
+	"projectileSpecId":"naai_violetblack_shot",  # projectile that will be fired
+	"fireSoundOne":"naai_megablaster_charge",
+	"fireSoundTwo":"na_rift_explosion2",
+}

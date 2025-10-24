@@ -96,6 +96,9 @@ public class NAModPlugin extends BaseModPlugin {
         }else if ("na_corrosionbeambullet_shot".contentEquals(missile.getProjectileSpecId())) {
             return new PluginPick<MissileAIPlugin>(new NA_corrosionmoteai(missile, launchingShip),
                     CampaignPlugin.PickPriority.MOD_SET);
+        }else if ("naai_starkiller_missile".contentEquals(missile.getProjectileSpecId())) {
+            return new PluginPick<MissileAIPlugin>(new NA_corrosionmoteai(missile, launchingShip),
+                    CampaignPlugin.PickPriority.MOD_SET);
         }
 
         return null;

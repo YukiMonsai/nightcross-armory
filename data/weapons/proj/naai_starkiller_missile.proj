@@ -1,5 +1,5 @@
 {
-	"id":"na_corrosionbeambullet_shot",
+	"id":"naai_starkiller_missile",
 	"specClass":"missile",	
 	"missileType":"MISSILE",
 	"collisionClassByFighter":"MISSILE_NO_FF",
@@ -10,7 +10,6 @@
     "textureScrollSpeed":-256.0,
 	"pixelsPerTexel":5.0,
 	"textureType":"WEAVE",  # only needed for BEAM spawnType
-	"passThroughFightersOnlyWhenDestroyed":true,
 	
 	
 	"size":[12,32],	
@@ -19,15 +18,17 @@
 	"collisionClass":"MISSILE_NO_FF",
 	"explosionColor":[255,0,125,235],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":50, # purely visual
-	"engineSpec":{"turnAcc":1200,
-				  "turnRate":1200,
-				  "acc":800,
-				  "dec":800},	
+	"engineSpec":{"turnAcc":2400,
+				  "turnRate":2400,
+				  "acc":200,
+				  "dec":200},	
 	#"length":0,
-	"hitGlowRadius":50,
+	"hitGlowRadius":150,
 	"fringeColor":[255,0,0,145],
-	"coreColor":[75,0,255,255],	
+	"coreColor":[175,125,255,255],	
 	"sprite":"graphics/missiles/na_null.png",
+	"passThroughMissiles":true,
+	"passThroughFighters":true,
 	"flameoutTime":0.2, # total time from flameout to full fadeout
 	"noEngineGlowTime":0.2, # time spent without the engine glow being rendered
 	"fadeTime":0.2, # fadeout duration			
@@ -35,14 +36,14 @@
 	
 	"explosionSpec": {
       "duration": 0.1f,
-      "radius": 100,
-      "coreRadius": 50, # full damage within core radius - also equal to proximity fuse range
+      "radius": 140,
+      "coreRadius": 70, # full damage within core radius - also equal to proximity fuse range
       "collisionClass": PROJECTILE_FF,
       "collisionClassByFighter": PROJECTILE_FIGHTER,
       "particleSizeMin": 3.0,
       "particleSizeRange": 6.0,
       "particleDuration": 0.6,
-      "particleCount": 50,
+      "particleCount": 90,
       "particleColor": [255, 0, 75, 255],
       "sound": "system_emp_emitter_impact",
     },
@@ -50,25 +51,27 @@
     "renderTargetIndicator":true,
 	"engineSlots":[
 			{"id":"ES1",
-                "loc":[0, -4],
+                "loc":[0, -16],
                 "style":"CUSTOM",
                 "styleSpec":{
                         "mode":"QUAD_STRIP",
                         "engineColor":[255,90,110,255],
-						"glowAlternateColor":[255,75,175,235],
-						"glowSizeMult":2.28,
-                        "contrailDuration":1.1,
-                        "contrailWidthMult":1.2,
+						"glowSizeMult":3.33,
+						"glowAlternateColor":[125,75,255,235],
+                        "contrailDuration":1.4,
+                        "contrailWidthMult":1.67,
                         "contrailWidthAddedFractionAtEnd":1,
                         "contrailMinSeg":8,
                         "contrailMaxSpeedMult":0.0f,
                         "contrailAngularVelocityMult":0.0f,
-                        "contrailColor":[255,0,125,235],
+                        "contrailColor":[175,0,244,235],
 						"contrailSpawnDistMult":0f, # how far away from engine it starts
                         "type":"GLOW"
                 },
-                "width":9.0,
-                "length":9.0,
+                "width":12.0,
+                "length":12.0,
                 "angle":180.0
                 }],
 }
+
+
