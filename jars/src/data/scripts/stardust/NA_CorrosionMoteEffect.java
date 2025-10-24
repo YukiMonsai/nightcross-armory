@@ -44,7 +44,7 @@ public class NA_CorrosionMoteEffect implements OnFireEffectPlugin, EveryFrameWea
                 }
 
                 Global.getSoundPlayer().playSound(
-                        NA_CorrosionBeamEffect.mote_sfx, 1.0f, 1.0f, fragment.loc, Misc.ZERO);
+                        NA_CorrosionBeamEffect.mote_sfx, 1.0f, 0.75f, fragment.loc, Misc.ZERO);
 
                 float ang = VectorUtils.getAngle(projectile.getLocation(), targetloc);
                 CombatEntityAPI projfire = Global.getCombatEngine().spawnProjectile(projectile.getSource(), null,

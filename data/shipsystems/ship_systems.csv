@@ -5,6 +5,7 @@ Catalyst Injector,na_afterburners,,,,,,,,3,.05,.25,0.5,2.5,1.5,,,,,,,,,,,,,graph
 Relativity Drive,na_relativitydrive,,,,,,,,2,0.08,0.2,1.9,1.5,0.1,,,,,TRUE,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Tidal Disruption,na_tidaldisruption,,,,,,0.1,,,,0.5,10,1,10,,,,,,,,,,,,,
 Chroma Reactor,na_fastcapacitors,,,,,,,,,,1,4,0.75,8,,,,,,,,,,,,,graphics/icons/hullsys/lidar_barrage.png
+Sunslayer,na_fastcapacitors2,,,,,,0.1,,,,1,4,0.75,8,,,,,,,,,,,,,graphics/icons/hullsys/lidar_barrage.png
 Plasma Surge,na_plasmasurge,,,,10,,,,2,0.08,0.5,2,1,0.2,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png
 Gravity Mine,na_gravitymine,,,,,,.2,,2,.033,0.25,,0.25,10,,,,,,,,,,,,offensive,graphics/icons/hullsys/mine_strike.png
 Catalyst Drive,na_plasmasurge2,,,,,,,,2,.15,.25,1,0.25,0.1,,,,,,,,,,,,,graphics/icons/hullsys/infernium_injector.png

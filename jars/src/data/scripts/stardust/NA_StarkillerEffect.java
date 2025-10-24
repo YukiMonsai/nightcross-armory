@@ -34,12 +34,16 @@ public class NA_StarkillerEffect implements OnFireEffectPlugin, EveryFrameWeapon
         if (projectile.getSource() != null) {
             // stargazer hullmod
             int active = swarm == null ? 0 : swarm.getNumActiveMembers();
-            int required = 2;
+            int required = 3;
             if (active >= required) {
                 CombatEngineAPI engine = Global.getCombatEngine();
                 NA_StargazerStardust.SwarmMember fragment = pickPrimaryFragment(swarm, projectile, range);
+                swarm.removeMember(fragment);
                 NA_StargazerStardust.SwarmMember fragment2 = pickPrimaryFragment(swarm, projectile, range);
-                if (fragment == null || fragment2 == null) {
+                swarm.removeMember(fragment2);
+                NA_StargazerStardust.SwarmMember fragment3 = pickPrimaryFragment(swarm, projectile, range);
+                swarm.removeMember(fragment3);
+                if (fragment == null) {
                     return;
                 }
 
@@ -66,8 +70,6 @@ public class NA_StarkillerEffect implements OnFireEffectPlugin, EveryFrameWeapon
                     }
                     missile.getLocation().set(fragment.loc);
 
-                    swarm.removeMember(fragment2);
-                    swarm.removeMember(fragment);
 
 
 
@@ -157,7 +159,7 @@ public class NA_StarkillerEffect implements OnFireEffectPlugin, EveryFrameWeapon
 
 
     public int getNumFragmentsToFire() {
-        return 2;
+        return 3;
     }
 
     @Override

@@ -769,24 +769,61 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         WeightedRandomPicker<BaseThemeGenerator.EntityLocation> locs = getLocations(random, system, 100f, weights);
 
         List<BaseThemeGenerator.AddedEntity> result = new ArrayList<BaseThemeGenerator.AddedEntity>();
+        boolean addedShip = false;
+
+
+
+        WeightedRandomPicker<String> caches = createStringPicker(
+                Entities.SUPPLY_CACHE, 10f,
+                Entities.SUPPLY_CACHE_SMALL, 10f,
+                Entities.EQUIPMENT_CACHE, 10f,
+                Entities.EQUIPMENT_CACHE_SMALL, 10f
+        );
+        float r = random.nextFloat();
+        if (r < 0.33f) {
+            caches.add(Entities.WEAPONS_CACHE, 10f);
+            caches.add(Entities.WEAPONS_CACHE_SMALL, 10f);
+        } else if (r < 0.67f) {
+            caches.add(Entities.WEAPONS_CACHE_LOW, 10f);
+            caches.add(Entities.WEAPONS_CACHE_SMALL_LOW, 10f);
+        } else {
+            caches.add(Entities.WEAPONS_CACHE_HIGH, 10f);
+            caches.add(Entities.WEAPONS_CACHE_SMALL_HIGH, 10f);
+        }
+
         for (int i = 0; i < num; i++) {
 
-            BaseThemeGenerator.AddedEntity probe = addWreckedShip(system, locs.pick(), derelictShipTypes.pick(), ShipRecoverySpecial.ShipCondition.BATTERED,
-                    null, random, false);
-            if (probe != null) {
-                result.add(probe);
 
-                system.addTag(Tags.THEME_INTERESTING_MINOR);
-                system.addTag(NightcrossTags.THEME_NIGHTCROSS);
-                system.addTag(NightcrossTags.THEME_NIGHTCROSS_SHIPS);
-            }
+            if (!addedShip || random.nextFloat() < 0.67f) {
 
-            if (DEBUG) {
+                BaseThemeGenerator.AddedEntity probe = addWreckedShip(system, locs.pick(), derelictShipTypes.pick(), ShipRecoverySpecial.ShipCondition.BATTERED,
+                        null, random, false);
                 if (probe != null) {
-                    System.out.println(String.format("  Added probe to %s", system.getNameWithLowercaseType()));
-                } else {
-                    System.out.println(String.format("  Failed to add probe to %s", system.getNameWithLowercaseType()));
+                    result.add(probe);
+
+                    system.addTag(Tags.THEME_INTERESTING_MINOR);
+                    system.addTag(NightcrossTags.THEME_NIGHTCROSS);
+                    system.addTag(NightcrossTags.THEME_NIGHTCROSS_SHIPS);
+                    addedShip = true;
                 }
+
+                if (DEBUG) {
+                    if (probe != null) {
+                        System.out.println(String.format("  Added probe to %s", system.getNameWithLowercaseType()));
+                    } else {
+                        System.out.println(String.format("  Failed to add probe to %s", system.getNameWithLowercaseType()));
+                    }
+                }
+            } else {
+                // cache
+                EntityLocation loc = pickHiddenLocation(random, system, 70f, null);
+                String type = caches.pick();
+                AddedEntity added = addEntity(random, system, loc, type, Factions.NEUTRAL);
+                if (added != null) {
+                    result.add(added);
+                }
+
+                if (DEBUG && added != null) System.out.println("      Added resource cache: " + type);
             }
         }
         return result;

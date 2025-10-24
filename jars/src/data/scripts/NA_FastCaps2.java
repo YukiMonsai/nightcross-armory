@@ -1,0 +1,596 @@
+package data.scripts;
+
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
+import com.fs.starfarer.api.combat.listeners.WeaponBaseRangeModifier;
+import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
+import com.fs.starfarer.api.loading.BeamWeaponSpecAPI;
+import com.fs.starfarer.api.loading.ProjectileSpecAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
+import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.plugins.NAUtils;
+import data.scripts.stardust.NA_StargazerStardust;
+import org.lazywizard.lazylib.MathUtils;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class NA_FastCaps2 extends BaseShipSystemScript {
+
+
+    public static class UnfurlDecoData {
+        public float turnDir;
+        public float turnRate;
+        public float angle;
+        public float count;
+        public WeaponAPI w;
+    }
+
+    private IntervalUtil beamTimer = new IntervalUtil(0.15f, 0.3f);
+
+    public static Color WEAPON_GLOW = new Color(245, 20, 133,155);
+
+    private NA_FastCapsRangeModifier listener;
+    private NA_FastCapDmgBoost dmglistener;
+
+    public static final float DMG_BONUS = 0.5f;
+    public static final float RANGE_BOOST = 0.5f;
+    public static final float PASSIVE_BOOST = 20f;
+    public static final float AMMO_MULT = 0.5f;
+    public static final float SPEED_MULT = 90f;
+    public static final float ROF_BOOST = 1.5f;
+
+
+    public static final String DMG_ID = "NA_FastCapDmgMod";
+
+    protected List<UnfurlDecoData> dishData = new ArrayList<UnfurlDecoData>();
+    protected boolean needsUnapply = false;
+    protected boolean playedWindup = false;
+    protected boolean playedCooledDown = false;
+    protected boolean playedEnd = false;
+
+    public List<WeaponAPI> weapons;
+    public ShipAPI ship = null;
+
+
+    protected boolean inited = false;
+
+    // plagarized ruthlessly from alex
+    public void init(ShipAPI ship) {
+        if (inited) return;
+        inited = true;
+
+        this.ship = ship;
+
+        if (weapons == null)
+            weapons = getWeapons(ship);
+
+        needsUnapply = true;
+
+        float count = 0f;
+        for (WeaponAPI w : ship.getAllWeapons()) {
+            if (w.isDecorative() && (w.getSpec().hasTag("system_turn_left") || w.getSpec().hasTag("system_turn_right"))) {
+                count++;
+            }
+        }
+        List<WeaponAPI> lidar = new ArrayList<WeaponAPI>();
+        for (WeaponAPI w : ship.getAllWeapons()) {
+            if (w.isDecorative() && (w.getSpec().hasTag("system_turn_left") || w.getSpec().hasTag("system_turn_right"))) {
+                lidar.add(w);
+            }
+        }
+        Collections.sort(lidar, new Comparator<WeaponAPI>() {
+            public int compare(WeaponAPI o1, WeaponAPI o2) {
+                return (int) Math.signum(o1.getSlot().getLocation().x - o2.getSlot().getLocation().x);
+            }
+        });
+        for (WeaponAPI w : lidar) {
+            if (w.isDecorative()) {
+                if (w.getSpec().hasTag("system_turn_left")) {
+                    w.setSuspendAutomaticTurning(true);
+                    UnfurlDecoData data = new UnfurlDecoData();
+                    data.turnDir = 1;
+                    data.turnRate = 0.5f;
+                    data.turnRate = 0.1f;
+                    data.w = w;
+                    data.angle = 0f;
+                    data.count = count;
+                    dishData.add(data);
+                } else if (w.getSpec().hasTag("system_turn_right")) {
+                    w.setSuspendAutomaticTurning(true);
+                    UnfurlDecoData data = new UnfurlDecoData();
+                    data.turnDir = -1;
+                    data.turnRate = 0.5f;
+                    data.turnRate = 0.1f;
+                    data.w = w;
+                    data.angle = 0f;
+                    data.count = count;
+                    dishData.add(data);
+                }
+
+            }
+        }
+    }
+
+    public void rotateLidarDishes(boolean active, float effectLevel) {
+        float amount = Global.getCombatEngine().getElapsedInLastFrame();
+
+        float turnRateMult = 8f;
+        if (active) {
+            turnRateMult = 20f;
+        }
+        //turnRateMult = 0.1f;
+        //boolean first = true;
+        for (UnfurlDecoData data : dishData) {
+            float arc = data.w.getArc();
+            float desired = active ? arc * data.turnDir : 0f;
+            float useTurnDir = Misc.getClosestTurnDirection(data.angle,
+                    desired);
+            float delta = useTurnDir * amount * data.turnRate * turnRateMult * arc;
+            if (active && effectLevel < 0.01f && Math.abs(data.angle) < Math.abs(delta * 1.5f)) {
+                data.angle = 0f;
+            } else {
+                if (Math.abs(data.angle - desired) > Math.abs(delta + 0.001))
+                    data.angle += delta;
+            }
+
+
+            float facing = data.angle + data.w.getArcFacing() + data.w.getShip().getFacing();
+            data.w.setFacing(facing);
+            data.w.updateBeamFromPoints();
+        }
+    }
+
+
+    public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
+        ShipAPI ship = (ShipAPI)stats.getEntity();
+        if (ship == null || ship.isHulk()) {
+            if (needsUnapply) {
+                unmodify(id, stats);
+                for (WeaponAPI w : ship.getAllWeapons()) {
+                    if (!w.isDecorative() && w.getSlot().isHardpoint() && !w.isBeam() &&
+                            (w.getType() == WeaponAPI.WeaponType.BALLISTIC || w.getType() == WeaponAPI.WeaponType.ENERGY)) {
+                        w.setGlowAmount(0, null);
+                    }
+                }
+                needsUnapply = false;
+            }
+            return;
+        }
+
+        if (state == State.IDLE) {
+
+            //stats.getEnergyWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
+            //stats.getBallisticWeaponRangeBonus().modifyPercent(DMG_ID + "passive", PASSIVE_BOOST);
+
+        } else if (state == State.COOLDOWN) {
+            //float cdleft = 1f - ship.getSystem().getCooldownRemaining()/Math.max(1, ship.getSystem().getCooldown());
+            //stats.getEnergyWeaponRangeBonus().modifyPercent(DMG_ID + "passive", cdleft * PASSIVE_BOOST);
+            //stats.getBallisticWeaponRangeBonus().modifyPercent(DMG_ID + "passive", cdleft * PASSIVE_BOOST);
+
+        }
+
+
+        float amount = Global.getCombatEngine().getElapsedInLastFrame();
+        if (amount > 0) {
+            if (state == State.IDLE && !playedCooledDown) {
+                Global.getSoundPlayer().playSound("na_chargeup", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                playedCooledDown = true;
+            } else if (state == State.OUT || state == State.COOLDOWN) {
+                if (!playedEnd) {
+                    Global.getSoundPlayer().playSound("na_steamoff", 1f, 1f, ship.getLocation(), ship.getVelocity());
+                    playedEnd = true;
+                }
+            }
+        }
+
+        init(ship);
+
+        if (effectLevel > 0) {
+            if (listener == null) {
+
+                listener = new NA_FastCapsRangeModifier(weapons, RANGE_BOOST);
+                ship.addListener(listener);
+            }
+            if (dmglistener == null) {
+
+                dmglistener = new NA_FastCapDmgBoost(weapons, DMG_BONUS);
+                ship.addListener(dmglistener);
+            }
+        } else {
+            if (listener != null) {
+                ship.removeListener(listener);
+                listener = null;
+            }
+            if (dmglistener != null) {
+                ship.removeListener(dmglistener);
+                dmglistener = null;
+            }
+        }
+
+        if (listener != null) {
+            listener.effectLevel = (state == State.OUT ? effectLevel : Math.max(effectLevel, 0.4f));
+        }
+        if (dmglistener != null) {
+            dmglistener.effectLevel = effectLevel;
+        }
+
+        boolean active = state == State.IN || state == State.ACTIVE || state == State.OUT;
+
+        rotateLidarDishes(active, effectLevel);
+        if (active) {
+            modify(id, stats, effectLevel);
+            needsUnapply = true;
+        } else {
+            if (needsUnapply) {
+                unmodify(id, stats);
+                for (WeaponAPI w : ship.getAllWeapons()) {
+                    if (weaponEligible(w)) {
+                        w.setGlowAmount(0, null);
+                    }
+                }
+                needsUnapply = false;
+            }
+        }
+
+        if (!active) return;
+
+        Color glowColor = NAUtils.isStargazerRed(ship) ? new Color(238, 118, 19, 173) : WEAPON_GLOW;
+        float time = Global.getCombatEngine().getElapsedInLastFrame();
+
+        float projChance = 0.7f;
+        if (beamTimer.intervalElapsed()) {
+            ship.addAfterimage(new Color(255, 0, 75, (int) (25 + 50 * effectLevel)),
+                    0,
+                    0,
+                    -ship.getVelocity().x,
+                    -ship.getVelocity().y,
+                    2f, 0.25f, 0.25f, 0.5f,
+                    true,
+                    true,
+                    true
+            );
+        }
+        for (WeaponAPI w : ship.getAllWeapons()) {
+            if (weaponEligible(w)) {
+                w.setGlowAmount(effectLevel, glowColor);
+
+                if (!w.isBeam() || w.isBurstBeam()) {
+                    if (w.getCooldownRemaining() > 0 && !w.isInBurst()) {
+                        w.setRemainingCooldownTo(Math.max(0, w.getCooldownRemaining() - ROF_BOOST * time));
+                    }
+                }
+
+                if (beamTimer.intervalElapsed() && Math.random() < 0.5) {
+                    Global.getCombatEngine().spawnEmpArcVisual(
+                            w.getFirePoint(0), ship,
+                            MathUtils.getRandomPointInCircle(
+                                    w.getLocation(), w.getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f
+                            ), ship, 2f,
+                            NAUtils.isStargazerRed(ship) ? new Color(167, 0, 250, 75) : new Color(47, 250, 114, 75),
+                            new Color(210, 238, 238, 75)
+                    );
+                }
+
+
+                if (beamTimer.intervalElapsed() || w.isFiring()) {
+
+                    /*MagicFakeBeam.spawnFakeBeam(
+                            Global.getCombatEngine(),
+                            w.getFirePoint(0),
+                            w.getRange(),
+                            w.getCurrAngle(),
+                            10, beamTimer.getMaxInterval(), 0.02f, 100f,
+                            new Color(147, 1, 1, 150),
+                            new Color(248, 239, 239, 220),
+                            0f,
+                            DamageType.ENERGY,
+                            0f,
+                            w.getShip()
+                    );*/
+                    for (DamagingProjectileAPI proj : Global.getCombatEngine().getProjectiles()) {
+                        if (proj.getWeapon() != null && (!proj.isExpired() && !proj.isFading())
+                                && proj.getWeapon().getId() == w.getId()) {
+                            if (proj.getCustomData() == null || !proj.getCustomData().containsKey("na_systempowerup")) {
+                                proj.setCustomData("na_systempowerup", true);
+                            }
+                            if (beamTimer.intervalElapsed() && Math.random() < projChance) {
+                                projChance *= 0.7f;
+                                /*Global.getCombatEngine().addSwirlyNebulaParticle(
+                                        proj.getLocation(), new Vector2f(proj.getVelocity().x*0.5f, proj.getVelocity().y*0.5f),
+                                        proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f, 0.5f, 0.05f, 0.5f,
+                                        1.25f,
+                                        new Color(47, 250, 114, 150), false
+                                );*/
+                                /*Global.getCombatEngine().spawnEmpArcVisual(
+                                        proj.getLocation(), proj,
+                                        MathUtils.getRandomPointInCircle(
+                                                proj.getLocation(), w.getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f
+                                        ), proj, 2f,
+                                        new Color(47, 250, 114, 150),
+                                        new Color(210, 238, 238, 150)
+                                );*/
+                                    boolean trail = Math.random() < 0.5;
+                                    Global.getCombatEngine().addSmoothParticle(
+                                            MathUtils.getPointOnCircumference(proj.getLocation(), proj.getCollisionRadius(), proj.getFacing()),
+                                            trail ? MathUtils.getPointOnCircumference(Misc.ZERO, 10f, 180f + proj.getFacing()) : proj.getVelocity(),
+                                            trail ? 32f : (proj.getWeapon().getSize() == WeaponAPI.WeaponSize.LARGE ? 84f : 50f),
+                                            0.8f, 0.5f, 1.5f,
+                                            NAUtils.isStargazerRed(ship) ? new Color(233, 0, 250, 174) : new Color(47, 250, 114, 150)
+                                    );
+                            }
+
+                        }
+                    }
+                    // TBD
+                }
+
+            }
+        }
+
+        if (beamTimer.intervalElapsed()) {
+            beamTimer.randomize();
+        }
+        beamTimer.advance(Global.getCombatEngine().getElapsedInLastFrame());
+
+        if (((state == State.IN && effectLevel > 0.1f) || state == State.ACTIVE) && !playedWindup) {
+
+
+            NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
+            WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
+            for (int i = 0; i < swarm.getParams().baseMembersToMaintain * 0.25f; i++) {
+                NA_StargazerStardust.SwarmMember fragment = picker2.pick();
+                if (fragment != null) {
+
+                    EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                    params.segmentLengthMult = 4f;
+
+                    params.glowSizeMult = 0.5f;
+                    params.brightSpotFadeFraction = 0.33f;
+                    params.brightSpotFullFraction = 0.5f;
+                    params.movementDurMax = 0.2f;
+                    params.flickerRateMult = 0.35f;
+
+                    float thickness = 50f;
+
+                    EmpArcEntityAPI arc = Global.getCombatEngine().spawnEmpArcVisual(fragment.loc, ship,
+                            ship.getLocation(),
+                            ship,
+                            thickness, // thickness
+                            new Color(112, 0, 0),
+                            new Color(255, 241, 244),
+                            params
+                    );
+                    //arc.setCoreWidthOverride(thickness * coreWidthMult);
+                    arc.setSingleFlickerMode(true);
+                    arc.setUpdateFromOffsetEveryFrame(true);
+
+
+                    swarm.removeMember(fragment);
+                }
+            }
+
+            Global.getSoundPlayer().playSound("gigacannon_charge", 1f, 0.8f, ship.getLocation(), ship.getVelocity());
+            playedWindup = true;
+            playedEnd = false;
+        }
+
+
+    }
+
+
+
+    public boolean isFFAConcern() {
+        if (weapons == null) return false;
+        if (weapons.size() == 0) return false;
+        if ((weapons.get(0) instanceof BeamWeaponSpecAPI) && ((BeamWeaponSpecAPI)weapons.get(0).getSpec()).getCollisionClass() == CollisionClass.RAY) return true;
+        if ((weapons.get(0) instanceof WeaponSpecAPI)
+                && (weapons.get(0).getSpec()).getProjectileSpec() != null) {
+            CollisionClass cc = ((ProjectileSpecAPI)(weapons.get(0).getSpec()).getProjectileSpec()).getCollisionClass();
+            switch (cc) {
+                case MISSILE_NO_FF:
+                case HITS_SHIPS_ONLY_NO_FF:
+                case PROJECTILE_NO_FF:
+                    return false;
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public float getRange() {
+        if (weapons == null || weapons.isEmpty()) return 0f;
+        return weapons.get(0).getRange() * (0.9f + RANGE_BOOST);
+    }
+
+    protected void modify(String id, MutableShipStatsAPI stats, float effectLevel) {
+        stats.getEnergyAmmoRegenMult().modifyMult(DMG_ID, 1f + effectLevel*AMMO_MULT);
+        stats.getMaxSpeed().modifyFlat(DMG_ID, 1f + effectLevel*SPEED_MULT);
+        //stats.getEnergyWeaponRangeBonus().unmodify(DMG_ID + "passive");
+        //stats.getBallisticWeaponRangeBonus().unmodify(DMG_ID + "passive");
+
+        ShipAPI ship = (ShipAPI) stats.getEntity();
+        if (ship == null) return;
+        Color color = NAUtils.isStargazerRed(ship) ? new Color(167, 0, 250, 75) : new Color(47, 250, 114, 75);
+
+        if (ship.getChildModulesCopy() != null && ship.getChildModulesCopy().size() > 0) {
+            for (ShipAPI child: ship.getChildModulesCopy()) {
+                child.getEngineController().fadeToOtherColor(child, color, new Color(0, 0, 0, 0), effectLevel, 1.0f);
+            }
+        }
+
+        if (ship.getAIFlags() != null) {
+            ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.MANEUVER_RANGE_FROM_TARGET);
+        }
+
+        /*List<ShipEngineControllerAPI.ShipEngineAPI> maneuveringThrusters = ship.getEngineController() != null ? ship.getEngineController().getShipEngines() : null;
+        if (maneuveringThrusters != null) {
+            for (ShipEngineControllerAPI.ShipEngineAPI e : maneuveringThrusters) {
+                if (Math.abs(Math.sin(Math.toRadians(e.getEngineSlot().getAngle()))) > 0.1) {
+                    // Nothing!!
+                } else {
+                    ship.getEngineController().fadeToOtherColor(e.getEngineSlot(), color, new Color(0, 0, 0, 0), effectLevel, 1.0f);
+                }
+            }
+        }*/
+
+
+
+
+    }
+    protected void unmodify(String id, MutableShipStatsAPI stats) {
+        playedWindup = false;
+        playedCooledDown = false;
+
+        stats.getEnergyAmmoRegenMult().unmodify(DMG_ID);
+        stats.getMaxSpeed().unmodify(DMG_ID);
+    }
+
+    public void unapply(MutableShipStatsAPI stats, String id) {
+        // not called
+    }
+
+
+    public String getDisplayNameOverride(State state, float effectLevel) {
+        if (ship != null) {
+            NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
+            if (swarm != null) {
+                float amount = swarm.getParams().baseMembersToMaintain * 0.25f;
+                if (swarm.getNumActiveMembers() < amount) return "need " + (int)(swarm.getParams().baseMembersToMaintain*0.25f) + " stardust";
+            }
+        }
+        if (state == State.IDLE) {
+            return "sunslayer.ready()";
+        }
+        if (state == State.COOLDOWN) {
+            return "sunslayer.cooldown()";
+        }
+        if (state == State.IN) {
+            return "sunslayer.execute()";
+        }
+        if (state == State.OUT) {
+            return "sunslayer.end()";
+        }
+        if (state == State.ACTIVE) {
+            return "sunslayer.maintain()";
+        }
+        return null;
+    }
+
+    public StatusData getStatusData(int index, State state, float effectLevel) {
+        float mult = 1f + DMG_BONUS * effectLevel;
+        float bonusPercent = (int) ((mult - 1f) * 100f);
+        if (index == 0 && effectLevel > 0) {
+            return new StatusData("speed boosted, main weapon damage +" + (int) Math.round(bonusPercent) + "%", false);
+        }
+        return null;
+    }
+
+    public static List<WeaponAPI> getWeapons(ShipAPI carrier) {
+        List<WeaponAPI> result = new ArrayList<WeaponAPI>();
+
+        for (WeaponAPI weapon : carrier.getAllWeapons()) {
+            if (
+                    weaponEligible(weapon)
+            ) {
+                result.add(weapon);
+            }
+        }
+
+        return result;
+    }
+
+    public static boolean weaponEligible(WeaponAPI weapon) {
+        return weapon != null
+                && weapon.getSlot().getWeaponType() == WeaponAPI.WeaponType.ENERGY
+                && weapon.getSlot().getSlotSize() == WeaponAPI.WeaponSize.MEDIUM
+                && weapon.getSlot().isHardpoint();
+    }
+
+    @Override
+    public boolean isUsable(ShipSystemAPI system, ShipAPI ship) {
+        NA_StargazerStardust swarm = NA_StargazerStardust.getSwarmFor(ship);
+        if (swarm != null) {
+
+            float amount = swarm.getParams().baseMembersToMaintain * 0.25f;
+            if (swarm.getNumActiveMembers() >= amount) return true;
+        }
+        return false;
+    }
+
+
+
+    public static class NA_FastCapsRangeModifier implements WeaponBaseRangeModifier {
+        public List<WeaponAPI> weapons;
+        public float mult;
+        public float effectLevel;
+        public NA_FastCapsRangeModifier(List<WeaponAPI> weapons, float mult) {
+            this.weapons = weapons;
+            this.mult = mult;
+        }
+
+        public float getWeaponBaseRangePercentMod(ShipAPI ship, WeaponAPI weapon) {
+            return 0;
+        }
+        public float getWeaponBaseRangeMultMod(ShipAPI ship, WeaponAPI weapon) {
+            if (weaponEligible(weapon)) return 1f + mult * effectLevel;
+            return 1f;
+        }
+        public float getWeaponBaseRangeFlatMod(ShipAPI ship, WeaponAPI weapon) {
+            return 0;
+        }
+    }
+
+
+    public class NA_FastCapDmgBoost implements DamageDealtModifier {
+        public List<WeaponAPI> weapons;
+        public float mult;
+        public float effectLevel;
+
+        public NA_FastCapDmgBoost(List<WeaponAPI> weapons, float mult) {
+            this.weapons = weapons;
+            this.mult = mult;
+        }
+
+
+        @Override
+        public String modifyDamageDealt(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
+            if (param != null) {
+                WeaponAPI weapon = null;
+                if (param instanceof BeamAPI) {
+                    weapon = ((BeamAPI) param).getWeapon();
+                } else if (param instanceof DamagingProjectileAPI) {
+                    weapon = ((DamagingProjectileAPI) param).getWeapon();
+                }
+                if (weaponEligible(weapon)) {
+                    damage.getModifier().modifyMult(DMG_ID, 1f + mult * effectLevel);
+                }
+            }
+            return null;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

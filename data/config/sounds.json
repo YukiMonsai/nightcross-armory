@@ -46,8 +46,8 @@
 		],
 		"na_nightcross_battle":[
 			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 
-			{"file":"nightcross_pascal_music.ogg","source":"sounds/music","volume":0.45}, 
 			{"file":"nightcross_enc_hostile.ogg","source":"sounds/music/factions","volume":0.45}, 
+			{"file":"nightcross_market_hostile.ogg","source":"sounds/music/factions","volume":0.34}, 
 		],
 		"na_stargazer_battle":[
 			{"file":"mekaloton_NumberedRooms.ogg","source":"sounds/music","volume":0.5}, 

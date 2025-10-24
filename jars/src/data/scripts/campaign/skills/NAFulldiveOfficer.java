@@ -22,7 +22,7 @@ import org.lwjgl.util.vector.Vector2f;
 import java.awt.*;
 
 public class NAFulldiveOfficer {
-    public static float CR_PENALTY = -30f;
+    public static float CR_PENALTY = -20f;
     public static float AUTO_MULT_GHOST = 1f;
 
 

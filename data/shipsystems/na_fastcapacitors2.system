@@ -1,0 +1,30 @@
+{
+	"id":"na_fastcapacitors2",
+	"type":"STAT_MOD",
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_ChromaReactorAI",
+	
+	"statsScript":"data.scripts.NA_FastCaps2",
+	
+	
+	
+	#"runScriptWhilePaused":true, # only for the player's ship
+	"runScriptWhileIdle":true, # unapply() never gets called
+		
+	"fadeActivationSoundOnChargedown":true,
+	#"useSound":"system_entropy",
+	#"loopSound":"system_entropy_loop",
+	#"deactivateSound":"system_entropy_off",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"aiHints":{
+	}
+	
+	
+	#"useSound":"system_ammo_feeder",
+	#"outOfUsesSound":"gun_out_of_ammo",
+}
+
+
+
+
