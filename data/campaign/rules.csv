@@ -318,7 +318,7 @@ INTERRUPT
 
 ""--within ERROR days. Please power down weapons and maintain distance from confidential Nightcross Armory business assets.
 
-Warning: Crew has been incapacitated. Medical support has been dispatched to arrive within ERROR days. Please power down weapons--""",,
+Warning: Pilot has been incapacitated. Medical support has been dispatched to arrive within ERROR days. Please power down weapons--""",,
 #END RED MASK,,,,,,
 ,,,,,,
 #Abyssal encounter stargazer victims,,,,,,
@@ -552,7 +552,7 @@ SetShortcut cutCommLinkNoText ""ESCAPE""
 ","""Attention $shipOrFleet captain. This is a restricted area. Leave now, or this facility will take aggressive action to protect the Corporation's intellectual property.""",cutCommLinkNoText:Continue,
 na_nightcrosshumandefenders2,OpenCommLink,"$entity.na_nightcrossdefCMD score:1000
 ","$entity.ignorePlayerCommRequests = true 1
-SetShortcut cutCommLinkNoText ""ESCAPE""","""You again? Your $shipOrFleet data has been transmitted to headquarters. Any further trespassing will be met with deadly force.""",cutCommLinkNoText:Continue,
+SetShortcut cutCommLinkNoText ""ESCAPE""","""You again? Your $shipOrFleet profile has already been transmitted to headquarters. Any further trespassing will be met with deadly force.""",cutCommLinkNoText:Continue,
 na_NightcrossResearchOutpostOpenDialog,OpenInteractionDialog,"$customType == na_research_outpost score:100
 ","NA_NightcrossRevengeFleetSpawn
 $entity.na_didRevengeSpawn = true

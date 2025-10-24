@@ -431,19 +431,19 @@ public class NA_BrokenWings extends BaseShipSystemScript {
 
     public String getDisplayNameOverride(State state, float effectLevel) {
         if (state == State.IDLE) {
-            return "broken wings - ready";
+            return "broken_wings.ready()";
         }
         if (state == State.COOLDOWN) {
-            return "broken wings - COOLDOWN";
+            return "broken_wings.cooldown()";
         }
         if (state == State.IN) {
-            return "broken wings - ENGAGE";
+            return "broken_wings.execute()";
         }
         if (state == State.OUT) {
-            return "broken wings - OVERLOAD!!!";
+            return "broken_wings.end()";
         }
         if (state == State.ACTIVE) {
-            return "broken wings - ACTIVE";
+            return "broken_wings.maintain()";
         }
         return null;
     }

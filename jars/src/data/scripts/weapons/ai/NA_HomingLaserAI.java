@@ -114,12 +114,12 @@ public class NA_HomingLaserAI implements MissileAIPlugin, GuidedMissileAI {
                     || !engine.isEntityInPlay(target)
                     || target.getCollisionClass() == CollisionClass.NONE) {
                 missile.giveCommand(ShipCommand.ACCELERATE);
-                setTarget(
-                        MagicTargeting.pickTarget(
-                                missile, MagicTargeting.targetSeeking.LOCAL_RANDOM,
-                                1250, 360,
-                                1, 2, 2, 2, 2, true));
-                if (waveTimer.intervalElapsed()) {
+
+                if (waveTimer.intervalElapsed()) {setTarget(
+                    MagicTargeting.pickTarget(
+                            missile, MagicTargeting.targetSeeking.LOCAL_RANDOM,
+                            1250, 360,
+                            1, 2, 2, 3, 3, true));
                     waveTimer = new IntervalUtil(0.5f, 0.8f);
                 }
                 return;

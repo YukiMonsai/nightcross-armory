@@ -72,7 +72,7 @@ public class NA_NightcrossRevengeFleetSpawn extends BaseCommandPlugin {
         e.triggerSetStandardAggroPirateFlags();
         e.triggerSetStandardAggroInterceptFlags();
         
-        mem.set("na_found_nca_research", 1f);
+        mem.set("$na_found_nca_research", 1f);
         if (!mem.contains("$na_secretrevengecount")) {
             mem.set("$na_secretrevengecount", 1f);
         } else {

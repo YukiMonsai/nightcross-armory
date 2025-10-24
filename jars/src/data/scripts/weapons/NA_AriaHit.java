@@ -16,7 +16,7 @@ import java.util.List;
 public class NA_AriaHit implements OnHitEffectPlugin {
 
     private static final float SCRAMBLE_MULT = 0.8f;
-    private static final float SCRAMBLE_DURATION = 2f;
+    private static final float SCRAMBLE_DURATION = 4f;
 
 
     public static Color JITTER_UNDER_COLOR = new Color(75,175,255,155);

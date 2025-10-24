@@ -41,12 +41,12 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
     public static final float SINGULARITY_PULL_RADIUS = 700f;
     public static final float SINGULARITY_PULL_DUR = 1;
     public static final float SINGULARITY_PULL_MIN_RADIUS = 25f;
-    public static final float SINGULARITY_PULL_STR = 2000000f;
+    public static final float SINGULARITY_PULL_STR = 2400000f;
     IntervalUtil endTimer = new IntervalUtil(SINGULARITY_DURATION, SINGULARITY_DURATION);
     IntervalUtil visTimer = new IntervalUtil(SINGULARITY_VISUAL_DUR, SINGULARITY_VISUAL_DUR*2f);
     IntervalUtil flareTimer = new IntervalUtil(NA_BlackholeRenderer.FLARE_TIME, NA_BlackholeRenderer.FLARE_TIME);
 
-    private IntervalUtil minimumArmTimer = new IntervalUtil(0.55f, 0.55f);
+    private IntervalUtil minimumArmTimer = new IntervalUtil(0.85f, 0.85f);
 
 
     public Vector2f lastLocation;
@@ -145,6 +145,7 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
 
         for (CombatEntityAPI e:entities) {
             if (e instanceof ShipAPI && (((ShipAPI) e).isStation() || ((ShipAPI) e).isStationModule())) continue;
+            if (e instanceof MissileAPI mis && mis.getOwner() == this.proj.getOwner()) continue;
             float angle = VectorUtils.getAngle(e.getLocation(), point);
             Vector2f closest = MathUtils.getPointOnCircumference(
                     Misc.ZERO, force,
@@ -152,6 +153,7 @@ public class NA_CorrosionListener extends BaseEveryFrameCombatPlugin {
             );
             float dist = Math.max(minradius, MathUtils.getDistance(e.getLocation(), point));
             float amt = amount/(dist*dist/(40000)) * (2000f/(2000f + e.getMass())); // less effect on big ships;
+            if (e instanceof ShipAPI shp && shp.getOwner() == proj.getOwner()) amt *= 0.4f;
             if (dist > minradius) {
                 e.getVelocity().set(
                         e.getVelocity().x + amount*closest.x*amt,

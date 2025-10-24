@@ -166,7 +166,7 @@ public class NAUtils {
         List<DamagingProjectileAPI> entities = new ArrayList<>();
 
         // This also includes missiles
-        for (DamagingProjectileAPI tmp : Global.getCombatEngine().getProjectiles()) {
+        for (DamagingProjectileAPI tmp : Global.getCombatEngine().getMissiles()) {
             if (MathUtils.isWithinRange(tmp, location, range)) {
                 entities.add(tmp);
             }

@@ -43,7 +43,9 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
     private CombatEngineAPI engine;
 
     private final float TARGETTIME = 0.5f; // clear target matrix
-    private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME);
+    private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME + 0.1f);
+    private final float TICKTIME = 0.1f; // clear target matrix
+    private final IntervalUtil tickTimer = new IntervalUtil(TICKTIME, TICKTIME + 0.03f);
 
 
     public HashMap<DamagingProjectileAPI, CombatEntityAPI> projtargets = new HashMap<>();
@@ -63,6 +65,9 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
             projtargets = new HashMap<>();
         }
 
+        tickTimer.advance(amount);
+
+        boolean homingTick = targetTimer.intervalElapsed();
 
         List<DamagingProjectileAPI> projectiles = engine.getProjectiles();
         int size = projectiles.size();
@@ -125,17 +130,18 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             testLoc.y + (proj.getVelocity().y) * vfactor);
 
                 if (homeMissiles) {
-                    List<DamagingProjectileAPI> targets = NAUtils.getProjectilesWithinRange(testLoc, home_dist);
                     DamagingProjectileAPI selectedTarget = null;
-                    float targetDist = 100000;
+                    float targetDist = 1000000000;
                     if (projtargets.containsKey(proj) && projtargets.get(proj) instanceof DamagingProjectileAPI) {
-                        float dd = MathUtils.getDistance(proj.getLocation(), projtargets.get(proj).getLocation());
-                        if (dd <= home_dist) {
+                        float dd = MathUtils.getDistanceSquared(proj.getLocation(), projtargets.get(proj).getLocation());
+                        if (dd <= home_dist * home_dist) {
                             selectedTarget = (DamagingProjectileAPI) projtargets.get(proj);
                             targetDist = 0;
                         }
                     }
-                    if (targetDist > 0) {
+                    List<DamagingProjectileAPI> targetscached = null;
+                    if (targetDist > 0 && homingTick) {
+                        List<MissileAPI> targets = NAUtils.getMissilesWithinRange(testLoc, home_dist);
                         for (int ii = 0; ii < targets.size(); ii++) {
                             DamagingProjectileAPI tt = targets.get(ii);
                             if ((tt instanceof MissileAPI) && (proj.getSource() == null ||
@@ -143,17 +149,22 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                                             // FF prevention
                                             tt.getOwner() != proj.getSource().getOwner()
                                     ))) {
-                                float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
+                                float dist = MathUtils.getDistanceSquared(tt.getLocation(), testLoc);
                                 if (dist < targetDist) {
                                     selectedTarget = tt;
                                     targetDist = dist;
                                 }
                             }
                         }
+                        if (selectedTarget == null) {
+                            List<DamagingProjectileAPI> projes = NAUtils.getProjectilesWithinRange(testLoc, home_dist);
+                            targetscached = projes;
+                        }
                     }
 
                     if (selectedTarget == null) {
                         // allow projectiles too
+                        List<DamagingProjectileAPI> targets = targetscached != null ? targetscached : NAUtils.getProjectilesWithinRange(testLoc, home_dist);
 
                         for (int ii = 0; ii < targets.size(); ii++) {
                             DamagingProjectileAPI tt = targets.get(ii);
@@ -162,7 +173,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                                             // FF prevention
                                             tt.getOwner() != proj.getSource().getOwner()
                                     ))) {
-                                float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
+                                float dist = MathUtils.getDistanceSquared(tt.getLocation(), testLoc);
                                 if (dist < targetDist) {
 
                                     Vector2f relativeLoc = new Vector2f(prloc.x - tt.getLocation().x, prloc.y - tt.getLocation().y);
@@ -207,17 +218,17 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                         }
                     }
                 } else {
-                    List<ShipAPI> targets = NAUtils.getShipsWithinRange(testLoc, home_dist);
                     ShipAPI selectedTarget = null;
-                    float targetDist = 100000;
+                    float targetDist = 100000000;
                     if (projtargets.containsKey(proj) && projtargets.get(proj) instanceof ShipAPI) {
-                        float dd = MathUtils.getDistance(proj.getLocation(), projtargets.get(proj).getLocation());
-                        if (dd <= home_dist) {
+                        float dd = MathUtils.getDistanceSquared(proj.getLocation(), projtargets.get(proj).getLocation());
+                        if (dd <= home_dist * home_dist) {
                             selectedTarget = (ShipAPI) projtargets.get(proj);
                             targetDist = 0;
                         }
                     }
-                    if (targetDist > 0) {
+                    if (targetDist > 0 && homingTick) {
+                        List<ShipAPI> targets = NAUtils.getShipsWithinRange(testLoc, home_dist);
                         for (int ii = 0; ii < targets.size(); ii++) {
                             ShipAPI tt = targets.get(ii);
                             if (!tt.isFighter() && !tt.isHulk() && tt.isAlive() && (proj.getSource() == null ||
@@ -225,7 +236,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                                             // FF prevention
                                             tt.getOwner() != proj.getSource().getOwner()
                                     )) && (!requireShield || (tt.getShield() != null && tt.getShield().isOn()))) {
-                                float dist = MathUtils.getDistance(tt.getLocation(), testLoc);
+                                float dist = MathUtils.getDistanceSquared(tt.getLocation(), testLoc);
                                 if (dist < targetDist) {
 
                                     Vector2f relativeLoc = new Vector2f(prloc.x - tt.getLocation().x, prloc.y - tt.getLocation().y);
@@ -296,6 +307,11 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                 }
 
             }
+        }
+
+
+        if (targetTimer.intervalElapsed()) {
+            targetTimer.setElapsed(0);
         }
 
     }
