@@ -56,6 +56,7 @@ public class NA_GravityMine extends BaseShipSystemScript implements MineStrikeSt
         if (state == State.OUT) {
         }
 
+        ship.setJitterShields(false);
         ship.setJitterUnder(this, JITTER_UNDER_COLOR, jitterLevel, 11, 0f, 3f + jitterRangeBonus);
         //ship.setJitter(this, JITTER_COLOR, jitterLevel, 4, 0f, 0 + jitterRangeBonus);
 

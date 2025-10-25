@@ -80,6 +80,42 @@ public class NAGhostCorePlugin extends BaseAICoreOfficerPluginImpl implements AI
         }
         String autoMultString = new DecimalFormat("#.##").format(autoMult);
 
+
+        Color text = person.getFaction().getBaseUIColor();
+        Color bg = person.getFaction().getDarkUIColor();
+        CommoditySpecAPI spec = Global.getSettings().getCommoditySpec(person.getAICoreId());
+
+        switch (person.getPersonalityAPI().getId()) {
+            case Personalities.RECKLESS:
+                tooltip.addSectionHeading("Personality: fearless", text, bg, Alignment.MID, 20);
+                tooltip.addPara("In combat, the " + spec.getName() + " is single-minded and determined. " +
+                        "In a human captain, its traits might be considered reckless. In a machine, they're terrifying.", opad);
+                break;
+            case Personalities.AGGRESSIVE:
+                tooltip.addSectionHeading("Personality: aggressive", text, bg, Alignment.MID, 20);
+                tooltip.addPara("In combat, the " + spec.getName() + " is capable of carrying out highly aggressive maneuvers," +
+                        " having little fear of death.", opad);
+                break;
+            case Personalities.STEADY:
+                tooltip.addSectionHeading("Personality: steady", text, bg, Alignment.MID, 20);
+                tooltip.addPara("In combat, the " + spec.getName() + " is is cold and calculating," +
+                        " making decisions purely based on tactical value", opad);
+                break;
+            case Personalities.CAUTIOUS:
+                tooltip.addSectionHeading("Personality: cautious", text, bg, Alignment.MID, 20);
+                tooltip.addPara("In combat, the " + spec.getName() + " is careful to " +
+                        "avoid enemy fire and engage only when the opportunity presents itself.", opad);
+                break;
+            case Personalities.TIMID:
+                tooltip.addSectionHeading("Personality: defensive", text, bg, Alignment.MID, 20);
+                tooltip.addPara("In combat, the " + spec.getName() + " is purely defensive, " +
+                        "seeking to protect the vessel at all costs.", opad);
+                break;
+        }
+
+
+
+
         tooltip.addPara("Automated ship points multiplier: "
                 + autoMultString, opad, Misc.getHighlightColor(),autoMultString + "x");
     }

@@ -198,9 +198,11 @@ public class NA_TidalDisruptionStats extends BaseShipSystemScript {
 
             Color color = JITTER_COLOR;
             if (shipJitterLevel > 0) {
+                ship.setJitterShields(false);
                 ship.setJitterUnder(KEY_SHIP, JITTER_UNDER_COLOR, shipJitterLevel, 21, 0f, 3f + jitterRangeBonus);
                 ship.setJitter(KEY_SHIP, color, shipJitterLevel, 4, 0f, 0 + jitterRangeBonus * 1f);
             } else {
+                targetData.ship.setJitterShields(false);
                 targetData.ship.setJitterUnder(KEY_TARGET, JITTER_UNDER_COLOR, targetJitterLevel, 5, 0f, 15f);
                 targetData.ship.setJitter(KEY_TARGET, color, targetJitterLevel, 3, 0f, 5f);
                 if (targetData.target.isAlive()) {
@@ -253,6 +255,8 @@ public class NA_TidalDisruptionStats extends BaseShipSystemScript {
             }
 
             if (targetJitterLevel > 0) {
+
+                targetData.target.setJitterShields(false);
                 targetData.target.setJitterUnder(KEY_TARGET, JITTER_UNDER_COLOR, targetJitterLevel, 5, 0f, 15f);
                 targetData.target.setJitter(KEY_TARGET, color, targetJitterLevel, 3, 0f, 5f);
             }

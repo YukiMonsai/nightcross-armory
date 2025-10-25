@@ -178,6 +178,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 
 					if (data.glowtimer.intervalElapsed()) {
 						data.glowtimer = new IntervalUtil(0.5f, 0.5f);
+						ship.setJitterShields(false);
 						ship.setJitter(
 								ship, GLOW, 0.5f - 0.5f*(data.glowtimer.getElapsed()/data.glowtimer.getIntervalDuration()), 3, 5f
 						);
@@ -226,6 +227,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 				stats.getHullDamageTakenMult().modifyPercent(ID, dmgRed);
 				stats.getWeaponDamageTakenMult().modifyPercent(ID, dmgRed);
 				stats.getEngineDamageTakenMult().modifyPercent(ID, dmgRed);
+				ship.setJitterShields(false);
 				ship.setJitter(
 						ship, GLOW, 0.3f * currEnergy / maxEnergy, 3, 25f
 				);
@@ -236,6 +238,7 @@ public class NA_EnergizedArmor extends BaseHullMod {
 				stats.getEngineDamageTakenMult().unmodify(ID);
 			}
 			if (!data.glowtimer.intervalElapsed()) {
+				ship.setJitterShields(false);
 				ship.setJitter(
 						ship, GLOW, 1f - (data.glowtimer.getElapsed()/data.glowtimer.getIntervalDuration()), 1, 15f
 				);

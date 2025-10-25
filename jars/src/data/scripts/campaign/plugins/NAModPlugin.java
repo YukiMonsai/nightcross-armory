@@ -23,12 +23,20 @@ import data.scripts.weapons.ai.NA_RKKVAI;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
 import data.scripts.world.nightcross.*;
 import exerelin.campaign.SectorManager;
+import org.apache.log4j.Logger;
 import org.dark.shaders.util.TextureData;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.lazywizard.lazylib.JSONUtils;
 import org.magiclib.util.MagicVariables;
 
 import lunalib.lunaSettings.LunaSettings;
+import yukimonsai.sicnightcross.scripts.world.addXO;
+import yukimonsai.sicnightcross.skills.HitAndRun;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public class NAModPlugin extends BaseModPlugin {
@@ -38,6 +46,8 @@ public class NAModPlugin extends BaseModPlugin {
     public static boolean hasGraphicsLib = false;
     public static boolean hasMagicLib = false;
     public static boolean hasLunaLib = false;
+    public static boolean hasSiC = false;
+
 
     public static final String MEMKEY_VERSION = "$nightcross_version";
     public static final String MEMKEY_INTIALIZED = "$nightcross_initialized";
@@ -50,6 +60,61 @@ public class NAModPlugin extends BaseModPlugin {
     public static final String MEMKEY_IBB_INITIALIZED = "$nightcross_ibb_initialized";
     public static final String MEMKEY_NCA_PERSON_ADMIN = "$nightcross_nca_person_admin";
 
+
+
+
+    public static final String WHITELIST_OFF = "data/config/systemwhitelist/offensive_whitelist.csv";
+    public static final String WHITELIST_DEF = "data/config/systemwhitelist/defensive_whitelist.csv";
+    public static final String WHITELIST_MOV = "data/config/systemwhitelist/movement_whitelist.csv";
+    public static final String WHITELIST_UTI = "data/config/systemwhitelist/utility_whitelist.csv";
+    static Exception failedLoad = null;
+    public static Logger log = Global.getLogger(HitAndRun.class);
+    public static HashMap<String, Boolean> system_whitelist_movement = new HashMap<>();
+    public static HashMap<String, Boolean> system_whitelist_offensive = new HashMap<>();
+    public static HashMap<String, Boolean> system_whitelist_defensive = new HashMap<>();
+    public static HashMap<String, Boolean> system_whitelist_utility = new HashMap<>();
+    static {
+        try {
+
+            log.info("Loading whitelisted factions");
+            JSONArray systems_off = Global.getSettings().getMergedSpreadsheetDataForMod("id",
+                    WHITELIST_OFF, "Nightcross");
+            JSONArray systems_def = Global.getSettings().getMergedSpreadsheetDataForMod("id",
+                    WHITELIST_DEF, "Nightcross");
+            JSONArray systems_mov = Global.getSettings().getMergedSpreadsheetDataForMod("id",
+                    WHITELIST_MOV, "Nightcross");
+            JSONArray systems_uti = Global.getSettings().getMergedSpreadsheetDataForMod("id",
+                    WHITELIST_UTI, "Nightcross");
+
+            for(int i = 0; i < systems_off.length(); i++) {
+                JSONObject row = systems_off.getJSONObject(i);
+                system_whitelist_offensive.put(row.getString("id"), true);
+                log.info("Added to offensive system whitelist: " + row.getString("id"));
+            }
+            for(int i = 0; i < systems_off.length(); i++) {
+                JSONObject row = systems_off.getJSONObject(i);
+                system_whitelist_defensive.put(row.getString("id"), true);
+                log.info("Added to defensive system whitelist: " + row.getString("id"));
+            }
+            for(int i = 0; i < systems_off.length(); i++) {
+                JSONObject row = systems_off.getJSONObject(i);
+                system_whitelist_movement.put(row.getString("id"), true);
+                log.info("Added to movement system whitelist: " + row.getString("id"));
+            }
+            for(int i = 0; i < systems_uti.length(); i++) {
+                JSONObject row = systems_off.getJSONObject(i);
+                system_whitelist_utility.put(row.getString("id"), true);
+                log.info("Added to utility system whitelist: " + row.getString("id"));
+            }
+
+        } catch (JSONException | IOException ex) {
+            log.error("Failed to load Nightcross Armory's ship system whitelist!!!", ex);
+            // note: throwing an exception in static block causes class to fail to load with a NoClassDefFoundError
+            // — and more critically, prevents logging anything useful
+            // throw new RuntimeException();
+            failedLoad = ex;
+        }
+    }
 
     static {
         //generators.add(new SpecialThemeGenerator());
@@ -141,6 +206,10 @@ public class NAModPlugin extends BaseModPlugin {
             if (hasLunaLib) {
                 LunaSettings.addSettingsListener(new NA_SettingsListener());
             }
+            hasSiC = Global.getSettings().getModManager().isModEnabled("second_in_command");
+            if (hasSiC) {
+                //LunaSettings.addSettingsListener(new NA_SettingsListener());
+            }
             hasMagicLib = Global.getSettings().getModManager().isModEnabled("MagicLib");
             if (!hasMagicLib) {
                 throw new RuntimeException("Nightcross Armory requires MagicLib!" +
@@ -201,6 +270,9 @@ public class NAModPlugin extends BaseModPlugin {
         if (!plugins.hasPlugin(NA_NightcrossHumanDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
         }
+
+        if(!Global.getSector().getListenerManager().hasListenerOfClass(addXO.class))
+            Global.getSector().getListenerManager().addListener(new addXO(), false);
 
         SectorAPI sector = Global.getSector();
         if (!sector.hasScript(NA_StargazerGhostManager.class)) {

@@ -1,0 +1,4 @@
+id,name,categories,spawnWeight,color,tags,order,plugin
+#All aptitudes require a matching entry in default_ranks.json: executive_officer_aptitudeId,,#can not use multiple aptitudes of the same category,"#Used for Procgen, not for NPCs. NPCs are decided in the plugin",,,,
+sc_nightcross,Skirmish,,0.25,"75,138,200,255","startingOption,",915,yukimonsai.sicnightcross.AptitudeNightcross
+sc_stargazer,Stargazer,sc_cat_automated,0,"200,75,100,255",,1000,yukimonsai.sicnightcross.AptitudeStargazer

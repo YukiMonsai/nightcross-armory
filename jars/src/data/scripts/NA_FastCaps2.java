@@ -22,45 +22,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class NA_FastCaps2 extends BaseShipSystemScript {
-
-
-    public static class UnfurlDecoData {
-        public float turnDir;
-        public float turnRate;
-        public float angle;
-        public float count;
-        public WeaponAPI w;
-    }
-
-    private IntervalUtil beamTimer = new IntervalUtil(0.15f, 0.3f);
-
-    public static Color WEAPON_GLOW = new Color(245, 20, 133,155);
-
-    private NA_FastCapsRangeModifier listener;
-    private NA_FastCapDmgBoost dmglistener;
+public class NA_FastCaps2 extends NA_FastCaps {
 
     public static final float DMG_BONUS = 0.5f;
     public static final float RANGE_BOOST = 0.5f;
-    public static final float PASSIVE_BOOST = 20f;
     public static final float AMMO_MULT = 0.5f;
     public static final float SPEED_MULT = 90f;
     public static final float ROF_BOOST = 1.5f;
 
+    public static final String DMG_ID = "NA_FastCap2DmgMod";
 
-    public static final String DMG_ID = "NA_FastCapDmgMod";
-
-    protected List<UnfurlDecoData> dishData = new ArrayList<UnfurlDecoData>();
-    protected boolean needsUnapply = false;
-    protected boolean playedWindup = false;
-    protected boolean playedCooledDown = false;
-    protected boolean playedEnd = false;
-
-    public List<WeaponAPI> weapons;
     public ShipAPI ship = null;
-
-
-    protected boolean inited = false;
 
     // plagarized ruthlessly from alex
     public void init(ShipAPI ship) {
@@ -527,56 +499,6 @@ public class NA_FastCaps2 extends BaseShipSystemScript {
     }
 
 
-
-    public static class NA_FastCapsRangeModifier implements WeaponBaseRangeModifier {
-        public List<WeaponAPI> weapons;
-        public float mult;
-        public float effectLevel;
-        public NA_FastCapsRangeModifier(List<WeaponAPI> weapons, float mult) {
-            this.weapons = weapons;
-            this.mult = mult;
-        }
-
-        public float getWeaponBaseRangePercentMod(ShipAPI ship, WeaponAPI weapon) {
-            return 0;
-        }
-        public float getWeaponBaseRangeMultMod(ShipAPI ship, WeaponAPI weapon) {
-            if (weaponEligible(weapon)) return 1f + mult * effectLevel;
-            return 1f;
-        }
-        public float getWeaponBaseRangeFlatMod(ShipAPI ship, WeaponAPI weapon) {
-            return 0;
-        }
-    }
-
-
-    public class NA_FastCapDmgBoost implements DamageDealtModifier {
-        public List<WeaponAPI> weapons;
-        public float mult;
-        public float effectLevel;
-
-        public NA_FastCapDmgBoost(List<WeaponAPI> weapons, float mult) {
-            this.weapons = weapons;
-            this.mult = mult;
-        }
-
-
-        @Override
-        public String modifyDamageDealt(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
-            if (param != null) {
-                WeaponAPI weapon = null;
-                if (param instanceof BeamAPI) {
-                    weapon = ((BeamAPI) param).getWeapon();
-                } else if (param instanceof DamagingProjectileAPI) {
-                    weapon = ((DamagingProjectileAPI) param).getWeapon();
-                }
-                if (weaponEligible(weapon)) {
-                    damage.getModifier().modifyMult(DMG_ID, 1f + mult * effectLevel);
-                }
-            }
-            return null;
-        }
-    }
 }
 
 

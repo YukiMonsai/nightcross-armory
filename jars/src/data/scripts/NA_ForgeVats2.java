@@ -53,6 +53,7 @@ public class NA_ForgeVats2 extends BaseShipSystemScript {
                 if (weapon.getSpec().getSize() == WeaponAPI.WeaponSize.LARGE) maxRangeBonus = 50;
                 else if (weapon.getSpec().getSize() == WeaponAPI.WeaponSize.MEDIUM) maxRangeBonus = 25;
                 float jitterRangeBonus = 5f + jitterLevel * maxRangeBonus;
+                ship.setJitterShields(false);
 
                 //if (firstTime) {
                     //Global.getSoundPlayer().playSound("system_forgevats", 1f, 0.5f, weapon.getLocation(), ship.getVelocity());

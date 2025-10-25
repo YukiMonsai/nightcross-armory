@@ -99,6 +99,8 @@ public class NightcrossPeople {
             person.addTag(NA_ProjectGhost.CAPTAIN_TAG);
             person.setPersonality(Personalities.RECKLESS);
 
+
+
             person.getStats().setSkillLevel(Skills.DAMAGE_CONTROL, 2);
             person.getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
             person.getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);

@@ -132,7 +132,7 @@ public class NA_GravityCatapultSuper extends NA_GravityCatapult {
                         }
                         targetData.target.getMutableStats().getWeaponMalfunctionChance().modifyFlat(targetDataKey, targetData.malfunctionMult * 5f);
                         targetData.target.getMutableStats().getEngineMalfunctionChance().modifyFlat(targetDataKey, targetData.malfunctionMult);
-
+                        targetData.target.setJitterShields(false);
                         targetData.target.setJitterUnder(this, JITTER_UNDER_COLOR, 0.7f, 3, 10f, 45f);
                     }
                 }

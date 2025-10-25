@@ -229,6 +229,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                 if (effectLevel > 0) {
                     ship.getVelocity().set(0f, 0f);
                     Color color = JITTER_COLOR;
+                    ship.setJitterShields(false);
                     ship.setJitterUnder(KEY_SHIP, JITTER_UNDER_COLOR, effectLevel, 15, 0f, 3f + 50f);
                     ship.setJitter(KEY_SHIP, color, effectLevel, 4, 0f, 0 + 50 * 1f);
                 }

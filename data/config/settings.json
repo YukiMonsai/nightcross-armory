@@ -22,6 +22,9 @@
 			"na_abysswreck":"graphics/illustrations/na_abysswreck.jpg",
 		},
 		
+		"backgrounds":{
+			"na_blackbg":"graphics/backgrounds/na_blackbg.jpg",
+		},
 		
 		"blueprint_packages":{
 			"nightcross_package_fast":"graphics/icons/package_na_fast.png",

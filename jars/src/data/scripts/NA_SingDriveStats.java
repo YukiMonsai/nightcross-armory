@@ -40,6 +40,7 @@ public class NA_SingDriveStats extends BaseShipSystemScript {
             this.dmgTimer.advance(amount);
 
             if (effectLevel > 0) {
+                ship.setJitterShields(false);
                 ship.setJitter(ship, new Color(40, 0, 120), effectLevel, 3, 20 + 15 * effectLevel);
                 if (dmgTimer.intervalElapsed()) {
                     dmgTimer.randomize();

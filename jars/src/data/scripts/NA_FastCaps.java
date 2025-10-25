@@ -31,12 +31,12 @@ public class NA_FastCaps extends BaseShipSystemScript {
         public WeaponAPI w;
     }
 
-    private IntervalUtil beamTimer = new IntervalUtil(0.15f, 0.3f);
+    protected IntervalUtil beamTimer = new IntervalUtil(0.15f, 0.3f);
 
     public static Color WEAPON_GLOW = new Color(20, 245, 96,155);
 
-    private NA_FastCapsRangeModifier listener;
-    private NA_FastCapDmgBoost dmglistener;
+    protected NA_FastCapsRangeModifier listener;
+    protected NA_FastCapDmgBoost dmglistener;
 
     public static final float DMG_BONUS = 0.5f;
     public static final float RANGE_BOOST = 0.5f;

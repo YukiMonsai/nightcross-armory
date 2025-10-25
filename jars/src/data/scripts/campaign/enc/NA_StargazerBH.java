@@ -104,7 +104,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
 
         // threat spawn-in animation looks best against this bg
-        system.setBackgroundTextureFilename("graphics/backgrounds/background4.jpg");
+        system.setBackgroundTextureFilename("graphics/backgrounds/na_blackbg.jpg");
 
 //		if (data.random.nextFloat() < 0.5f) {
 //			system.setBackgroundTextureFilename("graphics/backgrounds/background4.jpg");
