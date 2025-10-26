@@ -39,7 +39,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return;
+        if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return;
 
 
         CombatEngineAPI engine = Global.getCombatEngine();
@@ -85,7 +85,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
                 //if (param != pilotedShip) return false
                 if (ship.isFighter()) return false;
                 if (ship.getOwner() == side) return false;
-                if (killer.getCaptain() == null || (killer.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return false; // MUST have officer
+                if (killer.getCaptain() == null || (killer.getCaptain().isDefault())) return false; // MUST have officer
                 if (ship.getHitpoints() <= 0 && !ship.hasTag("sc_na_encore_counted")) {
                     ship.addTag("sc_na_encore_counted");
 

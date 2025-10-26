@@ -126,6 +126,19 @@ na_shieldbattery,SHIP,"A floating shield generator with an inverted operating mo
 na_fossa,SHIP,"A light destroyer with a robust power grid and durable shield. Its experimental Chroma Reactor allows it to take advantage of advanced weapons platforms pioneered by Nightcross Armory Corporation, flipping its main armament into overdrive to project power across unreasonably long distances for a ship of its size. Its fragility poses a dire threat to overly aggressive captains, however.",,,,
 na_tempus,SHIP,"The Tempus Spatium carries an anachronistic armamant, boasting batteries of ballistic point defense alongside an advanced weapons integration system for its main energy guns. But make no mistake--its ballistic mounts are a concession to unique challenges involved in scaling the Chroma Reactor to cruiser scale. Its deep flux banks allow it to project ruinous firepower from great range.",,,,
 na_nammu,SHIP,"A dedicated support vessel, designed to aid in fleet logistics while providing missile support to fleets in combat. Its drones provide it with the ability to provide onsite repair capabilities and stabilize the shields of targets under fire.",,,,
+na_curiosity,SHIP,"Nightcross Armory's entry into the civilian transport category, boasting a ludicrously over-engineered drive system alongside excessive measures to ensure ""crew safety"" including a top-of-the-line shield generator and anti asteroid turret 
+
+Prior to the collapse, the Curiosity was sold in a limited run in an attempt to establish Nightcross Armory in niche specialty markets, facing overwhelming competition from the greater Domain. Post-collapse, the vessel's extravagant features made it excel as a blockade runner, resulting in a new production run using scavenged blueprints.",,,,
+naai_voyager,SHIP,"Closest match found to archive entry for ""Curiosity""-class hull, 100% confidence. Querying database...
+
+//warning, the warranty on this vessel is void due to unlicensed modifications. Before servicing, please uninstall all third-party modifications:
+- Unlicensed medical suite, manufacturer: null
+- Power grid modifications, manufacturer: Nightcross Armory
+- AI core inter- //COMSEC WARNING// -nufacturer: null
+- #0011010--##### ERROR #####
+
+The application has encountered an unexpected error. Please contact your administrator.
+",,,,
 na_tessera,SHIP,"A light cruiser designed purely for spaceborne operations, informed by learnings from the Fossa Magna's Chroma Reactor and the Moonbeam's overtuned thrusters. The Tessera Magu is a cutting-edge killing machine, fast and deadly, capable of putting its reactor into overdrive for brief periods in order to supercharge its weapons and mobility.",,,,
 naai_tessera,SHIP,"Closest match found to archive entry for ""Magu Tessera""-class hull, 92.8% confidence. Querying database...
 

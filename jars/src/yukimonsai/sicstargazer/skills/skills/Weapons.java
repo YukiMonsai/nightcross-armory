@@ -54,7 +54,7 @@ public class Weapons extends SCBaseSkillPlugin {
             if (!ship.isAlive() || target == null) {
                 return null;
             }
-            if (ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return null;
+            if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return null;
             if (param instanceof DamagingProjectileAPI proj) {
                 if (proj.getWeapon() != null && proj.getWeapon().getType() != WeaponAPI.WeaponType.MISSILE && proj.getWeapon().getShip() == ship) {
 
@@ -112,7 +112,7 @@ public class Weapons extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return;
+        if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return;
         if (!ship.hasListenerOfClass(NA_WeaponMod.class)) {
             ship.addListener(new NA_WeaponMod(ship));
         }

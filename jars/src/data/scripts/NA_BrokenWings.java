@@ -11,6 +11,7 @@ import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.stardust.NA_StargazerStardust;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
+import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -34,6 +35,14 @@ public class NA_BrokenWings extends BaseShipSystemScript {
 
     private IntervalUtil beamTimer = new IntervalUtil(0.15f, 0.3f);
 
+
+    public static HashMap<ShipAPI.HullSize, Float> SystemRange = new HashMap<>();
+    static {
+        SystemRange.put(ShipAPI.HullSize.CAPITAL_SHIP, 700f);
+        SystemRange.put(ShipAPI.HullSize.CRUISER, 575f);
+        SystemRange.put(ShipAPI.HullSize.DESTROYER, 425f);
+        SystemRange.put(ShipAPI.HullSize.FRIGATE, 300f);
+    }
 
     public static float SPEED_BONUS = 25f;
     public static float TURN_BONUS = 40f;
@@ -356,11 +365,12 @@ public class NA_BrokenWings extends BaseShipSystemScript {
                     // fake shock
                 } else {
                     // real shock
+                    float range = SystemRange.containsKey(ship.getHullSize()) ? SystemRange.get(ship.getHullSize()) : 700f;
 
                     WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
                     NA_StargazerStardust.SwarmMember fragment = picker2.pick();
                     if (fragment != null) {
-                        List<CombatEntityAPI> nearbyTargets = NAUtils.getEntitiesWithinRange(ship.getLocation(), 700f);
+                        List<CombatEntityAPI> nearbyTargets = NAUtils.getEntitiesWithinRange(ship.getLocation(), range);
                         nearbyTargets.removeIf(entry -> (entry.getOwner() == ship.getOwner()));
                         if (!nearbyTargets.isEmpty()) {
                             WeightedRandomPicker<CombatEntityAPI> picker = new WeightedRandomPicker<>();

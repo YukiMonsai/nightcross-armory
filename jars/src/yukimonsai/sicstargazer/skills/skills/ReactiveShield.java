@@ -46,7 +46,7 @@ public class ReactiveShield extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) {
+        if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) {
             return;
         } else if (ship.getCaptain() == null) {
             return;

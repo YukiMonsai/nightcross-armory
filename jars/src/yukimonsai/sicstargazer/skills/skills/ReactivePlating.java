@@ -52,7 +52,7 @@ public class ReactivePlating extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getCaptain() == null  || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return;
+        if (ship.getCaptain() == null  || (ship.getCaptain().isDefault())) return;
         if (!ship.hasListenerOfClass(NA_ReactivePlatingListener.class)) {
             ship.addListener(new NA_ReactivePlatingListener(ship));
         }

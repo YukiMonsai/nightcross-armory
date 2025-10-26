@@ -45,7 +45,10 @@ public class StargazerLogistics extends SCBaseSkillPlugin {
 
     @Override
     public void advance(SCData data, Float amunt) {
-        if (data.getFleet() != null && data.getFleet().isInHyperspace() && Misc.isInAbyss(data.getFleet().getLocation())) {
+        if (data.getFleet() != null && (
+                (data.getFleet().isInHyperspace() && Misc.isInAbyss(data.getFleet().getLocation()))
+                || (data.getFleet().getStarSystem() != null && Misc.isInAbyss(data.getFleet().getStarSystem().getLocation()))
+                )) {
             float depth = Misc.getAbyssalDepth(data.getFleet().getLocation());
             float scale = Math.min(1f, Math.max(0, depth / ABYSS_DEPTH_SCALE));
             if (scale > 0) {

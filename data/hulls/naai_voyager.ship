@@ -1,0 +1,164 @@
+{
+  "hullName": "Voyager",
+  "hullId": "naai_voyager",
+  "hullSize": "FRIGATE",
+  "spriteName": "graphics/ships/naai/curiosity/voyager.png",
+  "style": "NIGHTCROSSAIHULL",
+  "height": 78,
+  "width": 110,
+  "center": [55, 39],
+  "collisionRadius": 45,
+  "shieldCenter": [17, -1],
+  "shieldRadius": 57,
+  "viewOffset": 0,
+  "builtInMods": [
+    "na_stargazerhullmod",
+    "na_rcs",
+  ],
+  "builtInWeapons": {
+    "WS0005": "blinker_na_cyan",
+    "WS0007": "blinker_na_cyan",
+    "WS0008": "blinker_na_red",
+    "WS0011": "blinker_na_red",
+    "WS0012": "blinker_na_cyan",
+    "WS0013": "blinker_na_cyan",
+    "WS0014": "blinker_na_red",
+    "WS0015": "blinker_na_red"
+  },
+  
+  "weaponSlots": [
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [-13, 0]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-15, 43]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-15, -45]
+    },
+    {
+      "id": "WS0008",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [5, 26.5]
+    },
+    {
+      "id": "WS0011",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [5, -28.5]
+    },
+    {
+      "id": "WS0012",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [12.5, 19]
+    },
+    {
+      "id": "WS0013",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [12.5, -21]
+    },
+    {
+      "id": "WS0014",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-20, 42]
+    },
+    {
+      "id": "WS0015",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": -0,
+      "locations": [-20, -44]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-31.5, -0],
+      "length": 82.5,
+      "width": 23,
+      "angle": 180,
+      "contrailSize": 23,
+      "style": "NA_STARGAZER"
+    },
+    {
+      "location": [-30, 15.5],
+      "length": 44.933029,
+      "width": 10.054451,
+      "angle": 125.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [-30, -15.5],
+      "length": 44.933029,
+      "width": 10.054451,
+      "angle": -125.5,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [23, 16.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": 80,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    },
+    {
+      "location": [23, -16.5],
+      "length": 35.738743,
+      "width": 8.77323,
+      "angle": -80,
+      "contrailSize": 7,
+      "style": "NA_STARGAZER_SEC"
+    }
+  ],
+  "bounds": [
+    37.5, -8.5,
+    6.5, -27,
+    -14, -18.5,
+    -33, -7.5,
+    -33, 7.5,
+    -14, 18.5,
+    6.5, 27,
+    37.5, 8.5
+  ]
+}

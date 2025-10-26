@@ -28,13 +28,13 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
     public static float HULL_THRESH_LOWER = 0.25f;
     public static float HULL_THRESH_UPPER = 0.4f;
     public static float SHIELD_NERF = 0.20f;
-    public static float HULL_BUFF = 0.3f;
+    public static float HULL_BUFF = 0.5f;
     public static float FLUX_BUFF = 0.33f;
     public static float SYSTEM_BUFF = 0.33f;
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("When a ship takes damage that takes it below 25%% hitpoints, it enters a Terminal State unless its hull goes back above 40%%:", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+        tooltipMakerAPI.addPara("When a ship takes damage that takes it below 25%% hitpoints, it enters a Terminal State, which lasts indefinitely or until its hull is restored above 40%%:", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
                 "Terminal State"
 
         );
@@ -79,7 +79,7 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
                 afterimageTimer.advance(amount);
                 if (afterimageTimer.intervalElapsed()) {
                     // do gfx
-                    ship.addAfterimage(ship.getVentCoreColor(), ship.getLocation().x, ship.getLocation().y,
+                    ship.addAfterimage(ship.getVentFringeColor(), 0f, 0f,
                             -ship.getVelocity().x, -ship.getVelocity().y, 10, 0.1f, 0.25f, 0.1f, true, true, false);
                 }
                 ship.getMutableStats().getShieldDamageTakenMult().modifyPercent(ID, 100*SHIELD_NERF);
@@ -88,6 +88,7 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
                 ship.getMutableStats().getFluxDissipation().modifyPercent(ID, 100*FLUX_BUFF);
                 ship.getMutableStats().getSystemRegenBonus().modifyPercent(ID, 100*SYSTEM_BUFF);
                 ship.getMutableStats().getSystemCooldownBonus().modifyPercent(ID, 1f - SYSTEM_BUFF);
+                ship.getMutableStats().getPeakCRDuration().modifyMult(ID, 0f);
             } else {
                 terminal = false;
                 ship.getMutableStats().getShieldDamageTakenMult().unmodify(ID);
@@ -95,6 +96,7 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
                 ship.getMutableStats().getFluxDissipation().unmodify(ID);
                 ship.getMutableStats().getSystemRegenBonus().unmodify(ID);
                 ship.getMutableStats().getSystemCooldownBonus().unmodify(ID);
+                //ship.getMutableStats().getPeakCRDuration().unmodify(ID);
             }
 
 
@@ -109,9 +111,10 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
                     // Do fancy
                     terminal = true;
                     Global.getCombatEngine().addNegativeSwirlyNebulaParticle(ship.getLocation(), ship.getVelocity(), ship.getCollisionRadius(), 1.25f, 0.25f, 0.5f, 1.0f,
-                            RiftLanceEffect.getColorForDarkening(ship.getVentCoreColor()));
+                            RiftLanceEffect.getColorForDarkening(ship.getVentFringeColor()));
                     Global.getCombatEngine().addFloatingText(ship.getLocation(), "terminal state",
-                            48, new Color(255, 22, 146), ship, 1f, 5f);
+                            48, new Color(255, 22, 146), ship, 4f, 1.5f);
+
                 }
             }
             return null;
@@ -120,7 +123,7 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return;
+        if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return;
         if (!ship.hasListenerOfClass(NA_NightmareListener.class)) {
             ship.addListener(new NA_NightmareListener(ship));
         }

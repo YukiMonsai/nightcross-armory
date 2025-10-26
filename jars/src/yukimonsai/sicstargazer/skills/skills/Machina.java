@@ -35,7 +35,7 @@ public class Machina extends SCBaseAutoPointsSkillPlugin {
     public void applyEffectsBeforeShipCreation(SCData data, MutableShipStatsAPI stats, ShipVariantAPI variant, ShipAPI.HullSize hullSize, String id) {
 
         if (Misc.isAutomated(variant)) {
-            if (stats.getFleetMember().getCaptain() == null || (stats.getFleetMember().getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) {
+            if (stats.getFleetMember().getCaptain() == null || (stats.getFleetMember().getCaptain().isDefault())) {
                 stats.getFleetMember().getStats().getDynamic().getStat("sc_auto_points_mult").modifyMult(ID, 1f - 0.01f * DUMB_AI_SCALE);
             } else {
                 stats.getFleetMember().getStats().getDynamic().getStat("sc_auto_points_mult").unmodify(ID);

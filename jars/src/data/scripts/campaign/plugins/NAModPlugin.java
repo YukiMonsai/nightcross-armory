@@ -271,8 +271,11 @@ public class NAModPlugin extends BaseModPlugin {
             plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
         }
 
-        if(!Global.getSector().getListenerManager().hasListenerOfClass(addXO.class))
-            Global.getSector().getListenerManager().addListener(new addXO(), false);
+        if (hasSiC) {
+            if(!Global.getSector().getListenerManager().hasListenerOfClass(addXO.class))
+                Global.getSector().getListenerManager().addListener(new addXO(), false);
+        }
+
 
         SectorAPI sector = Global.getSector();
         if (!sector.hasScript(NA_StargazerGhostManager.class)) {

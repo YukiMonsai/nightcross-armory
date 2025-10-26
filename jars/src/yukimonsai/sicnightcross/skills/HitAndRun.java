@@ -143,7 +143,7 @@ public class HitAndRun extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
-        if (ship.getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP || ship.getCaptain() == null || (ship.getCaptain().getPortraitSprite().equals("graphics/portraits/portrait_generic_grayscale.png"))) return;
+        if (ship.getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP || ship.getCaptain() == null || (ship.getCaptain().isDefault())) return;
         if (!ship.hasListenerOfClass(NA_HitAndRunMod.class)) {
             ship.addListener(new NA_HitAndRunMod(ship));
         }
