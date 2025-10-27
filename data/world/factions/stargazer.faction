@@ -194,6 +194,7 @@
 		"officersOnAutomatedDefenses":true,
 		"simulatorData":{
 			"includeCivShipsWithFaction":true,
+			"showInSimulator":true,
 		},
 	},	
 	"fleetTypeNames":{

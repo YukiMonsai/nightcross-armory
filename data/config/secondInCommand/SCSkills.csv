@@ -2,11 +2,16 @@ id,name,iconPath,npcSpawnWeight,plugin
 #Dustkeeper,,,,
 nightcross_science,Scientific Triumph,graphics/secondInCommand/nightcross/science.png,0,yukimonsai.sicnightcross.skills.Science
 stargazer_machina,Machina Mori,graphics/secondInCommand/nightcross/machina2.png,0,yukimonsai.sicnightcross.skills.Machina2
-stargazer_logistics,Voyager,graphics/secondInCommand/nightcross/voyager.png,2.5,yukimonsai.sicnightcross.skills.StargazerLogistics
-stargazer_nebula,Thousand Eyes,graphics/secondInCommand/nightcross/nebula.png,1.5,yukimonsai.sicnightcross.skills.StargazerNebula
+stargazer_logistics,1000 Lightyears,graphics/secondInCommand/nightcross/voyager.png,2.5,yukimonsai.sicnightcross.skills.StargazerLogistics
+stargazer_nebula,Absence of Light,graphics/secondInCommand/nightcross/nebula.png,1.5,yukimonsai.sicnightcross.skills.StargazerNebula
 stargazer_nightmare,Beautiful Nightmare,graphics/secondInCommand/nightcross/nightmare.png,1,yukimonsai.sicnightcross.skills.StargazerNightmare
 stargazer_furor,Furor Machinae,graphics/secondInCommand/nightcross/furor.png,1.5,yukimonsai.sicnightcross.skills.StargazerFuror
 stargazer_atomize,Atomize,graphics/secondInCommand/nightcross/atomize.png,1.5,yukimonsai.sicnightcross.skills.StargazerAtomize
+stargazer_overwhelm,Falling Meteor,graphics/secondInCommand/nightcross/overwhelm.png,1.5,yukimonsai.sicnightcross.skills.StargazerMissiles
+stargazer_override,Override,graphics/secondInCommand/nightcross/override.png,2.5,yukimonsai.sicnightcross.skills.StargazerOverride
+stargazer_necromancy,Corpse Astronomy,graphics/secondInCommand/nightcross/necro.png,1.5,yukimonsai.sicnightcross.skills.StargazerNecro
+stargazer_ecm,Language of the Lost,graphics/secondInCommand/nightcross/ecm.png,1.5,yukimonsai.sicnightcross.skills.StargazerECM
+stargazer_shell,Empty Shell Axion,graphics/secondInCommand/nightcross/emptyshell.png,1.5,yukimonsai.sicnightcross.skills.StargazerShell
 nightcross_ecccm,Reactive Countermeasures,graphics/secondInCommand/nightcross/ecccm.png,1,yukimonsai.sicnightcross.skills.ECCCM
 nightcross_cr,Reactive Targeting,graphics/secondInCommand/nightcross/cr.png,1,yukimonsai.sicnightcross.skills.CR
 nightcross_reactiveplating,Reactive Plating,graphics/secondInCommand/nightcross/reactiveplating.png,1,yukimonsai.sicnightcross.skills.ReactivePlating

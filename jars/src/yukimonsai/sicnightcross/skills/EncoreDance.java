@@ -111,7 +111,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
                     }
 
                     if (killer == Global.getCombatEngine().getPlayerShip()) {
-                        Global.getSoundPlayer().playSound("system_forgevats", 1f, 0.5f, killer.getLocation(), Misc.ZERO);
+                        Global.getSoundPlayer().playSound("nightcross_reload", 1f, 0.7f, killer.getLocation(), Misc.ZERO);
                     }
 
                     float scale = 1f - sizeDifference * SIZE_SCALE;

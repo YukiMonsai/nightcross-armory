@@ -57,7 +57,7 @@ public class Science extends SCBaseSkillPlugin {
 
     @Override
     public void advanceInCombat(SCData data, ShipAPI ps, Float amount) {
-        if (ps == Global.getCombatEngine().getPlayerShip()) {
+        if (data.getFleet().getFlagship() != null && ps.getFleetMember() != null && data.getFleet().getFlagship().getId().equals(ps.getFleetMember().getId())) {
             CombatEngineAPI engine = Global.getCombatEngine();
             if (engine != null) {
                 float max = (int) ElectronicWarfareScript.BASE_MAXIMUM;

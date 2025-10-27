@@ -24,6 +24,7 @@ public class NA_RKKVRenderer extends BaseCombatLayeredRenderingPlugin {
     @Override
     public void render(CombatEngineLayers layer, ViewportAPI viewport) {
         if (doOnce){
+            doOnce = false;
             try {
                 Global.getSettings().loadTexture("graphics/fx/na_RKKVTarget.png");
             } catch (IOException e) {

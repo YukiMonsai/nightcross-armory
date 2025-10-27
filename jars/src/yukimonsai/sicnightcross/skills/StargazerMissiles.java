@@ -2,14 +2,19 @@ package yukimonsai.sicnightcross.skills;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
 import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.util.vector.Vector2f;
 import second_in_command.SCData;
 import second_in_command.specs.SCBaseSkillPlugin;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class StargazerMissiles extends SCBaseSkillPlugin {
     @Override
@@ -18,21 +23,30 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
     }
 
 
-    private static final float SHIELD_MISSILE_DMG = 5f;
+    private static final float SHIELD_MISSILE_DMG = 8f;
+    private static final float SHIELD_MISSILE_FLUX = 10f;
+    private static final float SHIELD_MISSILE_HP = 25f;
+    private static final float MISSILE_ROF = 10f;
 
 
-    public static final String ID = "na_sic_atomize";
+    public static final String ID = "na_sic_overwhelm";
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("%s bonus damage against shields with missiles and synergy weapons.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("%s bonus damage vs. shields with missiles and synergy weapons", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(SHIELD_MISSILE_DMG) + "%");
+        tooltipMakerAPI.addPara("%s flux cost of missiles and synergy weapons", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                "-" + (int)(SHIELD_MISSILE_FLUX) + "%");
+        tooltipMakerAPI.addPara("%s missile hitpoints", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                "+" + (int)(SHIELD_MISSILE_HP) + "%");
+        tooltipMakerAPI.addPara("%s missile rate of fire", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                "+" + (int)(MISSILE_ROF) + "%");
 
 
     }
 
 
-    public static class NA_AtomizeMod implements DamageDealtModifier {
+    public static class NA_AtomizeMod implements DamageDealtModifier, AdvanceableListener {
         protected ShipAPI ship;
         public NA_AtomizeMod(ShipAPI ship) {
             this.ship = ship;
@@ -43,40 +57,112 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
             if (!ship.isAlive() || target == null) {
                 return null;
             }
+            if (!shieldHit) return null;
             //if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return null;
 
-            if (target instanceof CombatAsteroidAPI || (target instanceof ShipAPI tship && (tship.isHulk() || !tship.isAlive()))) {
-                damage.getModifier().modifyPercent(ID, 100f * BONUS_DMG);
-                if (Math.random() * damage.getBaseDamage() > 0.04f * target.getHitpoints()) {
-                    Global.getCombatEngine().spawnEmpArc(ship,
-                            target.getLocation(),
-                            target,
-                            target,
-                            DamageType.ENERGY,
-                            0,
-                            0, // emp
-                            target.getCollisionRadius(), // max range
-                            null, //"tachyon_lance_emp_impact",
-                            20f, // thickness
-                            new Color(
-                                    255,
-                                    175,
-                                    175, 147),
-                            new Color(
-                                    255,
-                                    0,
-                                    0, 98)
-                    );
+            if ((param instanceof DamagingProjectileAPI proj
+                    && proj.getWeapon() != null && (
+                    proj.getWeapon().getType() == WeaponAPI.WeaponType.MISSILE
+                        || proj.getWeapon().getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY
+                    ))
+                    ||
+                    (param instanceof BeamAPI beam
+                            && beam.getWeapon() != null && (
+                            beam.getWeapon().getType() == WeaponAPI.WeaponType.MISSILE
+                                    || beam.getWeapon().getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY
+                    ))
+                ) {
+                    damage.getModifier().modifyPercent(ID, SHIELD_MISSILE_DMG);
+                    return ID;
                 }
-                return ID;
-            } else if (target instanceof ShipAPI tship
-                && tship.getHullLevel() < 1f
-            ) {
-                damage.getModifier().modifyPercent(ID, MISSING_HP_DMG * (1f - tship.getHullLevel()));
-                return ID;
+                return null;
             }
-            return null;
-        }
+
+            boolean inited = false;
+
+            private void init(ShipAPI ship){
+                if (inited) return;
+                for(WeaponAPI weapon : getSynergy(ship)){
+                    if(!weapon.isDecorative()){
+                        if (weapon.isBeam() && !weapon.isBurstBeam()){
+                            beams.add(weapon);
+                        }
+                        else{
+                            fluxRefunded.put(weapon, true);
+                        }
+                    }
+                }
+                inited = true;
+            }
+
+            private final HashMap<WeaponAPI, Boolean> fluxRefunded = new HashMap<>();
+            private final List<WeaponAPI> beams = new ArrayList<>();
+
+            @Override
+            public void advance(float amount) {
+
+                if (!ship.isAlive()) return;
+                init(ship);
+
+
+
+                // Code based on Knights of Ludd, thanks selkie and co.
+                float dissipationBuff = 0f;
+                float flatFluxRefund = 0f;
+
+
+                boolean firing = false;
+                for(WeaponAPI weapon : beams){
+                    if(weapon.isFiring()) {
+                        dissipationBuff += weapon.getFluxCostToFire() * (100f - SHIELD_MISSILE_FLUX)/100f;
+                        firing = true;
+
+                    }
+                }
+                for(WeaponAPI weapon : fluxRefunded.keySet()){
+                    if(weapon.isFiring()){
+                        if(!fluxRefunded.get(weapon)){
+                            fluxRefunded.put(weapon, true);
+                            firing = true;
+                            flatFluxRefund += weapon.getFluxCostToFire() * (100f - SHIELD_MISSILE_FLUX)/100f;
+                        }
+                    } else if(!weapon.isInBurst()){
+                        fluxRefunded.put(weapon, false);
+                    }
+                }
+                float maxFluxRefund = ship.getFluxTracker().getCurrFlux() - ship.getFluxTracker().getHardFlux();
+                ship.getFluxTracker().decreaseFlux(Math.min(maxFluxRefund, flatFluxRefund));
+                ship.getMutableStats().getFluxDissipation().modifyFlat(ID, dissipationBuff);
+
+                //ship.getMutableStats().getMissileRoFMult().modifyMult(ID, ROF_PENALTY);
+
+            }
+
+
+
+
+            public static boolean weaponIsSynergy(WeaponAPI weapon) {
+                return weapon != null
+                        && (weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY
+                        && weapon.getSpec().getType() == WeaponAPI.WeaponType.ENERGY);
+            }
+
+
+            // ONLY weapons that are synergy but not missiles--i.e. energy weapons with synergy mount type
+            public static List<WeaponAPI> getSynergy(ShipAPI carrier) {
+                List<WeaponAPI> result = new ArrayList<WeaponAPI>();
+
+                for (WeaponAPI weapon : carrier.getAllWeapons()) {
+                    if (
+                            weaponIsSynergy(weapon)
+                    ) {
+                        result.add(weapon);
+                    }
+                }
+
+                return result;
+            }
+
     }
 
     @Override
@@ -90,7 +176,14 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
     @Override
     public void applyEffectsBeforeShipCreation(SCData data, MutableShipStatsAPI stats, ShipVariantAPI variant, ShipAPI.HullSize hullSize, String id) {
 
+        stats.getMissileHealthBonus().modifyPercent(ID, SHIELD_MISSILE_HP);
+        stats.getMissileRoFMult().modifyPercent(ID, MISSILE_ROF);
+        stats.getMissileWeaponFluxCostMod().modifyPercent(ID, MISSILE_ROF);
     }
+
+
+
+
 
     /*
     @Override

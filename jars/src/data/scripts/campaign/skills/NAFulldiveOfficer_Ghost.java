@@ -103,7 +103,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
                 Integer [] enemy = getTotalAndMaximum(1);
                 float pTotal = player[0];
                 float eTotal = enemy[0];
-                float ecmdmgboost = (int) Math.round(Math.max(0, Math.min(1f, (pTotal - eTotal)/EMP_SCALE_MAXAT)));
+                float ecmdmgboost = Math.max(0, Math.min(1f, (pTotal - eTotal)/EMP_SCALE_MAXAT));
 
                 if (ecmdmgboost < 0) ecmdmgboost = 0;
 

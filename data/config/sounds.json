@@ -1,4 +1,9 @@
 {
+	
+	"nightcross_reload":[
+		{"file":"sounds/fx/nightcross_reload.ogg","volume":0.55}, 
+	],
+	
 	"music":{
 		"nightcross_enc_friendly":[
 			{"file":"nightcross_enc_friendly.ogg","source":"sounds/music/factions","volume":0.25}, 
@@ -98,6 +103,7 @@
 	"NA_SFX_GRAVE_MISTAKE_QUICK":[
 		{"file":"sounds/fx/na_grave_mistake_quick.ogg","volume":0.45}, 
 	],
+	
 	
 	"na_rift_beam_explosion": # the official sound is actually pitchshifted, we use the unshifted
 	[
