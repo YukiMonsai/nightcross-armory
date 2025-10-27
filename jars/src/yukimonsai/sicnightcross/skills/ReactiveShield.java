@@ -19,16 +19,16 @@ public class ReactiveShield extends SCBaseSkillPlugin {
 
     public static float SHIELD_BONUS_TIME = 1f;
     public static float SHIELD_BONUS_AMT = 0.33f;
-    public static float SHIELD_ACCEL_BUFF = 20f;
+    public static float SHIELD_ACCEL_BUFF = 25f;
 
     public static final String ID = "na_sic_shielding";
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("For the first second after deploying shields, gain a rapidly decaying %s shield damage taken multiplier.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "-" +(int)(SHIELD_BONUS_AMT * 100) + "%");
         tooltipMakerAPI.addPara("%s to shield unfold and turn rate.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" +(int)(SHIELD_ACCEL_BUFF) + "%");
+        tooltipMakerAPI.addPara("For the first second after deploying shields, gain a rapidly decaying %s shield damage taken multiplier.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                "-" +(int)(SHIELD_BONUS_AMT * 100) + "%");
 
     }
 
@@ -76,7 +76,7 @@ public class ReactiveShield extends SCBaseSkillPlugin {
                 } else {
                     float buff = Math.max(0f, Math.min(1f, strengthTime)) * SHIELD_BONUS_AMT;
                     strengthTime = Math.max(0f, strengthTime - amount/SHIELD_BONUS_TIME);
-                    ship.getMutableStats().getShieldDamageTakenMult().modifyMult(ID, 1f - buff);
+                    ship.getMutableStats().getShieldDamageTakenMult().modifyMult(ID, (float) (1f - Math.sqrt(buff)));
 
                     ship.setJitterShields(true);
                     ship.setJitter(this, ship.getShield().getInnerColor(), strengthTime * 0.4f, 9, 72f);

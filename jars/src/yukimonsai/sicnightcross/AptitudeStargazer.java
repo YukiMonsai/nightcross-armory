@@ -34,13 +34,15 @@ public class AptitudeStargazer extends SCBaseAptitudePlugin {
         SCAptitudeSection section1 = new SCAptitudeSection(true, 0, "technology1");
         section1.addSkill("stargazer_logistics");
         section1.addSkill("stargazer_nebula");
-        section1.addSkill("nightcross_reactiveplating");
+        section1.addSkill("stargazer_atomize");
+        section1.addSkill("nightcross_cr");
         section1.addSkill("nightcross_shield");
         addSection(section1);
 
         SCAptitudeSection section2 = new SCAptitudeSection(true, 1, "technology3");
         section2.addSkill("nightcross_strike");
         section2.addSkill("stargazer_furor");
+        section2.addSkill("nightcross_reactiveplating");
         addSection(section2);
 
         SCAptitudeSection section3 = new SCAptitudeSection(true, 3, "technology4");

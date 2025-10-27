@@ -126,7 +126,7 @@ public class NA_DefenseHQ  extends BaseIndustry implements RouteManager.RouteFle
 
         float days = Global.getSector().getClock().convertToDays(amount);
 
-        float spawnRate = 1f;
+        float spawnRate = 0.75f;
         float rateMult = market.getStats().getDynamic().getStat(Stats.COMBAT_FLEET_SPAWN_RATE_MULT).getModifiedValue();
         spawnRate *= rateMult;
 
@@ -151,7 +151,7 @@ public class NA_DefenseHQ  extends BaseIndustry implements RouteManager.RouteFle
             int heavy = getCount(PatrolType.HEAVY);
 
             int maxLight = 3;
-            int maxMedium = 3;
+            int maxMedium = 1;
             int maxHeavy = 1;
 
             WeightedRandomPicker<PatrolType> picker = new WeightedRandomPicker<PatrolType>();

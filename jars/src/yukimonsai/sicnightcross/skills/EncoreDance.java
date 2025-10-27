@@ -28,7 +28,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("After disabling an enemy ship, reload %s of base ammunition for missile weapons, and %s of base ammunition for ballistic and energy weapons.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "+" + (int)(MISSILE_RELOAD_PERC * 100) + "%",
+                "" + (int)(MISSILE_RELOAD_PERC * 100) + "%",
                 "" + (int)(RELOAD_PERC * 100) + "%");
 
         tooltipMakerAPI.addSpacer(10f);

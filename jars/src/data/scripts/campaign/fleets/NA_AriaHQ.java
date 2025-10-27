@@ -131,7 +131,7 @@ public class NA_AriaHQ extends BaseIndustry implements RouteFleetSpawner, FleetE
 
         float days = Global.getSector().getClock().convertToDays(amount);
 
-        float spawnRate = 1f;
+        float spawnRate = 0.4f;
         float rateMult = market.getStats().getDynamic().getStat(Stats.COMBAT_FLEET_SPAWN_RATE_MULT).getModifiedValue();
         spawnRate *= rateMult;
 
@@ -156,8 +156,8 @@ public class NA_AriaHQ extends BaseIndustry implements RouteFleetSpawner, FleetE
             int heavy = getCount(PatrolType.HEAVY);
 
             int maxLight = 3;
-            int maxMedium = 3;
-            int maxHeavy = 1;
+            int maxMedium = 1;
+            int maxHeavy = 0;
 
             WeightedRandomPicker<PatrolType> picker = new WeightedRandomPicker<PatrolType>();
             picker.add(PatrolType.HEAVY, maxHeavy - heavy);

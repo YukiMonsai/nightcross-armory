@@ -27,15 +27,15 @@ public class Flux extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("Increases the zero-flux speed boost by %s (%s for capital ships) when flux level is below %s.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("Increases the zero-flux speed boost by %s (%s for capital ships) while flux is below %s.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 (int)(SPEED_BOOST) + " su",
                 (int)(SPEED_BOOST_CAP) + " su",
                 (int)(FLUX_THRESH * 100f) + "%");
-        tooltipMakerAPI.addPara("Decreases shield damage taken by %s based on current flux level (max below %s).", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                (int)(SHIELD_BOOST_MAX) + "%",
+        tooltipMakerAPI.addPara("Decreases shield damage taken by %s while flux is low (max below %s).", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                (int)(SHIELD_BOOST_MAX * 100) + "%",
                 (int)(SHIELD_THRESH * 100) + "%");
-        tooltipMakerAPI.addPara("Increases flux dissipation by up to %s based on current flux level (max at %s).", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                (int)(FLUX_BOOST_MAX) + "%",
+        tooltipMakerAPI.addPara("Increases flux dissipation by up to %s while flux is high (max at %s).", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                (int)(FLUX_BOOST_MAX * 100) + "%",
                 (int)(100f) + "%");
 
     }

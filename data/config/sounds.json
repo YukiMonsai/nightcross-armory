@@ -95,6 +95,9 @@
 	"NA_SFX_GRAVE_MISTAKE":[
 		{"file":"sounds/fx/na_grave_mistake.ogg","volume":0.45}, 
 	],
+	"NA_SFX_GRAVE_MISTAKE_QUICK":[
+		{"file":"sounds/fx/na_grave_mistake_quick.ogg","volume":0.45}, 
+	],
 	
 	"na_rift_beam_explosion": # the official sound is actually pitchshifted, we use the unshifted
 	[

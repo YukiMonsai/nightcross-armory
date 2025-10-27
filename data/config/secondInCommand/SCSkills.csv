@@ -1,18 +1,19 @@
 id,name,iconPath,npcSpawnWeight,plugin
 #Dustkeeper,,,,
-nightcross_science,Scientific Advantage,graphics/secondInCommand/nightcross/science.png,0,yukimonsai.sicnightcross.skills.Science
+nightcross_science,Scientific Triumph,graphics/secondInCommand/nightcross/science.png,0,yukimonsai.sicnightcross.skills.Science
 stargazer_machina,Machina Mori,graphics/secondInCommand/nightcross/machina2.png,0,yukimonsai.sicnightcross.skills.Machina2
 stargazer_logistics,Voyager,graphics/secondInCommand/nightcross/voyager.png,2.5,yukimonsai.sicnightcross.skills.StargazerLogistics
 stargazer_nebula,Thousand Eyes,graphics/secondInCommand/nightcross/nebula.png,1.5,yukimonsai.sicnightcross.skills.StargazerNebula
 stargazer_nightmare,Beautiful Nightmare,graphics/secondInCommand/nightcross/nightmare.png,1,yukimonsai.sicnightcross.skills.StargazerNightmare
 stargazer_furor,Furor Machinae,graphics/secondInCommand/nightcross/furor.png,1.5,yukimonsai.sicnightcross.skills.StargazerFuror
+stargazer_atomize,Atomize,graphics/secondInCommand/nightcross/atomize.png,1.5,yukimonsai.sicnightcross.skills.StargazerAtomize
 nightcross_ecccm,Reactive Countermeasures,graphics/secondInCommand/nightcross/ecccm.png,1,yukimonsai.sicnightcross.skills.ECCCM
 nightcross_cr,Reactive Targeting,graphics/secondInCommand/nightcross/cr.png,1,yukimonsai.sicnightcross.skills.CR
 nightcross_reactiveplating,Reactive Plating,graphics/secondInCommand/nightcross/reactiveplating.png,1,yukimonsai.sicnightcross.skills.ReactivePlating
 nightcross_shield,Reactive Shields,graphics/secondInCommand/nightcross/shield.png,1,yukimonsai.sicnightcross.skills.ReactiveShield
 nightcross_weapons,Target Locked,graphics/secondInCommand/nightcross/weapons.png,2.5,yukimonsai.sicnightcross.skills.Weapons
 nightcross_heavysupport,Hit and Run,graphics/secondInCommand/nightcross/encore.png,1.5,yukimonsai.sicnightcross.skills.HitAndRun
-nightcross_flux,Grid Integration,graphics/secondInCommand/nightcross/flux.png,1.5,yukimonsai.sicnightcross.skills.Flux
-nightcross_machina,Drone Support,graphics/secondInCommand/nightcross/machina.png,0,yukimonsai.sicnightcross.skills.Machina
+nightcross_flux,Power Grid Tuning,graphics/secondInCommand/nightcross/flux.png,1.5,yukimonsai.sicnightcross.skills.Flux
+nightcross_machina,Delta-Level Support,graphics/secondInCommand/nightcross/machina.png,0,yukimonsai.sicnightcross.skills.Machina
 nightcross_strike,Synergy,graphics/secondInCommand/nightcross/strike.png,1.5,yukimonsai.sicnightcross.skills.Synergy
 nightcross_encore,Tactical Reload,graphics/secondInCommand/nightcross/heavysupport.png,2.5,yukimonsai.sicnightcross.skills.EncoreDance

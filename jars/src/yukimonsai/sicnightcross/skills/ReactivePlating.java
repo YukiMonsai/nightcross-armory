@@ -27,11 +27,13 @@ public class ReactivePlating extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("While shields are offline, gain effective armor equal to %s of the ship hull's base armor rating. Does not apply while overloaded or venting, or to ships without shields.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("While shields are offline, gain effective armor equal to %s of the ship hull's base armor rating.*", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 (int)(ARMOR_BOOST_PERCENT * 100) + "%");
         tooltipMakerAPI.addPara("When taking damage over %s of the ship's maximum hitpoints, the portion above that value is reduced by %s.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 (int)(HULL_DMG_THRESH * 100) + "%",
                 (int)(HULL_DMG_THRESH_RED * 100) + "%");
+        tooltipMakerAPI.addSpacer(10f);
+        tooltipMakerAPI.addPara("*Does not apply while overloaded or venting, or to ships without shields.", 0f, Misc.getGrayColor(), Misc.getHighlightColor());
 
     }
 

@@ -21,10 +21,10 @@ public class ECCCM extends SCBaseSkillPlugin {
     }
 
 
-    private static final float MISSILE_HP = 25f;
-    private static final float MISSILE_FLARE = 20f;
-    private static final float PD_RANGE = 100f;
-    private static final float PD_DMG = 25f;
+    private static final float MISSILE_HP = 20f;
+    private static final float MISSILE_FLARE = 10f;
+    private static final float PD_RANGE = 75f;
+    private static final float PD_DMG = 20f;
     private static final float MISSILE_RATE = 20f;
     private static final float MISSILE_RATE_NOREGEN = 0.1f;
 
@@ -40,10 +40,10 @@ public class ECCCM extends SCBaseSkillPlugin {
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("%s missile hitpoints", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(MISSILE_HP) + "%");
-        tooltipMakerAPI.addPara("%s chance for missiles to ignore flares", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "+" + (int)(MISSILE_FLARE) + "%");
+        //tooltipMakerAPI.addPara("%s chance for missiles to ignore flares", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        //        "+" + (int)(MISSILE_FLARE) + "%");
         tooltipMakerAPI.addPara("%s range of point defense weapons", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "+" + (int)(PD_RANGE) + "%");
+                "+" + (int)(PD_RANGE) + "");
         tooltipMakerAPI.addPara("%s damage to missiles and fighters", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(PD_DMG) + "%");
 
@@ -105,7 +105,7 @@ public class ECCCM extends SCBaseSkillPlugin {
         stats.getMissileHealthBonus().modifyPercent(id, MISSILE_HP);
         stats.getNonBeamPDWeaponRangeBonus().modifyFlat(id, PD_RANGE);
         stats.getBeamPDWeaponRangeBonus().modifyFlat(id, PD_RANGE);
-        stats.getEccmChance().modifyPercent(id, MISSILE_FLARE);
+        //stats.getEccmChance().modifyPercent(id, MISSILE_FLARE);
         stats.getDamageToFighters().modifyPercent(id, PD_DMG);
         stats.getDamageToMissiles().modifyPercent(id, PD_DMG);
 

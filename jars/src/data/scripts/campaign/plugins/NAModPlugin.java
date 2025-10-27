@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
+import com.fs.starfarer.api.impl.campaign.fleets.SDFHegemony;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
@@ -15,6 +16,7 @@ import com.fs.starfarer.loading.LoadingUtils;
 import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.enc.NA_StargazerDrifter;
 import data.scripts.campaign.enc.NA_StargazerGhostManager;
+import data.scripts.campaign.fleets.NA_SDF_Nightcross;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
@@ -32,6 +34,7 @@ import org.lazywizard.lazylib.JSONUtils;
 import org.magiclib.util.MagicVariables;
 
 import lunalib.lunaSettings.LunaSettings;
+import yukimonsai.sicnightcross.scripts.world.NightcrossColonyWatcher;
 import yukimonsai.sicnightcross.scripts.world.addXO;
 import yukimonsai.sicnightcross.skills.HitAndRun;
 
@@ -277,9 +280,20 @@ public class NAModPlugin extends BaseModPlugin {
         }
 
 
+
         SectorAPI sector = Global.getSector();
         if (!sector.hasScript(NA_StargazerGhostManager.class)) {
             sector.addScript(new NA_StargazerGhostManager());
+        }
+
+        if (!hasLunaLib || NA_SettingsListener.na_pascal_system) {
+
+            if (!sector.hasScript(NA_SDF_Nightcross.class)) {
+                sector.addScript(new NA_SDF_Nightcross());
+            }
+
+            if(!Global.getSector().getListenerManager().hasListenerOfClass(NightcrossColonyWatcher.class))
+                Global.getSector().getListenerManager().addListener(new NightcrossColonyWatcher(), false);
         }
 
         // add no_drop_salvage tags to weapons

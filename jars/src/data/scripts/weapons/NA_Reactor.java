@@ -14,8 +14,8 @@ import java.awt.*;
 
 public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
 
-    public IntervalUtil particletimer = new IntervalUtil(0.9f, 0.95f);
-    public IntervalUtil alarmtimer = new IntervalUtil(0.2f, 0.2f);
+    public IntervalUtil particletimer = new IntervalUtil(1.9f, 1.95f);
+    //public IntervalUtil alarmtimer = new IntervalUtil(0.2f, 0.2f);
     public final float INTENSITY_RAMP = 0.4f;
     public final float COLOR_RAMP = 50f;
 
@@ -26,7 +26,7 @@ public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
             float fluxperc = ship.getFluxTracker().getFluxLevel();
             float hardflux = ship.getFluxTracker().getHardFlux()/Math.max(1, ship.getFluxTracker().getMaxFlux());
 
-            if (alarmtimer.intervalElapsed()) {
+            /*if (alarmtimer.intervalElapsed()) {
                 alarmtimer = new IntervalUtil(0.12f, 0.17f);
 
                 if (fluxperc > 0.6) {
@@ -50,7 +50,7 @@ public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
 
             } else {
                 alarmtimer.advance(amount);
-            }
+            }*/
 
             if (particletimer.intervalElapsed()) {
                 particletimer = new IntervalUtil(0.75f, 0.75f);
@@ -63,8 +63,8 @@ public class NA_Reactor implements EveryFrameWeaponEffectPlugin {
                         (int) Math.max(75f, Math.min(225f, 75 + 2*COLOR_RAMP * hardflux)),
                         (int) Math.max(75f, Math.min(225f, 75 + COLOR_RAMP * (fluxperc - hardflux))),
                         225));
-                light.fadeIn(0.35f);
-                light.setLifetime(0.65f);
+                light.fadeIn(0.9f);
+                light.setLifetime(1.75f);
                 light.setSize(ship.getCollisionRadius() * 0.1f);
                 light.setSpecularMult(25f);
                 LightShader.addLight(light);

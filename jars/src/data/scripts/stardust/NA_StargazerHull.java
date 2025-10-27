@@ -1,5 +1,6 @@
 package data.scripts.stardust;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.DModManager;
@@ -58,12 +59,15 @@ public class NA_StargazerHull extends NA_StargazerStars {
         // supposed to simulate derelict operations
         // this is high tech ships with derelict ops :toocool:
         boolean shouldGiveFakeDerelictOps = true;
-        if (NAModPlugin.hasSiC) {
+        // player fleet checks to prevent crashing in sector gen
+        if (NAModPlugin.hasSiC && !Global.getSector().isInSectorGen() && Global.getSector().getPlayerFleet() != null && Global.getSector().getPlayerFleet().getLocation() != null) {
             if (stats.getFleetMember() != null && stats.getFleetMember().getFleetData() != null && stats.getFleetMember().getFleetData().getFleet() != null
                     && stats.getFleetMember().getFleetData().getFleet() != null) {
 
-                SCData data = SCUtils.getFleetData(stats.getFleetMember().getFleetData().getFleet());
-                if (data.hasAptitudeInFleet("sc_improvisation")) shouldGiveFakeDerelictOps = false;
+                if (SCUtils.hasFleetData(stats.getFleetMember().getFleetData().getFleet())) {
+                    SCData data = SCUtils.getFleetData(stats.getFleetMember().getFleetData().getFleet());
+                    if (data.hasAptitudeInFleet("sc_improvisation")) shouldGiveFakeDerelictOps = false;
+                }
             }
         }
         if (shouldGiveFakeDerelictOps && stats.getDynamic().getMod(Stats.DEPLOYMENT_POINTS_MOD).computeEffective(1f) > 0.99f) {

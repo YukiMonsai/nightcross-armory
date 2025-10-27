@@ -8,8 +8,12 @@ import com.fs.starfarer.api.impl.combat.RiftLanceEffect;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.stardust.NA_StargazerHull;
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicLensFlare;
 import second_in_command.SCData;
 import second_in_command.specs.SCBaseSkillPlugin;
 
@@ -34,8 +38,8 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("When a ship takes damage that takes it below 25%% hitpoints, it enters a Terminal State, which lasts indefinitely or until its hull is restored above 40%%:", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
-                "Terminal State"
+        tooltipMakerAPI.addPara("When a ship takes damage that takes it below 25%% hitpoints, it enters a Terminal Descent, which lasts indefinitely or until its hull is restored above 40%%:", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+                "Terminal Descent"
 
         );
         tooltipMakerAPI.addPara(" - Peak performance time ends immediately", 0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor()
@@ -109,11 +113,16 @@ public class StargazerNightmare extends SCBaseSkillPlugin {
             if (target == ship && ship.isAlive()) {
                 if (!terminal && ship.getHullLevel() < HULL_THRESH_LOWER) {
                     // Do fancy
+                    Global.getSoundPlayer().playSound("NA_SFX_GRAVE_MISTAKE_QUICK", 1.0f, NAUtils.shipSize(ship) * 0.15f + 0.7f, ship.getLocation(), ship.getVelocity());
+                    MagicLensFlare.createSharpFlare(Global.getCombatEngine(), ship, MathUtils.getPointOnCircumference(Misc.ZERO, ship.getCollisionRadius(), VectorUtils.getAngle(ship.getLocation(),
+                                    point
+                            )), 400f + 100f * NAUtils.shipSize(ship), 1400f,
+                            MathUtils.getRandomNumberInRange(-15, 15), ship.getVentCoreColor(), ship.getVentFringeColor());
                     terminal = true;
                     Global.getCombatEngine().addNegativeSwirlyNebulaParticle(ship.getLocation(), ship.getVelocity(), ship.getCollisionRadius(), 1.25f, 0.25f, 0.5f, 1.0f,
                             RiftLanceEffect.getColorForDarkening(ship.getVentFringeColor()));
-                    Global.getCombatEngine().addFloatingText(ship.getLocation(), "terminal state",
-                            48, new Color(255, 22, 146), ship, 4f, 1.5f);
+                    Global.getCombatEngine().addFloatingText(ship.getLocation(), "terminal descent",
+                            48, new Color(255, 22, 146), ship, 4f, 0.8f);
 
                 }
             }

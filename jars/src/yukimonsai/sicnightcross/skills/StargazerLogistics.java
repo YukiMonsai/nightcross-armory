@@ -32,7 +32,7 @@ public class StargazerLogistics extends SCBaseSkillPlugin {
         tooltipMakerAPI.addPara("%s to burn level in the abyss", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(ABYSS_BURN) + "");
         tooltipMakerAPI.addPara("%s kinetic damage taken", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "-" + (int)(KINETIC_HULL_DAMAGE * 100f) + "");
+                "-" + (int)(KINETIC_HULL_DAMAGE * 100f) + "%");
     }
 
 

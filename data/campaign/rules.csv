@@ -1,5 +1,8 @@
 id,trigger,conditions,script,text,options,notes
 #RULESET_NAME YUKIM,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
 NCACBThreat,NCACBThreatOfferDesc,,Highlight $bcb_dist $bcb_reward $bcb_days,"$HeOrShe taps on one of the entries to enlarge the report, pressing a thumb against a biometric scanner several times to dismiss security popups all over the page.
 
 ""This one requires a bit of discretion,"" $personFirstName stares at you.
@@ -272,6 +275,52 @@ FireAll PopulateOptions","The President looks deeply troubled.
 
 ""...Where did you find this? Nevermind, that was rhetorical-"" $PersonName shuffles around a datapad, frantically searching through folders. ""I can't elaborate, but we'll offer a bonus plus hazard pay... It'd be best for all of us if you kept quiet about all... this.""",,
 NCANasatechTurnInResponseFirst,NCANasaItemsTurnedIn,,FireAll PopulateOptions,"""Looks like I've got another call,"" $personName cuts the comm link.",,
+,,,,,,
+,,,,,,
+na_sdfroyal_greet,OpenCommLink,"$entity.SDFNightcrossRoyal
+!$entity.isHostile
+!$NightcrossColonized","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The $post looks down at you through what looks to be a TriPad's camera.
+
+""Greetings, Captain $PlayerName. We've been expecting you to stop by at our lovely world. Do mind the unruly mobs planetside- I'd suggest the station for the time being.""",cutCommLink:Cut the comm link,
+na_sdfroyal_greetWeaker,OpenCommLink,"$entity.SDFNightcrossRoyal
+!$entity.isHostile
+!$NightcrossColonized
+$entity.relativeStrength <= 0 score:10","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The $post looks down at you through what looks to be a TriPad's camera.
+
+""Greetings, Captain $PlayerName. You must know it is improper to fly such a large warfleet in another sovereign's territory. We could have a diplomatic incident here...""",cutCommLink:Cut the comm link,
+na_sdfroyal_greetNCC,OpenCommLink,"$entity.SDFNightcrossRoyal
+!$entity.isHostile
+$NightcrossColonized score: 100","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The jittering $post greets you through what looks to be a TriPad's camera. Parts of the image are blurry, as if the lens is smudged.
+
+""Greetings, Captain $PlayerName. We've been expecting you to stop by at our lovely world. Feel free to stop by the royal coffeehouse for some sweet, sweet caffeine...""
+
+$HeOrShe looks tired.",cutCommLink:Cut the comm link,
+na_sdfroyal_greet_hostile,OpenCommLink,"$entity.SDFNightcrossRoyal
+$entity.isHostile
+$entity.relativeStrength >= 0","$menuState = fleetConvMain 0
+FireAll PopulateOptions
+$entity.ignorePlayerCommRequests = true 1","The $post looks down at you through what looks to be a TriPad's camera.
+
+""Greetings, Captain $PlayerName. It seems you've run into the wrong place at the wrong time. Take care not to burn up in the atmosphere-""
+
+The comm link ends abruptly.",,
+na_sdfroyal_greet_hostileWeak,OpenCommLink,"$entity.SDFNightcrossRoyal
+$entity.isHostile
+$entity.relativeStrength <= 0","$menuState = fleetConvMain 0
+FireAll PopulateOptions
+$entity.ignorePlayerCommRequests = true 1","The $post looks down at you through what looks to be a TriPad's camera.
+
+""Captain $PlayerName. You and I both know you are not welcome here-""
+
+$HeOrShe reaches for the comms shut-off.",,
+,,,,,,
+na_sdfroyal_greetNCD,OpenCommLink,"$entity.SDFNightcrossRoyal
+$NightcrossDecivilized score:100","$menuState = fleetConvMain 0
+FireAll PopulateOptions
+$entity.ignorePlayerCommRequests = true 1","""Please... just go away.""",,
 ,,,,,,
 #RED MASK,,,,,,
 redmaskDialogFriendly,OpenCommLink,"$faction.id == stargazer score:1000

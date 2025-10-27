@@ -30,14 +30,16 @@ public class Weapons extends SCBaseSkillPlugin {
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("Up to %s bonus ballistic and energy damage dealt, based on the distance the projectile or beam travelled*." +
-                        "\n effect scales from no bonus at %s units before the max range, to full bonus at exactly the max range of the weapon, and scaling back to no effect within %s units.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+                        "\n", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(BONUS_DMG) + "%",
                 "" + (int)(BONUS_DMG_RANGE_SCALE) + " su",
                 "" + (int)(BONUS_DMG_RANGE_SCALE_END) + " su");
 
+        //
+
         tooltipMakerAPI.addSpacer(10f);
 
-        tooltipMakerAPI.addPara("Has no effect on missiles or weapons fired by missiles.", 0f, Misc.getGrayColor(), Misc.getGrayColor());
+        tooltipMakerAPI.addPara("Effect scales from no bonus at %s units before the range, to full bonus at exactly the max range of the weapon, then scaling back to no bonus after %s units.", 0f, Misc.getGrayColor(), Misc.getGrayColor());
 
     }
 
