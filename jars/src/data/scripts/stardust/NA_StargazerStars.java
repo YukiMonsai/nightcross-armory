@@ -54,7 +54,6 @@ public class NA_StargazerStars extends BaseHullMod {
         boolean sMod = isSMod(stats);
         if (sMod) {
             stats.getMaxCombatReadiness().modifyFlat(id, -Math.round(SMOD_CR_PENALTY * 100f) * 0.01f, "Stardust");
-            stats.getSuppliesPerMonth().modifyPercent(id, SMOD_MAINTENANCE_PENALTY);
         }
     }
 
@@ -373,7 +372,6 @@ public class NA_StargazerStars extends BaseHullMod {
     @Override
     public String getSModDescriptionParam(int index, ShipAPI.HullSize hullSize, ShipAPI ship) {
         if (index == 0) return "" + (int) Math.round(SMOD_CR_PENALTY * 100f) + "%";
-        if (index == 1) return "" + (int) Math.round(SMOD_MAINTENANCE_PENALTY) + "%";
         return null;
     }
 

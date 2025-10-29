@@ -23,8 +23,8 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
     }
 
 
-    private static final float SHIELD_MISSILE_DMG = 8f;
-    private static final float SHIELD_MISSILE_FLUX = 10f;
+    private static final float SHIELD_MISSILE_DMG = 10f;
+    private static final float SHIELD_MISSILE_FLUX = 25f;
     private static final float SHIELD_MISSILE_HP = 25f;
     private static final float MISSILE_ROF = 10f;
 

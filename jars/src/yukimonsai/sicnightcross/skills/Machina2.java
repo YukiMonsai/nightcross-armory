@@ -21,7 +21,7 @@ public class Machina2 extends SCBaseAutoPointsSkillPlugin {
     }
 
 
-    private static final float DMOD_SCALE = 0.06f;
+    private static final float DMOD_SCALE = 0.07f;
     private static final float DMOD_MAX = 5f;
 
 

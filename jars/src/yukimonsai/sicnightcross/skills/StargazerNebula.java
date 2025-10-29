@@ -16,7 +16,7 @@ import second_in_command.specs.SCBaseSkillPlugin;
 public class StargazerNebula extends SCBaseSkillPlugin {
     @Override
     public String getAffectsString() {
-        return "all ships";
+        return "all ships with the Stardust Nebula hullmod";
     }
 
 
@@ -30,7 +30,7 @@ public class StargazerNebula extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("%s to sensor profile", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("%s to the fleet's sensor profile", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "-" + (int)(100f * SENSOR_MULT) + "%");
         tooltipMakerAPI.addPara("Ships with the %s hullmod gain %s regeneration per d-mod (max 5)", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
                 "Stargazer Nebula", "+" + (int)(SCALE_PER_DMOD * 100) + "% Stardust");
