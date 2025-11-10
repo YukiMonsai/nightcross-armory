@@ -96,8 +96,11 @@
 	},
 	"knownHullMods":{
 		"tags":["base", "tritachyon", "stargazer", "na_sg_loot", "nightcross_bp_restricted"],
-		"hullMods":["na_plasmaaggregator", "na_energizedarmor",
+		"hullMods":["na_plasmaaggregator", "na_energizedarmor","na_superconductingconduits", 
 			"na_stargazerrage",
+			"na_stargazersoulsteal",
+			"na_stargazerheal",
+			"na_stargazerdiss",
 			"advancedshieldemitter", # accelerated
 			"advancedoptics",
 			"turretgyros",
@@ -120,15 +123,15 @@
 			"nav_relay",
 			"adaptiveshields", # omni
 			"fluxbreakers",
-			"solar_shielding",
 			"stabilizedshieldemitter",
 		],
 	},
 	"priorityHullmods":{
 		"tags":[],
 		"hullMods":[
-			"na_stargazerrage",
-			"solar_shielding",
+			"na_stargazerrage","na_superconductingconduits", 
+			"na_stargazersoulsteal",
+			"na_stargazerdiss",
 		],
 	},
 	"factionDoctrine":{

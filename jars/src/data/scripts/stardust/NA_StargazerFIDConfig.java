@@ -53,6 +53,7 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                 boolean gaveRage = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerrage");
                 boolean gaveDiss = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerdiss");
                 boolean gaveHeal = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerheal");
+                boolean gavesteal = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazersoulsteal");
 
                 for (FleetMemberAPI member : losses) {
                     if (member.getHullSpec().hasTag("stargazer_hull") || (member.getHullSpec().getBaseHull() != null && member.getHullSpec().getBaseHull().hasTag("stargazer_hull"))) {
@@ -95,9 +96,18 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                                     if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
 
                                     salvage.addHullmods(id, 1);
-                                } else if (!gaveHeal && random.nextFloat() < 0.5f) {
+                                } else if (!gaveHeal && random.nextFloat() < 0.33f) {
                                     String id = "na_stargazerheal";
                                     gaveHeal = true;
+                                    HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+                                    if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
+                                    //if (spec.isAlwaysUnlocked()) continue;
+                                    if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
+
+                                    salvage.addHullmods(id, 1);
+                                } else if (!gavesteal && random.nextFloat() < 0.5f) {
+                                    String id = "na_stargazersoulsteal";
+                                    gavesteal = true;
                                     HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
                                     if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
                                     //if (spec.isAlwaysUnlocked()) continue;

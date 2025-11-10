@@ -54,6 +54,7 @@ public class NA_StargazerHull extends NA_StargazerStars {
         stats.getZeroFluxSpeedBoost().modifyFlat(id, ZERO_FLUX_BOOST);
         stats.getAllowZeroFluxAtAnyLevel().modifyFlat(id, 1f);
         stats.getDynamic().getMod(Stats.DMOD_EFFECT_MULT).modifyMult(id, 1f - DMOD_EFFECT);
+        stats.getDynamic().getStat(Stats.CORONA_EFFECT_MULT).modifyMult(id, 0f);
 
         // hidden stat bonus boo
         // supposed to simulate derelict operations
@@ -95,7 +96,8 @@ public class NA_StargazerHull extends NA_StargazerStars {
                 + " but watch the flames burn out, one by one...", STARGAZER_RED, opad);
 
         tooltip.addSectionHeading("Campaign", Alignment.MID, opad);
-        tooltip.addPara("Sensor profile reduced by %s.", opad, h, "50%");
+        tooltip.addPara("- Sensor profile reduced by %s.", opad, h, "50%");
+        tooltip.addPara("- Damage from solar corona, pulsar beams, hyperspace storms, and other hazards reduced by %s.", opad, h, "100%");
 
         tooltip.addSectionHeading("Combat", Alignment.MID, opad);
         tooltip.addPara("- %s flux dissipation and capacity per d-mod (max 5)."

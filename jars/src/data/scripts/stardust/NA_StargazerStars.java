@@ -339,9 +339,9 @@ public class NA_StargazerStars extends BaseHullMod {
     }
 
     public boolean isApplicableToShip(ShipAPI ship) {
-        if (ship != null && ship.getHullSpec().isPhase()) {
+        /*if (ship != null && ship.getHullSpec().isPhase()) {
             return false;
-        }
+        }*/
         if (hasShroudedOrThreatHullmods(ship)) return false;
         if (hasStardustHull(ship)) return false;
 
@@ -349,9 +349,9 @@ public class NA_StargazerStars extends BaseHullMod {
     }
 
     public String getUnapplicableReason(ShipAPI ship) {
-        if (ship != null && ship.getHullSpec().isPhase()) {
+        /*if (ship != null && ship.getHullSpec().isPhase()) {
             return "Can not be installed on a phase ship due to instability";
-        }
+        }*/
         return hasStardustHull(ship) ? "This ship already possesses a Stardust Nebula" : "Incompatible with Shrouded or Threat hullmods";
     }
 

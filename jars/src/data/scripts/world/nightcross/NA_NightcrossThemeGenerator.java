@@ -642,7 +642,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 //			}
 //		}
 
-        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_STATION, Factions.DERELICT);
+        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_STATION, Factions.NEUTRAL);
         if (entity != null) {
 
             entity.entity.getMemoryWithoutUpdate().set("$musicSetId", "mekaloton_Numbered_Rooms");
@@ -675,7 +675,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         weights.put(BaseThemeGenerator.LocationType.L_POINT, 1f);
         WeightedRandomPicker<BaseThemeGenerator.EntityLocation> locs = getLocations(random, system, 100f, weights);
 
-        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_OUTPOST, Factions.DERELICT);
+        BaseThemeGenerator.AddedEntity entity = addEntity(random, system, locs, NIGHTCROSS_RESEARCH_OUTPOST, Factions.NEUTRAL);
 
         if (entity != null) {
             system.addTag(Tags.THEME_INTERESTING);

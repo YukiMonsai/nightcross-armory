@@ -630,3 +630,9 @@ na_NightcrossResearchStationdefender_Desc,TriggerAutomatedDefenses,$customType =
 ""That-that was..."" Your comms officer stutters between breaths. ""I- comms were secured. I don't know how they got through...""",,
 na_NightcrossResearchStationdefender_Descb,TriggerAutomatedDefenses,$entity.na_stargazerdefCMD score:1100,NA_NightcrossStargazerDefenderCMD,,,
 ,,,,,,
+na_blackcat_tryAttack1,DialogOptionSelected,$option == na_blackcat_tryAttack,,"""Captain!"" You hear Sensors come in over the emergency line. 
+
+""The station, it's, uh, spamming us..."" Your officer takes a moment to put words together. The console gives a steady beep- a storm of empty comms packages greets your dashboard. 1000+ unread messages. You're surprised the counter even goes that high.
+
+""The comms packets... theyre bouncing off our hulls. It's all calculated... $SirOrMadam. The phases are constructively interfering- comms package says the signals are coming from the middle of our fleet, which obviously isn't right...""","na_blackcat_tryAttack2a:""What could they possibly be trying to do?""
+na_blackcat_tryAttack2b:""Oh no.""",

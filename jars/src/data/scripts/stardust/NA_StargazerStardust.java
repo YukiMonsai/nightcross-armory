@@ -31,6 +31,11 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
         void modifyOffset(NA_StargazerStardust.SwarmMember p);
     }
 
+    // 50% reduced respawn while phased
+    // otherwise it would be fucking broken
+    // TODO consider instead making the rate INCREASED while phased, but have it rapidly lose PPT and/or CR while phased
+    // To simulate dimensional instability... or 'things' trying to pull the ship further into phase space
+    public static float PHASE_PENALTY = 0.5f;
 
     // 50% reduced respawn if the ship is crewed by filthy humans
     public static float NO_AUTO_RESPAWN = 0.5f;
@@ -764,11 +769,9 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
 
         if (!despawnAll) {
-            if (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) {
-                respawnChecker.advance((1f - (1f - NO_AUTO_RESPAWN) * ((ShipAPI) entity).getHullLevel()) * amount * params.memberRespawnRate);
-            } else {
-                respawnChecker.advance(amount * params.memberRespawnRate);
-            }
+            float mult = (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) ? (1f - (1f - NO_AUTO_RESPAWN) * ((ShipAPI) entity).getHullLevel()) : 1f;
+            if (entity instanceof ShipAPI ship && ship.isPhased()) mult *= PHASE_PENALTY;
+            respawnChecker.advance(mult * amount * params.memberRespawnRate);
 
             if (respawnChecker.intervalElapsed() && params.withRespawn) {
                 int num = getNumMembersToMaintain();

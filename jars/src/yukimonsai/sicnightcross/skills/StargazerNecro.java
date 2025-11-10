@@ -9,6 +9,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.stardust.NA_StargazerHull;
 import data.scripts.stardust.NA_StargazerStardust;
+import data.scripts.stardust.NA_StargazerStars;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 import second_in_command.SCData;
@@ -20,7 +21,8 @@ public class StargazerNecro extends SCBaseSkillPlugin {
         return "all ships with the Stardust Nebula hullmod";
     }
 
-    private static final float RELOAD_PER_HULL_SIZE = 25f;
+    private static final float RELOAD_PER_HULL_SIZE = 15f;
+    private static final float CAPACITY_GAIM = .20f;
 
 
     public static final String ID = "na_sic_necro";
@@ -29,6 +31,8 @@ public class StargazerNecro extends SCBaseSkillPlugin {
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("After disabling an enemy ship, gain %s per ship size class of the disabled ship.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
                 "" + (int)(RELOAD_PER_HULL_SIZE) + " Stardust");
+        tooltipMakerAPI.addPara("Increase maximum %s by %s.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+                "Stardust Capacity", "" + (int)(100f * CAPACITY_GAIM) + "%");
 
         tooltipMakerAPI.addSpacer(10f);
         tooltipMakerAPI.addPara("Also steals all %s from the disabled ship if it has its own %s.", 0f, Misc.getGrayColor(), NA_StargazerHull.STARGAZER_RED, "Stardust", "Stardust Nebula");
@@ -62,6 +66,7 @@ public class StargazerNecro extends SCBaseSkillPlugin {
     @Override
     public void applyEffectsBeforeShipCreation(SCData data, MutableShipStatsAPI stats, ShipVariantAPI variant, ShipAPI.HullSize hullSize, String id) {
 
+        stats.getDynamic().getMod(NA_StargazerStars.STARDUST_RESPAWN_MAX_MULT).modifyPercent(ID, 100f * CAPACITY_GAIM);
 
     }
 

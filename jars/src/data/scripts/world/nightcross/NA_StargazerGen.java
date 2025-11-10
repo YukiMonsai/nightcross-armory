@@ -163,7 +163,7 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                 f.getMemoryWithoutUpdate().set("$combatMusicSetId","na_stargazer_battle");
 
 
-                NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, star, true, true, false);
+                NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, star, true, true, false, false);
                 behavior.setSeenByPlayer();
                 f.addScript(behavior);
 

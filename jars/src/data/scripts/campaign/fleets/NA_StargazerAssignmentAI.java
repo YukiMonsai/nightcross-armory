@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.RouteFleetAssignmentAI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import com.fs.starfarer.campaign.ai.CampaignFleetAI;
+import data.scripts.world.nightcross.NA_BlackcatGen;
 import data.scripts.world.nightcross.NA_StargazerGen;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
@@ -30,9 +31,10 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
     public boolean wanderTarget = true;
 
     public boolean despawn = false;
+    public boolean despawnAbyss = false;
     public IntervalUtil gazeTime = new IntervalUtil(1f, 13);
     public IntervalUtil systemTime = new IntervalUtil(15f, 45f);
-    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem, boolean wanderTarget, boolean despawn) {
+    public NA_StargazerAssignmentAI(CampaignFleetAPI fleet, SectorEntityToken target, StarSystemAPI systemtarget, boolean wanderSystem, boolean wanderTarget, boolean despawn, boolean despawnAbyss) {
         this.fleet = fleet;
         this.target = target;
         this.systemtarget = systemtarget;
@@ -40,6 +42,7 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
         this.wanderSystem = wanderSystem;
         this.wanderTarget = wanderTarget;
         this.despawn = despawn;
+        this.despawnAbyss = despawnAbyss;
     }
 
     @Override
@@ -83,7 +86,11 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
             if (this.systemTime.intervalElapsed() ) {
                 this.systemTime.randomize();
                 if (Global.getSector().getPlayerFleet() != null && fleet.getStarSystem() != Global.getSector().getPlayerFleet().getStarSystem()) {
-                    fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, fleet.getStarSystem().getCenter(), 300f, "vanishing");
+                    if (despawnAbyss && NA_BlackcatGen.lunargravitywell != null) {
+                        fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, NA_BlackcatGen.lunargravitywell, 10f, "leaving");
+                    } else {
+                        fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, fleet.getStarSystem().getCenter(), 300f, "vanishing");
+                    }
                 }
             }
         }

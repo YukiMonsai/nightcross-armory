@@ -1,6 +1,8 @@
 package data.scripts.campaign.fleets;
 
+import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
+import com.fs.starfarer.api.fleet.ShipRolePick;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.fleets.SDFBase;
 import com.fs.starfarer.api.impl.campaign.ids.*;
@@ -19,6 +21,8 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.Of
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerQuality;
 import com.fs.starfarer.api.impl.campaign.missions.hub.MissionFleetAutoDespawn;
 import yukimonsai.sicnightcross.scripts.world.NightcrossColonyWatcher;
+
+import java.util.List;
 
 
 public class NA_SDF_Nightcross extends SDFBase {
@@ -83,9 +87,11 @@ public class NA_SDF_Nightcross extends SDFBase {
 
         Vector2f loc = NA_Elevator.getLocationInHyperspace();
 
-        m.triggerCreateFleet(FleetSize.HUGE, HubMissionWithTriggers.FleetQuality.SMOD_1, "nightcross", FleetTypes.PATROL_LARGE, loc);
+        m.triggerCreateFleet(FleetSize.LARGE, HubMissionWithTriggers.FleetQuality.SMOD_1, "nightcross", FleetTypes.PATROL_LARGE, loc);
 
-        m.triggerSetFleetSizeFraction(0.8f);
+
+
+        m.triggerSetFleetSizeFraction(0.9f);
 
         m.triggerSetFleetOfficers( HubMissionWithTriggers.OfficerNum.ALL_SHIPS, HubMissionWithTriggers.OfficerQuality.HIGHER);
         m.triggerSetFleetDoctrineComp(5, 0, 0);
@@ -111,6 +117,31 @@ public class NA_SDF_Nightcross extends SDFBase {
         else m.triggerOrderFleetPatrol(NA_Elevator.getPrimaryEntity());
 
         CampaignFleetAPI fleet = m.createFleet();
+
+        FactionAPI faction = Global.getSector().getFaction(Factions.INDEPENDENT);
+
+        FactionAPI.ShipPickParams p = new FactionAPI.ShipPickParams(FactionAPI.ShipPickMode.PRIORITY_THEN_ALL);
+        p.blockFallback = true;
+        p.maxFP = (int) (fleet.getFleetPoints() * 0.8f);
+
+        for (int i = 0; i < 9; i++) {
+            List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_MEDIUM, p, null, random);
+            for (ShipRolePick pick : picks) {
+                fleet.getFleetData().addFleetMember(pick.variantId);
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_LARGE, p, null, random);
+            for (ShipRolePick pick : picks) {
+                fleet.getFleetData().addFleetMember(pick.variantId);
+            }
+        }
+
+
+        fleet.getFleetData().setSyncNeeded();
+        fleet.getFleetData().syncIfNeeded();
+        fleet.getFleetData().sort();
+
         fleet.removeScriptsOfClass(MissionFleetAutoDespawn.class);
         NA_Elevator.getContainingLocation().addEntity(fleet);
         fleet.setLocation(NA_Elevator.getPrimaryEntity().getLocation().x, NA_Elevator.getPrimaryEntity().getLocation().y);

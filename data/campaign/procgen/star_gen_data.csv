@@ -1,5 +1,5 @@
 id,age,tags,freqYOUNG,freqAVERAGE,freqOLD,minRadius,maxRadius,habZoneStart,probOrbits,minOrbits,maxOrbits,coronaMin,coronaMult,coronaVar,solarWind,minFlare,maxFlare,crLossMult,lightColorMin,lightColorMax
 star_rayet,YOUNG,,5,3,1,850,1000,5,0.95,4,10,400,1,0.5,10,3,6,6,255180140,255240200
-na_blackdwarf,OLD,,0,0,1,200,250,-1,0.95,2,5,600,1,0.25,3,0,1,1,255 190 127,255 235 209  
-na_blackdwarf2,OLD,,0,0,1,200,250,-3,0.95,2,5,500,1,0.25,3,0,1,1,255 190 127,255 235 209  
-na_whitedwarf,OLD,,1,4,4,200,250,2,0.95,2,5,800,1,0.25,5,0,1,2,255 235 209  ,255 245 236
+na_blackdwarf,OLD,,0,0,1,200,250,-1,0.95,2,5,600,1,0.25,3,0,1,1,255 166 178,255 190 127
+na_blackdwarf2,OLD,,0,0,0,200,250,-3,0.95,2,5,500,1,0.25,3,0,1,1,255 190 127,255 235 209  
+na_whitedwarf,OLD,,1,4,4,200,250,2,0.95,2,5,800,1,0.25,5,0,1,2,255 190 127,255 235 209  

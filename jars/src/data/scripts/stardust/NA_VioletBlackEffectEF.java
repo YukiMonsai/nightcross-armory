@@ -8,6 +8,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.dark.shaders.distortion.DistortionShader;
 import org.dark.shaders.distortion.RippleDistortion;
 import org.lwjgl.util.vector.Vector2f;
+import org.magiclib.util.MagicFakeBeam;
 
 import java.awt.*;
 
@@ -107,6 +108,10 @@ public class NA_VioletBlackEffectEF implements NA_StardustWeapon, OnFireEffectPl
         if (weapon.getChargeLevel() > 0 && weapon.getCooldownRemaining() == 0) {
             if (chargeTimer.intervalElapsed()) {
                 chargeTimer = new IntervalUtil(0.5f * CHARGE_TICK, CHARGE_TICK);
+
+                if (weapon.getShip() != null)
+                    MagicFakeBeam.spawnFakeBeam(Global.getCombatEngine(), weapon.getFirePoint(0), weapon.getRange(), weapon.getCurrAngle(),
+                            3f, CHARGE_TICK, CHARGE_TICK, 40f, new Color(155, 40, 200), new Color(159, 31, 117, 158), 0, DamageType.FRAGMENTATION, 0, weapon.getShip());
 
                 RippleDistortion ripple = new RippleDistortion(weapon.getFirePoint(0), Misc.ZERO);
                 ripple.setSize(15f + 75 * weapon.getChargeLevel());

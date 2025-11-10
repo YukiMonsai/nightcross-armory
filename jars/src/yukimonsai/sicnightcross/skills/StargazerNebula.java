@@ -21,7 +21,7 @@ public class StargazerNebula extends SCBaseSkillPlugin {
 
 
     private static final float SCALE_PER_DMOD = 0.1f;
-    private static final float CAPACITY_GAIM = .25f;
+    private static final float CAPACITY_GAIM = .20f;
     private static final float SENSOR_MULT = 0.2f;
     private static final float MAX_DMOD = 5f;
 
@@ -34,8 +34,8 @@ public class StargazerNebula extends SCBaseSkillPlugin {
                 "-" + (int)(100f * SENSOR_MULT) + "%");
         tooltipMakerAPI.addPara("Ships with the %s hullmod gain %s regeneration per d-mod (max 5)", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
                 "Stargazer Nebula", "+" + (int)(SCALE_PER_DMOD * 100) + "% Stardust");
-        tooltipMakerAPI.addPara("Ships with the %s hullmod gain %s capacity", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
-                "Stargazer Nebula", "+" + (int)(CAPACITY_GAIM * 100) + "% Stardust");
+        tooltipMakerAPI.addPara("Ships with the %s hullmod gain %s", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+                "Stargazer Nebula", "+" + (int)(CAPACITY_GAIM * 100) + "% Stardust Capacity");
     }
 
 

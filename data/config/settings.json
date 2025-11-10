@@ -24,6 +24,8 @@
 		
 		"backgrounds":{
 			"na_blackbg":"graphics/backgrounds/na_blackbg.jpg",
+			"na_blackbg2":"graphics/backgrounds/na_blackbg2.jpg",
+			"na_blackbg3":"graphics/backgrounds/na_blackbg3.jpg",
 		},
 		
 		"blueprint_packages":{

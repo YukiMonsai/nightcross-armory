@@ -129,6 +129,8 @@ public class NA_NightcrossArmoryMarketPlugin extends BaseSubmarketPlugin {
 
             if (!cargoAlreadyHasMod("na_plasmaaggregator"))
                 cargo.addHullmods("na_plasmaaggregator", 1);
+            if (!cargoAlreadyHasMod("na_superconductingconduits"))
+                cargo.addHullmods("na_superconductingconduits", 1);
             if (!cargoAlreadyHasMod("na_energizedarmor"))
                 cargo.addHullmods("na_energizedarmor", 1);
 

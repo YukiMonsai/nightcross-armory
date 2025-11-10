@@ -75,7 +75,7 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
         f.getStats().getDetectedRangeMod().modifyMult("na_stargazer_hidden", 0.5f);
 
-        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar(), false, true, true);
+        NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, currSpawnLoc, currSpawnLoc.getStar(), false, true, true, false);
         behavior.setSeenByPlayer();
         f.addScript(behavior);
 

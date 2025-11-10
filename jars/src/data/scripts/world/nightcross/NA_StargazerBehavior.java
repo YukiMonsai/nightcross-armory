@@ -21,7 +21,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
     public static float MIN_SECONDS_TO_PURSUE_AFTER_SEEN_BY_PLAYER = 30f;
     public static float MAX_SECONDS_TO_PURSUE_AFTER_SEEN_BY_PLAYER = 120f;
     protected StarSystemAPI system;
-    protected PlanetAPI target;
+    protected SectorEntityToken target;
     protected CampaignFleetAPI fleet;
     protected DisposableFleetManager manager;
 
@@ -37,13 +37,13 @@ public class NA_StargazerBehavior implements EveryFrameScript {
 
 
 
-    public NA_StargazerBehavior(CampaignFleetAPI fleet, StarSystemAPI system, PlanetAPI target, boolean wanderSystem, boolean wanderTarget, boolean despawn) {
+    public NA_StargazerBehavior(CampaignFleetAPI fleet, StarSystemAPI system, SectorEntityToken target, boolean wanderSystem, boolean wanderTarget, boolean despawn, boolean despawnAbyss) {
         this.fleet = fleet;
         this.system = system;
         this.target = target;
 
 
-        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target, system, wanderSystem, wanderTarget, despawn));
+        fleet.addScript(new NA_StargazerAssignmentAI(fleet, target, system, wanderSystem, wanderTarget, despawn, despawnAbyss));
     }
 
     protected void pickNext() {

@@ -104,7 +104,9 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
 
         // threat spawn-in animation looks best against this bg
-        system.setBackgroundTextureFilename("graphics/backgrounds/na_blackbg.jpg");
+        system.setBackgroundTextureFilename(Math.random() < 0.4f ? "graphics/backgrounds/na_blackbg.jpg" : (
+                Math.random() < 0.33f ? "graphics/backgrounds/na_blackbg2.jpg" : "graphics/backgrounds/na_blackbg3.jpg"
+                ));
 
 //		if (data.random.nextFloat() < 0.5f) {
 //			system.setBackgroundTextureFilename("graphics/backgrounds/background4.jpg");
@@ -580,7 +582,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                     Vector2f loc = Misc.getPointAtRadius(system.getCenter().getLocation(), MathUtils.getRandomNumberInRange(600f, 1300f));
                     f.setLocation(loc.x, loc.y);
 
-                    NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, system.getStar(), false, true, true);
+                    NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, system.getStar(), false, true, true, false);
                     behavior.setSeenByPlayer();
                     f.addScript(behavior);
                 }
@@ -850,9 +852,9 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
     public static final WeightedRandomPicker<String> BLACK_DWARF_TYPES = new WeightedRandomPicker<String>();
     static {
-        BLACK_DWARF_TYPES.add("na_whitedwarf", 3f);
-        BLACK_DWARF_TYPES.add("na_blackdwarf", 4f);
-        BLACK_DWARF_TYPES.add("na_blackdwarf2", 5f);
+        BLACK_DWARF_TYPES.add("na_whitedwarf", 1f);
+        BLACK_DWARF_TYPES.add("na_blackdwarf", 6f);
+        BLACK_DWARF_TYPES.add("na_blackdwarf2", 4f);
     }
 
     public PlanetAPI addBlackDwarf(StarSystemAPI system, StarSystemGenerator.GenContext context, HyperspaceAbyssPluginImpl.AbyssalEPData data) {
