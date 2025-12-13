@@ -1,5 +1,4 @@
-V1.2.4
-- Added the Nightcross Tactical Display, a submod feature that's currently experimental, lets you see your fleet status at a glance
+V1.3
 - Added spooky things in the abyss
 - Added Kasane Teto
 - Added additional 'top secret' bounties for nightcross contacts
@@ -14,6 +13,7 @@ V1.2.4
 - Trance super blaster ammo/sec increased 0.5 -> 0.65
 - Light Pyrolance max charges 4 -> 8, flux 375 -> 400, dmg 850 -> 1000, range 800 -> 750, armor dmg 100 -> 75
 - Pyrolance max charges 7 -> 8, dps 1150 -> 1500, flux 450 -> 600, ammo regen .5 -> .3, range 900 -> 850, armor dmg 200 -> 150
+- Discord PPC now does frag damage, flux efficiency improved
 
 V1.2.3
 - Increased Xanthe Terra acceleration

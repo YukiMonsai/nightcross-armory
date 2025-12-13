@@ -20,7 +20,7 @@ public class ReactivePlating extends SCBaseSkillPlugin {
     }
 
     public static float ARMOR_BOOST_PERCENT = 0.1f;
-    public static float HULL_DMG_THRESH = 0.33f;
+    public static float HULL_DMG_THRESH = 0.1f;
     public static float HULL_DMG_THRESH_RED = 0.25f;
 
     public static final String ID = "na_sic_plating";
@@ -29,7 +29,7 @@ public class ReactivePlating extends SCBaseSkillPlugin {
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("While shields are offline, gain effective armor equal to %s of the ship hull's base armor rating.*", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 (int)(ARMOR_BOOST_PERCENT * 100) + "%");
-        tooltipMakerAPI.addPara("When taking damage over %s of the ship's maximum hitpoints, the portion above that value is reduced by %s.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("When taking hull damage over %s of the ship's maximum hitpoints, the portion above that value is reduced by %s.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 (int)(HULL_DMG_THRESH * 100) + "%",
                 (int)(HULL_DMG_THRESH_RED * 100) + "%");
         tooltipMakerAPI.addSpacer(10f);

@@ -183,6 +183,7 @@
 			"mjolnir",
 			
 			"na_hardlightrifle",
+			#"swp_ionblaster",
         ],
     },
     "priorityWeapons":{

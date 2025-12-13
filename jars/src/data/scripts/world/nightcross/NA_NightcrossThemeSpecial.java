@@ -16,6 +16,7 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 		SCRAMBLED,
 		LOCATION_NIGHTCROSS_OUTPOST,
 		LOCATION_NIGHTCROSS_STARGAZERSTATION,
+		LOCATION_BLACKCAT,
 
 //		PLANET_INTERESTING_PROPERTY,
 //		PLANET_SURVEY_DATA,
@@ -83,6 +84,11 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 		case LOCATION_NIGHTCROSS_STARGAZERSTATION:
 			initSurveyParentEntity();
 			break;
+
+		case LOCATION_BLACKCAT:
+			initBlackcat();
+			break;
+
 //		case CONSTELLATION_PRELIMINARY_SURVEY:
 //			break;
 		}
@@ -144,6 +150,46 @@ public class NA_NightcrossThemeSpecial extends BaseSalvageSpecial {
 		//located = located.replaceFirst("located ", "");
 		text1 += "It was last mentioned by the logs in the $shortName " + located + ".";
 		text1ForIntel += "It was last mentioned by the logs in the $shortName " + located + ".";
+
+		text1 = getString(text1);
+
+		addText(text1);
+
+		BreadcrumbIntelV2 intel = new BreadcrumbIntelV2(parent);
+		intel.setTitle(getString(subject));
+		intel.setText(getString(text1ForIntel));
+		//intel.setIcon(Global.getSettings().getSpriteName("intel", "leading_to_larger_domain_derelict"));
+		intel.setIconId("leading_to_larger_domain_derelict");
+		Global.getSector().getIntelManager().addIntel(intel, false, text);
+
+//		CommMessageAPI message = FleetLog.beginEntry(subject, parent);
+//		message.getSection1().addPara(getString(text1));
+//		FleetLog.addToLog(message, text);
+
+		//unsetData();
+		setDone(true);
+	}
+
+
+	private void initBlackcat() {
+
+		SectorEntityToken parent = Global.getSector().getEntityById(data.entityId);
+
+		String text1 = "The $shortName contains cleanly wiped records further scarred by many years of stellar radiation. Still-active viral agents echo throughout the background of radio noise, forcing your salvage team to implement radio isolation protocols." +
+				"\n\nExcited chatter washes over over the analog audio feed as crews discover a disk drive lodged between a cabinet and a wall, fully disconnected from local networks and nigh-undetectable to scans. After digitization, analysis, and decryption via codes from a centuries-old data leak affecting the NCA corporation, you find records that ";
+		String text1ForIntel = "While exploring $aOrAn $nameInText, your crews found " +
+				"partially accessible records that ";
+
+		String name = parent.getCustomEntitySpec().getNameInText();
+		String nameForTitle = parent.getCustomEntitySpec().getDefaultName();
+
+		String subject = getString("Location: " + nameForTitle);
+
+		text1 += "point to the location of a black site within the Orion-Persean abyss, along with hyper-nav signatures and astronomical references to aid in plotting a course.";
+		text1ForIntel += "contain information pointing to the location of a " + name + " in the Orion-Persean abyss.";
+
+		text1 += "\n\nThe records make heavy use of codewords- Project: GHOST, Contingency Protocol ALKONOST, and many others. Further elaboration would have been stored on classified servers which have most likely been wiped over many times by self-replicating programs, even if physically intact.";
+		text1ForIntel += "The records make heavy use of codewords- Project: GHOST, Contingency Protocol ALKONOST, and many others.";
 
 		text1 = getString(text1);
 

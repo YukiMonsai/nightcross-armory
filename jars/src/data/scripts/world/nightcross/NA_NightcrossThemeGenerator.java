@@ -563,10 +563,11 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
     }
 
-    protected void linkToMothership(SectorEntityToken from, SectorEntityToken mothership) {
+    public static void linkToMothership(SectorEntityToken from, SectorEntityToken mothership) {
+        if (NA_BlackcatGen.blackcatstation == null) return;
         if (hasSpecial(from)) return;
 
-        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(NA_NightcrossThemeSpecial.SpecialType.LOCATION_NIGHTCROSS_STARGAZERSTATION
+        NA_NightcrossThemeSpecial.NightcrossThemeSpecialData special = new NA_NightcrossThemeSpecial.NightcrossThemeSpecialData(NA_NightcrossThemeSpecial.SpecialType.LOCATION_BLACKCAT
                 , from.getCustomEntityType());
         special.entityId = mothership.getId();
         from.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPECIAL_DATA, special);
@@ -649,7 +650,9 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
             system.addTag(Tags.THEME_INTERESTING);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS);
             system.addTag(NightcrossTags.THEME_NIGHTCROSS_STARGAZERSTATION);
+            linkToMothership(entity.entity, NA_BlackcatGen.blackcatstation);
         }
+
 
         if (DEBUG) {
             if (entity != null) {

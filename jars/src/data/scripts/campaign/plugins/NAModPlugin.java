@@ -252,6 +252,14 @@ public class NAModPlugin extends BaseModPlugin {
             Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_VERSION, 0.1);
         }
 
+        if (hasSiC) {
+
+            Global.getSector().getMemoryWithoutUpdate().set("$naai_cangetxo", true);
+        } else {
+
+            Global.getSector().getMemoryWithoutUpdate().unset("$naai_cangetxo");
+        }
+
 
         NAUtils.NAGenPeople();
 

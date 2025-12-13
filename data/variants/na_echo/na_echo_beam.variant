@@ -36,11 +36,11 @@
       }
     },
     {
-      "autofire": false,
+      "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0001": "taclaser",
-        "WS0002": "taclaser"
+        "WS0001": "lightneedler",
+        "WS0002": "lightneedler"
       }
     }
   ],

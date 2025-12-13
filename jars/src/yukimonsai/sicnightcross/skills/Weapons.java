@@ -39,7 +39,8 @@ public class Weapons extends SCBaseSkillPlugin {
 
         tooltipMakerAPI.addSpacer(10f);
 
-        tooltipMakerAPI.addPara("Effect scales from no bonus at %s units before the range, to full bonus at exactly the max range of the weapon, then scaling back to no bonus after %s units.", 0f, Misc.getGrayColor(), Misc.getGrayColor());
+        tooltipMakerAPI.addPara("Effect scales from no bonus at %s units before the range, to full bonus at exactly the max range of the weapon, then scaling back to no bonus after %s units.", 0f, Misc.getGrayColor(), Misc.getGrayColor(),
+                "" + BONUS_DMG_RANGE_SCALE, "" + BONUS_DMG_RANGE_SCALE_END);
 
     }
 

@@ -636,3 +636,8 @@ na_blackcat_tryAttack1,DialogOptionSelected,$option == na_blackcat_tryAttack,,""
 
 ""The comms packets... theyre bouncing off our hulls. It's all calculated... $SirOrMadam. The phases are constructively interfering- comms package says the signals are coming from the middle of our fleet, which obviously isn't right...""","na_blackcat_tryAttack2a:""What could they possibly be trying to do?""
 na_blackcat_tryAttack2b:""Oh no.""",
+na_blackcat_sic_placeholder,OpenInteractionDialog,"$customType == naai_blackcatstation score:100
+!$global.naai_gotstargazerplaceholder
+!$global.naai_gotstargazerxo
+$global.naai_cangetxo",NA_NightcrossWIPStargazerXO,"It's dangerous to go alone! Take this!
+<work in progress>",,

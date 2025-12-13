@@ -42,12 +42,11 @@ public class NA_BlackHoleMoteScript implements EveryFrameScript {
 		Color color = MOTE_COLOR;
 
 		float ang = MathUtils.getRandomNumberInRange(0, 360);
-		Vector2f loc = MathUtils.getPointOnCircumference(from.getLocation(), from.getRadius() + MathUtils.getRandomNumberInRange(0, 100f), ang);
+		Vector2f loc = MathUtils.getPointOnCircumference(from.getLocation(), from.getRadius() + MathUtils.getRandomNumberInRange(120, 800f), ang);
 		Vector2f vel = Misc.getUnitVectorAtDegreeAngle(ang + 90f);
-		vel.scale(0.5f + (float) Math.random() * 2f);
-		vel.scale(0.25f);
+		vel.scale(1.5f + (float) Math.random() * 4f);
 		Vector2f.add(vel, from.getVelocity(), vel);
-		Misc.addGlowyParticle(from.getContainingLocation(), loc, vel, size, dur * 0.33f, dur, color);
+		Misc.addGlowyParticle(from.getContainingLocation(), loc, vel, size, 0.4f, dur, color);
 	}
 
 	public boolean isDone() {
