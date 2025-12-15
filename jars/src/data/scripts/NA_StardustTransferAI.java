@@ -76,10 +76,11 @@ public class NA_StardustTransferAI implements ShipSystemAIScript {
 				if (other.getFluxLevel() == 0 && swarm == null) continue;
 				w = other.getFluxLevel();
 				w = other.getHardFluxLevel();
-				if (swarm.getNumActiveMembers() < swarm.getNumMembersToMaintain() && swarm.getNumMembersToMaintain() > 0) {
-					w += (3f*Math.max(0, 1f - 1.5f * swarm.getNumActiveMembers())/swarm.getNumMembersToMaintain());
+				if (swarm != null) {
+					if (swarm.getNumActiveMembers() < swarm.getNumMembersToMaintain() && swarm.getNumMembersToMaintain() > 0) {
+						w += (3f*Math.max(0, 1f - 1.5f * swarm.getNumActiveMembers())/swarm.getNumMembersToMaintain());
+					}
 				}
-
 			} else {
 				// skill issue
 			}

@@ -103,7 +103,7 @@ public class Weapons extends SCBaseSkillPlugin {
                 }
                 if (Math.random() *100f < dmg)
                     Global.getCombatEngine().addSmokeParticle(point, Misc.ZERO, Math.min(1f, 0.55f + 0.45f*dmg/100f) * (25+25*scale), 0.12f, 0.5f, (param instanceof BeamAPI beam) ? beam.getCoreColor()
-                            : (param instanceof DamagingProjectileAPI proj ? proj.getProjectileSpec().getGlowColor() : Color.WHITE));
+                            : ((param instanceof DamagingProjectileAPI proj && proj.getProjectileSpec() != null) ? proj.getProjectileSpec().getGlowColor() : Color.WHITE));
                 return ID;
             }
             return null;
