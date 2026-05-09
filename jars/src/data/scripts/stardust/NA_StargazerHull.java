@@ -53,7 +53,7 @@ public class NA_StargazerHull extends NA_StargazerStars {
         stats.getFluxCapacity().modifyMult(id, 1f + FLUX_DISS_PER_DMOD * dmods);
         stats.getZeroFluxSpeedBoost().modifyFlat(id, ZERO_FLUX_BOOST);
         stats.getAllowZeroFluxAtAnyLevel().modifyFlat(id, 1f);
-        stats.getDynamic().getMod(Stats.DMOD_EFFECT_MULT).modifyMult(id, 1f - DMOD_EFFECT);
+        stats.getDynamic().getStat(Stats.DMOD_EFFECT_MULT).modifyMult(id, 1f - DMOD_EFFECT);
         stats.getDynamic().getStat(Stats.CORONA_EFFECT_MULT).modifyMult(id, 0f);
 
         // hidden stat bonus boo

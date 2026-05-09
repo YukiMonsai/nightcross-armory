@@ -1,4 +1,42 @@
-V1.3
+V2.1.0
+- Doppler pulsecannon armor shred reduced to 8 from 15, shield damage increased by 12%, mag size reduced from 48 to 40
+- Atomic driver OP increased to 20
+- Wolf-rayet stars now have nebulas always, along with systems near the star
+- Flamestrike fixed so it doesnt stop firing if you have synergy conduits.
+- Flamestrike now deals more damage per hit but has slower fire rate. Flux efficiency reduced. Ammo rate reduced.
+- Homing fixed on nightcross weps so they actually home in on targets they haven't missed
+- Improved fux efficiency on small mount pyrowisp system
+- All pyrowisp and HPF weapons now have reload sizes based on their missile clip rather than energy mount clip, making them deal twice the effective DPS if mounted in a missile slot.
+- Fixed Occator repair drones repairing infinite HP over battles
+- Reduced number of nightcross derelicts spawned in the sector
+- Fixed bug where cosmic shunt Smod didnt do anything
+- Lowered cosmic shunt dissipation per mote
+
+XO changes
+- Delta level support now gives +50 auto points instead of 30
+
+V2.0.3
+-Stargazer cores (besides unique ones like Teto) now give a penalty to human ships when piloting stargazer vessels
+-Nanz aegis deflectors now provide 45% shield damage reduction each instead of 40%. Nanz DP increased to 65 from 55
+-Added Doppler Pulse Cannon (large energy, frag damage minigun)
+-Adjusted visual saturation level on nightcross ships
+-Reduced damage of stargazer missile weapons
+-Added more song titles as ship names
+
+XO changes
+-Tactical Reload missile restore reduced to 25% from 30%
+-Reactive Countermeasures gives less missile hp and pd damage
+-Target locked only provides 15% damage rather than 20%, but is slightly more forgiving
+-Added clarifying tooltip to the Synergy skill
+
+
+V2.0.2
+-Fixed bug where Stargazer Grid cores never spawned
+
+V2.0.1
+-Fixed crash with the Soul Eater trying to harvest souls from things that don't have souls
+
+V2.0
 - Added spooky things in the abyss
 - Added Kasane Teto
 - Added additional 'top secret' bounties for nightcross contacts

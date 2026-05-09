@@ -20,8 +20,8 @@ public class Weapons extends SCBaseSkillPlugin {
     }
 
 
-    private static final float BONUS_DMG = 20f;
-    private static final float BONUS_DMG_RANGE_SCALE = 200f;
+    private static final float BONUS_DMG = 15f;
+    private static final float BONUS_DMG_RANGE_SCALE = 250f;
     private static final float BONUS_DMG_RANGE_SCALE_END = 50f;
 
 
@@ -29,7 +29,7 @@ public class Weapons extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("Up to %s bonus ballistic and energy damage dealt, based on the distance the projectile or beam travelled*." +
+        tooltipMakerAPI.addPara("Up to %s bonus ballistic and energy damage dealt, based on how close to max range it hits the target*." +
                         "\n", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "+" + (int)(BONUS_DMG) + "%",
                 "" + (int)(BONUS_DMG_RANGE_SCALE) + " su",
@@ -39,8 +39,8 @@ public class Weapons extends SCBaseSkillPlugin {
 
         tooltipMakerAPI.addSpacer(10f);
 
-        tooltipMakerAPI.addPara("Effect scales from no bonus at %s units before the range, to full bonus at exactly the max range of the weapon, then scaling back to no bonus after %s units.", 0f, Misc.getGrayColor(), Misc.getGrayColor(),
-                "" + BONUS_DMG_RANGE_SCALE, "" + BONUS_DMG_RANGE_SCALE_END);
+        tooltipMakerAPI.addPara("Effect scales from no bonus at %s units before max range, to full bonus at exactly the max range of the weapon, then scaling back to no bonus after %s units.", 0f, Misc.getGrayColor(), Misc.getGrayColor(),
+                "" + (int)BONUS_DMG_RANGE_SCALE, "" + (int)BONUS_DMG_RANGE_SCALE_END);
 
     }
 
@@ -107,7 +107,7 @@ public class Weapons extends SCBaseSkillPlugin {
                 }
                 if (Math.random() *100f < dmg)
                     Global.getCombatEngine().addSmokeParticle(point, Misc.ZERO, Math.min(1f, 0.55f + 0.45f*dmg/100f) * (25+25*scale), 0.12f, 0.5f, (param instanceof BeamAPI beam) ? beam.getCoreColor()
-                            : (param instanceof DamagingProjectileAPI proj ? proj.getProjectileSpec().getGlowColor() : Color.WHITE));
+                            : ((param instanceof DamagingProjectileAPI proj && proj.getProjectileSpec() != null) ? proj.getProjectileSpec().getGlowColor() : Color.WHITE));
                 return ID;
             }
             return null;

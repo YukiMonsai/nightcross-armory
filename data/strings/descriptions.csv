@@ -17,10 +17,10 @@ na_cenotaph,CUSTOM,"A moon with a scarred surface, the subject of numerous weapo
 na_researchbase,CUSTOM,"An orbital weapons research station formerly owned by Nightcross Armory Corporation. In the immediate aftermath of the Collapse, the local management cut ties with the rest of the Corporation and began selling company resources to competitors, hoping to weather the coming storm by forming new connections. Ultimately, the gambit failed to attract meaningful investment in the remote Pascal system, and Nightcross Armory continues to dominate interstellar trade in the system. Aria Station has since fallen into the hands of various warlords fighting for control of a dead system.",,,,
 na_research_outpost,CUSTOM,"A small asteroid with an outpost built into the side, invisible to sensors on non-visual bands.",,,,
 naai_research_stargazerstation,CUSTOM,"A station in a state of extreme disrepair, showing numerous unusual energy signatures. Caution is advised.",,,,
-wolf_rayet,PLANET,"A late-stage main sequence star of several suns' mass. Shedding away most of its mass like a wildfire, its dying throes manifest in the plumes of ionized gas extending for lightyears in all directions, mixed and warped by gravitational interactions with the local planetary system.",,,,
+wolf_rayet,CUSTOM,"A late-stage main sequence star of several suns' mass. Shedding away most of its mass like a wildfire, its dying throes manifest in the plumes of ionized gas extending for lightyears in all directions, mixed and warped by gravitational interactions with the local planetary system.",,,,
 star_rayet,PLANET,"A late-stage main sequence star of several suns' mass. Shedding away most of its mass like a wildfire, its dying throes manifest in the plumes of ionized gas extending for lightyears in all directions, mixed and warped by gravitational interactions with the local planetary system.",,,,
 na_blackdwarf,PLANET,"Originally a white dwarf, this star has cooled down significantly due to its extreme age. Its ancestor was among the first generations of stars, long before the first planets were forged from their ashes. This one in particular is among the oldest class of stellar remnants, having cooled down to spectral type of M0.",,,,
-na_blackdwarf2,PLANET,"A white dwarf that has cooled into nothing more than a warm mass of degenerate matter. Predicted not to exist by astrophysical models, this object's cherry-red glow is a disturbing sight for those with an interest in such topics. Why they only seem to be found in abyssal space is a mystery perhaps better left unsolved.",,,,
+na_blackdwarf2,PLANET,"A white dwarf that has cooled into nothing more than a warm mass of degenerate matter. Predicted not to exist by astrophysical models, this object's cherry-red glow is a disquieting sight. Why they only seem to be found in abyssal space is a mystery perhaps better left unsolved.",,,,
 na_whitedwarf,PLANET,"The dead core of a main sequence star that once blazed in the night sky. Too small to explode in a fantastic blaze, its predecessor evolved into a glowing furnace that devoured its own inner star system and threw off its outer layers into a nebula that once graced the skies of faraway worlds.",,,,
 na_watergiant_desc,CUSTOM,A gas giant in the progress of migrating closer to its host star. Water clouds are clearly visible in the upper atmosphere.,,,,
 na_afterburners,SHIP_SYSTEM,Provides a brief burst of movement speed and maneuverability.,Movement,"Provides a brief but extreme boost to speed and maneuverability. Increased speed while accelerating forward, while maneuverability is increased while not accelerating.",,
@@ -99,6 +99,7 @@ na_mediumchirp,WEAPON,"Nicknamed the 'pizza slicer,' this powered-up Chirp PD us
 na_drill,WEAPON,"A plasma torch used for maintenance of friendly vessels and unmaintenance of enemy vessels. Ineffective against shields, but offers decent pressure against hull.",,,,
 na_empdrill,WEAPON,Core discharge from the Shield Battery drone. Can fry unshielded systems but is solely used as a last resort.,,,,
 na_minirazor_single,WEAPON,"This version is powered by a charge stored in a capacitor, and is not connected to any onboard flux grid.",,,,
+na_gatlinglaser,WEAPON,"Massive capacitor banks and a proprietary phase-linked gain medium make this weapon a strong general-purpose tool, effective at all aspects of combat save for its lackluster performance against heavily shielded targets.",,,,
 na_minirazor,WEAPON,"Feared among fighter pilots and gunship crews alike, the Minirazor is a miniaturized antimatter cannon able to be mounted on strikecraft. Its output and range are considerably lower than that of its shipborne counterparts, but a strikecraft's ability to place a well-timed shot into the engines of an enemy vessel is unmatched.",,,,
 na_lasermini_fighter,WEAPON,"A miniaturized electron laser, tuned to deliver an accurate, long-ranged blast under ideal conditions. This requires a cooling apparatus that takes up more internal space than the designers would like to admit.",,,,
 na_energyorb_cannon,WEAPON,"A greatly overdriven stunpulse, able to deliver a powerful burst of damage at the cost of approximately 0.3% of the plasma containment toroid with each shot. Generally replaced along with the drone it's mounted on.",,,,
@@ -159,7 +160,7 @@ naai_tempus,SHIP,"Closest match found to archive entry for ""Tempus Spatium""-cl
 Processing. ERROR//
 
 The application has encountered an unexpected error. Please contact your administrator.",,,,
-naai_fossa,SHIP,"Closest match found to archive entry for ""Mare Crisium""-class hull, 83.5% confidence. Querying database...
+naai_fossa,SHIP,"Closest match found to archive entry for ""Fossa Magna""-class hull, 90.1% confidence. Querying database...
 
 // process complete. total file size: 0kb
 
@@ -208,9 +209,7 @@ naai_losulci,SHIP,"Closest match found to archive entry for ""Lo Sulci""-class h
 
 // process complete. total file size: -43kb
 
-Processing. ERROR//
-
-The application has encountered an unexpected error. Please contact your administrator.",,,,
+Unzipping archive. ERROR: PROCESS TERMINATED BY IDS DAEMON//",,,,
 naai_nammu,SHIP,"Closest match found to archive entry for ""Occator""-class hull, 73.5% confidence. Querying database...
 
 // process complete. total file size: 0kb

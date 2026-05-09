@@ -133,8 +133,14 @@ public class NA_StargazerSoulsteal extends BaseHullMod {
     public void addPostDescriptionSection(TooltipMakerAPI tooltipMakerAPI, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
         tooltipMakerAPI.addPara("After disabling an enemy ship, gain %s per ship size class of the disabled ship.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
                 "" + (int)(RELOAD_PER_HULL_SIZE) + " Stardust");
-        tooltipMakerAPI.addPara("Increases damage of energy and missile weapons by %s per %s, depending on hull size. Maximum %s damage bonus.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
-                "1%", Math.round(1f / (mag.containsKey(ship.getHullSize()) ? mag.get(ship.getHullSize()) : 1f)) + " Stardust",  "" + (MAX_BONUS_MULT) + "%");
+        if (ship != null) {
+            tooltipMakerAPI.addPara("Increases damage of energy and missile weapons by %s per %s, depending on hull size. Maximum %s damage bonus.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+                    "1%", Math.round(1f / (mag.containsKey(ship.getHullSize()) ? mag.get(ship.getHullSize()) : 1f)) + " Stardust",  "" + (MAX_BONUS_MULT) + "%");
+        } else {
+            tooltipMakerAPI.addPara("Increases damage of energy and missile weapons by %s per %s, depending on hull size. Maximum %s damage bonus.", 0f, Misc.getHighlightColor(), NA_StargazerHull.STARGAZER_RED,
+                    "1%", "x Stardust",  "" + (MAX_BONUS_MULT) + "%");
+        }
+
 
         tooltipMakerAPI.addSpacer(10f);
         tooltipMakerAPI.addPara("Also steals all %s from the disabled ship if it has its own %s.", 0f, Misc.getGrayColor(), NA_StargazerHull.STARGAZER_RED, "Stardust", "Stardust Nebula");
@@ -158,7 +164,7 @@ public class NA_StargazerSoulsteal extends BaseHullMod {
             if (param instanceof ShipAPI killer) {
                 //if (param != pilotedShip) return false
                 if (ship.isFighter()) return false;
-                if (ship.getOwner() == side) return false;
+                if (ship.getOwner() == side || ship.getOwner() == 100) return false;
                 if (NA_StargazerStardust.getSwarmFor(killer) == null) return false;
                 if (ship.getHitpoints() <= 0 && !ship.hasTag("sc_na_soulstealer_counted")) {
                     ship.addTag("sc_na_soulstealer_counted");

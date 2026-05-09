@@ -88,7 +88,7 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
             int index = MathUtils.getRandomNumberInRange(0, availableSystems.size() - 1);
             if (availableSystems.size() > 0) {
                 StarSystemAPI system = availableSystems.get(index);
-                if (place_stargazer(sector, system)) i += 9; // soft retry
+                i += place_stargazer(sector, system); // soft retry
             }
         }
     }
@@ -125,13 +125,14 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
         return blackholes;
     }
 
-    public boolean place_stargazer(SectorAPI sector, StarSystemAPI system) {
+    public int place_stargazer(SectorAPI sector, StarSystemAPI system) {
 
             // get the star
             PlanetAPI star = system.getStar();
 
             if (star.getSpec() != null) {
                 float radius = star.getRadius() + star.getSpec().getCoronaSize() * star.getRadius() + MathUtils.getRandomNumberInRange(300, 500); // they are gazing at it
+                var size = MathUtils.getRandomNumberInRange(2, 9);
 
                 NA_StargazerWandererManager.StargazerFleetParams params = new NA_StargazerWandererManager.StargazerFleetParams(
                         null,
@@ -139,7 +140,7 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                         NightcrossID.FACTION_STARGAZER,
                         -1.5f, // quality override
                         FleetTypes.PATROL_SMALL,
-                        MathUtils.getRandomNumberInRange(40, 220), // combatPts
+                        MathUtils.getRandomNumberInRange(size*Math.min(size, 4)*5+4, size*Math.min(size, 4)*10 + 5), // combatPts
                         0, // freighterPts
                         0, // tankerPts
                         0f, // transportPts
@@ -167,10 +168,10 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                 behavior.setSeenByPlayer();
                 f.addScript(behavior);
 
-                return true;
+                return size;
             }
 
-            return false;
+            return 1;
     }
 
 

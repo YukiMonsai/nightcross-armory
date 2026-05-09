@@ -120,6 +120,33 @@ public class NA_MegablasterAoE implements OnHitEffectPlugin {
                                 size*0.05f, 1.5f, MathUtils.getRandomNumberInRange(.15f, .5f),
                                 0.8f, 2.7f + 0.35f * (i/NUM_POINTS),
                                 COLOR1);
+                    if (Math.random() < 0.05 + i * 0.003f) {
+                        EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                        params.segmentLengthMult = 4f;
+
+                        params.glowSizeMult = 0.5f;
+                        params.maxZigZagMult = 1.5f;
+                        params.brightSpotFadeFraction = 0.33f;
+                        params.brightSpotFullFraction = 0.5f;
+                        params.movementDurMax = 0.2f;
+                        params.flickerRateMult = 0.5f - (float) (i/NUM_POINTS * 0.4f);
+
+                        float thickness = 10f;
+
+                        EmpArcEntityAPI arc = Global.getCombatEngine().spawnEmpArcVisual(point, null,
+                                MathUtils.getRandomPointInCircle(point_dmg, size),
+                                null,
+                                thickness, // thickness
+                                new Color(87, 1, 1),
+                                new Color(255, 140, 188),
+                                params
+                        );
+                        arc.setSingleFlickerMode(true);
+                        arc.setRenderGlowAtEnd(false);
+                        arc.setRenderGlowAtStart(false);
+                        arc.setUpdateFromOffsetEveryFrame(true);
+                    }
+
                 }
                 if (Math.random() < 0.5)
                     engineAPI.addNegativeParticle(point_dmg, ZERO, size*1.85f,

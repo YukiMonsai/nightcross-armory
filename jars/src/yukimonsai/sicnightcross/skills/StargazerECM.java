@@ -96,8 +96,7 @@ public class StargazerECM extends SCBaseSkillPlugin {
                         String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_electronic_warfare");
                         if (ship == Global.getCombatEngine().getPlayerShip())
                             Global.getCombatEngine().maintainStatusForPlayerShip(ID, icon, "WARNING: COGNITOHAZARD",
-                                    ((int) (ecmdmgnerf * MALFUNCTIONMOD)) + "% weapon malfunction chance" +
-                                            "\n" + ((int) (ecmdmgnerf * MALFUNCTIONMOD)) + "% engine malfunction chance", false);
+                                    ((int) (ecmdmgnerf * MALFUNCTIONMOD)) + "% weapon/engine malfunction chance", false);
                     }
                 }
 

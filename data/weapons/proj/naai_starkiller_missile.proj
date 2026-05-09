@@ -29,6 +29,7 @@
 	"sprite":"graphics/missiles/na_null.png",
 	"passThroughMissiles":true,
 	"passThroughFighters":true,
+	"noCollisionWhileFading":true,
 	"flameoutTime":0.2, # total time from flameout to full fadeout
 	"noEngineGlowTime":0.2, # time spent without the engine glow being rendered
 	"fadeTime":0.2, # fadeout duration			

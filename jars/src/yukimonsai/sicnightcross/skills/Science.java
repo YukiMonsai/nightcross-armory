@@ -78,7 +78,7 @@ public class Science extends SCBaseSkillPlugin {
 
                         String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_electronic_warfare");
                         if (ship == Global.getCombatEngine().getPlayerShip()) Global.getCombatEngine().maintainStatusForPlayerShip(ID, icon, "Scientific (dis)Advantage",
-                                ((int)(ecmdmgnerf * max)) +  "% energy and ballistic damage due to enemy ECM bonus", false);
+                                ((int)(-ecmdmgnerf * max)) +  "% energy and ballistic damage due to enemy ECM bonus", true);
                     }
 
             }

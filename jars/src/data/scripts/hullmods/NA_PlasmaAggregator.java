@@ -66,8 +66,10 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 
 		// Reduce CD of synergy
 		for (WeaponAPI w: getSynergy(ship)) {
-			if (w.getCooldownRemaining() > 0) {
-				w.setRemainingCooldownTo(Math.max(0, w.getCooldownRemaining()-amount * ROF_BOOST));
+			if (!w.isBeam() || w.isBurstBeam()) {
+				if (w.getCooldownRemaining() > 0 && !w.isInBurst()) {
+					w.setRemainingCooldownTo(Math.max(0.00000001f, w.getCooldownRemaining() - amount * ROF_BOOST));
+				}
 			}
 			if (w.getAmmoTracker() != null && w.getAmmoTracker().getReloadProgress() > 0) {
 				w.getAmmoTracker().setReloadProgress(w.getAmmoTracker().getReloadProgress()+amount * ROF_BOOST);

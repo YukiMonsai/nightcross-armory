@@ -18,7 +18,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
         return "all ships with officers";
     }
 
-    private static final float MISSILE_RELOAD_PERC = .30f;
+    private static final float MISSILE_RELOAD_PERC = .20f;
     private static final float RELOAD_PERC = 1.0f;
     private static final float SIZE_SCALE = .25f;
 
@@ -27,13 +27,13 @@ public class EncoreDance extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("After disabling an enemy ship, reload %s of base ammunition for missile weapons, and %s of base ammunition for ballistic and energy weapons.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
+        tooltipMakerAPI.addPara("After disabling an enemy ship, reload %s of base ammunition for ammo-limited weapons weapons, and %s of base ammunition for ballistic and energy weapons.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "" + (int)(MISSILE_RELOAD_PERC * 100) + "%",
                 "" + (int)(RELOAD_PERC * 100) + "%");
 
         tooltipMakerAPI.addSpacer(10f);
 
-        tooltipMakerAPI.addPara("If the destroyed ship was of a smaller size class, the bonuses are reduced by %s per size difference. Partial missiles are converted into a chance to regenerate an extra missile.",
+        tooltipMakerAPI.addPara("If the destroyed ship was of a smaller size class, the bonuses are reduced by %s per size difference. Partial shots/missiles are converted into a chance to regenerate an extra shots.",
                 0f, Misc.getGrayColor(), Misc.getGrayColor(),
                 "" + (int)(SIZE_SCALE * 100) + "%");
 
@@ -44,20 +44,24 @@ public class EncoreDance extends SCBaseSkillPlugin {
     public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
         if (ship.getCaptain() == null || (ship.getCaptain().isDefault())) return;
 
+        if (!ship.isAlly() && ship.getOwner() <= 2) {
+            CombatEngineAPI engine = Global.getCombatEngine();
+            if (engine == null) return;
 
-        CombatEngineAPI engine = Global.getCombatEngine();
-        if (engine == null) return;
+            var listeners = engine.getListenerManager().getListeners(NA_EncoreDMGListener.class);
 
-        var listeners = engine.getListenerManager().getListeners(NA_EncoreDMGListener.class);
-        boolean found = false;
 
-        for (NA_EncoreDMGListener listener : listeners) {
-            if (listener.side == ship.getOwner()) {
-                found = true;
-                return;
+            var owner = data.isPlayer() ? 0 : 1;
+            for (NA_EncoreDMGListener listener : listeners) {
+                if (listener.side == owner) {
+                    return;
+                }
             }
+
+            engine.getListenerManager().addListener(new NA_EncoreDMGListener(owner));
         }
-        engine.getListenerManager().addListener(new NA_EncoreDMGListener(ship.getOwner()));
+
+
     }
 
     @Override
@@ -87,7 +91,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
             if (param instanceof ShipAPI killer) {
                 //if (param != pilotedShip) return false
                 if (ship.isFighter()) return false;
-                if (ship.getOwner() == side) return false;
+                if (ship.getOwner() == side || ship.getOwner() == 100) return false;
                 if (killer.getCaptain() == null || (killer.getCaptain().isDefault())) return false; // MUST have officer
                 if (ship.getHitpoints() <= 0 && !ship.hasTag("sc_na_encore_counted")) {
                     ship.addTag("sc_na_encore_counted");
@@ -117,8 +121,8 @@ public class EncoreDance extends SCBaseSkillPlugin {
                     float scale = 1f - sizeDifference * SIZE_SCALE;
                     var weapons = killer.getAllWeapons();
                     for (WeaponAPI weapon : weapons) {
-                        if (weapon.getType() == WeaponAPI.WeaponType.ENERGY
-                                || weapon.getType() == WeaponAPI.WeaponType.BALLISTIC) {
+                        if (weapon.getSpec().getAmmoPerSecond() > 0 && (weapon.getType() == WeaponAPI.WeaponType.ENERGY
+                                || weapon.getType() == WeaponAPI.WeaponType.BALLISTIC)) {
                             float ammo_min = weapon.getSpec().getMaxAmmo() * scale * RELOAD_PERC;
                             float remainder = (float) (ammo_min - Math.floor(ammo_min));
                             ammo_min = (float) Math.floor(ammo_min);
@@ -130,7 +134,10 @@ public class EncoreDance extends SCBaseSkillPlugin {
                         }
                         else
                         if (weapon.getType() == WeaponAPI.WeaponType.MISSILE
-                                || weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY) {
+                                || weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY
+                                || (weapon.getSpec().getAmmoPerSecond() <= 0 && (
+                                        weapon.getType() == WeaponAPI.WeaponType.ENERGY
+                                    || weapon.getType() == WeaponAPI.WeaponType.BALLISTIC))) {
                             float ammo_min = weapon.getSpec().getMaxAmmo() * scale * MISSILE_RELOAD_PERC;
                             float remainder = (float) (ammo_min - Math.floor(ammo_min));
                             ammo_min = (float) Math.floor(ammo_min);

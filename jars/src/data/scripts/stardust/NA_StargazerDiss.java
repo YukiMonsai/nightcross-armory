@@ -17,7 +17,7 @@ import java.awt.*;
 
 public class NA_StargazerDiss extends BaseHullMod {
 
-    public static float AMOUNT_PER = 5f;
+    public static float AMOUNT_PER = 4f;
     public static float SMOD_BONUS = 50f;
     public static String id = "na_stargazerdiss";
 

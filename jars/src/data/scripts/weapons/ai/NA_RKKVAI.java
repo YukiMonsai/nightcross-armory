@@ -132,9 +132,9 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 float angle = MathUtils.getShortestRotation(
                         missile.getFacing(), target_angle);
 
-                if (angle < 0) {
+                if (angle < -10f) {
                     missile.giveCommand(ShipCommand.TURN_RIGHT);
-                } else {
+                } else if (angle > 10f) {
                     missile.giveCommand(ShipCommand.TURN_LEFT);
                 }
             }
@@ -158,10 +158,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             if (clampTarget() || target == null) {
                 return;
             }
-
-            if (angle < 0) {
+            float DAMPING = 0.1f;
+            if (angle < -0.1f) {
                 missile.giveCommand(ShipCommand.TURN_RIGHT);
-            } else {
+            } else if (angle > 0.1f) {
                 missile.giveCommand(ShipCommand.TURN_LEFT);
             }
 
@@ -174,7 +174,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             if (Math.abs(angle) > 45 && missile.getVelocity().length() > SLOW_SPEED) allowAccel = false;
 
             // Damp angular velocity if the missile aim is getting close to the targeted angle
-            float DAMPING = 0.1f;
+
             if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
                 missile.setAngularVelocity(angle / DAMPING);
                 if (allowAccel)
@@ -196,7 +196,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             float vmult = 0.4f;
             float pvmult = 0.2f;
             if (MathUtils.getDistance(target.getLocation(), missile.getLocation()) > (1.4f * missile.getVelocity().length())) {
-                vmult = 0.6f;
+                vmult = 0.75f;
                 pvmult = 0.3f;
             }
 
@@ -220,7 +220,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 missile.giveCommand(ShipCommand.TURN_LEFT);
             }
 
-            float DAMPING = stage == 1 ? 0.03f : 0.05f;
+            float DAMPING = stage == 1 ? 0.03f : 0.2f;
             if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
                 missile.setAngularVelocity(angle / DAMPING);
                 missile.giveCommand(ShipCommand.ACCELERATE);
@@ -232,7 +232,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             if (stage == 1) {
                 float velAngle = MathUtils.getShortestRotation(
                         VectorUtils.getFacing(missile.getVelocity()), target_angle);
-                if (Math.abs(angle) < 20 && Math.abs(velAngle) < 10)
+                if (Math.abs(angle) < 20 && Math.abs(velAngle) < 20)
                     stage = 2;
                 else {
                     float amt = 50f;
@@ -252,7 +252,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), Math.min(350f, dist));
 
                 for (CombatEntityAPI e : asteroids) {
-                    if (e instanceof Asteroid) {
+                    if (e instanceof CombatAsteroidAPI) {
                         float ang = MathUtils.getShortestRotation(
                                 VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
                         if (Math.abs(ang) < 25) {

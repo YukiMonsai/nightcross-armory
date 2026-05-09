@@ -21,10 +21,10 @@ public class ECCCM extends SCBaseSkillPlugin {
     }
 
 
-    private static final float MISSILE_HP = 20f;
+    private static final float MISSILE_HP = 10f;
     private static final float MISSILE_FLARE = 10f;
     private static final float PD_RANGE = 75f;
-    private static final float PD_DMG = 20f;
+    private static final float PD_DMG = 15f;
     private static final float MISSILE_RATE = 20f;
     private static final float MISSILE_RATE_NOREGEN = 0.1f;
 

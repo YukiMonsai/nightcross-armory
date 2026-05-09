@@ -14,6 +14,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.enc.NA_StargazerNebulaScript;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.plugins.NAGhostCorePlugin;
 import data.scripts.hullmods.NA_ProjectGhost;
@@ -24,12 +25,37 @@ import java.util.Random;
 public class NA_StargazerFleets {
 
     public static WeightedRandomPicker<String> STARGAZER_WANDERER_NAMES = new WeightedRandomPicker<String>();
+    public static WeightedRandomPicker<String> STARGAZER_WANDERER_NAMES1 = new WeightedRandomPicker<String>();
+    public static WeightedRandomPicker<String> STARGAZER_WANDERER_NAMES2 = new WeightedRandomPicker<String>();
+    public static WeightedRandomPicker<String> STARGAZER_DEFENDER_NAMES1 = new WeightedRandomPicker<String>();
+    public static WeightedRandomPicker<String> STARGAZER_DEFENDER_NAMES2 = new WeightedRandomPicker<String>();
 
     static {
         STARGAZER_WANDERER_NAMES.add("Wanderers", 10f);
         STARGAZER_WANDERER_NAMES.add("Travelers", 10f);
         STARGAZER_WANDERER_NAMES.add("Observers", 10f);
         STARGAZER_WANDERER_NAMES.add("Stargazers", 30f);
+
+        STARGAZER_WANDERER_NAMES1.add("Void", 10f);
+        STARGAZER_WANDERER_NAMES1.add("Aeon", 10f);
+        STARGAZER_WANDERER_NAMES1.add("Star", 10f);
+        STARGAZER_WANDERER_NAMES1.add("Abyss", 10f);
+
+        STARGAZER_WANDERER_NAMES2.add("Wanderers", 20f);
+        STARGAZER_WANDERER_NAMES2.add("Travelers", 10f);
+        STARGAZER_WANDERER_NAMES2.add("Watchers", 10f);
+        STARGAZER_WANDERER_NAMES2.add("Gazers", 10f);
+    }
+    static {
+        STARGAZER_DEFENDER_NAMES1.add("Abyss", 10f);
+        STARGAZER_DEFENDER_NAMES1.add("Void", 10f);
+        STARGAZER_DEFENDER_NAMES1.add("Nebula", 10f);
+        STARGAZER_DEFENDER_NAMES1.add("Crypt", 10f);
+        STARGAZER_DEFENDER_NAMES1.add("Remnant", 10f);
+        STARGAZER_DEFENDER_NAMES2.add("Guardians", 10f);
+        STARGAZER_DEFENDER_NAMES2.add("Watchers", 10f);
+        STARGAZER_DEFENDER_NAMES2.add("Stalkers", 10f);
+        STARGAZER_DEFENDER_NAMES2.add("Wardens", 10f);
     }
 
 
@@ -57,6 +83,7 @@ public class NA_StargazerFleets {
 
 
         modifyStargazerFleet(f, random);
+
         f.setName(STARGAZER_WANDERER_NAMES.pick());
 
 
@@ -64,6 +91,10 @@ public class NA_StargazerFleets {
     }
 
     public static  void modifyStargazerFleet(CampaignFleetAPI f, Random random) {
+
+        if (!f.hasScriptOfClass(NA_StargazerNebulaScript.class))
+            f.addScript(new NA_StargazerNebulaScript(f, 0.05f));
+
         for (FleetMemberAPI curr : f.getFleetData().getMembersListCopy()) {
             if (!(curr.getHullSpec() != null && curr.getHullSpec().hasTag("stargazer_hull"))
                     && !(curr.getHullSpec() != null && curr.getHullSpec().getBaseHull() != null
@@ -100,7 +131,7 @@ public class NA_StargazerFleets {
 
             float chance_matrix = 0;
             float chance_grid = 0.33f;
-            float chance_ghost = 1f;
+            float chance_ghost = 1.1f;
 
             if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.CAPITAL_SHIP) {
                 chance_matrix = 0.33f;
@@ -116,14 +147,14 @@ public class NA_StargazerFleets {
             }
             if (curr.getHullSpec().getHullSize() == ShipAPI.HullSize.FRIGATE) {
                 chance_matrix = 0.05f;
-                chance_grid = 25;
+                chance_grid = .25f;
             }
 
 
             if (random.nextFloat() < chance_matrix) {
                 setStargazerAICore(curr, NightcrossID.GHOST_MATRIX_ID, keepPortrait, random, true);
             } else if (random.nextFloat() < chance_grid) {
-                setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random, true);
+                setStargazerAICore(curr, NightcrossID.GHOST_GRID_ID, keepPortrait, random, true);
             } else if (random.nextFloat() < chance_ghost) {
                 setStargazerAICore(curr, NightcrossID.GHOST_CORE_ID, keepPortrait, random, false);
             }
@@ -197,7 +228,7 @@ public class NA_StargazerFleets {
                 break;
             case NightcrossID.GHOST_GRID_ID:
                 if (!keepPortrait) {
-                    curr.getCaptain().setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "ghostgrid"));
+                    curr.getCaptain().setPortraitSprite(Global.getSettings().getSpriteName("na_characters", "stargazergrid"));
                     curr.getCaptain().setName(new FullName("Stargazer", "Grid", FullName.Gender.ANY));
                 }
 

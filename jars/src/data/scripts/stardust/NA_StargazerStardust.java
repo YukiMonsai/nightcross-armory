@@ -769,7 +769,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
 
         if (!despawnAll) {
-            float mult = (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) ? (1f - (1f - NO_AUTO_RESPAWN) * ((ShipAPI) entity).getHullLevel()) : 1f;
+            float mult = (entity instanceof ShipAPI && !Misc.isAutomated(((ShipAPI) entity))) ? (1f - (1f - NO_AUTO_RESPAWN)) : 1f;
             if (entity instanceof ShipAPI ship && ship.isPhased()) mult *= PHASE_PENALTY;
             respawnChecker.advance(mult * amount * params.memberRespawnRate);
 
@@ -795,7 +795,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
                 } else if (params.maxNumMembersToAlwaysRemoveAbove >= 0 &&
                         members.size() > params.maxNumMembersToAlwaysRemoveAbove) {
                     int extra = members.size() - params.maxNumMembersToAlwaysRemoveAbove;
-                    int numRemove = (int) Math.min(extra * 0.1f, 5f);
+                    int numRemove = (int) Math.min(extra * 0.1f, 10f);
                     if (numRemove < 1) numRemove = 1;
                     despawnMembers(numRemove);
                 }

@@ -101,8 +101,10 @@ public class NA_RepairDrones extends BaseHullMod {
 			// Ally scan
 			List<ShipAPI> allies = NAUtils.getShipsWithinRange(ship.getLocation(), range);
 			ShipAPI closest = null;
+			boolean manual = false;
 			float closestdist = range * 2f;
-			for (ShipAPI s : allies) {
+			if (Global.getCombatEngine().getPlayerShip() == ship && ship.getShipTarget() != null && ship.getShipTarget().getOwner() == ship.getOwner()) {
+				ShipAPI s = ship.getShipTarget();
 				if (s != ship && s.isAlive() && s.getOwner() == ship.getOwner() && !s.isPhased() && s.getHullSize() != HullSize.FIGHTER) {
 					float maxrepair = s.getMaxHitpoints() * MAX_REPAIR;
 					RepairDronesData data = getData(s);
@@ -113,12 +115,31 @@ public class NA_RepairDrones extends BaseHullMod {
 							if (dist < closestdist) {
 								closest = s;
 								closestdist = dist;
+								manual = true;
 							}
 						}
 					}
-
 				}
 			}
+			if (closest == null) {
+				for (ShipAPI s : allies) {
+					if (s != ship && s.isAlive() && s.getOwner() == ship.getOwner() && !s.isPhased() && s.getHullSize() != HullSize.FIGHTER) {
+						float maxrepair = s.getMaxHitpoints() * MAX_REPAIR;
+						RepairDronesData data = getData(s);
+						if (data != null) {
+							float repaired = data.repaired;
+							if (s.getHitpoints() < s.getMaxHitpoints() && repaired < maxrepair) {
+								float dist = MathUtils.getDistance(ship.getLocation(), s.getLocation());
+								if (dist < closestdist) {
+									closest = s;
+									closestdist = dist;
+								}
+							}
+						}
+					}
+				}
+			}
+
 			// go to ships under fire preemptively
 			if (closest == null) {
 				for (ShipAPI s : allies) {
@@ -137,7 +158,8 @@ public class NA_RepairDrones extends BaseHullMod {
 
 			// get closest
 			if (closest != null && ship.getAIFlags() != null) {
-				ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.CARRIER_FIGHTER_TARGET, 10f, closest);
+				if (!manual)
+					ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.CARRIER_FIGHTER_TARGET, 10f, closest);
 
 				// do the repair
 				doRepairs(amount, ship, closest, fighters);
@@ -165,6 +187,7 @@ public class NA_RepairDrones extends BaseHullMod {
 					));
 			if (amountToRepair > 0) {
 				target.setHitpoints(target.getHitpoints() + amountToRepair);
+				data.repaired += amountToRepair;
 				if (data.repairBeam.intervalElapsed()) {
 					MagicFakeBeam.spawnAdvancedFakeBeam(
 							Global.getCombatEngine(),

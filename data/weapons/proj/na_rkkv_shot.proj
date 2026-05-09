@@ -11,6 +11,7 @@
 	"explosionColor":[75,125,255,195],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":250, # purely visual
 	"alwaysAccelerate":true,
+	"noCollisionWhileFading":true,
 	"armingTime":2.5,
 	"flameoutTime":15,
 	"engineSpec":{"turnAcc":550,

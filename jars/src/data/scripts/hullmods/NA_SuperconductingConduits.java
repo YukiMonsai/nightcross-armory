@@ -58,8 +58,10 @@ public class NA_SuperconductingConduits extends BaseHullMod {
 		for (WeaponAPI w: getSynergy(ship)) {
 
 
-			if (w.getCooldownRemaining() > 0) {
-				w.setRemainingCooldownTo(Math.max(0, w.getCooldownRemaining()-amount * ROF_BOOST));
+			if (!w.isBeam() || w.isBurstBeam()) {
+				if (w.getCooldownRemaining() > 0 && !w.isInBurst()) {
+					w.setRemainingCooldownTo(Math.max(0.00000001f, w.getCooldownRemaining() - amount * ROF_BOOST));
+				}
 			}
 			if (w.getAmmoTracker() != null && w.getAmmoTracker().getReloadProgress() > 0) {
 				float mult = (sMod && w.getSlot() != null && w.getSlot().getWeaponType() != WeaponAPI.WeaponType.ENERGY) ? 2f : 1f;

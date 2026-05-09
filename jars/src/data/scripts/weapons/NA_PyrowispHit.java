@@ -3,7 +3,11 @@ package data.scripts.weapons;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
+import com.fs.starfarer.api.util.Misc;
+import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
 
 public class NA_PyrowispHit implements OnHitEffectPlugin {
 
@@ -12,7 +16,7 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
     private static final float PYROWISP_DMG = 90f;
     private static final float PYROWISP_MEDIUM_DMG = 200f;
-    private static final float PYROWISP_LARGE_DMG = 200f;
+    private static final float PYROWISP_LARGE_DMG = 300f;
 
     @Override
     public void onHit(DamagingProjectileAPI proj, CombatEntityAPI target, Vector2f point, boolean shieldHit, ApplyDamageResultAPI resultAPI, CombatEngineAPI engineAPI) {
@@ -48,6 +52,12 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
                         false,
                         proj.getSource()
                 );
+                engineAPI.addNegativeSwirlyNebulaParticle(point, target.getVelocity(), 150f, 1.5f,
+                        MathUtils.getRandomNumberInRange(.3f, .5f), 1f, 1.5f,
+                        new Color(21, 200, 255));
+                engineAPI.addSwirlyNebulaParticle(point, target.getVelocity(), 80, 3.5f,
+                        MathUtils.getRandomNumberInRange(.3f, .5f), 1.5f, 3f,
+                        new Color(255, 83, 21), true);
             }
 
         }

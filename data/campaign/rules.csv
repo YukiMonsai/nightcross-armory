@@ -541,7 +541,7 @@ $player.encounteredStargazer",,,"na_zgr_postWeirdOptStargazer:""I found automate
 na_zgr_postWeirdNothingLie:""Nope, nothing yet."" (lie)",
 na_ZGRpostWeirdOptStargazer,DialogOptionSelected,$option == na_zgr_postWeirdOptStargazer,"$didReturnEver = true
 $saidTechReturn = true 0
-FireAll PopulateZGRturnInOpts","""There are many automated vessels in this sector,"" the Director raises a brow. ""I'm sure you know that, Captain. I trust there's something more... interesting about the ones you found. Show me.""",,
+FireAll PopulateZGRturnInOpts","The Director raises a brow. ""We both know there are automated vessels on the fringe, Captain. I trust you are not wasting my time. Show me.""",,
 na_ZGRtechTurnInResponseStargazer,na_ZGRItemsTurnedIn,!$didFirstSale,"$didFirstSaleStargazer = true
 $didFirstSale = true
 FireAll PopulateOptions","The Director's eyes snap to you, like magic.
@@ -553,7 +553,8 @@ na_ZGRstartPitch9stargazer,DialogOptionSelected,$option == na_zgr_makePitch9star
 
 Her eyes seem suddenly present for the first time.
 
-""Nightcross Armory is a known unknown. We'd be more certain of their activites if not for their... blunt approaches to data security. There are reasons Tri-Tachyon leads them on so many metrics-
+""Nightcross Armory is a known unknown. We'd be more certain of their activites if not for their own dysfunction. Legitimate breakthrough? Or fabricated reports? It is difficult to tell fact from fiction in the Armory's own records.
+That's why I need hard data, captain.
 
 Would you part with recordings of these vessels? I offer 100,000 credits for immediate transfer.""","na_zgr_makePitch9stargazer2:""I accept.""
 na_zgr_makePitch9No:""Perhaps another time.""",
@@ -564,11 +565,11 @@ FireBest DialogOptionSelected",,,
 na_ZGRstartPitch9stargazer3,DialogOptionSelected,$option == na_zgr_makePitch9stargazer3,"AddCredits 100000
 $didAsale = true 0","For a full two seconds her eyes close, moving rapidly.
 
-""Interesting,"" she says. ""This confirms previous reports. You did well, Captain,""
+""Interesting,"" she says. ""This confirms a previous report. You have done well, Captain,""
 
 Your TriPad pings a credits transfer.
 
-""There are always spacer rumors. Mysterious sightings. The works. You, however, are the first to substantiate those claims.""","zgr_makePitch11:""'Previous'? Was there another expedition before me?""",
+""There's always spacer rumors. Mysterious sightings. The works. You, however, are the first to substantiate these claims. Or at the least, live to tell the tale.""","zgr_makePitch11:""'Previous'? Was there another expedition before me?""",
 # ZGR weirdtech return,,,,,,
 na_ZGRtechNeverMindOptionSelected,DialogOptionSelected,$option == na_zgr_techSelectCargo,NA_ZGRTurnIn selectSellableItems,,,
 na_ZGRtechReturnDontDisable,ZGRdisableTurnInTech,NA_ZGRTurnIn playerHasSellableItems score:1000,SetEnabled zgr_techReturn true,,,

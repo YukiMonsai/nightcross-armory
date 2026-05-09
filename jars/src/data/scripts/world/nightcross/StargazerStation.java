@@ -10,9 +10,11 @@ import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.fleets.SourceBasedFleetManager;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
+import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.RemnantSeededFleetManager;
 import data.scripts.campaign.fleets.NA_StargazerAssignmentAI;
 import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.stardust.NA_StargazerFIDConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,6 +131,21 @@ public class StargazerStation extends SourceBasedFleetManager {
                 fleet, (StarSystemAPI) source.getContainingLocation(), source, false, true, true, true
 
         ));
+
+
+
+
+        FactionAPI faction = Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER);
+        fleet.setName(faction.getFleetTypeName(params.fleetType));
+
+        fleet.getMemoryWithoutUpdate().set(MemFlags.FLEET_INTERACTION_DIALOG_CONFIG_OVERRIDE_GEN,
+                new NA_StargazerFIDConfig());
+        fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_ALLOW_LONG_PURSUIT, false);
+
+
+        NA_StargazerFleets.modifyStargazerFleet(fleet, random);
+        fleet.setName(NA_StargazerFleets.STARGAZER_DEFENDER_NAMES1.pick() + " " + NA_StargazerFleets.STARGAZER_DEFENDER_NAMES2.pick());
+
         fleet.getMemoryWithoutUpdate().set("$sourceId", source.getId());
 
         return fleet;

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.characters.*;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.AdvanceableListener;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
@@ -11,6 +12,7 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.combat.plugins.NA_CombatECMPlugin;
+import data.scripts.hullmods.NA_ProjectGhost;
 import data.scripts.stardust.NA_StargazerStardust;
 import org.lazywizard.lazylib.MathUtils;
 
@@ -27,6 +29,60 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
     public static float EMP_SCALE_MAXAT = 20f;
     public static float ECM = 3f;
 
+    public static class HumanPenalty implements ShipSkillEffect {
+        public static float CR_PENALTY_PER_DP = 0.15f;
+        public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
+            FleetMemberAPI member = stats.getFleetMember();
+            boolean isGhost = member.getVariant().hasHullMod(NA_ProjectGhost.ID);
+            if (isGhost && member.getFleetData() != null && member.getFleetData().getFleet() != null
+                    && member.getFleetData().getFleet().isPlayerFleet()) {
+                var dp = member.getDeploymentPointsCost();
+                for (FleetMemberAPI fm : member.getFleetData().getFleet().getFleetData().getMembersListCopy()) {
+                    var fmstats = fm.getStats();
+                    if (!Misc.isAutomated(fm)
+                            && !(fm.getCaptain() != null && fm.getCaptain().isAICore())) {
+                        fmstats.getMaxCombatReadiness().modifyFlat(id + "insanity" + member.getId(), CR_PENALTY_PER_DP * -0.01f * dp, "Insanity - " + member.getShipName());
+                    }
+                }
+
+                // apply penalty to things
+
+            }
+
+        }
+
+        public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
+            stats.getMaxCombatReadiness().unmodify(id);
+            FleetMemberAPI member = stats.getFleetMember();
+            if (member.getFleetData() != null && member.getFleetData().getFleet() != null
+                    && member.getFleetData().getFleet().isPlayerFleet()) {
+                var dp = member.getDeploymentPointsCost();
+                for (FleetMemberAPI fm : member.getFleetData().getFleet().getFleetData().getMembersListCopy()) {
+                    var fmstats = fm.getStats();
+                    if (!Misc.isAutomated(fm)
+                            && !(fm.getCaptain() != null && fm.getCaptain().isAICore())) {
+                        fmstats.getMaxCombatReadiness().unmodify(id + "insanity" + member.getId());
+                    }
+                }
+
+                // apply penalty to things
+
+            }
+            // unapply penalty
+        }
+
+        public String getEffectDescription(float level) {
+            return "\n*Insanity: While piloting a Project: GHOST vessel, all human ships take -" + CR_PENALTY_PER_DP + "% Combat Readiness per this vessel's DP.\n";
+        }
+
+        public String getEffectPerLevelDescription() {
+            return null;
+        }
+
+        public ScopeDescription getScopeDescription() {
+            return ScopeDescription.PILOTED_SHIP;
+        }
+    }
 
     public static class ECMBuff implements ShipSkillEffect {
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
@@ -248,7 +304,7 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
 
 
             info.addPara("Up to %s additional weapon range, based on ECM advantage. Max at %s net ECM rating.", 0f, hc, hc,
-                    "+" + (int)(RANGE_EXTRA) + "%", (int)(100*EMP_SCALE_MAXAT) + "%");
+                    "+" + (int)(RANGE_EXTRA) + "%", (int)(EMP_SCALE_MAXAT) + "%");
         }
 
         public String getEffectPerLevelDescription() {

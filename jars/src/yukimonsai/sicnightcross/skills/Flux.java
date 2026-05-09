@@ -55,7 +55,7 @@ public class Flux extends SCBaseSkillPlugin {
                 stats.getZeroFluxSpeedBoost().unmodify(ID);
             }
             if (shieldLevel > 0) {
-                stats.getShieldDamageTakenMult().modifyFlat(ID, shieldLevel * SHIELD_BOOST_MAX);
+                stats.getShieldDamageTakenMult().modifyPercent(ID, -100f * shieldLevel * SHIELD_BOOST_MAX);
             } else {
                 stats.getShieldDamageTakenMult().unmodify(ID);
             }

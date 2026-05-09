@@ -22,42 +22,46 @@ public class NA_MegablasterEffectEF implements NA_StardustWeapon, OnFireEffectPl
         int required = getNumFragmentsToFire();
         if (active >= required) {
             for (int i = 0; i < required; i++) {
-                NA_StargazerStardust.SwarmMember fragment = pickOuterFragmentWithinRangeClosestTo(swarm, 1000, weapon.getLocation());
+                NA_StargazerStardust.SwarmMember fragment = pickOuterFragmentWithinRangeClosestTo(swarm, 1000000, weapon.getLocation());
 
-                swarm.removeMember(fragment);
+                if (fragment != null) {
+                    swarm.removeMember(fragment);
 
-                Vector2f from = weapon.getFirePoint(0);
+                    Vector2f from = weapon.getFirePoint(0);
 
-                EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
-                params.segmentLengthMult = 4f;
+                    EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                    params.segmentLengthMult = 4f;
 
-                params.glowSizeMult = 0.5f;
-                params.brightSpotFadeFraction = 0.33f;
-                params.brightSpotFullFraction = 0.5f;
-                params.movementDurMax = 0.2f;
-                params.flickerRateMult = 0.35f;
+                    params.glowSizeMult = 0.5f;
+                    params.brightSpotFadeFraction = 0.33f;
+                    params.brightSpotFullFraction = 0.5f;
+                    params.movementDurMax = 0.2f;
+                    params.flickerRateMult = 0.35f;
 
-                float dist = Misc.getDistance(from, from);
-                float minBright = 100f;
-                if (dist * params.brightSpotFullFraction < minBright) {
-                    params.brightSpotFullFraction = minBright / Math.max(minBright, dist);
+                    float dist = Misc.getDistance(from, from);
+                    float minBright = 100f;
+                    if (dist * params.brightSpotFullFraction < minBright) {
+                        params.brightSpotFullFraction = minBright / Math.max(minBright, dist);
+                    }
+
+                    float thickness = 50f;
+
+                    EmpArcEntityAPI arc = engine.spawnEmpArcVisual(fragment.loc, weapon.getShip(),
+                            from,
+                            weapon.getShip(),
+                            thickness, // thickness
+                            new Color(112, 0, 0),
+                            new Color(255, 241, 244),
+                            params
+                    );
+                    //arc.setCoreWidthOverride(thickness * coreWidthMult);
+                    arc.setSingleFlickerMode(true);
+                    arc.setUpdateFromOffsetEveryFrame(true);
+                    //arc.setRenderGlowAtStart(false);
+                    //arc.setFadedOutAtStart(true);
                 }
 
-                float thickness = 50f;
 
-                EmpArcEntityAPI arc = engine.spawnEmpArcVisual(fragment.loc, weapon.getShip(),
-                        from,
-                        weapon.getShip(),
-                        thickness, // thickness
-                        new Color(112, 0, 0),
-                        new Color(255, 241, 244),
-                        params
-                );
-                //arc.setCoreWidthOverride(thickness * coreWidthMult);
-                arc.setSingleFlickerMode(true);
-                arc.setUpdateFromOffsetEveryFrame(true);
-                //arc.setRenderGlowAtStart(false);
-                //arc.setFadedOutAtStart(true);
             }
         } else
             // remove the original

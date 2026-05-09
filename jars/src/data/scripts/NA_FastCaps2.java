@@ -236,7 +236,7 @@ public class NA_FastCaps2 extends NA_FastCaps {
 
                 if (!w.isBeam() || w.isBurstBeam()) {
                     if (w.getCooldownRemaining() > 0 && !w.isInBurst()) {
-                        w.setRemainingCooldownTo(Math.max(0, w.getCooldownRemaining() - ROF_BOOST * time));
+                        w.setRemainingCooldownTo(Math.max(0.00000001f, w.getCooldownRemaining() - ROF_BOOST * time));
                     }
                 }
 

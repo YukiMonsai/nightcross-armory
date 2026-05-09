@@ -48,19 +48,20 @@ public class StargazerNecro extends SCBaseSkillPlugin {
         //if (NA_StargazerStardust.getSwarmFor(ship) == null) return;
 
 
-        CombatEngineAPI engine = Global.getCombatEngine();
-        if (engine == null) return;
+        if (!ship.isAlly() && ship.getOwner() <= 2) {
+            CombatEngineAPI engine = Global.getCombatEngine();
+            if (engine == null) return;
 
-        var listeners = engine.getListenerManager().getListeners(NA_NecroDMGListener.class);
-        boolean found = false;
+            var listeners = engine.getListenerManager().getListeners(NA_NecroDMGListener.class);
 
-        for (NA_NecroDMGListener listener : listeners) {
-            if (listener.side == ship.getOwner()) {
-                found = true;
-                return;
+            var owner = data.isPlayer() ? 0 : 1;
+            for (NA_NecroDMGListener listener : listeners) {
+                if (listener.side == owner) {
+                    return;
+                }
             }
+            engine.getListenerManager().addListener(new NA_NecroDMGListener(owner));
         }
-        engine.getListenerManager().addListener(new NA_NecroDMGListener(ship.getOwner()));
     }
 
     @Override
@@ -91,7 +92,7 @@ public class StargazerNecro extends SCBaseSkillPlugin {
             if (param instanceof ShipAPI killer) {
                 //if (param != pilotedShip) return false
                 if (ship.isFighter()) return false;
-                if (ship.getOwner() == side) return false;
+                if (ship.getOwner() == side || ship.getOwner() == 100) return false;
                 if (NA_StargazerStardust.getSwarmFor(killer) == null) return false;
                 if (ship.getHitpoints() <= 0 && !ship.hasTag("sc_na_necro_counted")) {
                     ship.addTag("sc_na_necro_counted");

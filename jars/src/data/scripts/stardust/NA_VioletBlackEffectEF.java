@@ -23,7 +23,7 @@ public class NA_VioletBlackEffectEF implements NA_StardustWeapon, OnFireEffectPl
         int required = getNumFragmentsToFire();
         if (active >= required) {
             for (int i = 0; i < required; i++) {
-                NA_StargazerStardust.SwarmMember fragment = pickOuterFragmentWithinRangeClosestTo(swarm, 1000, weapon.getLocation());
+                NA_StargazerStardust.SwarmMember fragment = pickOuterFragmentWithinRangeClosestTo(swarm, 100000, weapon.getLocation());
 
                 swarm.removeMember(fragment);
 
@@ -136,11 +136,7 @@ public class NA_VioletBlackEffectEF implements NA_StardustWeapon, OnFireEffectPl
                         params.movementDurMax = 0.2f;
                         params.flickerRateMult = 0.5f;
 
-                        float dist = Misc.getDistance(from, from);
-                        float minBright = 100f;
-                        if (dist * params.brightSpotFullFraction < minBright) {
-                            params.brightSpotFullFraction = minBright / Math.max(minBright, dist);
-                        }
+                        params.brightSpotFullFraction = 1;
 
                         float thickness = 20f;
 

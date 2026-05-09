@@ -24,8 +24,8 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
     private static final String PYROWISP_PROJ_ID = "na_pyrowisp_shot";
     private static final String PYROWISP_MEDIUM_PROJ_ID = "na_pyrowisp_medium_shot";
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
-    private static final float PYROWISP_HOMING_AMT = 4f;
-    private static final float PYROWISP_LARGE_HOMING_AMT = 2f;
+    private static final float PYROWISP_HOMING_AMT = 13f;
+    private static final float PYROWISP_LARGE_HOMING_AMT = 24f;
     private static final float PYROWISP_HOMING_DIST = 1000f;
     private static final float PYROWISP_HOMING_SPEED = 475f;
     private static final float PYROWISP_HOMING_VFACTOR = 0.75f;
@@ -255,10 +255,10 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             selectedTarget = null;
                         else if (requireShield && (selectedTarget.getShield() == null || !selectedTarget.getShield().isOn()))
                             selectedTarget = null;
-                        else if (proj.getSource() != null && selectedTarget.getOwner() != proj.getSource().getOwner())
+                        else if (proj.getSource() != null && selectedTarget.getOwner() == proj.getSource().getOwner())
                             selectedTarget = null;
                         else {
-                            Vector2f relativeLoc = new Vector2f(prloc.x - selectedTarget.getLocation().x, prloc.y - selectedTarget.getLocation().y);
+                            Vector2f relativeLoc = new Vector2f(selectedTarget.getLocation().x - prloc.x, selectedTarget.getLocation().y - prloc.y);
                             if (Vector2f.dot(prvel, relativeLoc) <= 0) {
                                 selectedTarget = null;
                             }

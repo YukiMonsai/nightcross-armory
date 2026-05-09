@@ -10,6 +10,7 @@
 			"effectBasedOnLevel":false,
 			"effects":[
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer$Level1"},
+				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Grid$HumanPenalty"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Grid$Level4"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Grid$Level2"},
 				{"type":"SHIP", "script":"data.scripts.campaign.skills.NAFulldiveOfficer_Grid$ECMBonus"},

@@ -95,7 +95,7 @@ public class NA_AriaHit implements OnHitEffectPlugin {
                                 Global.getCombatEngine().maintainStatusForPlayerShip(targetData.KEY_TARGET,
                                         "graphics/icons/hullsys/high_energy_focus.png",
                                         "Gravitic Distortion",
-                                        "-" + (int)(100f - (targetData.fluxDissMult - 1f) * 100f) + "% mobility", true);
+                                        "-" + (int)(100f - (targetData.fluxDissMult) * 100f) + "% mobility", true);
                             }
 
                             if (targetData.elapsed.intervalElapsed() || !targetData.target.isAlive()) {

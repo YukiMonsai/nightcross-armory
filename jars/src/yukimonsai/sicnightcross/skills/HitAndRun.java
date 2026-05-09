@@ -34,7 +34,7 @@ public class HitAndRun extends SCBaseSkillPlugin {
 
 
     private static final float BONUS_SPEED_MAX = 20f;
-    private static final float BONUS_SPEED_DECAY = 4f;
+    private static final float BONUS_SPEED_DECAY = 2f;
     private static final float BONUS_SPEED_RATIO_FRIG = 1200f;
     private static final float BONUS_SPEED_RATIO_DEST = 2000f;
     private static final float BONUS_SPEED_RATIO_CRUISER = 4000f;
@@ -91,6 +91,13 @@ public class HitAndRun extends SCBaseSkillPlugin {
                 ship.getMutableStats().getAcceleration().modifyPercent(ID, BONUS_SPEED_MAX*amt);
                 ship.getMutableStats().getTurnAcceleration().modifyPercent(ID, BONUS_SPEED_MAX*amt);
 
+
+
+                if (ship == Global.getCombatEngine().getPlayerShip()) {
+                    String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_engine_boost");
+                    Global.getCombatEngine().maintainStatusForPlayerShip(ID, icon, "Hit and Run",
+                            "+" + ((int)(BONUS_SPEED_MAX*amt)) +  "% top speed", false);
+                }
 
                 float ratedecay = BONUS_SPEED_DECAY / BONUS_SPEED_MAX * dmg_scale;
 

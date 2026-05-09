@@ -95,7 +95,7 @@ public class NA_SoulEater implements BeamEffectPlugin {
 						}
 
 						if (armorTotal < ((ShipAPI) target).getArmorGrid().getArmorRating() * 0.33) {
-							if (target instanceof ShipAPI && ((ShipAPI) target).getFleetMember().getMaxCrew() > 0) {
+							if (target instanceof ShipAPI && ((ShipAPI) target).getFleetMember() != null && ((ShipAPI) target).getFleetMember().getMaxCrew() > 0) {
 								float dur = beam.getDamage().getDpsDuration();
 								// needed because when the ship is in fast-time, dpsDuration will not be reset every frame as it should be
 								if (!wasZero) dur = 0;

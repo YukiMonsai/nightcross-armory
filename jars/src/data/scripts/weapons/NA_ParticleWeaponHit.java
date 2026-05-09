@@ -1,5 +1,6 @@
 package data.scripts.weapons;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
@@ -86,6 +87,33 @@ public class NA_ParticleWeaponHit implements OnHitEffectPlugin {
                                 size*0.05f, 1.5f, 0.1f,
                                 0.8f, 0.7f + 0.35f * (i/NUM_POINTS),
                                 COLOR1);
+                    if (Math.random() < 0.06 + i * 0.003f) {
+                        EmpArcEntityAPI.EmpArcParams params = new EmpArcEntityAPI.EmpArcParams();
+                        params.segmentLengthMult = 4f;
+
+                        params.glowSizeMult = 0.5f;
+                        params.brightSpotFadeFraction = 0.33f;
+                        params.brightSpotFullFraction = 0.5f;
+                        params.maxZigZagMult = 0.05f;
+                        params.movementDurMax = 0.2f;
+                        params.flickerRateMult = 0.35f - (float) (i/NUM_POINTS * 0.25f);
+
+                        float thickness = 30f;
+
+                        EmpArcEntityAPI arc = Global.getCombatEngine().spawnEmpArcVisual(point, null,
+                                MathUtils.getRandomPointInCircle(point_dmg, size),
+                                null,
+                                thickness, // thickness
+                                new Color(6, 78, 213),
+                                new Color(102, 156, 161, 126),
+                                params
+                        );
+                        arc.setSingleFlickerMode(true);
+                        arc.setRenderGlowAtEnd(false);
+                        arc.setRenderGlowAtStart(false);
+                        arc.setCoreWidthOverride(20f);
+                        arc.setUpdateFromOffsetEveryFrame(true);
+                    }
                 }
                 if (Math.random() < 0.5)
                     engineAPI.addSmoothParticle(point_dmg, ZERO, size*0.85f, 1f,

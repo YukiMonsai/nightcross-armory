@@ -69,7 +69,7 @@ public class ReactiveShield extends SCBaseSkillPlugin {
         public void advance(float amount) {
             if (ship.getShield() != null) {
                 if (ship.getShield().isOff()) {
-                    strengthTime = Math.min(1.1f, strengthTime + amount/SHIELD_BONUS_TIME);
+                    strengthTime = Math.min(1.5f, strengthTime + amount/SHIELD_BONUS_TIME);
 
                     float buff = Math.max(0f, Math.min(1f, strengthTime)) * SHIELD_BONUS_AMT;
                     ship.getMutableStats().getShieldDamageTakenMult().modifyMult(ID, 1f - buff);

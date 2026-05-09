@@ -19,8 +19,8 @@
       "weapons": {
         "WS0001": "na_pyrorifle",
         "WS0002": "na_pyrorifle",
-        "WS0009": "autopulse",
-        "WS0010": "na_pyrowisp_large"
+        "WS0009": "na_gatlinglaser",
+        "WS0010": "na_gatlinglaser"
       }
     },
     {

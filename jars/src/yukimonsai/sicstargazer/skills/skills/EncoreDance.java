@@ -15,7 +15,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
         return "all ships with officers";
     }
 
-    private static final float MISSILE_RELOAD_PERC = .30f;
+    private static final float MISSILE_RELOAD_PERC = .20f;
     private static final float RELOAD_PERC = 1.0f;
     private static final float SIZE_SCALE = .25f;
 
@@ -84,7 +84,7 @@ public class EncoreDance extends SCBaseSkillPlugin {
             if (param instanceof ShipAPI killer) {
                 //if (param != pilotedShip) return false
                 if (ship.isFighter()) return false;
-                if (ship.getOwner() == side) return false;
+                if (ship.getOwner() == side || ship.getOwner() == 100) return false;
                 if (killer.getCaptain() == null || (killer.getCaptain().isDefault())) return false; // MUST have officer
                 if (ship.getHitpoints() <= 0 && !ship.hasTag("sc_na_encore_counted")) {
                     ship.addTag("sc_na_encore_counted");

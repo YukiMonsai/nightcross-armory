@@ -316,7 +316,8 @@ public class NightcrossTargeting extends BaseHullMod {
 				}
 				if (data.interval.intervalElapsed()) {
 					effectlevel.level = 1f;
-					Global.getSoundPlayer().playSound(ACTIVATE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
+					if (ship == engine.getPlayerShip())
+						Global.getSoundPlayer().playSound(ACTIVATE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
 					if (chargesound.sound != null) {
 						chargesound.sound.stop();
 						chargesound.sound = null;
@@ -348,7 +349,8 @@ public class NightcrossTargeting extends BaseHullMod {
 
 
 					if (chargesound.sound == null && ((ship.getShield() == null || ship.getShield().isOff()) && !((ship.getFluxTracker() != null && ship.getFluxTracker().isOverloadedOrVenting())))) {
-						chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
+						if (ship == engine.getPlayerShip())
+							chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
 					}
 				}
 

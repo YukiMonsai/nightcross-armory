@@ -25,7 +25,7 @@ import java.util.Vector;
 public class NA_HardlightMatrix2 extends BaseHullMod {
 
 
-	public static float AMT_SHIELD = 0.40f;
+	public static float AMT_SHIELD = 0.45f;
 	protected String ID = "NA_HardlightMatrix2";
 
 	public String getDescriptionParam(int index, HullSize hullSize) {

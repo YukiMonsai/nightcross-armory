@@ -1,5 +1,11 @@
 {
 	"posts":{
-		"executive_officer_na_nightcross": {"name":"Executive Officer (Skirmish)"}
+		"executive_officer_sc_nightcross": {"name":"Executive Officer (Skirmish)"},
+		"na_virtualsinger": {"name":"Virtual Singer"},
+		"na_rogueAI": {"name":"Rogue AI"}
+		
+	},
+	"ranks":{
+		"na_virtualsinger": {"name":"Virtual Singer"},
 	}
 }

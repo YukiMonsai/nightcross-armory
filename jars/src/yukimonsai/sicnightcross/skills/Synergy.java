@@ -24,17 +24,28 @@ public class Synergy extends SCBaseSkillPlugin {
 
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
-        tooltipMakerAPI.addPara("Gain up to %s energy weapon flux cost and %s missile rate of fire and hitpoints, based on the ordnance point ratio with the other weapon type. Missile weapons boost energy weapons and vice versa." +
+        tooltipMakerAPI.addPara("Gain up to %s energy weapon flux cost and %s missile rate of fire and hitpoints, based on the ordnance point ratio with the other weapon type." +
                         "\n Synergy weapons count as both.", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
                 "-" + (int)(FLUX_COST_ENERGY) + "%",
                 "+" + (int)(BONUS_MISSILE) + "%");
 
+        tooltipMakerAPI.addSpacer(10f);
+
+        tooltipMakerAPI.addPara("For example, 100 OP of missile weapons and 50 OP of energy weapons grants %s energy weapon flux cost and %s missile fire rate and hitpoints.", 0f, Misc.getGrayColor(), Misc.getNegativeHighlightColor(),
+                "-" + (int)(FLUX_COST_ENERGY * 0.67) + "%",
+                "+" + (int)(BONUS_MISSILE * 0.33) + "%" );
 
     }
 
 
     @Override
     public void advanceInCombat(SCData data, ShipAPI ship, Float amount) {
+
+    }
+
+    @Override
+    public void applyEffectsAfterShipCreation(SCData data, ShipAPI ship, ShipVariantAPI variant, String id) {
+
         float energyOP = 0;
         float missileOP = 0;
         if (ship.isAlive()) {
@@ -59,12 +70,8 @@ public class Synergy extends SCBaseSkillPlugin {
         } else {
             ship.getMutableStats().getEnergyWeaponFluxCostMod().unmodify(ID);
             ship.getMutableStats().getMissileHealthBonus().unmodify(ID);
-            ship.getMutableStats().getMissileWeaponDamageMult().unmodify(ID);
+            ship.getMutableStats().getMissileRoFMult().unmodify(ID);
         }
-    }
-
-    @Override
-    public void applyEffectsBeforeShipCreation(SCData data, MutableShipStatsAPI stats, ShipVariantAPI variant, ShipAPI.HullSize hullSize, String id) {
     }
 
     /*

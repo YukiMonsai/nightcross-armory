@@ -142,6 +142,11 @@
 	[
 		{"file":"sounds/wpn/naai_megablaster_charge.ogg","pitch":1.0,"volume":1},
 	],
+	"na_gatlinglaser":
+	[
+		{"file":"sounds/wpn/na_gatlinglaser.ogg","pitch":1.0,"volume":1},
+	],
+	
 	"na_rift_explosion":
 	[
 		{"file":"sounds/wpn/na_rift_explosion.ogg","pitch":1.0,"volume":1.00},

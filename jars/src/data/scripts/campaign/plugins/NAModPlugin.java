@@ -71,7 +71,7 @@ public class NAModPlugin extends BaseModPlugin {
     public static final String WHITELIST_MOV = "data/config/systemwhitelist/movement_whitelist.csv";
     public static final String WHITELIST_UTI = "data/config/systemwhitelist/utility_whitelist.csv";
     static Exception failedLoad = null;
-    public static Logger log = Global.getLogger(HitAndRun.class);
+    public static Logger log = Global.getLogger(NAModPlugin.class);
     public static HashMap<String, Boolean> system_whitelist_movement = new HashMap<>();
     public static HashMap<String, Boolean> system_whitelist_offensive = new HashMap<>();
     public static HashMap<String, Boolean> system_whitelist_defensive = new HashMap<>();
@@ -266,8 +266,15 @@ public class NAModPlugin extends BaseModPlugin {
 
         if (!hasLunaLib || NA_SettingsListener.na_bounties) {
             Global.getSector().getMemoryWithoutUpdate().set("$na_enableaibounties", true);
-        } else
+        } else {
             Global.getSector().getMemoryWithoutUpdate().unset("$na_enableaibounties");
+        }
+        if (hasLunaLib && !NA_SettingsListener.na_stargazer_gen) {
+            Global.getSector().getMemoryWithoutUpdate().set("$na_noexploration", true);
+        } else {
+            Global.getSector().getMemoryWithoutUpdate().unset("$na_noexploration");
+
+        }
 
         syncScripts();
     }
@@ -449,6 +456,8 @@ public class NAModPlugin extends BaseModPlugin {
         }
 
 
+        gen.fixwolfrayet(Global.getSector());
+        gen.genplanetarynebulas(Global.getSector());
 
 
         if (!NAModPlugin.hasLunaLib

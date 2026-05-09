@@ -52,6 +52,10 @@
 			
 		},
 		
+		"terrain": {
+			"nebula_wolf_rayet":"graphics/terrain/nebula512_wolf_rayet.png",
+			"nebula_wolf_rayet_map":"graphics/terrain/nebula_wolf_rayet_map.png",
+		},
 		
 		
 		"na_hq": {

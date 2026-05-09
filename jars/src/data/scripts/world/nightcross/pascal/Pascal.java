@@ -35,13 +35,13 @@ public class Pascal {
         system.getMemoryWithoutUpdate().set(MusicPlayerPluginImpl.MUSIC_SET_MEM_KEY, NightcrossID.NIGHTCROSS_PASCAL_BG);
         system.setBackgroundTextureFilename("graphics/backgrounds/background5.jpg");
 
-        PlanetAPI pascal = system.initStar("pascal", "star_rayet", 700f, 1000f);
+        PlanetAPI pascal = system.initStar("pascal", "star_rayet", 700f,  1500f);
         pascal.setCustomDescriptionId("wolf_rayet");
 
         SectorEntityToken pascal_nebula = Misc.addNebulaFromPNG("data/campaign/terrain/nightcross_nebula.png",
                                                                 0, 0, // center of nebula
                                                                 system, // location to add to
-                                                                "terrain", "nebula_blue",
+                                                                "terrain", "nebula_wolf_rayet",
                                                                 4, 4, StarAge.YOUNG); // number of cells in texture
 
         SectorEntityToken field = system.addTerrain(Terrain.MAGNETIC_FIELD,

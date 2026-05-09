@@ -2,6 +2,7 @@ package yukimonsai.sicnightcross;
 
 
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import second_in_command.SCData;
@@ -52,6 +53,9 @@ public class AptitudeNightcross extends SCBaseAptitudePlugin {
     public Float getNPCFleetSpawnWeight(SCData scData, CampaignFleetAPI campaignFleetAPI) {
         if(Objects.equals(campaignFleetAPI.getFaction().getId(), "nightcross")) return Float.MAX_VALUE;
         if(Objects.equals(campaignFleetAPI.getFaction().getId(), "stargazer")) return 0.5f;
-        return 0.25f;
+        if(Objects.equals(campaignFleetAPI.getFaction().getId(), Factions.LUDDIC_PATH)) return 0.0f;
+        if(Objects.equals(campaignFleetAPI.getFaction().getId(), Factions.LUDDIC_CHURCH)) return 0.025f;
+        if(campaignFleetAPI.getFaction().getRelationshipLevel(Factions.LUDDIC_PATH).isPositive()) return 0.0f;
+        return 0.075f;
     }
 }

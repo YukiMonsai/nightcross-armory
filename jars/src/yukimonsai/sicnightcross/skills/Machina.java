@@ -14,7 +14,7 @@ import second_in_command.skills.automated.SCBaseAutoPointsSkillPlugin;
 
 public class Machina extends SCBaseAutoPointsSkillPlugin {
     public int getProvidedPoints() {
-        return (int)(30 * SCSettings.getAutoPointsMult());
+        return (int)(50 * SCSettings.getAutoPointsMult());
     }
     @Override
     public String getAffectsString() {

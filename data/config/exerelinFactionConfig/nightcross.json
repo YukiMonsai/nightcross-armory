@@ -98,7 +98,7 @@
     ],
     "startShipsCarrierSmall":[["na_nammu_support", "na_sop_strike", "na_sop_escort"]],
     "startShipsCarrierLarge":[["swp_eos_sta", "na_macula_missile", "na_mare_exp"]],
-    "startShipsSuper":[["na_echo_standard", "na_sop_elite", "na_mare_exp"]],
+    "startShipsSuper":[["na_echo_standard"], ["na_sop_elite"], ["na_mare_exp"]],
     
     
     "defenceStations":[

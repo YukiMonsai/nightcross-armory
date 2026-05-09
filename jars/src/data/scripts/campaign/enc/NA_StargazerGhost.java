@@ -115,10 +115,10 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 			fleet.setLocation(entity.getLocation().x, entity.getLocation().y);
 			fleet.addScript(new AutoDespawnScript(fleet));
 
+			fleet.addScript(new NA_StargazerNebulaScript(fleet, 0.12f));
 			NA_StargazerFleets.modifyStargazerFleet(fleet, random);
 
 
-			fleet.addScript(new NA_StargazerNebulaScript(fleet, 0.1f));
 			fleet.addTag(NightcrossTags.NEBULA_GHOST);
 
 			fleet.getMemoryWithoutUpdate().set("$fromGhost", true);

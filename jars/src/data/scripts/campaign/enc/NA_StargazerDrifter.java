@@ -32,7 +32,7 @@ public class NA_StargazerDrifter extends BaseEPEncounterCreator {
         if (!isPointSuited(point, false, DEPTH_THRESHOLD_FOR_DRIFTER)) {
             return 0f;
         }
-        return STARGAZER_DRIFER_FREQ + NA_StargazerGhostManager.getAbyssInterest()*2f;
+        return STARGAZER_DRIFER_FREQ + NA_StargazerGhostManager.getAbyssInterest()*2.5f;
     }
 
 

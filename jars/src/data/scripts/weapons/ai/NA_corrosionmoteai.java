@@ -73,14 +73,14 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
 
     //Arc to look for targets into
     //set to 360 or more to ignore
-    private final int SEARCH_CONE = 180;
+    private final int SEARCH_CONE = 90;
 
     //range in which the missile seek a target in game units.
-    private final int MAX_SEARCH_RANGE = 1500;
+    private final int MAX_SEARCH_RANGE = 1200;
 
     //should the missile fall back to the closest enemy when no target is found within the search parameters
     //only used with limited search cones
-    private final boolean FAILSAFE = false;
+    private final boolean FAILSAFE = true;
 
     //range under which the missile start to get progressively more precise in game units.
     private float PRECISION_RANGE = 350;
@@ -124,6 +124,10 @@ public class NA_corrosionmoteai implements MissileAIPlugin, GuidedMissileAI {
         //calculate the precision range factor
         PRECISION_RANGE = (float) Math.pow((2 * PRECISION_RANGE), 2);
         OFFSET = (float) (Math.random() * MathUtils.FPI * 2);
+        if (launchingShip != null && launchingShip.getShipTarget() != null
+            && launchingShip.getShipTarget().isAlive() && launchingShip.getShipTarget().getOwner() != launchingShip.getOwner()) {
+            target = launchingShip.getShipTarget();
+        }
     }
 
     //////////////////////

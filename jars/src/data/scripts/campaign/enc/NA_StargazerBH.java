@@ -423,7 +423,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
         if (DebugFlags.ABYSSAL_GHOST_SHIPS_DEBUG) {
             return 1000000000f;
         }
-        return STARGAZER_FREQ + 1.5f * NA_StargazerGhostManager.getAbyssInterest();
+        return STARGAZER_FREQ + 3.5f * NA_StargazerGhostManager.getAbyssInterest();
     }
 
 

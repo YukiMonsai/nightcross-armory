@@ -222,7 +222,7 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
         // derelicts in each station with outpost
         for (BaseThemeGenerator.AddedEntity e : addedShips) {
-            int derelictsNearOutpost = (int) Math.round(StarSystemGenerator.getRandom(1, 3));
+            int derelictsNearOutpost = (int) Math.round(StarSystemGenerator.getRandom(1, 2));
             //int probesNearSurveyShip = getNumProbesForSystem(e.entity.getContainingLocation());
             added = addDerelicts((StarSystemAPI) e.entity.getContainingLocation(), derelictsNearOutpost);
             all.addAll(added);
@@ -517,12 +517,12 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         int planets = system.getPlanets().size();
 
         if (planets <= 3) {
-        } else if (planets <= 5) {
-            base += 1;
         } else if (planets <= 8) {
-            base += 2;
+            base += 0;
+        } else if (planets <= 8) {
+            base += 0;
         } else {
-            base += 3;
+            base += 1;
         }
 
         base += StarSystemGenerator.random.nextInt(2);
@@ -748,6 +748,15 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
         derelictShipTypes.add(new NA_DerelictType("na_macula_overdriven", true), 0.3f);
         derelictShipTypes.add(new NA_DerelictType("na_xanthe_standard", true), 0.25f);
         derelictShipTypes.add(new NA_DerelictType("na_kasei_x_assault", true), 0.4f);
+        derelictShipTypes.add(new NA_DerelictType("atlas_Standard", true), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("buffalo_Standard", true), 0.8f);
+        derelictShipTypes.add(new NA_DerelictType("phantom_Elite", true), 0.9f);
+        derelictShipTypes.add(new NA_DerelictType("kite_Standard", true), 1.9f);
+        derelictShipTypes.add(new NA_DerelictType("mudskipper_Standard", true), 1.9f);
+        derelictShipTypes.add(new NA_DerelictType("mercury_Standard", true), 1.9f);
+        derelictShipTypes.add(new NA_DerelictType("prometheus_Super", true), 0.05f);
+        derelictShipTypes.add(new NA_DerelictType("dram_Light", true), 0.5f);
+        derelictShipTypes.add(new NA_DerelictType("phaeton_Standard", true), 0.3f);
         // broken beyond repair
         derelictShipTypes.add(new NA_DerelictType("na_losulci_defense", false), 0.1f);
         derelictShipTypes.add(new NA_DerelictType("naai_sop_corrupted", false), 0.1f);

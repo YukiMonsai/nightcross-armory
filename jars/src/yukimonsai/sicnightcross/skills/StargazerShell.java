@@ -29,11 +29,11 @@ public class StargazerShell extends SCBaseSkillPlugin {
     @Override
     public void addTooltip(SCData scData, TooltipMakerAPI tooltipMakerAPI) {
         tooltipMakerAPI.addPara("%s EMP damage taken", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "+" + (int)(100f * EMP_BUFF) + "%");
+                "-" + (int)(EMP_BUFF) + "%");
         tooltipMakerAPI.addPara("%s weapon and engine damage taken", 0f, Misc.getHighlightColor(), Misc.getHighlightColor(),
-                "+" + (int)(100f * TAKEN_BUFF) + "%");
+                "-" + (int)(TAKEN_BUFF) + "%");
         tooltipMakerAPI.addPara("%s weapon and engine repair time", 0f, Misc.getNegativeHighlightColor(), Misc.getNegativeHighlightColor(),
-                "+" + (int)(100f * REPAIRTIME_PEN) + "%");
+                "+" + (int)(REPAIRTIME_PEN) + "%");
         tooltipMakerAPI.addPara("Automated ships are more likely to receive d-mods after being disabled in combat", 0f, Misc.getHighlightColor(), Misc.getHighlightColor());
         tooltipMakerAPI.addPara("Automated ships are almost always recoverable if lost in combat", 0f, Misc.getHighlightColor(), Misc.getHighlightColor());
 

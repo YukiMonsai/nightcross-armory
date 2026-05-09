@@ -9,6 +9,7 @@ import com.fs.starfarer.api.combat.DamagingProjectileAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.ProjectileSpawnType;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.plugins.NAModPlugin;
 import java.awt.Color;
 import java.util.Iterator;
@@ -32,6 +33,9 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final String LASER_PROJ_ID = "na_laser_shot";
     private static final Color LASER_TRAIL_COLOR_START = new Color(125, 50, 250);
     private static final Color LASER_TRAIL_COLOR_END = new Color(75, 25, 175);
+    private static final String GATLINGLASER_PROJ_ID = "na_gatlinglaser_shot";
+    private static final Color GATLINGLASER_TRAIL_COLOR_START = new Color(133, 124, 255);
+    private static final Color GATLINGLASER_TRAIL_COLOR_END = new Color(108, 25, 175);
 
 
     private static final String PYRO_PROJ_ID = "na_pyrokinetic_shot";
@@ -138,6 +142,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case HARDLIGHT_PROJ_ID:
 
                 case LASER_PROJ_ID:
+                case GATLINGLASER_PROJ_ID:
                     if (NAUtil.isOnscreen(projectile.getLocation(), projectile.getVelocity().length() * 0.2f)) {
                         trailCount += 1f;
                     }
@@ -159,6 +164,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
 
             switch (spec) {
                 case LASER_PROJ_ID:
+                case GATLINGLASER_PROJ_ID:
                 case PYRO_PROJ_ID:
                 case PYROAI_PROJ_ID:
                 case META_PROJ_ID:
@@ -552,6 +558,48 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 0f, /* textureScrollSpeed */
                                 -1, /* textureOffset */
                                 sidewaysVel, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                    }
+                    break;
+
+                case GATLINGLASER_PROJ_ID:
+                    if (data.interval == null) {
+                        data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
+                    }
+                    data.interval.advance(amount);
+                    if (data.interval.intervalElapsed()) {
+                        float offset = 10f;
+                        Vector2f offsetPoint = new Vector2f((float) Math.cos(Math.toRadians(proj.getFacing())) * offset, (float) Math.sin(Math.toRadians(proj.getFacing())) * offset);
+                        spawnPosition.x += offsetPoint.x;
+                        spawnPosition.y += offsetPoint.y;
+
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_particletrailcore"), /* sprite */
+                                spawnPosition, /* position */
+                                0f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                (float) Math.random() * -15f, /* startAngularVelocity */
+                                (float) Math.random() * 15f, /* endAngularVelocity */
+                                powermult * 10f + 8f, /* startSize */
+                                powermult * 10f + 8f, /* endSize */
+                                GATLINGLASER_TRAIL_COLOR_START, /* startColor */
+                                GATLINGLASER_TRAIL_COLOR_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.2f * powermult + 0.1f, /* mainDuration */
+                                0.2f * powermult + 0.3f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                0f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                MathUtils.getPointOnCircumference(sidewaysVel, 2f, (float) Math.random() * 360f), /* offsetVelocity */
                                 null, /* advancedOptions */
                                 CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
                                 1f /* frameOffsetMult */
