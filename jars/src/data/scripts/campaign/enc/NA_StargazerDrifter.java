@@ -36,10 +36,10 @@ public class NA_StargazerDrifter extends BaseEPEncounterCreator {
     }
 
 
-    public static float DEPTH_THRESHOLD_FOR_DRIFTER = 3f;
-    public static float DEPTH_THRESHOLD_FOR_ANGRY_DRIFTER = 8f;
-    public static float STARGAZER_DRIFER_FREQ = 0.25f;
-    public static float ANGRY_CHANCE = 0.4f;
+    public static float DEPTH_THRESHOLD_FOR_DRIFTER = 0.8f;
+    public static float DEPTH_THRESHOLD_FOR_ANGRY_DRIFTER = 4f;
+    public static float STARGAZER_DRIFER_FREQ = 0.5f;
+    public static float ANGRY_CHANCE = 0.6f;
 
     public static boolean isPointSuited(EncounterPoint point, boolean allowNearStar, float depthRequired) {
         if (!HyperspaceAbyssPluginImpl.EP_TYPE_ABYSSAL.equals(point.type)) return false;

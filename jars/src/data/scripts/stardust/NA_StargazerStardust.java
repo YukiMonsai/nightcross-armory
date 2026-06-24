@@ -91,7 +91,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
         public float flashProbability = NA_StargazerStars.BASE_FLASH;
         public boolean renderFlashOnSameLayer = false;
         public Color flashFringeColor = new Color(255, 77,0,255);
-        public Color flashCoreColor = Color.white;
+        public Color flashCoreColor = NA_StargazerHull.STARGAZER_RED;
 
         public float alphaMult = 1f;
         public float alphaMultBase = 1f;
@@ -143,6 +143,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
     public static class SwarmMember {
         public SpriteAPI sprite;
+        public Color color;
 
         public Vector2f offset = new Vector2f();
         public Vector2f loc = new Vector2f();
@@ -175,6 +176,9 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
             sprite.setTexHeight(0.25f);
             sprite.setTexX(i * 0.25f);
             sprite.setTexY(j * 0.25f);
+            if (attachedTo instanceof ShipAPI)
+                color = ((ShipAPI) attachedTo).getVentFringeColor();
+            if (color == null) color = NA_StargazerHull.STARGAZER_RED;
 
             //sprite.setAdditiveBlend();
             sprite.setNormalBlend();
@@ -367,7 +371,13 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
 
     public NA_StargazerStardust(CombatEntityAPI attachedTo) {
-        this(attachedTo, new NA_StargazerStardust.StardustParams());
+        this(attachedTo, getParamsFor(attachedTo));
+    }
+
+    public static StardustParams getParamsFor(CombatEntityAPI attachedTo) {
+        var p = new NA_StargazerStardust.StardustParams();
+
+        return p;
     }
 
     public NA_StargazerStardust(CombatEntityAPI attachedTo, NA_StargazerStardust.StardustParams params) {
@@ -929,6 +939,7 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
 
         //Color color = Color.white;
         Color color = params.color;
+
         float alphaMult = viewport.getAlphaMult();
         if (alphaMult <= 0f) return;
 
@@ -970,17 +981,28 @@ public class NA_StargazerStardust extends BaseCombatLayeredRenderingPlugin {
                 //b *= 0.5f;
                 //b *= 0.1f;
 
+
+                if (p.color != null) color = p.color;
+                else if (color == null) color = Color.white;
+
                 p.sprite.setAngle(p.angle);
-                p.sprite.setSize(size, size);
+                p.sprite.setSize(size * 1.5f, size * 1.5f);
                 p.sprite.setAlphaMult(alphaMult * b * params.alphaMultBase);
                 p.sprite.setColor(color);
                 p.sprite.setAdditiveBlend();
                 p.sprite.renderAtCenterNoBind(p.loc.x, p.loc.y);
 
+                p.sprite.setColor(Color.white);
+                p.sprite.setSize(size, size);
+                p.sprite.setAdditiveBlend();
+                p.sprite.setAngle(-p.angle);
+                p.sprite.renderAtCenterNoBind(p.loc.x, p.loc.y);
+
                 float glow = getGlowForMember(p);
                 if (glow > 0 && params.flashCoreRadiusMult <= 0f) {
                     p.sprite.setAlphaMult(alphaMult * b * glow * params.alphaMultFlash);
-                    p.sprite.setColor(params.flashCoreColor);
+                    if (attachedTo instanceof ShipAPI)
+                        p.sprite.setColor(((ShipAPI) attachedTo).getVentCoreColor());
                     p.sprite.setSize((int)(size * (1f + alphaMult * b * glow * params.alphaMultFlash)),(int)(size * (1f + alphaMult * b * glow * params.alphaMultFlash)));
                     p.sprite.setAdditiveBlend();
                     //p.sprite.setNormalBlend();

@@ -38,10 +38,10 @@ public class NA_FastCaps extends BaseShipSystemScript {
     protected NA_FastCapsRangeModifier listener;
     protected NA_FastCapDmgBoost dmglistener;
 
-    public static final float DMG_BONUS = 0.5f;
+    public static final float DMG_BONUS = 0.6f;
     public static final float RANGE_BOOST = 0.5f;
     public static final float PASSIVE_BOOST = 20f;
-    public static final float AMMO_MULT = 0.5f;
+    public static final float AMMO_MULT = 0.6f;
     public static final float SPEED_MULT = -0.5f;
     public static final float ROF_BOOST = 1.5f;
 

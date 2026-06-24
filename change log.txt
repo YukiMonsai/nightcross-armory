@@ -1,3 +1,7 @@
+V2.1.1
+- Flamestrike range reduced to 1000 from 1500 now that the homing is fixed and it can hit stuff from that far.
+- Added another Very Spooky Ghost to the abyss
+
 V2.1.0
 - Doppler pulsecannon armor shred reduced to 8 from 15, shield damage increased by 12%, mag size reduced from 48 to 40
 - Atomic driver OP increased to 20

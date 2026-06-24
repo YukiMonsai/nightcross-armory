@@ -10,6 +10,8 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.plugins.NAModPlugin;
+import data.scripts.campaign.plugins.NAUtils;
+import data.scripts.util.NAUtil;
 import second_in_command.SCData;
 import second_in_command.SCUtils;
 import second_in_command.specs.SCAptitudeSpec;
@@ -99,6 +101,16 @@ public class NA_StargazerHull extends NA_StargazerStars {
         tooltip.addPara("- Sensor profile reduced by %s.", opad, h, "50%");
         tooltip.addPara("- Damage from solar corona, pulsar beams, hyperspace storms, and other hazards reduced by %s.", opad, h, "100%");
 
+        tooltip.addSectionHeading("Stardust Nebula", Alignment.MID, opad);
+
+        tooltip.addPara("A cloud of stardust motes circles the ship in combat." +
+                        "\n" +
+                        "At base, the maximum amount of stardust is %s, which regenerates by %s per minute.",
+                opad, h,
+                "" + NA_StargazerStars.getBaseSwarmSize(ship.getHullSize()), "" + (int) (NA_StargazerStars.getBaseSwarmRespawnRateMult(ship.getHullSize()) * 60));
+
+
+
         tooltip.addSectionHeading("Combat", Alignment.MID, opad);
         tooltip.addPara("- %s flux dissipation and capacity per d-mod (max 5)."
                         + "\n- %s max combat readiness per d-mod (max 5)."
@@ -112,6 +124,7 @@ public class NA_StargazerHull extends NA_StargazerStars {
                 "-" + (int) Math.round((DMOD_EFFECT) * 100f) + "%",
                 //"" + (int) Math.round((MODULE_DAMAGE_TAKEN_MULT) * 100f) + "%",
                 "" + (int) Math.round(ZERO_FLUX_BOOST));
+
 
 
     }

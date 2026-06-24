@@ -206,7 +206,7 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
                     data.use(TIME_AFTERIMAGE);
                     ship.setCollisionClass(CollisionClass.NONE);
                 } else if (effectLevel > 0) {
-                    if (!activated) {
+                    if (!activated && lastPoint != null) {
                         MagicRender.battlespace(
                             Global.getSettings().getSprite(ship.getHullSpec().getSpriteName()),
                             new Vector2f(lastPoint.x, lastPoint.y),

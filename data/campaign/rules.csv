@@ -642,3 +642,25 @@ na_blackcat_sic_placeholder,OpenInteractionDialog,"$customType == naai_blackcats
 !$global.naai_gotstargazerxo
 $global.naai_cangetxo",NA_NightcrossWIPStargazerXO,"It's dangerous to go alone! Take this!
 <work in progress>",,
+,,,,,,
+na_DwellerGhostAttack,NA_StargazerShroudAttackAfterAbilityUse,,ShowImageVisual abyssal_light2,"""$PlayerSirOrMadam!"" Your sensors officer's voice is strained. ""They're... something's coming... No fleet on the sensors, but the anomalies...""
+
+Navigation interrupts, ""$ShipOrFleet drive bubble in the red, instability increasing... holding... alert to multiple penetrations. They hit us, $PlayerSirOrMadam.""",na_DwellerGhostAttackSel:Continue,
+na_DwellerGhostAttackSel,DialogOptionSelected,$option == na_DwellerGhostAttackSel,,The deck shudders with a wave of invisible force. Something prying... forcing its way into that bubble of safety separating your fleet from black nothingness.,"na_DwellerGhostAttack_Hard:Order fleet to power up weapons.
+na_DwellerGhostAttack_Easy:Hold fire.",
+na_DwellerGhostAttack_Hard,DialogOptionSelected,$option == na_DwellerGhostAttack_Hard,NA_StargazerShroudCMD largeFleet,"""Aye $playerSirOrMadam! All crew, battle stations!"" Your second in command barks. Alarms sound across the decks along with the rumble of machinery and cooling systems.
+
+Your $shipOrFleet status is up on the central display - shield bubble an unsteady amber, incursions of N-space fissures marked in garish red. A blink of white as active sensors trigger and-
+
+* * *
+
+The drive bubble penetrations erupt into kaleidoscopic vortices, from which emerge swarms of blood-red motes. Ravenous.
+A hunger, palpable, fills the battlespace, as the forms of starships take hold within the chaos. Any sense of being, of restraint, now dissolves into the approaching mass as the combat alarms cry.",,
+na_DwellerGhostAttack_Easy,DialogOptionSelected,$option == na_DwellerGhostAttack_Easy,NA_StargazerShroudCMD mediumFleet,"Your crew looks uneasy. Weapons are powered down, an attempt at communication where there ought be none.
+
+Yet the sensor readings seem to slow, almost restrained by some unknown force. Momentarily. As soon as your plan shows a hint of success, do warnings overtake the screens.
+
+""Energy spikes,"" your sensors officer barks. ""Conventional weapons... N-space fractures..."" Eyes weigh upon them as they falter, reading off scientific jargon as their voice fades to a whimper.
+
+On the main viewscreen, the drive bubble penetrations erupt into kaleidoscopic vortices, from which emerge swarms of blood-red motes. Ravenous.
+A hunger, palpable, fills the battlespace, as the forms of starships take hold within the chaos. Any sense of being, of restraint, now dissolves into the approaching mass as the combat alarms cry.",,

@@ -22,6 +22,8 @@ import data.scripts.stardust.NA_StargazerFIDConfig;
 
 import java.util.Random;
 
+import static data.scripts.campaign.ids.NightcrossPeople.*;
+
 public class NA_StargazerFleets {
 
     public static WeightedRandomPicker<String> STARGAZER_WANDERER_NAMES = new WeightedRandomPicker<String>();
@@ -163,12 +165,12 @@ public class NA_StargazerFleets {
 
 
     public static void setStargazerAICore(FleetMemberAPI curr, String aiCoreID, boolean keepPortrait, Random random, boolean addDrops) {
-        if (curr.getCaptain() == null) {
-            AICoreOfficerPlugin plugin = new NAGhostCorePlugin();
-            //PersonAPI person = OfficerManagerEvent.createOfficer(fleet.getFaction(), 20, true, SkillPickPreference.NON_CARRIER, random);
-            PersonAPI person = plugin.createPerson(aiCoreID, curr.getFleetData().getFleet().getFaction().getId(), random);
-            curr.setCaptain(person);
-        }
+        //if (curr.getCaptain() == null) {
+        AICoreOfficerPlugin plugin = new NAGhostCorePlugin();
+        //PersonAPI person = OfficerManagerEvent.createOfficer(fleet.getFaction(), 20, true, SkillPickPreference.NON_CARRIER, random);
+        PersonAPI person = plugin.createPerson(aiCoreID, curr.getFleetData().getFleet().getFaction().getId(), random);
+        curr.setCaptain(person);
+        //}
 
         switch (aiCoreID) {
             case NightcrossID.TETO_CORE:
@@ -209,6 +211,7 @@ public class NA_StargazerFleets {
                 if (addDrops) {
                     curr.getFleetData().getFleet().addDropRandom("na_stargazer_drops_matrix", 1);
                 }
+                curr.getCaptain().getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_matrix.pick());
                 break;
             case NightcrossID.GHOST_CORE_ID:
                 if (!keepPortrait) {
@@ -225,6 +228,8 @@ public class NA_StargazerFleets {
                 curr.getCaptain().getStats().setSkillLevel(Skills.ENERGY_WEAPON_MASTERY, 2);
                 curr.getCaptain().getStats().setSkillLevel(Skills.MISSILE_SPECIALIZATION, 2);
                 curr.getCaptain().getStats().setSkillLevel(random.nextFloat() < 0.5f ? Skills.FIELD_MODULATION : Skills.DAMAGE_CONTROL, 2);
+
+                curr.getCaptain().getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_core.pick());
                 break;
             case NightcrossID.GHOST_GRID_ID:
                 if (!keepPortrait) {
@@ -245,6 +250,7 @@ public class NA_StargazerFleets {
                 if (addDrops) {
                     curr.getFleetData().getFleet().addDropRandom("na_stargazer_drops_grid", 1);
                 }
+                curr.getCaptain().getMemoryWithoutUpdate().set("$chatterChar", chatter_ghost_grid.pick());
                 break;
         }
     }

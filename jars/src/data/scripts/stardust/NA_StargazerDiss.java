@@ -44,18 +44,17 @@ public class NA_StargazerDiss extends BaseHullMod {
             } else
                 stats.getFluxDissipation().unmodify(id);
 
-            if (amount > 0 && MathUtils.getRandomNumberInRange(0, 1f) < (0.2f + 0.25f * ship.getFluxLevel() + 0.6f * swarm.getNumActiveMembers()/(1f + swarm.getNumMembersToMaintain())) * amount) {
-                if (swarm != null) {
-                    WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
-                    NA_StargazerStardust.SwarmMember fragment = picker2.pick();
-                    NA_StargazerStardust.SwarmMember fragment2 = picker2.pick();
-                    if (fragment2 != null && fragment != null && fragment2 != fragment) {
-                        Global.getCombatEngine().spawnEmpArcVisual(
-                                fragment.loc, ship, fragment2.loc, ship, 15f,
-                                new Color(255, 132, 252, 50),
-                                new Color(255, 185, 246, 150)
-                        );
-                    }
+            if (swarm != null && amount > 0 && MathUtils.getRandomNumberInRange(0, 1f) < (0.2f + 0.25f * ship.getFluxLevel() + 0.6f * swarm.getNumActiveMembers()/(1f + swarm.getNumMembersToMaintain())) * amount) {
+
+                WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
+                NA_StargazerStardust.SwarmMember fragment = picker2.pick();
+                NA_StargazerStardust.SwarmMember fragment2 = picker2.pick();
+                if (fragment2 != null && fragment != null && fragment2 != fragment) {
+                    Global.getCombatEngine().spawnEmpArcVisual(
+                            fragment.loc, ship, fragment2.loc, ship, 15f,
+                            new Color(255, 132, 252, 50),
+                            new Color(255, 185, 246, 150)
+                    );
                 }
             }
         }

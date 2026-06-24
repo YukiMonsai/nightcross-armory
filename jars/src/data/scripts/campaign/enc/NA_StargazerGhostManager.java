@@ -24,6 +24,7 @@ public class NA_StargazerGhostManager extends SensorGhostManager implements Ever
 	static {
 		//CREATORS.add(new TestGhostCreator());
 		CREATORS.add(new NA_StargazerGhostCreator());
+		CREATORS.add(new NA_StargazerShroudGhostCreator());
 	}
 	
 	

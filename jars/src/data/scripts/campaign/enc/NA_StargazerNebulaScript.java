@@ -1,24 +1,38 @@
 package data.scripts.campaign.enc;
 
 import com.fs.starfarer.api.EveryFrameScript;
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.impl.campaign.AbyssalLightEntityPlugin;
+import com.fs.starfarer.api.impl.campaign.abilities.InterdictionPulseAbility;
+import com.fs.starfarer.api.impl.campaign.ids.Entities;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
+import java.util.Random;
 
 public class NA_StargazerNebulaScript implements EveryFrameScript {
 
 	protected float moteSpawnRate = 1f;
 	protected SectorEntityToken entity;
 	protected IntervalUtil moteSpawn = new IntervalUtil(0.01f, 0.1f);
+	protected IntervalUtil lightSpawn = new IntervalUtil(1f, 3f);
+
 
 	public NA_StargazerNebulaScript(SectorEntityToken entity, float moteSpawnRate) {
 		super();
 		this.entity = entity;
 		this.moteSpawnRate = moteSpawnRate;
 	}
+
+
+
 
 	public void advance(float amount) {
 		float days = Misc.getDays(amount);
@@ -27,7 +41,12 @@ public class NA_StargazerNebulaScript implements EveryFrameScript {
 		if (moteSpawn.intervalElapsed()) {
 			spawnMote(entity);
 		}
+
+
+
 	}
+
+
 
 	public static Color MOTE_COLOR = new Color(131, 3, 33,175);
 	
@@ -46,6 +65,7 @@ public class NA_StargazerNebulaScript implements EveryFrameScript {
 		Vector2f.add(vel, from.getVelocity(), vel);
 		Misc.addGlowyParticle(from.getContainingLocation(), loc, vel, size, 0.5f, dur, color);
 	}
+
 
 	public boolean isDone() {
 		return false;

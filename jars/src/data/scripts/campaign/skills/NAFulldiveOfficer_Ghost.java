@@ -34,7 +34,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
     public static class HumanPenalty implements ShipSkillEffect {
         public static float CR_PENALTY_PER_DP = 0.05f;
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
-            FleetMemberAPI member = stats.getFleetMember();
+            /*FleetMemberAPI member = stats.getFleetMember();
             boolean isGhost = member.getVariant().hasHullMod(NA_ProjectGhost.ID);
             if (isGhost && member.getFleetData() != null && member.getFleetData().getFleet() != null
                     && member.getFleetData().getFleet().isPlayerFleet()) {
@@ -43,13 +43,13 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
                     var fmstats = fm.getStats();
                     if (!Misc.isAutomated(fm)
                         && !(fm.getCaptain() != null && fm.getCaptain().isAICore())) {
-                        fmstats.getMaxCombatReadiness().modifyFlat(id + "insanity" + member.getId(), CR_PENALTY_PER_DP * -0.01f * dp, "Insanity - " + member.getShipName());
+                        fmstats.getMaxCombatReadiness().modifyFlatAlways(stats.getFleetMember().getId() + id + fm.getId() + "insanity" + member.getId(), CR_PENALTY_PER_DP * -0.01f * dp, "Insanity - " + member.getShipName());
                     }
                 }
 
                 // apply penalty to things
 
-            }
+            }*/
 
         }
 
@@ -64,7 +64,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
                     var fmstats = fm.getStats();
                     if (!Misc.isAutomated(fm)
                             && !(fm.getCaptain() != null && fm.getCaptain().isAICore())) {
-                        fmstats.getMaxCombatReadiness().unmodify(id + "insanity" + member.getId());
+                        fmstats.getMaxCombatReadiness().unmodify(stats.getFleetMember().getId() + id + fm.getId() + "insanity" + member.getId());
                     }
                 }
 

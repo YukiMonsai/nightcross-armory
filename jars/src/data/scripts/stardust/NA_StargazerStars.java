@@ -10,10 +10,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.CargoStackAPI;
 import com.fs.starfarer.api.campaign.SpecialItemData;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.impl.campaign.ids.Items;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
@@ -122,6 +119,8 @@ public class NA_StargazerStars extends BaseHullMod {
 //		}
 
         NA_StargazerStardust.StardustParams params = new NA_StargazerStardust.StardustParams();
+
+
         if (ship.isFighter()) {
             float radius = 20f;
             int numMembers = 50;
@@ -304,8 +303,8 @@ public class NA_StargazerStars extends BaseHullMod {
 
     public static float getBaseSwarmRespawnRateMult(ShipAPI.HullSize size) {
         switch (size) {
-            case CAPITAL_SHIP: return 4f;
-            case CRUISER: return 2f;
+            case CAPITAL_SHIP: return 3f;
+            case CRUISER: return 1.5f;
             case DESTROYER: return 1f;
             case FRIGATE: return 0.5f;
             case FIGHTER: return 0.2f;

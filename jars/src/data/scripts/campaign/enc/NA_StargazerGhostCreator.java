@@ -46,7 +46,7 @@ public class NA_StargazerGhostCreator extends BaseSensorGhostCreator {
 	@Override
 	public float getFrequency(SensorGhostManager manager) {
 
-		return genList.isEmpty() ? 0 : 10000f;
+		return genList.isEmpty() ? 10f : 10000f;
 		//return 10000f;
 	}
 	
@@ -57,6 +57,8 @@ public class NA_StargazerGhostCreator extends BaseSensorGhostCreator {
 
 	
 }
+
+
 
 
 

@@ -8,6 +8,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.enc.EncounterManager;
 import com.fs.starfarer.api.impl.campaign.fleets.SDFHegemony;
+import com.fs.starfarer.api.impl.campaign.ghosts.SensorGhostManager;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
@@ -16,6 +17,7 @@ import com.fs.starfarer.loading.LoadingUtils;
 import data.scripts.campaign.enc.NA_StargazerBH;
 import data.scripts.campaign.enc.NA_StargazerDrifter;
 import data.scripts.campaign.enc.NA_StargazerGhostManager;
+import data.scripts.campaign.enc.NA_StargazerShroudGhostCreator;
 import data.scripts.campaign.fleets.NA_SDF_Nightcross;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
@@ -123,6 +125,7 @@ public class NAModPlugin extends BaseModPlugin {
         //generators.add(new SpecialThemeGenerator());
         SectorThemeGenerator.generators.add(new NA_NightcrossThemeGenerator());
     }
+
 
 
     private static void initNA() {
@@ -287,6 +290,9 @@ public class NAModPlugin extends BaseModPlugin {
         }
         if (!plugins.hasPlugin(NA_NightcrossHumanDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
+        }
+        if (!plugins.hasPlugin(NA_InsanityManager.class)) {
+            Global.getSector().addTransientScript(new NA_InsanityManager(false));
         }
 
         if (hasSiC) {

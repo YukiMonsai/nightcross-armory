@@ -63,19 +63,21 @@ public class NA_StargazerHeal extends BaseHullMod {
 
                     }
                     data.prev = current;
-                }
 
-                for (int i = 0; i < count; i++) {
-                    WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
-                    NA_StargazerStardust.SwarmMember fragment = picker2.pick();
-                    if (fragment != null) {
-                        Global.getCombatEngine().spawnEmpArcPierceShields(ship,
-                                fragment.loc, ship, ship, DamageType.FRAGMENTATION, 0, 0, ship.getCollisionRadius(), "",15f,
-                                new Color(255, 11, 32, 50),
-                                new Color(236, 54, 131, 150)
-                        );
+                    for (int i = 0; i < count; i++) {
+                        WeightedRandomPicker<NA_StargazerStardust.SwarmMember> picker2 = swarm.getPicker(true, true);
+                        NA_StargazerStardust.SwarmMember fragment = picker2.pick();
+                        if (fragment != null) {
+                            Global.getCombatEngine().spawnEmpArcPierceShields(ship,
+                                    fragment.loc, ship, ship, DamageType.FRAGMENTATION, 0, 0, ship.getCollisionRadius(), "",15f,
+                                    new Color(255, 11, 32, 50),
+                                    new Color(236, 54, 131, 150)
+                            );
+                        }
                     }
                 }
+
+
             }
 
 

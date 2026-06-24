@@ -43,17 +43,19 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 			return;
 		}
 
+		despawnOutsideSector = false;
+		despawnInAbyss = false;
 		//entity.addScript(new NA_StargazerNebulaScript(entity, 0.1f));
 		//entity.addTag(NightcrossTags.NEBULA_GHOST);
-		setDespawnRange(-700f);
+		setDespawnRange(-7000f);
 		
 		float speed = Misc.getSpeedForBurnLevel(maxBurn);
 		float accelMult = speed / Misc.getSpeedForBurnLevel(20f);
 		if (accelMult < 0.1f) accelMult = 0.1f;
 		setAccelMult(1f/ accelMult);
 		
-		addBehavior(new GBIntercept(fleet, 5f + random.nextFloat() * 2f, maxBurn, 450f, true));
-		addBehavior(new GBCircle(fleet, 0.7f + random.nextFloat() * 0.5f, maxBurn / 2, 300f, random.nextBoolean() ? 1f : -1f));
+		addBehavior(new GBIntercept(fleet, 0.8f + random.nextFloat() * 0.5f, maxBurn, 450f, false));
+		addBehavior(new GBCircle(fleet, 0.4f + random.nextFloat() * 1.5f, maxBurn / 2, 300f, random.nextBoolean() ? 1f : -1f));
 		addBehavior(new GBStayInPlace(0.1f));
 		addInterrupt(new GBIRunScript(0f, this, true));
 	}
@@ -138,6 +140,7 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 				fleet.setAI(null);
 				fleet.setNullAIActionText(driftingTypes.pick());
 				fleet.getMemoryWithoutUpdate().set(MusicPlayerPluginImpl.MUSIC_SET_MEM_KEY, "kocaeli_nightcross_remnant");
+
 			}
 		}
 	}

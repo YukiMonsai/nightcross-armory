@@ -58,7 +58,7 @@ public class NightcrossPeople {
         chatter_ghost_grid.add("warframe_cephaloncy", 3f);
         chatter_ghost_grid.add("tt_medusa", 1f);
         chatter_ghost_grid.add("darklord", 0.3f);
-        chatter_ghost_core.add("shortphrases", 2f);
+        chatter_ghost_grid.add("shortphrases", 2f);
     }
     // not very talkative
     public static WeightedRandomPicker<String> chatter_ghost_matrix = new WeightedRandomPicker<String>();
@@ -66,7 +66,7 @@ public class NightcrossPeople {
         chatter_ghost_matrix.add("binary", 2f);
         chatter_ghost_matrix.add("emote", 5f);
         chatter_ghost_matrix.add("none", 0.25f);
-        chatter_ghost_core.add("shortphrases", 1f);
+        chatter_ghost_matrix.add("shortphrases", 1f);
     }
 
     public static PersonAPI createAIPerson(String aiCoreId, String factionId, Random random) {

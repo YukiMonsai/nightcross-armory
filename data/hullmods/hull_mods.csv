@@ -1,4 +1,5 @@
 name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sModDesc,sprite
+Insanity Dummy,na_insanitystats,,,,,,,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.NA_InsanityStats,,,,graphics/hullmods/na_fulldive.png
 Dynamic Grid,nightcrosstargeting,2,,Nightcross Armory,offensive,Weapons,10000,,TRUE,,0,0,0,0,data.scripts.hullmods.NightcrossTargeting,"Dynamic coils reroute power to weapons systems while shields are offline, reducing the flux cost and increasing rate of fire by %s. Bonuses return %s/%s/%s/%s after shields have been disabled, depending on hull size.
 
 Additionally, shields deploy %s more quickly and dissipation is increased by %s/%s/%s/%s while venting.
