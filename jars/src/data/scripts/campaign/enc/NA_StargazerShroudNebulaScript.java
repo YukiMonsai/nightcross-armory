@@ -93,6 +93,12 @@ public class NA_StargazerShroudNebulaScript implements EveryFrameScript {
 						if (angryTime <= 2f) {
 							angryTime = 5f;
 							angryAt = fleet;
+
+							if (dist < INTERDICT_TRIGGER_RANGE + fleet.getRadius() + entity.getRadius()) {
+								ghost.followBehavior = null;
+								ghost.clearScript();
+								hostileTime = 4f;
+							} else
 							if (dist < SENSOR_TRIGGER_RANGE + fleet.getRadius() + entity.getRadius()) {
 								ghost.followBehavior = null;
 								ghost.clearScript();
@@ -142,7 +148,7 @@ public class NA_StargazerShroudNebulaScript implements EveryFrameScript {
 					var pf = angryAt;
 
 
-					ghost.followBehavior = new GBFollow(pf, 1000f, 15, 350f, 1000f);
+					ghost.followBehavior = new GBFollow(pf, 1000f, 12, 350f, 1000f);
 					ghost.addBehavior(ghost.followBehavior);
 					//addBehavior(new GBIRunEveryFrame(0f, this));
 					ghost.addInterrupt(new GBITooClose(0f, pf, 100f));
@@ -157,7 +163,7 @@ public class NA_StargazerShroudNebulaScript implements EveryFrameScript {
 					var pf = Global.getSector().getPlayerFleet();
 					ghost.clearScript();
 
-					ghost.addBehavior(new GBFollow(pf, 1000f, 8, 1000f, 1600f));
+					ghost.addBehavior(new GBFollow(pf, 1000f, 6, 1000f, 1600f));
 					//addBehavior(new GBIRunEveryFrame(0f, this));
 					ghost.addInterrupt(new GBITooClose(0f, pf, 100f));
 					ghost.addBehavior(new GBGoAwayFrom(10f, pf, 10));

@@ -645,8 +645,15 @@ $global.naai_cangetxo",NA_NightcrossWIPStargazerXO,"It's dangerous to go alone! 
 ,,,,,,
 na_DwellerGhostAttack,NA_StargazerShroudAttackAfterAbilityUse,,ShowImageVisual abyssal_light2,"""$PlayerSirOrMadam!"" Your sensors officer's voice is strained. ""They're... something's coming... No fleet on the sensors, but the anomalies...""
 
-Navigation interrupts, ""$ShipOrFleet drive bubble in the red, instability increasing... holding... alert to multiple penetrations. They hit us, $PlayerSirOrMadam.""",na_DwellerGhostAttackSel:Continue,
-na_DwellerGhostAttackSel,DialogOptionSelected,$option == na_DwellerGhostAttackSel,,The deck shudders with a wave of invisible force. Something prying... forcing its way into that bubble of safety separating your fleet from black nothingness.,"na_DwellerGhostAttack_Hard:Order fleet to power up weapons.
+Navigation interrupts, ""$ShipOrFleet drive bubble in the red, instability increasing... holding... alert to multiple penetrations. Something's hit us... $PlayerSirOrMadam.""",na_DwellerGhostAttackSel:Continue,
+na_DwellerGhostAttackSel,DialogOptionSelected,$option == na_DwellerGhostAttackSel,,"The deck shudders with a wave of invisible force. Something prying... forcing its way into that bubble of safety separating your fleet from black nothingness.
+
+Those unusual readings on the sensors- your scanners took it for a cluster of abyssal lights. Nothing in the starship legends, however, tell of those who survived direct contact with one.","na_DwellerGhostAttack_Hard:Order fleet to power up weapons.
+na_DwellerGhostAttack_Easy:Hold fire.",
+na_DwellerGhostAttackSelKnown,DialogOptionSelected,"$option == na_DwellerGhostAttackSel
+$encounteredDweller score: 1000",,"The deck shudders with a wave of invisible force. Something prying... forcing its way into that bubble of safety separating your fleet from black nothingness.
+
+Your updated scanners took the readings for an encounter with the malevolent projections you encountered earlier. A best-fit, of course. Nothing is certain this far from civilized space.","na_DwellerGhostAttack_Hard:Order fleet to power up weapons.
 na_DwellerGhostAttack_Easy:Hold fire.",
 na_DwellerGhostAttack_Hard,DialogOptionSelected,$option == na_DwellerGhostAttack_Hard,NA_StargazerShroudCMD largeFleet,"""Aye $playerSirOrMadam! All crew, battle stations!"" Your second in command barks. Alarms sound across the decks along with the rumble of machinery and cooling systems.
 

@@ -54,7 +54,7 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 		if (accelMult < 0.1f) accelMult = 0.1f;
 		setAccelMult(1f/ accelMult);
 		
-		addBehavior(new GBIntercept(fleet, 0.8f + random.nextFloat() * 0.5f, maxBurn, 450f, false));
+		addBehavior(new GBIntercept(fleet, 0.4f + random.nextFloat() * 0.2f, maxBurn, 450f, false));
 		addBehavior(new GBCircle(fleet, 0.4f + random.nextFloat() * 1.5f, maxBurn / 2, 300f, random.nextBoolean() ? 1f : -1f));
 		addBehavior(new GBStayInPlace(0.1f));
 		addInterrupt(new GBIRunScript(0f, this, true));
@@ -66,7 +66,7 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 		seekingTypes.add("seeking", 10f);
 		seekingTypes.add("scavenging", 10f);
 		seekingTypes.add("hunting", 10f);
-		seekingTypes.add("//I SEE YOU", 1f);
+		seekingTypes.add("//I SEE YOU", 2f);
 	}
 	public static WeightedRandomPicker<String> driftingTypes = new WeightedRandomPicker<>();
 	static {

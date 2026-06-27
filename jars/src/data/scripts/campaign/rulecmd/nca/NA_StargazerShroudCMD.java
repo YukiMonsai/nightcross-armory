@@ -490,6 +490,11 @@ public class NA_StargazerShroudCMD extends BaseCommandPlugin {
         for (FleetMemberAPI m : sgf.getFleetData().getMembersListCopy()) {
             if (m.getHullSpec() != null && m.getHullSpec().getHullSize() == ShipAPI.HullSize.FRIGATE && random.nextFloat() < 0.5f) continue; // less frigates than most fleets
             f.getFleetData().addFleetMember(m);
+            if (m.getHullSpec().getHullId().equals("naai_losulci")) {
+                // replace with shrouded variant
+                var var = Global.getSettings().getVariant("naai_losulci_shrouded").clone();
+                m.setVariant(var, true, true);
+            }
             // add a shrouded hullmod
             if (m.getVariant()==null) continue;
             if (m.isFighterWing()) continue;

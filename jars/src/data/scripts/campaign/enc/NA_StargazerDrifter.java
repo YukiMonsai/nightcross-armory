@@ -1,5 +1,6 @@
 package data.scripts.campaign.enc;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.enc.*;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceAbyssPluginImpl;
 import data.scripts.campaign.plugins.NAModPlugin;
@@ -10,7 +11,7 @@ public class NA_StargazerDrifter extends BaseEPEncounterCreator {
         boolean angry = false;
         HyperspaceAbyssPluginImpl.AbyssalEPData data = (HyperspaceAbyssPluginImpl.AbyssalEPData) point.custom;
         if (data.depth >= DEPTH_THRESHOLD_FOR_ANGRY_DRIFTER)
-            angry = manager.getRandom().nextFloat() < 0.1 * Math.sqrt(NA_StargazerGhostManager.getAbyssInterest()) + 1f - (ANGRY_CHANCE + ANGRY_CHANCE/(1f + 0.1f * data.depth)); // jank
+            angry = manager.getRandom().nextFloat() < 0.1 * Math.sqrt(NA_StargazerGhostManager.getAbyssInterest()) + 0.65f - (ANGRY_CHANCE + ANGRY_CHANCE/(1f + 0.1f * data.depth)); // jank
         NA_StargazerGhostCreator.genList.add(new NA_StargazerGhostCreator.StargazerGhostEncounterGenerationParams(
                 angry
         )); // jank
@@ -32,13 +33,21 @@ public class NA_StargazerDrifter extends BaseEPEncounterCreator {
         if (!isPointSuited(point, false, DEPTH_THRESHOLD_FOR_DRIFTER)) {
             return 0f;
         }
-        return STARGAZER_DRIFER_FREQ + NA_StargazerGhostManager.getAbyssInterest()*2.5f;
+        var pf = Global.getSector().getPlayerFleet();
+        var base_freq = STARGAZER_DRIFER_FREQ;
+        if (pf != null) {
+            base_freq += FLEETPOINTS_ATENTION_FACTOR * Math.min(MAX_FLEETPOINTS_ATENTION, pf.getFleetPoints())/MAX_FLEETPOINTS_ATENTION;
+        }
+        return base_freq + NA_StargazerGhostManager.getAbyssInterest()*2.5f;
     }
 
 
     public static float DEPTH_THRESHOLD_FOR_DRIFTER = 0.8f;
     public static float DEPTH_THRESHOLD_FOR_ANGRY_DRIFTER = 4f;
-    public static float STARGAZER_DRIFER_FREQ = 0.5f;
+    public static float STARGAZER_DRIFER_FREQ = 0.1f;
+    public static float MAX_FLEETPOINTS_ATENTION = 0.6f;
+    public static float FLEETPOINTS_ATENTION_FACTOR = 0.9f;
+
     public static float ANGRY_CHANCE = 0.6f;
 
     public static boolean isPointSuited(EncounterPoint point, boolean allowNearStar, float depthRequired) {
