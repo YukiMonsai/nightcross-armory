@@ -5,9 +5,8 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.combat.entities.terrain.Asteroid;
 import data.scripts.campaign.plugins.NAUtils;
-import data.scripts.weapons.NA_RKKVRenderer;
+import data.scripts.weapons.NA_RKKVRenderer_HE;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -17,7 +16,7 @@ import org.magiclib.util.MagicTargeting;
 import java.awt.*;
 import java.util.List;
 
-public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
+public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
 
     private static CombatEngineAPI engine;
     private final MissileAPI missile;
@@ -34,16 +33,22 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     private final float MAX_SPEED;
     private final float SLOW_SPEED = 500f;
 
+
+    private final float TRIGGER_DIST = 1000f;
+    private final float TRIGGER_SUBS = 20f;
+    private final float TRIGGER_ANGLE = 25f;
+    private final String TRIGGER_WPN = "na_rkkv_he_dummy";
+
     private float target_angle = 0f;
     // 0 - standoff
     // 1 - full send
     private int stage = 0;
 
-    public final float MIN_RANGE = 5000f;
+    public final float MIN_RANGE = 4000f;
 
-    public NA_RKKVAI(MissileAPI missile, ShipAPI ship) {
+    public NA_RKKVAI_HE(MissileAPI missile, ShipAPI ship) {
         if (layerRenderer == null || engine != Global.getCombatEngine()) {
-            layerRenderer = new NA_RKKVRenderer();
+            layerRenderer = new NA_RKKVRenderer_HE();
             Global.getCombatEngine().addLayeredRenderingPlugin(layerRenderer);
         }
 
@@ -67,7 +72,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     }
 
 
-    static NA_RKKVRenderer layerRenderer = null;
+    static NA_RKKVRenderer_HE layerRenderer = null;
 
 
     private int getCone() {
@@ -194,10 +199,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
 
             float vmult = 0.4f;
-            float pvmult = 0.4f;
+            float pvmult = 0.55f;
             if (MathUtils.getDistance(target.getLocation(), missile.getLocation()) > (1.4f * missile.getVelocity().length())) {
                 vmult = 0.75f;
-                pvmult = 0.5f;
+                pvmult = 0.7f;
             }
 
             lead = leadPoint(
@@ -280,6 +285,22 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                         0f,
                         missile.getSource()
                 );
+
+                if (target != null && MathUtils.getDistance(missile, target) <= TRIGGER_DIST) {
+                    missile.setHitpoints(0); // boom
+
+                    for (float ang = -TRIGGER_ANGLE; ang <= TRIGGER_ANGLE; ang += (2 * TRIGGER_ANGLE / TRIGGER_SUBS)) {
+                        var scale = MathUtils.getRandomNumberInRange(0.3f- 0.07f * (Math.abs(ang) / TRIGGER_ANGLE), 0.6f);
+                        CombatEntityAPI proj = Global.getCombatEngine().spawnProjectile(missile.getSource(), null,
+                                TRIGGER_WPN,
+                                missile.getLocation(),
+                                Misc.getAngleInDegrees(Misc.ZERO, missile.getVelocity()) + ang,
+                                new Vector2f(missile.getVelocity().x * scale, missile.getVelocity().y * scale));
+                        if (proj instanceof MissileAPI) ((MissileAPI) proj).setEmpResistance(4);
+                        Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(missile.getSource(),
+                                WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
+                    }
+                }
 
                 beamTimer.setElapsed(0);
             } else {

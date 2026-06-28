@@ -1,6 +1,9 @@
 V2.1.1
+- Added new weapons: Mute LRPD, Powerchord RKKV
 - Flamestrike range reduced to 1000 from 1500 now that the homing is fixed and it can hit stuff from that far.
-- Added another Very Spooky Ghost to the abyss
+- HPF reloads/sec decreased by 20% and 16% for small/medium mount respectively
+- Added a Very Spooky Ghost to the abyss
+- Made redacted planetoids less common in the abyss and lowered frequency accordingly
 
 V2.1.0
 - Doppler pulsecannon armor shred reduced to 8 from 15, shield damage increased by 12%, mag size reduced from 48 to 40

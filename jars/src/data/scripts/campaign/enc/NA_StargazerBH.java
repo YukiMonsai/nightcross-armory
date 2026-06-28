@@ -32,7 +32,7 @@ import static data.scripts.world.nightcross.NA_StargazerFleets.createStargazerFl
 public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
     public static final float DEPTH_THRESHOLD_FOR_ABYSSAL_STARGAZER_ENC = 0.15f;
-    public static final float STARGAZER_FREQ = 5f;
+    public static final float STARGAZER_FREQ = 3f;
     public static final float STARGAZER_BASE_POWER = 5f;
 
     public static WeightedRandomPicker<NA_RogueStellarObjectType> ALT_STELLAR_OBJECT_TYPES = new WeightedRandomPicker<NA_RogueStellarObjectType>();
@@ -48,7 +48,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
 
     static {
 
-        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.PLANETOID, 75);
+        ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.PLANETOID, 25f);
         ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.GAS_GIANT, 12f);
         ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.BLACK_HOLE, 5f);
         ALT_STELLAR_OBJECT_TYPES.add(NA_RogueStellarObjectType.BROWN_DWARF, 8f);

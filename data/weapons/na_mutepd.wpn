@@ -1,0 +1,57 @@
+{
+  "id": "na_mutepd",
+  "specClass": "beam",
+  "type": "ENERGY",
+  "size": "SMALL",
+	"collisionClass":"RAY_FIGHTER",
+	"collisionClassByFighter":"RAY_FIGHTER",
+  "turretSprite": "graphics/weapons/na_mutepd_turret.png",
+  "turretGlowSprite": "graphics/weapons/na_mutepd_turret_glow.png",
+  "hardpointSprite": "graphics/weapons/na_mutepd_hardpoint.png",
+  "hardpointGlowSprite": "graphics/weapons/na_mutepd_hardpoint_glow.png",
+  
+  "glowColor": [
+    185,
+    100,
+    255,
+    255
+  ],
+  "fringeColor": [
+    25,
+    0,
+    175,
+    85
+  ],
+  "coreColor": [
+    150,
+    45,
+    200,
+    125
+  ],
+  "hitGlowRadius": 25.0,
+  "hitGlowBrightenDuration":0.25,
+  "turretOffsets": [
+    5,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    13,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "width": 11,
+  "textureType": LASER,
+  "textureScrollSpeed": 256,
+  "pixelsPerTexel": 5,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "fireSoundOne": "guardian_pd_fire"
+}

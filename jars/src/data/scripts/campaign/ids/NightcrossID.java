@@ -18,6 +18,7 @@ public class NightcrossID {
     public static final String HOMING_LASER_ID = "na_hominglaser_shot";
     public static final String HOMING_LASER_MEDIUM_ID = "na_hominglaser_medium_shot";
     public static final String RKKV_ID = "na_rkkv_shot";
+    public static final String RKKV_HE_ID = "na_rkkv_he_shot";
     public static final String FOSSA_ID = "na_fossa";
     public static final String FOSSA_IDL = "na_fossa_frontL";
     public static final String FOSSA_IDR = "na_fossa_frontR";

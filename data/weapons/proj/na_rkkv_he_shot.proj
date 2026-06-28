@@ -1,8 +1,8 @@
 {
-	"id":"na_rkkv_shot",
+	"id":"na_rkkv_he_shot",
 	"specClass":"missile",	
 	"missileType":"MISSILE",
-	"sprite":"graphics/missiles/na_rkkv_missile.png",
+	"sprite":"graphics/missiles/na_rkkv_he_missile.png",
 	"onFireEffect":"data.scripts.weapons.NA_RKKVEffect",
 	"size":[14,45],	
 	"center":[7,23],
@@ -16,16 +16,16 @@
 	"flameoutTime":15,
 	"engineSpec":{"turnAcc":950,
 				  "turnRate":950,
-				  "acc":170,
-				  "dec":100},
+				  "acc":270,
+				  "dec":150},
 	"engineSlots":[{"id":"ES1",
-					"loc":[0, 0],
+					"loc":[-10, 0],
 				    #"style":"MISSILE_MIDLINE",
 				    "style":"CUSTOM",
 					"styleSpec":{
 						"mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
 						#"engineColor":[255,145,75,255],
-						"engineColor":[125,225,255,255],
+						"engineColor":[255,75,125,255],
 						"contrailDuration":1.25,
 						"contrailWidthMult":0.35,
 						"contrailWidthAddedFractionAtEnd":3.75,  # can be negative. makes trail spread out/narrow at the end
@@ -33,7 +33,7 @@
 						"contrailMaxSpeedMult":.0f,
 						"contrailAngularVelocityMult":0.5f,
 						"contrailSpawnDistMult":.1, # how far away from engine it starts
-						"contrailColor":[50,175,255,225],
+						"contrailColor":[225,50,75,255],
 				    	"glowSizeMult":2,
 						"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
 					},

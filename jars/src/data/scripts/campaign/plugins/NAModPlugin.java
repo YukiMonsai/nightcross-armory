@@ -24,6 +24,7 @@ import data.scripts.campaign.ids.NightcrossPeople;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
 import data.scripts.weapons.ai.NA_HomingLaserAI;
 import data.scripts.weapons.ai.NA_RKKVAI;
+import data.scripts.weapons.ai.NA_RKKVAI_HE;
 import data.scripts.weapons.ai.NA_corrosionmoteai;
 import data.scripts.world.nightcross.*;
 import exerelin.campaign.SectorManager;
@@ -163,6 +164,9 @@ public class NAModPlugin extends BaseModPlugin {
                     CampaignPlugin.PickPriority.MOD_SET);
         } else if (NightcrossID.RKKV_ID.contentEquals(missile.getProjectileSpecId())) {
             return new PluginPick<MissileAIPlugin>(new NA_RKKVAI(missile, launchingShip),
+                    CampaignPlugin.PickPriority.MOD_SET);
+        } else if (NightcrossID.RKKV_HE_ID.contentEquals(missile.getProjectileSpecId())) {
+            return new PluginPick<MissileAIPlugin>(new NA_RKKVAI_HE(missile, launchingShip),
                     CampaignPlugin.PickPriority.MOD_SET);
         }else if ("na_corrosionbeambullet_shot".contentEquals(missile.getProjectileSpecId())) {
             return new PluginPick<MissileAIPlugin>(new NA_corrosionmoteai(missile, launchingShip),

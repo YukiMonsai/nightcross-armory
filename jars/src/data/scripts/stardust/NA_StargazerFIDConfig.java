@@ -19,6 +19,16 @@ import java.util.List;
 import java.util.Random;
 
 public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.FIDConfigGen {
+    public static WeightedRandomPicker<String> hullmods = new WeightedRandomPicker<>();
+
+    static {
+        hullmods.add("na_stargazerrage", 5);
+        hullmods.add("na_stargazerdiss", 4);
+        hullmods.add("na_stargazerheal", 5);
+        hullmods.add("na_stargazersoulsteal", 4);
+        hullmods.add("na_stargazerstars", 1);
+    }
+
     public FleetInteractionDialogPluginImpl.FIDConfig createConfig() {
         FleetInteractionDialogPluginImpl.FIDConfig config = new FleetInteractionDialogPluginImpl.FIDConfig();
 
@@ -50,10 +60,6 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                 //random = new Random();
 
                 boolean gaveNebula = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerstars");
-                boolean gaveRage = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerrage");
-                boolean gaveDiss = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerdiss");
-                boolean gaveHeal = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazerheal");
-                boolean gavesteal = Global.getSector().getPlayerFaction().knowsHullMod("na_stargazersoulsteal");
 
                 for (FleetMemberAPI member : losses) {
                     if (member.getHullSpec().hasTag("stargazer_hull") || (member.getHullSpec().getBaseHull() != null && member.getHullSpec().getBaseHull().hasTag("stargazer_hull"))) {
@@ -68,7 +74,7 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                         for (int i = 0; i < rolls; i++) {
 
                             // stardust nebula
-                            if (random.nextFloat() < p && random.nextFloat() < mult) {
+                            if ((random.nextFloat() < p || (!gaveNebula && random.nextFloat() < 0.6f)) && random.nextFloat() < mult) {
                                 if (!gaveNebula) {
                                     String id = "na_stargazerstars";
                                     gaveNebula = true;
@@ -78,36 +84,14 @@ public class NA_StargazerFIDConfig implements FleetInteractionDialogPluginImpl.F
                                     if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
 
                                     salvage.addHullmods(id, 1);
-                                } else if (!gaveRage && random.nextFloat() < 0.25f) {
-                                    String id = "na_stargazerrage";
-                                    gaveRage = true;
-                                    HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
-                                    if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
-                                    //if (spec.isAlwaysUnlocked()) continue;
-                                    if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
+                                } else {
+                                    String id = hullmods.pick();
+                                    for (float ii = 0; ii < 5; ii++) {
+                                        if (Global.getSector().getPlayerFaction().knowsHullMod(id)) {
+                                            id = hullmods.pick();
+                                        }
+                                    }
 
-                                    salvage.addHullmods(id, 1);
-                                } else if (!gaveDiss && random.nextFloat() < 0.33f) {
-                                    String id = "na_stargazerdiss";
-                                    gaveDiss = true;
-                                    HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
-                                    if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
-                                    //if (spec.isAlwaysUnlocked()) continue;
-                                    if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
-
-                                    salvage.addHullmods(id, 1);
-                                } else if (!gaveHeal && random.nextFloat() < 0.33f) {
-                                    String id = "na_stargazerheal";
-                                    gaveHeal = true;
-                                    HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
-                                    if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
-                                    //if (spec.isAlwaysUnlocked()) continue;
-                                    if (spec.hasTag(Tags.HULLMOD_NO_DROP)) continue;
-
-                                    salvage.addHullmods(id, 1);
-                                } else if (!gavesteal && random.nextFloat() < 0.5f) {
-                                    String id = "na_stargazersoulsteal";
-                                    gavesteal = true;
                                     HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
                                     if (spec.isHidden() || spec.isHiddenEverywhere()) continue;
                                     //if (spec.isAlwaysUnlocked()) continue;

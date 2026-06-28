@@ -1,0 +1,76 @@
+{
+	"id":"na_rkkv_he_dummy_shot",
+	"specClass":"missile",	
+	"missileType":"ROCKET",
+	"collisionClassByFighter":"MISSILE_NO_FF",
+	"onHitEffect":"data.scripts.weapons.NA_PyrowispHit",
+	
+	
+	"glowColor":[205,75,255,150],
+    "textureScrollSpeed":-256.0,
+	"pixelsPerTexel":5.0,
+	"textureType":"WEAVE",  # only needed for BEAM spawnType
+	"passThroughFightersOnlyWhenDestroyed":true,
+	
+	"noCollisionWhileFading":true,
+	
+	"size":[40,40],	
+	"center":[20,20],
+	"collisionRadius":25,
+	"collisionClass":"MISSILE_NO_FF",
+	"explosionColor":[255,0,125,235],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":50, # purely visual
+	"engineSpec":{"turnAcc":0,
+				  "turnRate":0,
+				  "acc":0,
+				  "dec":0},	
+	#"length":0,
+	"hitGlowRadius":50,
+	"fringeColor":[255,0,0,145],
+	"coreColor":[75,0,255,255],	
+	"sprite":"graphics/missiles/na_rkkv_he_sub.png",
+	"flameoutTime":0.2, # total time from flameout to full fadeout
+	"noEngineGlowTime":0.2, # time spent without the engine glow being rendered
+	"fadeTime":0.2, # fadeout duration			
+	
+	"explosionSpec":{"duration":0.1f, # not visual
+					 "radius":150,
+					 "coreRadius":75, # full damage within core radius
+					 "collisionClass":HITS_SHIPS_AND_ASTEROIDS,
+					 "collisionClassByFighter":HITS_SHIPS_AND_ASTEROIDS,
+					 "particleSizeMin":5.0,
+					 "particleSizeRange":3.0,
+					 "particleDuration":1,
+					 "particleCount":20,
+					 "particleColor":[255,155,155,255],
+					 "explosionColor":[255,100,100,255],
+					 "detailedExplosionFlashColorFringe":[255,100,100,255],
+					 "detailedExplosionFlashRadius":300,
+					 "useDetailedExplosion":true
+					 },
+	
+    "renderTargetIndicator":true,
+	"engineSlots":[
+			{"id":"ES1",
+                "loc":[0, -4],
+                "style":"CUSTOM",
+                "styleSpec":{
+                        "mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
+						"engineColor":[255,100,25,255],
+						"contrailDuration":2,
+						"contrailWidthMult":1.5,
+						"contrailWidthAddedFractionAtEnd":-1,  # can be negative. makes trail spread out/narrow at the end
+						"contrailMinSeg":5, # min segment length, in pixels
+						"contrailMaxSpeedMult":0f,
+						"contrailAngularVelocityMult":0.5f,
+						"contrailSpawnDistMult":0f, # how far away from engine it starts
+						"contrailColor":[255,100,25,50],
+						"glowSizeMult":1.0,
+						"glowAlternateColor":[255,0,0,255],
+						"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
+                },
+                "width":9.0,
+                "length":9.0,
+                "angle":180.0
+                }],
+}

@@ -13,9 +13,11 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
 
     private static final String PYROWISP_PROJ_ID = "na_pyrowisp_shot";
     private static final String PYROWISP_MEDIUM_PROJ_ID = "na_pyrowisp_medium_shot";
+    private static final String RKKV_ID = "na_rkkv_he_dummy_shot";
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
     private static final float PYROWISP_DMG = 90f;
     private static final float PYROWISP_MEDIUM_DMG = 200f;
+    private static final float RKKV_DMG = 400f;
     private static final float PYROWISP_LARGE_DMG = 300f;
 
     @Override
@@ -36,6 +38,9 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
                     break;
                 case PYROWISP_LARGE_PROJ_ID:
                     dmg = PYROWISP_LARGE_DMG;
+                    break;
+                case RKKV_ID:
+                    dmg = RKKV_DMG;
                     break;
                 default:
                     break;

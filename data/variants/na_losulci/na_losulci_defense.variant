@@ -29,8 +29,8 @@
       "autofire": false,
       "mode": "ALTERNATING",
       "weapons": {
-        "WS0028": "na_rkkv_medium",
-        "WS0029": "na_rkkv_medium"
+        "WS0028": "na_rkkv_he_medium",
+        "WS0029": "na_rkkv_he_medium"
       }
     },
     {
