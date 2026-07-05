@@ -35,8 +35,8 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
 
 
     private final float TRIGGER_DIST = 1000f;
-    private final float TRIGGER_SUBS = 20f;
-    private final float TRIGGER_ANGLE = 25f;
+    private final float TRIGGER_SUBS = 15f;
+    private final float TRIGGER_ANGLE = 30f;
     private final String TRIGGER_WPN = "na_rkkv_he_dummy";
 
     private float target_angle = 0f;
@@ -44,7 +44,7 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
     // 1 - full send
     private int stage = 0;
 
-    public final float MIN_RANGE = 4000f;
+    public final float MIN_RANGE = 5000f;
 
     public NA_RKKVAI_HE(MissileAPI missile, ShipAPI ship) {
         if (layerRenderer == null || engine != Global.getCombatEngine()) {
@@ -299,6 +299,7 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
                         if (proj instanceof MissileAPI) ((MissileAPI) proj).setEmpResistance(4);
                         Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(missile.getSource(),
                                 WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
+                        proj.setMass(250f);
                     }
                 }
 

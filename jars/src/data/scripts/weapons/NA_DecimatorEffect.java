@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Vector2f;
 public class NA_DecimatorEffect implements BeamEffectPlugin {
 
 	public final int SHOCK_COUNT = 4;
-	public final float DAMAGE_AMOUNT = 250;
+	public final float DAMAGE_AMOUNT = 400;
 
 
 
