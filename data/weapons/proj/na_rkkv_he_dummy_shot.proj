@@ -4,6 +4,7 @@
 	"missileType":"ROCKET",
 	"collisionClassByFighter":"MISSILE_NO_FF",
 	"onHitEffect":"data.scripts.weapons.NA_PyrowispHit",
+	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
 	
 	
 	"glowColor":[205,75,255,150],
@@ -24,7 +25,8 @@
 				  "turnRate":0,
 				  "acc":0,
 				  "dec":0},	
-	#"length":0,
+	#"length":0,	 
+	"armingTime":0,
 	"hitGlowRadius":50,
 	"fringeColor":[255,0,0,145],
 	"coreColor":[75,0,255,255],	
@@ -32,6 +34,7 @@
 	"flameoutTime":0.2, # total time from flameout to full fadeout
 	"noEngineGlowTime":0.2, # time spent without the engine glow being rendered
 	"fadeTime":0.2, # fadeout duration			
+	"dudProbabilityOnFlameout":0,
 	
 	"explosionSpec":{"duration":0.1f, # not visual
 					 "radius":150,
@@ -52,20 +55,20 @@
     "renderTargetIndicator":true,
 	"engineSlots":[
 			{"id":"ES1",
-                "loc":[0, -4],
+                "loc":[0, 0],
                 "style":"CUSTOM",
                 "styleSpec":{
                         "mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
-						"engineColor":[255,170,75,255],
-						"contrailDuration":2,
+						"engineColor":[255,255,255,255],
+						"contrailDuration":0.75,
 						"contrailWidthMult":1.5,
-						"contrailWidthAddedFractionAtEnd":-1,  # can be negative. makes trail spread out/narrow at the end
+						"contrailWidthAddedFractionAtEnd":-0.9,  # can be negative. makes trail spread out/narrow at the end
 						"contrailMinSeg":5, # min segment length, in pixels
 						"contrailMaxSpeedMult":0f,
 						"contrailAngularVelocityMult":0.5f,
 						"contrailSpawnDistMult":0f, # how far away from engine it starts
-						"contrailColor":[255,100,25,120],
-						"glowSizeMult":1.0,
+						"contrailColor":[255,175,75,225],
+						"glowSizeMult":1.4,
 						"glowAlternateColor":[255,0,0,255],
 						"type":"GLOW" # GLOW or SMOKE; additive or regular blend mode
                 },

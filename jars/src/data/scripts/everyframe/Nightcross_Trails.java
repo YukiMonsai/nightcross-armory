@@ -83,6 +83,10 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color NAAI_VIOLETBLACK_COLOR_START = new Color(255, 6, 6);
     private static final Color NAAI_VIOLETBLACK_COLOR_END = new Color(216, 103, 255);
 
+    private static final String NA_RKKV_HE_SUBM_ID = "na_rkkv_he_dummy_shot";
+    private static final Color NA_RKKV_HE_SUBM_START = new Color(255, 6, 6);
+    private static final Color NA_RKKV_HE_SUBM_END = new Color(55, 55, 55);
+
 
 
     private static final float SIXTY_FPS = 1f / 60f;
@@ -134,6 +138,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
 
                 case META_PROJ_ID:
                 case META_PROJ_ID2:
+                case NA_RKKV_HE_SUBM_ID:
                 case MINIRAZOR_ID:
 
                 case PYROWISP_LARGE_PROJ_ID:
@@ -169,6 +174,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                 case PYROAI_PROJ_ID:
                 case META_PROJ_ID:
                 case META_PROJ_ID2:
+                case NA_RKKV_HE_SUBM_ID:
                 case MINIRAZOR_ID:
                 case SUPERBLASTER_PROJ_ID:
                 case HARDLIGHT_PROJ_ID:
@@ -727,6 +733,43 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 sidewaysVel, /* offsetVelocity */
                                 null, /* advancedOptions */
                                 CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                    }
+                break;
+                case NA_RKKV_HE_SUBM_ID:
+                    if (data.interval == null) {
+                        data.interval = new IntervalUtil(SIXTY_FPS, SIXTY_FPS);
+                    }
+                    data.interval.advance(amount);
+                    if (data.interval.intervalElapsed()) {
+                        spawnPosition = new Vector2f(proj.getLocation());
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_smoketrail"), /* sprite */
+                                spawnPosition, /* position */
+                                0f, /* startSpeed */
+                                0f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                powermult * 8f + (30), /* startSize */
+                                powermult * 95f + 62f, /* endSize */
+                                new Color(244, 69, 55), /* startColor */
+                                NA_RKKV_HE_SUBM_END, /* endColor */
+                                fade, /* opacity */
+                                0f, /* inDuration */
+                                0.1f * powermult + 0.4f, /* mainDuration */
+                                0.1f * powermult + (spec.equals(NA_RKKV_HE_SUBM_ID) ? 0.5f : 0.3f), /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                16f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                Misc.ZERO, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.BELOW_PHASED_SHIPS_LAYER, /* layerToRenderOn */
                                 1f /* frameOffsetMult */
                         );
                     }

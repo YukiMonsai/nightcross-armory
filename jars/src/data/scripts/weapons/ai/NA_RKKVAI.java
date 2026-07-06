@@ -116,7 +116,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                     setTarget(
                             MagicTargeting.pickTarget(
                                     missile, MagicTargeting.targetSeeking.LOCAL_RANDOM,
-                                    (int) missile.getMaxRange(), getCone(),
+                                    (int) missile.getMaxRange() * 2, getCone(),
                                     0, 1, 4, 10, 20, true));
                 }
 
@@ -203,7 +203,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             lead = leadPoint(
                     new Vector2f(target.getLocation()),
                     new Vector2f(vmult*target.getVelocity().x - pvmult * missile.getVelocity().x, vmult*target.getVelocity().y - pvmult * missile.getVelocity().y),
-                    new Vector2f(missile.getLocation()), Math.max(10, missile.getVelocity().length()*pvmult));
+                    new Vector2f(missile.getLocation()), Math.max(1, missile.getVelocity().length()*pvmult));
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     lead.y - missile.getLocation().y,
                     lead.x - missile.getLocation().x
@@ -240,6 +240,19 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                     missile.getVelocity().set(
                             missile.getVelocity().x - amt * amount * (Math.signum(missile.getVelocity().x)),
                             missile.getVelocity().y - amt * amount * (Math.signum(missile.getVelocity().y)));
+                }
+
+                List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), 350f);
+
+                for (CombatEntityAPI e : asteroids) {
+                    if (e instanceof CombatAsteroidAPI) {
+                        float ang = MathUtils.getShortestRotation(
+                                VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
+                        if (Math.abs(ang) < 25) {
+                            e.setHitpoints(0); // blow up the asteroid
+                        }
+                    }
+
                 }
             }
 
