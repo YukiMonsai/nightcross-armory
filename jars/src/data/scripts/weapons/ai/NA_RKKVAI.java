@@ -183,7 +183,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
 
             float distance = MathUtils.getDistance(missile, target.getLocation());
-            if (distance > MIN_RANGE) {
+            if (distance > MIN_RANGE / missile.getEngineStats().getMissileMaxSpeedBonus().computeEffective(1)) {
                 stage = 1;
                 // gogogo
             }

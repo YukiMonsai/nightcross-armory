@@ -136,6 +136,11 @@
 	[
 		{"file":"sounds/system/na_forgevats2.ogg","pitch":1.0,"volume":1.1},
 	],
+	"na_flickerfield":
+	[
+		{"file":"sounds/system/na_flickerfield.ogg","pitch":1.0,"volume":1.5},
+	],
+	
 	"naai_megablaster_fire":
 	[
 		{"file":"sounds/wpn/naai_megablaster_fire.ogg","pitch":1.0,"volume":0.9},

@@ -75,6 +75,7 @@
 		"na_tempus_support":2,
 		"na_tempus_brawler":3,
 		"na_tempus_dual":2,
+		"na_ister_elite":1.5,
 		
 	},
 	"combatCapital":{
@@ -96,6 +97,7 @@
 	},
 	
 	"civilianRandom":{
+		
 	},
 
 	# carriers

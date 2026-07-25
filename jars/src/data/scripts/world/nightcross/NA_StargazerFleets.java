@@ -113,6 +113,13 @@ public class NA_StargazerFleets {
             }
 
         }
+
+        if (f.getFlagship() != null && f.getFlagship().getCaptain() != null) {
+
+            f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.FLUX_REGULATION, 2);
+            f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.COORDINATED_MANEUVERS, 2);
+            f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.ELECTRONIC_WARFARE, 2);
+        }
         editStargazerFleetAICores(f, random);
     }
 

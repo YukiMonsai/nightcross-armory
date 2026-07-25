@@ -175,7 +175,7 @@ public class NA_BlackcatGen implements SectorGeneratorPlugin {
 
         int maxFleets = 7;
         StargazerStation activeFleets = new StargazerStation(
-                added.entity, 1f, 0, maxFleets, 15f, 8, 24);
+                added.entity, 1f, 0, maxFleets, 15f, 8, 36);
         system.addScript(activeFleets);
 
 

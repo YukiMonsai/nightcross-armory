@@ -5,8 +5,14 @@ import com.fs.starfarer.api.SoundAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
+import com.fs.starfarer.api.ui.Alignment;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
+import data.scripts.NA_Flickerfield;
 import data.scripts.campaign.plugins.NAUtils;
+import data.scripts.stardust.NA_StargazerStars;
+import data.scripts.util.NAUtil;
 import org.dark.shaders.distortion.WaveDistortion;
 import org.dark.shaders.light.StandardLight;
 import org.lwjgl.util.vector.Vector2f;
@@ -27,9 +33,19 @@ public class NA_TidalGrid extends BaseHullMod {
 		mag.put(HullSize.CAPITAL_SHIP, 2f);
 	}
 
-	public static final float FLUX_RED = 33f;
-	public static final float RPM_INCREASE = 33f;
+	public static final float FLUX_RED = 50f;
+	public static final float FLUX_RED_ENG = 33f;
+	public static final float RPM_INCREASE = 50f;
+	public static final float DMG_INCREASE = 33f;
+	public static final float MISSILE_DMG = 33f;
+	public static final float MISSILE_HP = 50f;
+
 	public static final float TIME_SECONDS = 1.5f;
+
+	public static final float DURATION_FACTOR = 1.2f; // Each second in phase
+	public static final float DURATION_MAX = 15.0f; // Max duration
+	public static final float TIMEFLOW_PEN = 1.0f; // Max duration
+
 	public static final float PARTICLE_PERIOD = 0.08f;
 	public static final float ARC_PERIOD = 0.08f;
 	public static final float PARTICLE_DURATION = 0.15f;
@@ -45,14 +61,14 @@ public class NA_TidalGrid extends BaseHullMod {
 
 
 
-	public static float FLUX_THRESHOLD_INCREASE_PERCENT = 75f;
+	public static float FLUX_THRESHOLD_INCREASE_PERCENT = 300f;
 
 
 
 	private String ID = "NightcrossTidalGrid";
 
 	private static class NightcrossTargetingData {
-		IntervalUtil interval = new IntervalUtil(TIME_SECONDS, TIME_SECONDS);
+		IntervalUtil interval = new IntervalUtil(DURATION_MAX, DURATION_MAX);
 		IntervalUtil intervalOff = new IntervalUtil(TIME_SECONDS, TIME_SECONDS);
 		public void reset(float time) {
 			interval = new IntervalUtil(time, time);
@@ -82,36 +98,104 @@ public class NA_TidalGrid extends BaseHullMod {
 	}
 	private static class NightcrossTargetingLevelData {
 		float level = 1.0f;
+		float duration = 0.0f;
 	}
 
 	private static Map mag2 = new HashMap();
 	static {
 		mag2.put(HullSize.FIGHTER, 50f);
-		mag2.put(HullSize.FRIGATE, 25f);
+		mag2.put(HullSize.FRIGATE, 20f);
 		mag2.put(HullSize.DESTROYER, 20f);
-		mag2.put(HullSize.CRUISER, 15f);
-		mag2.put(HullSize.CAPITAL_SHIP, 10f);
+		mag2.put(HullSize.CRUISER, 20f);
+		mag2.put(HullSize.CAPITAL_SHIP, 20f);
 	}
+
+
+	@Override
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return "" + (int) FLUX_RED + "%";
-		if (index == 1) return "" + Math.round((Float) mag.get(HullSize.FRIGATE)) + "";
-		if (index == 2) return "" + Math.round((Float) mag.get(HullSize.DESTROYER)) + "";
-		if (index == 3) return "" + Math.round((Float) mag.get(HullSize.CRUISER)) + "";
-		if (index == 4) return "" + Math.round((Float) mag.get(HullSize.CAPITAL_SHIP)) + " seconds";
-		if (index == 5) return "" + (int) + FLUX_THRESHOLD_INCREASE_PERCENT + "%";
+		if (index == 1) return "" + (int) RPM_INCREASE + "%";
+		if (index == 2) return "" + (int) DMG_INCREASE + "%";
+		if (index == 3) return "" + Math.round((Float) mag.get(HullSize.FRIGATE)) + "";
+		if (index == 4) return "" + Math.round((Float) mag.get(HullSize.DESTROYER)) + "";
+		if (index == 5) return "" + Math.round((Float) mag.get(HullSize.CRUISER)) + "";
+		if (index == 6) return "" + Math.round((Float) mag.get(HullSize.CAPITAL_SHIP)) + " seconds";
+		if (index == 7) return "" + (int) DURATION_FACTOR + "%";
+		if (index == 8) return "" + (int) 30 + "%";
 
-		if (index == 6) return "" + Math.round((Float) mag2.get(HullSize.FRIGATE)) + "";
-		if (index == 7) return "" + Math.round((Float) mag2.get(HullSize.DESTROYER)) + "";
-		if (index == 8) return "" + Math.round((Float) mag2.get(HullSize.CRUISER)) + "";
-		if (index == 9) return "" + Math.round((Float) mag2.get(HullSize.CAPITAL_SHIP)) + "%";
+		if (index == 9) return "" + Math.round((Float) mag2.get(HullSize.FRIGATE)) + "";
+		return "err";
+	}
+
+
+	public String getSModDescriptionParam(int index, HullSize hullSize) {
+		if (index == 0) return "" + Math.round((Float) mag2.get(hullSize)) + "%";
 		return null;
+	}
+
+	public static Color TIDAL_BLUE = new Color(53, 53, 253);
+
+	@Override
+	public void addPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
+		float pad = 3f;
+		float opad = 10f;
+		Color h = Misc.getHighlightColor();
+		Color bad = Misc.getNegativeHighlightColor();
+		Color t = Misc.getTextColor();
+		Color g = Misc.getGrayColor();
+
+		tooltip.addPara("\"What your children achieved with freedom from gravity, we will have the power to determine on our own.", TIDAL_BLUE, opad);
+
+		tooltip.addSectionHeading("Tidal Burst", Alignment.MID, opad);
+
+		tooltip.addPara("The ship's flux systems are designed to handle an arcane device called a \"Tidal Reactor,\" producing relatively shallow phase dives and keeping the ship's flux venting components and weapon systems partially in phase after exiting a dive. For a duration after exiting phase, the resulting Tidal Burst grants:\n" +
+						" - -%s ballistic weapon flux cost\n - +%s ballistic fire rate\n - -%s energy weapon flux cost\n - +%s energy weapon damage\n - +%s missile damage\n - +%s missile hitpoints\n",
+				opad, h,
+				"" + (int) FLUX_RED + "%",
+				"" + (int) RPM_INCREASE + "%",
+				"" + (int) FLUX_RED_ENG + "%",
+				"" + (int) DMG_INCREASE + "%",
+				"" + (int) MISSILE_DMG + "%",
+				"" + (int) MISSILE_HP + "%"
+		);
+
+
+		tooltip.addSectionHeading("Duration", Alignment.MID, opad);
+
+		tooltip.addPara("The duration of this effect is equal to %s seconds per second spent in phase, up to a maximum of %s seconds. The system is disrupted and duration reset at the start of a phase dive, and is re-enabled after remaining in phase space for %s seconds.",
+				opad, h,
+				"" + Math.round((Float) mag.get(hullSize)) + "",
+				"" + (int) DURATION_FACTOR + "",
+				"" + (int) DURATION_MAX + ""
+		);
+
+
+		tooltip.addSectionHeading("Other Effects", Alignment.MID, opad);
+
+		tooltip.addPara("The phase coils aretuned to a much shallower dive, resulting in %s reduced timeflow increase while phased compared to standard phase coils, but reducing phase coil stress significantly and almost completely eliminating the speed penalty from hard flux. Incompatible with Adaptive Phase Coil.",
+				opad, h,
+				"" + 30 + "%");
+
+
+
+	}
+
+	@Override
+	public boolean shouldAddDescriptionToTooltip(ShipAPI.HullSize hullSize, ShipAPI ship, boolean isForModSpec) {
+		return false;
+	}
+	public float getTooltipWidth() {
+		return super.getTooltipWidth();
 	}
 
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 		stats.getDynamic().getMod(
 				Stats.PHASE_CLOAK_FLUX_LEVEL_FOR_MIN_SPEED_MOD).modifyPercent(id, FLUX_THRESHOLD_INCREASE_PERCENT);
+		stats.getDynamic().getMod(
+				Stats.PHASE_TIME_BONUS_MULT).modifyPercent(id, TIMEFLOW_PEN);
 
-		stats.getVentRateMult().modifyPercent(id, (float) mag2.get(hullSize));
+		if (isSMod(stats))
+			stats.getVentRateMult().modifyPercent(id, (float) mag2.get(hullSize));
 	}
 
 
@@ -208,6 +292,10 @@ public class NA_TidalGrid extends BaseHullMod {
 			}
 		}
 
+		if (ship.getPhaseCloak().isOn() && effectlevel.level == 0) {
+			effectlevel.duration = Math.min(effectlevel.duration + amount * DURATION_FACTOR, DURATION_MAX);
+		}
+
 		if (effectlevel.level > 0) {
 			if (ship.getPhaseCloak().isOn()) {
 				data.intervalOff.advance(amount);
@@ -218,12 +306,13 @@ public class NA_TidalGrid extends BaseHullMod {
 			ship.getMutableStats().getBallisticWeaponFluxCostMod().unmodify(ID);
 			ship.getMutableStats().getEnergyWeaponFluxCostMod().unmodify(ID);
 			ship.getMutableStats().getBallisticRoFMult().unmodify(ID);
-			ship.getMutableStats().getEnergyRoFMult().unmodify(ID);
+			ship.getMutableStats().getEnergyWeaponDamageMult().unmodify(ID);
+			ship.getMutableStats().getMissileHealthBonus().unmodify(ID);
+			ship.getMutableStats().getMissileWeaponDamageMult().unmodify(ID);
 
 
 			if (data.intervalOff.intervalElapsed()) {
 				effectlevel.level = 0f;
-				data.reset((Float) mag.get(ship.getHullSize()));
 				float chance = 1f * (ARC_CHANCE_VISUAL * ship.getAllWeapons().size());
 				arctimer.reset();
 				arctimer.resetCount();
@@ -257,14 +346,14 @@ public class NA_TidalGrid extends BaseHullMod {
 							"na_tidalcloak",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Tidal Grid",
-							"Tidal Grid charging " + ((int) (100f * data.intervalOff.getElapsed() / data.intervalOff.getIntervalDuration())) + "%",
+							"Tidal Burst charging " + ((int) (100f * data.intervalOff.getElapsed() / data.intervalOff.getIntervalDuration())) + "%",
 							true);
 				} else {
 					Global.getCombatEngine().maintainStatusForPlayerShip(
 							"na_tidalcloak",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Tidal Grid",
-							"Tidal Grid inactive. enter phase to charge.",
+							"Tidal Burst inactive. enter phase to prime.",
 							true);
 				}
 
@@ -272,16 +361,27 @@ public class NA_TidalGrid extends BaseHullMod {
 		} else {
 			if (!ship.getPhaseCloak().isOn()) {
 
+				if (effectlevel.duration > 0) {
+
+					data.reset(Math.min(effectlevel.duration, DURATION_MAX));
+					effectlevel.duration = 0;
+				}
+
 				ship.getMutableStats().getBallisticWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
-				ship.getMutableStats().getEnergyWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED);
+				ship.getMutableStats().getEnergyWeaponFluxCostMod().modifyPercent(ID, -FLUX_RED_ENG);
 				ship.getMutableStats().getBallisticRoFMult().modifyPercent(ID, RPM_INCREASE);
-				ship.getMutableStats().getEnergyRoFMult().modifyPercent(ID, RPM_INCREASE);
+				ship.getMutableStats().getEnergyWeaponDamageMult().modifyPercent(ID, DMG_INCREASE);
+				ship.getMutableStats().getMissileHealthBonus().modifyPercent(ID, MISSILE_HP);
+				ship.getMutableStats().getMissileWeaponDamageMult().modifyPercent(ID, MISSILE_DMG);
+
+				ship.setJitter(ship, TIDAL_BLUE, 0.5f, 3, 20f);
+
 				if (ship == player) {
 					Global.getCombatEngine().maintainStatusForPlayerShip(
 							"na_tidalcloak",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Tidal Grid",
-							"increased fire rate",
+							"Increased fire rate and damage for " + ((int) (data.interval.getIntervalDuration() - data.interval.getElapsed())) + " seconds",
 							false);
 				}
 
@@ -289,19 +389,32 @@ public class NA_TidalGrid extends BaseHullMod {
 
 			} else {
 
+				// AI fix for the ister chaos
+				if (ship.getAIFlags() != null && ship.getShipTarget() != null && (ship != Global.getCombatEngine().getPlayerShip()
+						|| (Global.getCombatEngine().getCombatUI() != null && Global.getCombatEngine().getCombatUI().isAutopilotOn()))
+					&& NAUtils.shipSize(ship) + 1 >= NAUtils.shipSize(ship.getShipTarget())) {
+					if (!ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.IN_CRITICAL_DPS_DANGER)) {
+						if (ship.getAIFlags().hasFlag(ShipwideAIFlags.AIFlags.PHASE_ATTACK_RUN_IN_GOOD_SPOT)) {
+							ship.getPhaseCloak().deactivate();
+						}
+					}
+				}
+
 				if (ship == player) {
 					Global.getCombatEngine().maintainStatusForPlayerShip(
 							"na_tidalcloak",
 							"graphics/icons/hullsys/high_energy_focus.png",
 							"Tidal Grid",
-							"Tidal Grid ready",
-							false);
+							"Tidal Burst duration: " + ((int) (effectlevel.duration)) + " seconds",
+							true);
 				}
 
 				ship.getMutableStats().getBallisticWeaponFluxCostMod().unmodify(ID);
 				ship.getMutableStats().getEnergyWeaponFluxCostMod().unmodify(ID);
 				ship.getMutableStats().getBallisticRoFMult().unmodify(ID);
-				ship.getMutableStats().getEnergyRoFMult().unmodify(ID);
+				ship.getMutableStats().getEnergyWeaponDamageMult().unmodify(ID);
+				ship.getMutableStats().getMissileHealthBonus().unmodify(ID);
+				ship.getMutableStats().getMissileWeaponDamageMult().unmodify(ID);
 			}
 
 
@@ -343,18 +456,23 @@ public class NA_TidalGrid extends BaseHullMod {
 					chargesound.sound = null;
 				}
 			} else {
-				if (!ship.getPhaseCloak().isOn())
+				if (!ship.getPhaseCloak().isOn()) {
 					data.resetOff((Float) mag.get(ship.getHullSize()));
+				}
 				if (data.interval.intervalElapsed()) {
 					if (chargesound.sound == null && !ship.getPhaseCloak().isOn()) {
-						chargesound.sound = Global.getSoundPlayer().playSound(CHARGE_SOUND, 1f, 1f, ship.getLocation(), ship.getVelocity());
+						chargesound.sound = Global.getSoundPlayer().playSound("na_steamoff", 1f, 1f, ship.getLocation(), ship.getVelocity());
+					}
+					if (!ship.getPhaseCloak().isOn()) {
+						effectlevel.level = 1f;
 					}
 				} else {
 					if (chargesound.sound != null) {
 						chargesound.sound.stop();
 						chargesound.sound = null;
 					}
-					data.interval.advance(amount);
+					if (!(ship.getMutableStats().getDynamic().getStat(NA_Flickerfield.TIDAL_PAUSE).getModifiedValue() > 1.01))
+						data.interval.advance(amount);
 				}
 			}
 		}

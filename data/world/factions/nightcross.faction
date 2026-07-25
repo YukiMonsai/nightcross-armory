@@ -41,13 +41,14 @@
 			"na_nammu": 3,
 			"na_losulci": 2,
 			"na_elyurias": 2,
-			"na_xanthe": 1,
+			"na_xanthe": 1.5,
 			"na_tempus": 2,
 			"na_tessera": 3,
 			"na_kasei": 3,
 			"na_fossa": 4,
 			"na_zal": 5,
 			"na_kasei_x": 4,
+			"na_ister": 1.5,
         },
     },
 	"ranks":{
@@ -87,6 +88,7 @@
 			"na_kasei_x",
 			"na_tempus",
 			"na_xanthe",
+			"na_ister",
         ],
     },
     "knownShips":{

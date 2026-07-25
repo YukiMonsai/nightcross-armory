@@ -1,7 +1,7 @@
 {
   "variantId": "na_macula_overdriven",
   "hullId": "na_macula",
-  "displayName": "Safety Overrides",
+  "displayName": "Overdriven",
   "goalVariant": true,
   "fluxCapacitors": 0,
   "fluxVents": 9,

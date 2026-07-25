@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.RemnantSeededFleetManager;
+import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.fleets.NA_StargazerAssignmentAI;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.stardust.NA_StargazerFIDConfig;
@@ -78,10 +79,14 @@ public class StargazerStation extends SourceBasedFleetManager {
         super.advance(amount);
     }
 
+    public static float MinDistToSpawnStargazerFleet = 500;
 
     @Override
     protected CampaignFleetAPI spawnFleet() {
         if (source == null) return null;
+        if (Global.getSector().getPlayerFleet() != null && Misc.getDistance(Global.getSector().getPlayerFleet().getLocation(), source.getLocation()) < MinDistToSpawnStargazerFleet) {
+            return null;
+        }
 
         Random random = new Random();
 

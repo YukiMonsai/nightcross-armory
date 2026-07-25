@@ -237,6 +237,12 @@ public class NAModPlugin extends BaseModPlugin {
 
         Global.getSector().registerPlugin(new NACampaignPlugin());
         initNA();
+
+        NA_BlackcatGen genbc = new NA_BlackcatGen();
+        genbc.init(Global.getSector());
+        genbc.generate(Global.getSector());
+        if (genbc.BlackcatGenerated)
+            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDBC, true);
     }
 
 
@@ -427,6 +433,7 @@ public class NAModPlugin extends BaseModPlugin {
         // Placeholder
     }
 
+
     @Override
     public void onNewGameAfterEconomyLoad() {
         if (!MagicVariables.getIBB()) {
@@ -482,11 +489,6 @@ public class NAModPlugin extends BaseModPlugin {
         //if (!NAModPlugin.hasLunaLib
         //       || NA_SettingsListener.na_stargazer_spawn)
         //{
-        NA_BlackcatGen genbc = new NA_BlackcatGen();
-        genbc.init(Global.getSector());
-        genbc.generate(Global.getSector());
-        if (genbc.BlackcatGenerated)
-            Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDBC, true);
         //}
     }
 

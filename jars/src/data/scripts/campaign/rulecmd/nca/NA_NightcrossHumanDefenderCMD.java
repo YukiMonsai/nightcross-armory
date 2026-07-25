@@ -190,7 +190,6 @@ public class NA_NightcrossHumanDefenderCMD extends BaseCommandPlugin {
         return true;
     }
 
-
 }
 
 

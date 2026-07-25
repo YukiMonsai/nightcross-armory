@@ -1,5 +1,8 @@
 V2.1.2
 - Bitcrush HMG is now a magazine weapon, flux/shot increased from 40 to 45
+- Reduced pyrorifle efficiency and dps somewhat
+- Reworked Tidal Grid for nightcross phase ships
+- New ship: Ister Chaos
 
 V2.1.1
 - Added new weapons: Mute LRPD, Powerchord RKKV

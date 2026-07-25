@@ -16,6 +16,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.plugins.NAModPlugin;
 import data.scripts.campaign.plugins.NA_SettingsListener;
+import data.scripts.hullmods.NA_ProjectGhost;
 import data.scripts.world.NightcrossTags;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -704,12 +705,16 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
             psd.shipName = shipName;
             psd.nameAlwaysKnown = true;
             psd.pruneWeapons = pruneWeapons;
+
         }
         DerelictShipEntityPlugin.DerelictShipData params = new DerelictShipEntityPlugin.DerelictShipData(psd, true);
 
         CustomCampaignEntityAPI ship = (CustomCampaignEntityAPI) BaseThemeGenerator.addSalvageEntity(
                 random, system, Entities.WRECK, Factions.NEUTRAL, params);
 
+        if (type.automated) {
+            ship.setName("Automated Wreck");
+        }
         if (loc.orbit != null) {
             ship.setOrbit(loc.orbit);
             loc.orbit.setEntity(ship);
@@ -730,6 +735,12 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
     protected static class NA_DerelictType {
         public String id;
         public boolean recoverable;
+        public boolean automated = true;
+        public NA_DerelictType(String id, boolean recoverable, boolean automated) {
+            this.id = id;
+            this.recoverable = recoverable;
+            this.automated = automated;
+        }
         public NA_DerelictType(String id, boolean recoverable) {
             this.id = id;
             this.recoverable = recoverable;
@@ -738,27 +749,28 @@ public class NA_NightcrossThemeGenerator extends BaseThemeGenerator {
 
     public static WeightedRandomPicker<NA_DerelictType> derelictShipTypes = new WeightedRandomPicker<NA_DerelictType>();
     static {
-        derelictShipTypes.add(new NA_DerelictType("na_nammu_support", true), 1.5f);
-        derelictShipTypes.add(new NA_DerelictType("na_echo_assault", true), 0.25f);
-        derelictShipTypes.add(new NA_DerelictType("na_sop_elite", true), 0.6f);
-        derelictShipTypes.add(new NA_DerelictType("na_mare_exp", true), 0.5f);
-        derelictShipTypes.add(new NA_DerelictType("na_zal_strike", true), 1.0f);
-        derelictShipTypes.add(new NA_DerelictType("na_tempus_experimental", true), 0.1f);
-        derelictShipTypes.add(new NA_DerelictType("na_fossa_sniper", true), 0.25f);
-        derelictShipTypes.add(new NA_DerelictType("na_macula_overdriven", true), 0.3f);
-        derelictShipTypes.add(new NA_DerelictType("na_xanthe_standard", true), 0.25f);
-        derelictShipTypes.add(new NA_DerelictType("na_kasei_x_assault", true), 0.4f);
-        derelictShipTypes.add(new NA_DerelictType("atlas_Standard", true), 0.1f);
-        derelictShipTypes.add(new NA_DerelictType("buffalo_Standard", true), 0.8f);
-        derelictShipTypes.add(new NA_DerelictType("phantom_Elite", true), 0.9f);
-        derelictShipTypes.add(new NA_DerelictType("kite_Standard", true), 1.9f);
-        derelictShipTypes.add(new NA_DerelictType("mudskipper_Standard", true), 1.9f);
-        derelictShipTypes.add(new NA_DerelictType("mercury_Standard", true), 1.9f);
-        derelictShipTypes.add(new NA_DerelictType("prometheus_Super", true), 0.05f);
-        derelictShipTypes.add(new NA_DerelictType("dram_Light", true), 0.5f);
-        derelictShipTypes.add(new NA_DerelictType("phaeton_Standard", true), 0.3f);
+        derelictShipTypes.add(new NA_DerelictType("na_nammu_support", true, false), 1.0f);
+        derelictShipTypes.add(new NA_DerelictType("na_echo_auto", true), 0.2f);
+        derelictShipTypes.add(new NA_DerelictType("na_elyurias_auto", true), 0.2f);
+        derelictShipTypes.add(new NA_DerelictType("na_sop_auto", true), 0.6f);
+        derelictShipTypes.add(new NA_DerelictType("na_losulci_auto", true), 0.05f);
+        derelictShipTypes.add(new NA_DerelictType("na_mare_auto", true), 0.5f);
+        derelictShipTypes.add(new NA_DerelictType("na_zal_auto", true), 1.0f);
+        derelictShipTypes.add(new NA_DerelictType("na_tempus_auto", true), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("na_fossa_auto", true), 0.25f);
+        derelictShipTypes.add(new NA_DerelictType("na_macula_auto", true), 0.35f);
+        derelictShipTypes.add(new NA_DerelictType("na_xanthe_auto", true), 0.05f);
+        derelictShipTypes.add(new NA_DerelictType("na_tessera_auto", true), 0.2f);
+        derelictShipTypes.add(new NA_DerelictType("na_xanthe_standard", true, false), 0.2f);
+        derelictShipTypes.add(new NA_DerelictType("na_kasei_x_auto", true), 0.35f);
+        derelictShipTypes.add(new NA_DerelictType("na_kasei_auto", true), 0.65f);
+        derelictShipTypes.add(new NA_DerelictType("phantom_Elite", true, false), 0.9f);
+        derelictShipTypes.add(new NA_DerelictType("dram_Light", true, false), 0.5f);
+        derelictShipTypes.add(new NA_DerelictType("phaeton_Standard", true, false), 0.3f);
+        derelictShipTypes.add(new NA_DerelictType("na_ister_auto", true), 0.05f);
+        derelictShipTypes.add(new NA_DerelictType("na_ister_elite", true, false), 0.1f);
         // broken beyond repair
-        derelictShipTypes.add(new NA_DerelictType("na_losulci_defense", false), 0.1f);
+        derelictShipTypes.add(new NA_DerelictType("na_losulci_defense", false, false), 0.1f);
         derelictShipTypes.add(new NA_DerelictType("naai_sop_corrupted", false), 0.1f);
         derelictShipTypes.add(new NA_DerelictType("naai_mare_corrupted", false), 0.1f);
         derelictShipTypes.add(new NA_DerelictType("naai_macula_corrupted", false), 0.1f);

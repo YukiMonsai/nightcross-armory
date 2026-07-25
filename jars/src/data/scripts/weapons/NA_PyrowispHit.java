@@ -57,11 +57,11 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
                         false,
                         proj.getSource()
                 );
-                engineAPI.addNegativeSwirlyNebulaParticle(point, target.getVelocity(), 150f, 1.5f,
+                engineAPI.addNegativeSwirlyNebulaParticle(point, target.getVelocity(), 150f, 2.5f,
                         MathUtils.getRandomNumberInRange(.3f, .5f), 1f, 1.5f,
-                        new Color(21, 200, 255));
+                        new Color(21, 200, 255, 150));
                 engineAPI.addSwirlyNebulaParticle(point, target.getVelocity(), 80, 3.5f,
-                        MathUtils.getRandomNumberInRange(.3f, .5f), 1.5f, 3f,
+                        MathUtils.getRandomNumberInRange(.3f, .5f), 0.75f, 2.5f,
                         new Color(255, 83, 21), true);
             }
 

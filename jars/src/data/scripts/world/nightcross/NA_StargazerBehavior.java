@@ -28,10 +28,10 @@ public class NA_StargazerBehavior implements EveryFrameScript {
     protected float seenByPlayerTimeout = 0f;
     protected float seenByPlayerTime = 0f;
     protected float seenByPlayerTimeTotal = 0f;
-    protected float WARNING_TIME = 125f;
-    protected float WARNING_TIME_CD = 75f;
-    protected float KILL = 250f;
-    protected float KILL_TIME_CD = 200f;
+    protected float WARNING_TIME = 75f;
+    protected float WARNING_TIME_CD = 30f;
+    protected float KILL = 150f;
+    protected float KILL_TIME_CD = 30f;
     protected float NO_FORGET = 4f;
 
 
@@ -101,6 +101,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
                 if (seenByPlayerTimeTotal < KILL * NO_FORGET || Global.getSector().getPlayerFleet().getMemoryWithoutUpdate().getBoolean("$na_stargazer_kill")) {
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_HOSTILE, false);
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_NON_HOSTILE, true);
+                    fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_ALWAYS_PURSUE, false);
                 }
             }
         } else if (!(Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER).getRelationship(Factions.PLAYER) > 0.1f)) {
@@ -115,6 +116,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
                     }
 
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_HOSTILE, true);
+                    fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_ALWAYS_PURSUE, true);
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_NON_HOSTILE, false);
 
                     fleet.getMemoryWithoutUpdate().set("$na_stargazersuspicion", true);
@@ -151,6 +153,7 @@ public class NA_StargazerBehavior implements EveryFrameScript {
         } else {
 
             fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_HOSTILE, false);
+            fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_ALWAYS_PURSUE, false);
             fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_NO_REP_IMPACT, false);
             fleet.getMemoryWithoutUpdate().set("$na_stargazersuspicion", false);
         }

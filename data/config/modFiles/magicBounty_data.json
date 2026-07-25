@@ -97,7 +97,7 @@
             "$na_enableaibounties":true,
         },
         "trigger_memKeys_any": { 
-            "$$na_noexploration":true,
+            "$na_noexploration":true,
             "$na_found_nca_research":true,
         },
 	},
