@@ -3,8 +3,8 @@
   "hullId": "na_macula",
   "displayName": "Missile",
   "goalVariant": true,
-  "fluxCapacitors": 9,
-  "fluxVents": 0,
+  "fluxCapacitors": 18,
+  "fluxVents": 6,
   "quality": 2,
   "permaMods": [],
   "hullMods": [
@@ -33,7 +33,7 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0010": "hveldriver"
+        "WS0010": "heavyac"
       }
     },
     {

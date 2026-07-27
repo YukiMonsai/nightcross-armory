@@ -120,7 +120,7 @@ public class NA_StargazerFleets {
             f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.COORDINATED_MANEUVERS, 2);
             f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.ELECTRONIC_WARFARE, 2);
 
-            if (random.nextBoolean())
+            if ((random != null && random.nextBoolean()) || (random == null && Math.random() < 0.5f))
                 f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.WOLFPACK_TACTICS, 2);
             else f.getFlagship().getCaptain().getStats().setSkillLevel(Skills.TACTICAL_DRILLS, 2);
 
