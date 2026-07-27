@@ -145,6 +145,18 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
         if (stage == 0)
         {
+            List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), 350f);
+
+            for (CombatEntityAPI e : asteroids) {
+                if (e instanceof CombatAsteroidAPI) {
+                    float ang = MathUtils.getShortestRotation(
+                            VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
+                    if (Math.abs(ang) < 25) {
+                        e.setHitpoints(0); // blow up the asteroid
+                    }
+                }
+
+            }
 
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     missile.getLocation().y - target.getLocation().y,

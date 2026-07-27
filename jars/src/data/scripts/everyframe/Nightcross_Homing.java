@@ -157,14 +157,14 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             }
                         }
                         if (selectedTarget == null) {
-                            List<DamagingProjectileAPI> projes = NAUtils.getProjectilesWithinRange(testLoc, home_dist);
+                            List<DamagingProjectileAPI> projes = NAUtils.getProjectilesWithinRange(testLoc, home_dist, true);
                             targetscached = projes;
                         }
                     }
 
                     if (selectedTarget == null) {
                         // allow projectiles too
-                        List<DamagingProjectileAPI> targets = targetscached != null ? targetscached : NAUtils.getProjectilesWithinRange(testLoc, home_dist);
+                        List<DamagingProjectileAPI> targets = targetscached != null ? targetscached : NAUtils.getProjectilesWithinRange(testLoc, home_dist, true);
 
                         for (int ii = 0; ii < targets.size(); ii++) {
                             DamagingProjectileAPI tt = targets.get(ii);

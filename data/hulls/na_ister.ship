@@ -294,7 +294,7 @@
       "mount": "HARDPOINT",
       "arc": 8,
       "angle": 45,
-      "locations": [41, 32.5]
+      "locations": [38, 29]
     },
     {
       "id": "WS0006",
@@ -356,7 +356,7 @@
       "size": "MEDIUM",
       "type": "ENERGY",
       "mount": "TURRET",
-      "arc": 223,
+      "arc": 236,
       "angle": 180,
       "locations": [-63, -0]
     },

@@ -162,19 +162,29 @@ public class NAUtils {
 
         return entities;
     }
-    public static List<DamagingProjectileAPI> getProjectilesWithinRange(Vector2f location, float range) {
+
+
+    public static List<DamagingProjectileAPI> getProjectilesWithinRange(Vector2f location, float range, boolean missiles) {
         List<DamagingProjectileAPI> entities = new ArrayList<>();
 
         // This also includes missiles
-        for (DamagingProjectileAPI tmp : Global.getCombatEngine().getMissiles()) {
-            if (MathUtils.isWithinRange(tmp, location, range)) {
-                entities.add(tmp);
+        for (DamagingProjectileAPI tmp : Global.getCombatEngine().getProjectiles()) {
+            if (!(tmp instanceof MissileAPI))
+                if (MathUtils.isWithinRange(tmp, location, range)) {
+                    entities.add(tmp);
+                }
+        }
+        if (missiles) {
+            // This also includes missiles
+            for (DamagingProjectileAPI tmp : Global.getCombatEngine().getMissiles()) {
+                if (MathUtils.isWithinRange(tmp, location, range)) {
+                    entities.add(tmp);
+                }
             }
         }
 
         return entities;
     }
-
 
 
 

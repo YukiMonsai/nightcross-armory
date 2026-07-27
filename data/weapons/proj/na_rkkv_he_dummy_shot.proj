@@ -4,7 +4,6 @@
 	"missileType":"ROCKET",
 	"collisionClassByFighter":"MISSILE_NO_FF",
 	"onHitEffect":"data.scripts.weapons.NA_PyrowispHit",
-	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
 	
 	
 	"glowColor":[205,75,255,150],

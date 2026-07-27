@@ -15,7 +15,7 @@ import org.lwjgl.util.vector.Vector2f;
 
 public class NA_Flickerfield extends BaseShipSystemScript {
 
-    public static float MAGNITUDE = 0.7f;
+    public static float MAGNITUDE = 0.9f;
     public static float HFLUX_REDUCTION = 0.5f;
     public static String TIDAL_PAUSE = "na_tidalpause";
 

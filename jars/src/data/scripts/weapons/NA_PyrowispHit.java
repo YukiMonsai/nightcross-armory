@@ -17,7 +17,7 @@ public class NA_PyrowispHit implements OnHitEffectPlugin {
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
     private static final float PYROWISP_DMG = 90f;
     private static final float PYROWISP_MEDIUM_DMG = 200f;
-    private static final float RKKV_DMG = 500f;
+    private static final float RKKV_DMG = 250f;
     private static final float PYROWISP_LARGE_DMG = 300f;
 
     @Override

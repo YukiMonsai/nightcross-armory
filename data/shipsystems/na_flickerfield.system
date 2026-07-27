@@ -1,9 +1,10 @@
 {
 	"id":"na_flickerfield",
 	"type":"STAT_MOD",
-	"aiType":"DAMPER_FIELD",
+	"aiType":"CUSTOM",
 	
 	"statsScript":"data.scripts.NA_Flickerfield",
+	"aiScript":"data.scripts.ai.NA_FlickerfieldAI",
 	
 	"jitterUnderColor":[60,165,255,155],
 	"jitterUnderCopies":25,

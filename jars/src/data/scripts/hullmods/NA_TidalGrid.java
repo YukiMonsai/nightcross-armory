@@ -15,6 +15,7 @@ import data.scripts.stardust.NA_StargazerStars;
 import data.scripts.util.NAUtil;
 import org.dark.shaders.distortion.WaveDistortion;
 import org.dark.shaders.light.StandardLight;
+import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.util.MagicIncompatibleHullmods;
 
@@ -32,6 +33,7 @@ public class NA_TidalGrid extends BaseHullMod {
 		mag.put(HullSize.CRUISER, 2.3f);
 		mag.put(HullSize.CAPITAL_SHIP, 2f);
 	}
+	public static Color WEAPON_GLOW = new Color(20, 159, 245,155);
 
 	public static final float FLUX_RED = 50f;
 	public static final float FLUX_RED_ENG = 33f;
@@ -44,9 +46,9 @@ public class NA_TidalGrid extends BaseHullMod {
 
 	public static final float DURATION_FACTOR = 1.2f; // Each second in phase
 	public static final float DURATION_MAX = 15.0f; // Max duration
-	public static final float TIMEFLOW_PEN = 1.0f; // Max duration
+	public static final float TIMEFLOW_PEN = 0.7f; // Max duration
 
-	public static final float PARTICLE_PERIOD = 0.08f;
+	public static final float PARTICLE_PERIOD = 0.2f;
 	public static final float ARC_PERIOD = 0.08f;
 	public static final float PARTICLE_DURATION = 0.15f;
 	public static final float PARTICLE_RADIUS = 30f;
@@ -374,7 +376,13 @@ public class NA_TidalGrid extends BaseHullMod {
 				ship.getMutableStats().getMissileHealthBonus().modifyPercent(ID, MISSILE_HP);
 				ship.getMutableStats().getMissileWeaponDamageMult().modifyPercent(ID, MISSILE_DMG);
 
-				ship.setJitter(ship, TIDAL_BLUE, 0.5f, 3, 20f);
+				//ship.setJitter(ship, TIDAL_BLUE, 0.5f, 3, 20f);
+
+				for (WeaponAPI w : ship.getAllWeapons()) {
+					if (!w.isDecorative()) {
+						w.setGlowAmount(0.5f, WEAPON_GLOW);
+					}
+				}
 
 				if (ship == player) {
 					Global.getCombatEngine().maintainStatusForPlayerShip(
@@ -437,7 +445,7 @@ public class NA_TidalGrid extends BaseHullMod {
 								pos, new Vector2f(ship.getVelocity().x*0.5f, ship.getVelocity().y*0.5f),
 								sz, 3f, 0.5f, 0.5f,
 								0.8f,
-								new Color(94, 92, 0, 110)
+								new Color(94, 92, 0, 65)
 						);
 
 					}

@@ -1,10 +1,10 @@
 {
-  "variantId": "na_ister_elite",
+  "variantId": "na_ister_assault",
   "hullId": "na_ister",
-  "displayName": "Elite",
+  "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 35,
-  "fluxVents": 1,
+  "fluxCapacitors": 27,
+  "fluxVents": 15,
   "quality": 2,
   "permaMods": [],
   "hullMods": [
@@ -12,22 +12,43 @@
     "na_energizedarmor",
     "armoredweapons",
     "fluxbreakers",
-    "heavyarmor"
+    "eccm"
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0032": "na_heavyparticlecannon"
+        "WS0001": "typhoon",
+        "WS0002": "na_superblaster",
+        "WS0003": "locust",
+        "WS0006": "na_superblaster",
+        "WS0032": "na_superblaster_large",
+        "WS0033": "na_mediumchirp",
+        "WS0034": "na_hardlightriflereal",
+        "WS0037": "na_pyrorifle",
+        "WS0038": "na_pyrorifle"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0003": "hurricane"
-      }
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
     },
     {
       "autofire": false,
@@ -38,32 +59,8 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0033": "na_heavy_beamer",
-        "WS0034": "na_heavy_beamer"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0002": "na_pyrokinetic",
-        "WS0006": "na_pyrokinetic"
-      }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0007": "na_chirppd",
-        "WS0031": "na_chirppd",
-        "WS0037": "na_chirppd",
-        "WS0038": "na_chirppd",
-        "WS0036": "na_mediumchirp"
+        "WS0007": "na_mutepd",
+        "WS0031": "na_mutepd"
       }
     }
   ],

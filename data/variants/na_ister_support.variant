@@ -1,7 +1,7 @@
 {
-  "variantId": "na_ister_elite",
+  "variantId": "na_ister_support",
   "hullId": "na_ister",
-  "displayName": "Elite",
+  "displayName": "Support",
   "goalVariant": true,
   "fluxCapacitors": 35,
   "fluxVents": 1,
@@ -12,21 +12,44 @@
     "na_energizedarmor",
     "armoredweapons",
     "fluxbreakers",
-    "heavyarmor"
+    "eccm"
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0032": "na_heavyparticlecannon"
+        "WS0032": "hil"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0003": "hurricane"
+        "WS0003": "na_rkkv_he_large"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_rkkv_medium"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "hveldriver",
+        "WS0006": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0033": "gravitonbeam",
+        "WS0034": "gravitonbeam"
       }
     },
     {
@@ -38,32 +61,11 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0033": "na_heavy_beamer",
-        "WS0034": "na_heavy_beamer"
-      }
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0002": "na_pyrokinetic",
-        "WS0006": "na_pyrokinetic"
-      }
-    },
-    {
-      "autofire": false,
-      "mode": "LINKED",
-      "weapons": {}
-    },
-    {
-      "autofire": true,
-      "mode": "LINKED",
-      "weapons": {
-        "WS0007": "na_chirppd",
-        "WS0031": "na_chirppd",
-        "WS0037": "na_chirppd",
-        "WS0038": "na_chirppd",
-        "WS0036": "na_mediumchirp"
+        "WS0007": "na_mutepd",
+        "WS0031": "na_mutepd",
+        "WS0036": "na_mediumchirp",
+        "WS0037": "treble_ciws",
+        "WS0038": "treble_ciws"
       }
     }
   ],

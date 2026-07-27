@@ -84,8 +84,10 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color NAAI_VIOLETBLACK_COLOR_END = new Color(216, 103, 255);
 
     private static final String NA_RKKV_HE_SUBM_ID = "na_rkkv_he_dummy_shot";
-    private static final Color NA_RKKV_HE_SUBM_START = new Color(255, 6, 6);
+    private static final Color NA_RKKV_HE_SUBM_START = new Color(255, 64, 6);
     private static final Color NA_RKKV_HE_SUBM_END = new Color(55, 55, 55);
+    private static final Color NA_RKKV_HE_SUBM2_START = new Color(237, 190, 104);
+    private static final Color NA_RKKV_HE_SUBM2_END = new Color(60, 0, 0);
 
 
 
@@ -129,6 +131,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                     break;
                 case NAAI_MEGABLASTER_ID:
                 case NAAI_VIOLETBLACK_ID:
+                case NA_RKKV_HE_SUBM_ID:
                     if (NAUtil.isOnscreen(projectile.getLocation(), projectile.getVelocity().length() * 0.2f)) {
                         trailCount += 2f;
                     }
@@ -138,7 +141,6 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
 
                 case META_PROJ_ID:
                 case META_PROJ_ID2:
-                case NA_RKKV_HE_SUBM_ID:
                 case MINIRAZOR_ID:
 
                 case PYROWISP_LARGE_PROJ_ID:
@@ -197,6 +199,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                             case PYROWISP_LARGE_PROJ_ID:
                             case NAAI_MEGABLASTER_ID:
                             case NAAI_VIOLETBLACK_ID:
+                            case NA_RKKV_HE_SUBM_ID:
                                 data.id2 = MagicTrailPlugin.getUniqueID();
                                 break;
 
@@ -756,16 +759,44 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 0f, /* endAngularVelocity */
                                 powermult * 8f + (30), /* startSize */
                                 powermult * 95f + 62f, /* endSize */
-                                new Color(244, 69, 55), /* startColor */
+                                new Color(255, 0, 0), /* startColor */
                                 NA_RKKV_HE_SUBM_END, /* endColor */
                                 fade, /* opacity */
-                                0f, /* inDuration */
+                                0.2f, /* inDuration */
                                 0.1f * powermult + 0.4f, /* mainDuration */
-                                0.1f * powermult + (spec.equals(NA_RKKV_HE_SUBM_ID) ? 0.5f : 0.3f), /* outDuration */
+                                0.1f * powermult + (spec.equals(NA_RKKV_HE_SUBM_ID) ? 0.2f : 0.1f), /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                                 256f, /* textureLoopLength */
-                                16f, /* textureScrollSpeed */
+                                0f, /* textureScrollSpeed */
+                                -1, /* textureOffset */
+                                Misc.ZERO, /* offsetVelocity */
+                                null, /* advancedOptions */
+                                CombatEngineLayers.BELOW_PHASED_SHIPS_LAYER, /* layerToRenderOn */
+                                1f /* frameOffsetMult */
+                        );
+                        MagicTrailPlugin.addTrailMemberAdvanced(
+                                proj, /* linkedEntity */
+                                data.id2, /* ID */
+                                Global.getSettings().getSprite("na_trails", "na_smoketrail"), /* sprite */
+                                spawnPosition, /* position */
+                                30f, /* startSpeed */
+                                -320f, /* endSpeed */
+                                proj.getFacing() - 180f, /* angle */
+                                0f, /* startAngularVelocity */
+                                0f, /* endAngularVelocity */
+                                1f, /* startSize */
+                                200f, /* endSize */
+                                NA_RKKV_HE_SUBM2_START, /* startColor */
+                                NA_RKKV_HE_SUBM2_END, /* endColor */
+                                fade * 0.5f, /* opacity */
+                                0.8f, /* inDuration */
+                                0.2f, /* mainDuration */
+                                2.0f, /* outDuration */
+                                GL11.GL_SRC_ALPHA, /* blendModeSRC */
+                                GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
+                                256f, /* textureLoopLength */
+                                -16f, /* textureScrollSpeed */
                                 -1, /* textureOffset */
                                 Misc.ZERO, /* offsetVelocity */
                                 null, /* advancedOptions */

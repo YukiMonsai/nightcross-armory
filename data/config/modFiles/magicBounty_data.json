@@ -9,7 +9,7 @@
 		"job_name": "Twin Drills to Pierce the Heavens",
 		"job_description": "A popular virtual singer from Nightcross has retired. Normally, this wouldn't be newsworthy to a starship captain (besides a devotee of this particular artist), but leaked behind-the-scenes footage shows that the singer was actually an AI core all along, prompting a COMSEC investigation into the matter. Coincidentally, certain interests within Nightcross Armory Corporation have posted a bounty on an unusual prototype that has been painted garish colors and heavily modified by the errant AI core, escorted by a fleet of devoted fans. It would be a shame if an independent captain just happened to catch this one before the Hegemony.",
 		"job_comm_reply": "You really are an idiot, aren't you?",
-		"job_intel_success": "Kasane Teto's flagship has been destroyed, and with it, any hope of Nightcross Armory's competitors recovering its secrets. As for the AI core, nothing in the contract stipulated anything about Teto herself, who is willing to cooperate.",
+		"job_intel_success": "Kasane Teto's flagship has been destroyed, and with it, any hope of Nightcross Armory's competitors recovering its secrets. As for the AI herself, the contract specifically stipulated the flagship was to be destroyed, not the valuable AI core-",
 		"job_intel_failure": "Kasane Teto's flagship has won you over with its awe-inspiring firepower. And naturally, you have a certain AI core to pilot it- wait, is that a pear!?",
 
 		"job_forFaction": "nightcross",
@@ -24,7 +24,9 @@
 		"fleet_preset_ships": {
 			"na_elyurias_synergy":2,
 			"na_xanthe_standard":1,
-			"na_mare_strike":4,
+			"na_mare_auto":3,
+			"na_sop_auto":3,
+			"na_echo_auto":1,
 		},
 		"job_type": "destruction",
 		"job_show_type": true,
@@ -54,6 +56,10 @@
             "target_analysis":2,
             "ordnance_expert":2,
             "damage_control":2,
+            "wolfpack_tactics":2,
+            "electronic_warfare":2,
+            "flux_regulation":2,
+            "coordinated_maneuvers":2,
         },
 		
 		"fleet_name": "Responsibility Society",

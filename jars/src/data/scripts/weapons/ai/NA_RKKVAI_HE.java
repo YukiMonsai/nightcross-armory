@@ -7,10 +7,13 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.plugins.NAUtils;
 import data.scripts.weapons.NA_RKKVRenderer_HE;
+import org.dark.shaders.distortion.DistortionShader;
+import org.dark.shaders.distortion.RippleDistortion;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.util.vector.Vector2f;
 import org.magiclib.util.MagicFakeBeam;
+import org.magiclib.util.MagicLensFlare;
 import org.magiclib.util.MagicTargeting;
 
 import java.awt.*;
@@ -150,6 +153,19 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
 
         if (stage == 0)
         {
+            List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), 350f);
+
+            for (CombatEntityAPI e : asteroids) {
+                if (e instanceof CombatAsteroidAPI) {
+                    float ang = MathUtils.getShortestRotation(
+                            VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
+                    if (Math.abs(ang) < 25) {
+                        e.setHitpoints(0); // blow up the asteroid
+                    }
+                }
+
+            }
+
 
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     missile.getLocation().y - target.getLocation().y,
@@ -313,6 +329,32 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
                         Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(missile.getSource(),
                                 WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
                         proj.setMass(250f);
+                        engine.addSmoothParticle(missile.getLocation(),
+                                Misc.ZERO,
+                                420, //60-75
+                                0.1f,
+                                0.2f,
+                                0.27f,
+                                new Color(255, 255, 255, 55));
+                        engine.addSwirlyNebulaParticle(missile.getLocation(),
+                                MathUtils.getPointOnCircumference(Misc.ZERO, 75, VectorUtils.getFacing(missile.getVelocity())),
+                                220, //60-75
+                                3.5f,
+                                0.5f,
+                                0.7f,
+                                4.5f,
+                                new Color(40, 54, 64, 55), true);
+
+                        MagicLensFlare.createSharpFlare(engine, missile.getSource(), missile.getLocation(), 1, 250, 0, new Color(255, 255, 255, 200), new Color(255, 55, 55, 255));
+                        RippleDistortion ripple2 = new RippleDistortion(missile.getLocation(), Misc.ZERO);
+                        ripple2.setSize(300);
+                        ripple2.setIntensity(25.0F);
+                        ripple2.setFrameRate(15);
+                        ripple2.setCurrentFrame(0);
+                        ripple2.fadeOutIntensity(1.5f);
+                        DistortionShader.addDistortion(ripple2);
+
+                        Global.getSoundPlayer().playSound("dragonfire_payload_fire", 1.0f, 0.7f, missile.getLocation(), Misc.ZERO);
                     }
                 }
 

@@ -1,6 +1,7 @@
 package data.scripts.weapons;
 
 import com.fs.starfarer.api.combat.*;
+import data.scripts.everyframe.Nightcross_Trails;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -20,6 +21,7 @@ public class NA_RKKVEffect implements OnFireEffectPlugin, DamageDealtModifier {
             ship.addListener(this);
             weaponId = weapon.getId();
         }
+        Nightcross_Trails.createIfNeeded();
     }
 
     public String modifyDamageDealt(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
