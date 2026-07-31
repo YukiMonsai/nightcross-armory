@@ -12,22 +12,22 @@
     "na_energizedarmor",
     "armoredweapons",
     "fluxbreakers",
-    "eccm"
+    "eccm",
+    "magazines"
   ],
   "weaponGroups": [
     {
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0032": "na_heavyparticlecannon"
+        "WS0002": "na_plasmabeam_med",
+        "WS0006": "na_plasmabeam_med"
       }
     },
     {
       "autofire": false,
       "mode": "LINKED",
-      "weapons": {
-        "WS0001": "typhoon"
-      }
+      "weapons": {}
     },
     {
       "autofire": false,
@@ -40,16 +40,15 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "hveldriver",
-        "WS0006": "hveldriver"
+        "WS0032": "multineedler"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0033": "na_laser",
-        "WS0034": "na_laser"
+        "WS0033": "heavyneedler",
+        "WS0034": "heavyneedler"
       }
     },
     {

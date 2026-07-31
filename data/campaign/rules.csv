@@ -370,6 +370,29 @@ INTERRUPT
 Warning: Pilot has been incapacitated. Medical support has been dispatched to arrive within ERROR days. Please power down weapons--""",,
 #END RED MASK,,,,,,
 ,,,,,,
+#HWBM Prototypes,,,,,,
+na_hwbm_mare,OpenInteractionDialog,$na_relic_mare score:1000,"ShowDefaultVisual
+SalvageGenFromSeed
+PrintWreckDescription","Your $shipOrFleet approaches a derelict vessel precariously close to the black hole's event horizon. Sensors indicate a single capital-class vessel, but as the fleet moves closer numerous signatures begin to appear as the vessel dissolves into a swarm of automated defense units.","na_relic_continue:Run a scan on the defenders
+defaultLeave:Leave",
+na_hwbm_sop,OpenInteractionDialog,$na_relic_sop score:1000,"ShowDefaultVisual
+SalvageGenFromSeed
+PrintWreckDescription","Your $shipOrFleet approaches a derelict vessel precariously close to the black hole's event horizon. Sensors indicate a single capital-class vessel, but as the fleet moves closer numerous signatures begin to appear as the vessel dissolves into a swarm of automated defense units.","na_relic_continue:Run a scan on the defenders
+defaultLeave:Leave",
+na_hwbm_defenses,DialogOptionSelected,$option == na_relic_continue,"NA_RelicDefenderCMD
+$entity.na_earthdefCMD = true",,,
+na_relicdefendershail,OpenCommLink,$entity.na_earthdefCMD score:1001,"SetShortcut cutCommLinkNoText ""ESCAPE""
+$entity.ignorePlayerCommRequests = true 1
+","The comm link sputters with compression artifacts.
+
+""Attention: This area is subject to Native Sphere Existential Containment Protocol Section [STATIC]-
+INTERRUPT 
+
+scanning tidal information. query. wait for processing. conclusion: entity hostile""
+
+The console dissolves into static. Your sensors officer reports energy signatures as the swarm powers up weapons.",cutCommLinkNoText:Continue,
+#END HWBM Prototypes,,,,,,
+,,,,,,
 #Abyssal encounter stargazer victims,,,,,,
 nca_abyss_sgvs_nightcross,OpenInteractionDialog,"$tag:salvageable
 $gsType == NA_NIGHTCROSS score:1000

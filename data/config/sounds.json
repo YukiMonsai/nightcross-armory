@@ -40,6 +40,9 @@
 		"mekaloton_Red_Maskq":[
 			{"file":"mekaloton_Red_Mask.ogg","source":"sounds/music/factions","volume":0.37}, 
 		],
+		"na_earth_battle":[
+			{"file":"na_earth_battle.ogg","source":"sounds/music","volume":0.37}, 
+		],
 		
 		
 		"mekaloton_Quarters_and_Seconds":[
@@ -92,6 +95,12 @@
 		],
 		"na_shrouded_enc":[
 			{"file":"na_shrouded_enc.ogg","source":"sounds/music","volume":0.37}, 
+		],
+		"na_shootthemoon":[
+			{"file":"na_shootthemoon.ogg","source":"sounds/music","volume":0.37}, 
+		],
+		"na_silence_dummy":[
+			{"file":"na_silence_dummy.ogg","source":"sounds/music","volume":0.37}, 
 		],
 		
 	},

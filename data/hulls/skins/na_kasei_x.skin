@@ -29,7 +29,7 @@
   "fpMod": 0,
   	"tags":["rare_bp", "nightcross"],
   "hullDesignation": "frigate",
-  "hullName": "Kasei Valles (E-type)",
+  "hullName": "Kasei Valles (E)",
   "ordnancePoints": 48,
   "restoreToBaseHull": false,
   "skinHullId": "na_kasei_x",

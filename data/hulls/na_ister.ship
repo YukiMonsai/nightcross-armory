@@ -91,7 +91,7 @@
     {
       "id": "WS0002",
       "size": "MEDIUM",
-      "type": "HYBRID",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 143,
       "angle": -63.5,
@@ -299,7 +299,7 @@
     {
       "id": "WS0006",
       "size": "MEDIUM",
-      "type": "HYBRID",
+      "type": "ENERGY",
       "mount": "TURRET",
       "arc": 143,
       "angle": 63.5,
@@ -326,7 +326,7 @@
     {
       "id": "WS0032",
       "size": "LARGE",
-      "type": "ENERGY",
+      "type": "HYBRID",
       "mount": "TURRET",
       "arc": 224,
       "angle": 0,
@@ -336,7 +336,7 @@
     {
       "id": "WS0033",
       "size": "MEDIUM",
-      "type": "ENERGY",
+      "type": "HYBRID",
       "mount": "TURRET",
       "arc": 237,
       "angle": 0,
@@ -345,7 +345,7 @@
     {
       "id": "WS0034",
       "size": "MEDIUM",
-      "type": "ENERGY",
+      "type": "HYBRID",
       "mount": "TURRET",
       "arc": 254,
       "angle": 0,
@@ -354,7 +354,7 @@
     {
       "id": "WS0036",
       "size": "MEDIUM",
-      "type": "ENERGY",
+      "type": "HYBRID",
       "mount": "TURRET",
       "arc": 236,
       "angle": 180,

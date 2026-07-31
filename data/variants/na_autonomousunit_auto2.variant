@@ -1,0 +1,40 @@
+{
+  "variantId": "na_autonomousunit_auto2",
+  "hullId": "na_autonomousunit",
+  "displayName": "Support",
+  "goalVariant": true,
+  "fluxCapacitors": 20,
+  "fluxVents": 5,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "pointdefenseai"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0023": "na_mutepd"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "na_hardlightrifle"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "na_hardlightriflereal"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "na_energyorb_wing"
+  ]
+}

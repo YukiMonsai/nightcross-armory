@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.Entities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.ids.Terrain;
 import com.fs.starfarer.api.impl.campaign.procgen.DefenderDataOverride;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
@@ -397,9 +398,14 @@ public class NAGen implements SectorGeneratorPlugin {
             PlanetAPI star = system.getStar();
 
             float distance = star.getRadius() + 50f; // right on event horizon
-            SectorEntityToken ship = addDerelict(system, "na_mare_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, null);
+            DefenderDataOverride data = new DefenderDataOverride("na_earth", 1f, 200, 200, 1);
+            SectorEntityToken ship = addDerelict(system, "na_mare_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, data);
             ship.setCircularOrbit(star, MathUtils.getRandomNumberInRange(0f, 360f), distance, distance/10f);
             ship.setId("na_mare_x_wreck");
+            ship.setName("Ancient Prototype");
+
+            ship.getMemoryWithoutUpdate().set("$na_relic_mare", true);
+            ship.addTag(Tags.NOT_RANDOM_MISSION_TARGET);
         }
 
         MareGenerated = true;
@@ -443,9 +449,14 @@ public class NAGen implements SectorGeneratorPlugin {
             PlanetAPI star = system.getStar();
 
             float distance = star.getRadius() + 100f; // close
-            SectorEntityToken ship = addDerelict(system, "na_sop_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, null);
+            DefenderDataOverride data = new DefenderDataOverride("na_earth", 1f, 200, 200, 1);
+            SectorEntityToken ship = addDerelict(system, "na_sop_proto_relic", ShipRecoverySpecial.ShipCondition.AVERAGE, true, data);
             ship.setCircularOrbit(star, MathUtils.getRandomNumberInRange(0f, 360f), distance, distance/10f);
             ship.setId("na_sop_x_wreck");
+            ship.setName("Ancient Prototype");
+
+            ship.getMemoryWithoutUpdate().set("$na_relic_sop", true);
+            ship.addTag(Tags.NOT_RANDOM_MISSION_TARGET);
         }
 
         SopGenerated = true;

@@ -15,7 +15,7 @@
 	#"coreColor":[255,255,200,0],	
 	"textureScrollSpeed":64.0,
 	"pixelsPerTexel":5.0,
-	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"bulletSprite":"graphics/missiles/shell_round_sml.png",
 	#"bulletSprite":"",
 	"behaviorSpec":{"behavior":"PROXIMITY_FUSE",
 					"range":25,

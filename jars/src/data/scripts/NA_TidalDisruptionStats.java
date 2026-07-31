@@ -23,10 +23,10 @@ public class NA_TidalDisruptionStats extends BaseShipSystemScript {
 
     private static Map<Integer, Float> mag = new HashMap();
     static {
-        mag.put(0, 0.25f);
-        mag.put(1, 0.4f);
-        mag.put(2, 0.5f);
-        mag.put(3, 0.6f);
+        mag.put(0, 0.35f);
+        mag.put(1, 0.5f);
+        mag.put(2, 0.6f);
+        mag.put(3, 0.7f);
         mag.put(4, 0.9f);
     }
 

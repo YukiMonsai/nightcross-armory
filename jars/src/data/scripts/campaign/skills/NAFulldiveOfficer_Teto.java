@@ -82,6 +82,8 @@ public class NAFulldiveOfficer_Teto extends NAFulldiveOfficer {
 
             info.addPara("%s ballistic and energy damage and ammo regen, based on forward speed. Max when moving at least %s in the forward vector.", 0f, hc, hc,
                     "+" + (int)(DMG_BOOST) + "%", (int)(BASE_SPEED) + " su");
+
+
         }
 
         public String getEffectPerLevelDescription() {

@@ -61,8 +61,8 @@ public class NA_ReversalDrive extends BaseShipSystemScript {
     }
 
     private static float TIME_AFTERIMAGE = 0.1f;
-    private static float REVERT_TIME = 2f;
-    private static float TIME_STEPS_MAX = 20; // 3 seconds
+    private static float REVERT_TIME = 3f;
+    private static float TIME_STEPS_MAX = 30; // 3 seconds
     protected static class NA_ReversalDriveData {
         IntervalUtil interval = new IntervalUtil(TIME_AFTERIMAGE, TIME_AFTERIMAGE);
         List<Vector3f> positions = new ArrayList<>();

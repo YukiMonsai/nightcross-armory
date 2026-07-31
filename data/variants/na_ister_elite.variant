@@ -38,16 +38,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0033": "na_heavy_beamer",
-        "WS0034": "na_heavy_beamer"
+        "WS0033": "na_pyrokinetic",
+        "WS0034": "na_pyrokinetic"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "na_pyrokinetic",
-        "WS0006": "na_pyrokinetic"
+        "WS0002": "na_heavy_beamer",
+        "WS0006": "na_heavy_beamer"
       }
     },
     {
@@ -61,9 +61,9 @@
       "weapons": {
         "WS0007": "na_chirppd",
         "WS0031": "na_chirppd",
+        "WS0036": "na_mediumchirp",
         "WS0037": "na_chirppd",
-        "WS0038": "na_chirppd",
-        "WS0036": "na_mediumchirp"
+        "WS0038": "na_chirppd"
       }
     }
   ],

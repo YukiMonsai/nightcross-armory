@@ -19,7 +19,11 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0032": "hil"
+        "WS0002": "gravitonbeam",
+        "WS0006": "gravitonbeam",
+        "WS0032": "hil",
+        "WS0033": "hveldriver",
+        "WS0034": "hveldriver"
       }
     },
     {
@@ -39,18 +43,12 @@
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0002": "hveldriver",
-        "WS0006": "hveldriver"
-      }
+      "weapons": {}
     },
     {
       "autofire": true,
       "mode": "LINKED",
-      "weapons": {
-        "WS0033": "gravitonbeam",
-        "WS0034": "gravitonbeam"
-      }
+      "weapons": {}
     },
     {
       "autofire": false,

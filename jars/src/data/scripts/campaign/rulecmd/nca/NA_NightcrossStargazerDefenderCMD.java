@@ -41,7 +41,7 @@ public class NA_NightcrossStargazerDefenderCMD extends BaseCommandPlugin {
         if (defenders == null) return false;
 
         dialog.setInteractionTarget(defenders);
-        defenders.getMemoryWithoutUpdate().set("$entity.na_stargazerdefCMD", true);
+        defenders.getMemoryWithoutUpdate().set("$na_stargazerdefCMD", true);
 
         final FIDConfig config = new FIDConfig();
         config.leaveAlwaysAvailable = true;

@@ -19,8 +19,10 @@ import data.scripts.campaign.enc.NA_StargazerDrifter;
 import data.scripts.campaign.enc.NA_StargazerGhostManager;
 import data.scripts.campaign.enc.NA_StargazerShroudGhostCreator;
 import data.scripts.campaign.fleets.NA_SDF_Nightcross;
+import data.scripts.campaign.fleets.NA_Stargazer_Lunar_Fleet;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
+import data.scripts.campaign.rulecmd.nca.NA_RelicDefenderPlugin;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
 import data.scripts.weapons.ai.NA_HomingLaserAI;
 import data.scripts.weapons.ai.NA_RKKVAI;
@@ -243,6 +245,10 @@ public class NAModPlugin extends BaseModPlugin {
         genbc.generate(Global.getSector());
         if (genbc.BlackcatGenerated)
             Global.getSector().getMemoryWithoutUpdate().set(MEMKEY_INTIALIZEDBC, true);
+
+        if (!Global.getSector().hasScript(NA_Stargazer_Lunar_Fleet.class)) {
+            Global.getSector().addScript(new NA_Stargazer_Lunar_Fleet());
+        }
     }
 
 
@@ -298,6 +304,9 @@ public class NAModPlugin extends BaseModPlugin {
         if (!plugins.hasPlugin(NA_NightcrossDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossDefenderPlugin(), true);
         }
+        if (!plugins.hasPlugin(NA_RelicDefenderPlugin.class)) {
+            plugins.addPlugin(new NA_RelicDefenderPlugin(), true);
+        }
         if (!plugins.hasPlugin(NA_NightcrossHumanDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossHumanDefenderPlugin(), true);
         }
@@ -326,6 +335,7 @@ public class NAModPlugin extends BaseModPlugin {
             if(!Global.getSector().getListenerManager().hasListenerOfClass(NightcrossColonyWatcher.class))
                 Global.getSector().getListenerManager().addListener(new NightcrossColonyWatcher(), false);
         }
+
 
         // add no_drop_salvage tags to weapons
         // remove rare_bp from ships
@@ -414,6 +424,10 @@ public class NAModPlugin extends BaseModPlugin {
             }
             //if (!hasLunaLib || NA_SettingsListener.na_stargazer_spawn) {
             NA_BlackcatGen genbc = new NA_BlackcatGen();
+
+                if (!Global.getSector().hasScript(NA_Stargazer_Lunar_Fleet.class)) {
+                    Global.getSector().addScript(new NA_Stargazer_Lunar_Fleet());
+                }
                 if (!Global.getSector().getMemoryWithoutUpdate().contains(MEMKEY_INTIALIZEDBC)) {
                     genbc.init(Global.getSector());
                     genbc.generate(Global.getSector());

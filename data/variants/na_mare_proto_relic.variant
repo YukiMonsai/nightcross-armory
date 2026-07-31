@@ -1,7 +1,7 @@
 {
   "variantId": "na_mare_proto_relic",
   "hullId": "na_mare_proto",
-  "displayName": "Relic",
+  "displayName": "Original Prototype",
   "goalVariant": true,
   "fluxCapacitors": 7,
   "fluxVents": 2,

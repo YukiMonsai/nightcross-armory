@@ -55,8 +55,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color SUPERBLASTER_TRAIL_COLOR_START = new Color(205, 45, 255);
     private static final Color SUPERBLASTER_TRAIL_COLOR_END = new Color(0, 125, 255);
     private static final String HARDLIGHT_PROJ_ID = "na_hardlightriflereal_shot";
-    private static final Color HARDLIGHT_TRAIL_COLOR_START = new Color(226, 255, 251);
-    private static final Color HARDLIGHT_TRAIL_COLOR_END = new Color(83, 78, 238);
+    private static final Color HARDLIGHT_TRAIL_COLOR_START = new Color(55, 133, 246);
+    private static final Color HARDLIGHT_TRAIL_COLOR_END = new Color(150, 78, 238);
 
 
     private static final String PYROWISP_LARGE_PROJ_ID = "na_pyrowisp_large_shot";
@@ -68,8 +68,8 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color WAVEFRONT_SUB_TRAIL_COLOR_END = new Color(150, 202, 255);
 
     private static final String HARDLIGHT_SHOT = "na_hardlightrifle_shot";
-    private static final Color HARDLIGHT_SHOT_TRAIL_COLOR_START = new Color(225, 225, 255);
-    private static final Color HARDLIGHT_SHOT_TRAIL_COLOR_END = new Color(150, 202, 255);
+    private static final Color HARDLIGHT_SHOT_TRAIL_COLOR_END = new Color(255, 59, 99);
+    private static final Color HARDLIGHT_SHOT_TRAIL_COLOR_START = new Color(246, 198, 2);
     private static final Color HARDLIGHT_SHOT_TRAIL2_COLOR_START = new Color(125, 175, 255);
     private static final Color HARDLIGHT_SHOT_TRAIL2_COLOR_END = new Color(75, 125, 255);
 

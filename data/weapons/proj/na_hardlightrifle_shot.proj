@@ -6,7 +6,7 @@
 	"collisionClass":"RAY",
 	"collisionClassByFighter":"RAY_FIGHTER",
 	"length":20.0,
-	"width":4,
+	"width":7,
 	"fadeTime":0.3,
 	"fringeColor":[25,175,255,255],
 	"coreColor":[225,225,255,255],
@@ -18,6 +18,6 @@
 	"passThroughMissiles":true,
 	"passThroughFighters":true,
 	"passThroughFightersOnlyWhenDestroyed":true,
-	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"bulletSprite":"graphics/missiles/am_srm.png",
 	"textureType":"WEAVE",  # only needed for BEAM spawnType
 }

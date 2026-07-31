@@ -50,6 +50,7 @@
 		"na_fossa_support":6,
 		"na_nammu_support":2,
 		"na_xanthe_standard":3,
+		"na_autonomousunit_auto":3,
 	},
 	"combatLarge":{
 		"na_echo_strike":4,

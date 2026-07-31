@@ -6,7 +6,10 @@
   "fluxCapacitors": 35,
   "fluxVents": 1,
   "quality": 2,
-  "permaMods": ["na_fulldive", "automated"],
+  "permaMods": [
+    "na_fulldive",
+    "automated"
+  ],
   "hullMods": [
     "targetingunit",
     "na_energizedarmor",
@@ -37,16 +40,16 @@
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0033": "na_heavy_beamer",
-        "WS0034": "na_heavy_beamer"
+        "WS0002": "na_heavy_beamer",
+        "WS0006": "na_heavy_beamer"
       }
     },
     {
       "autofire": true,
       "mode": "LINKED",
       "weapons": {
-        "WS0002": "na_pyrokinetic",
-        "WS0006": "na_pyrokinetic"
+        "WS0033": "na_pyrokinetic",
+        "WS0034": "na_pyrokinetic"
       }
     },
     {
@@ -60,9 +63,9 @@
       "weapons": {
         "WS0007": "na_chirppd",
         "WS0031": "na_chirppd",
+        "WS0036": "na_mediumchirp",
         "WS0037": "na_chirppd",
-        "WS0038": "na_chirppd",
-        "WS0036": "na_mediumchirp"
+        "WS0038": "na_chirppd"
       }
     }
   ],

@@ -31,6 +31,6 @@
 	"pixelsPerTexel":5.0,
 	"passThroughMissiles":true,
 	"passThroughFightersOnlyWhenDestroyed":true,
-	"bulletSprite":"graphics/missiles/shell_gauss_cannon.png",
+	"bulletSprite":"graphics/missiles/am_srm.png",
 	"textureType":"WEAVE",  # only needed for BEAM spawnType
 }
