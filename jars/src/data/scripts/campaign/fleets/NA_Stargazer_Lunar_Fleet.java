@@ -16,8 +16,10 @@ import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.Fl
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerNum;
 import com.fs.starfarer.api.impl.campaign.missions.hub.HubMissionWithTriggers.OfficerQuality;
 import com.fs.starfarer.api.impl.campaign.missions.hub.MissionFleetAutoDespawn;
+import com.fs.starfarer.api.impl.campaign.world.TTBlackSite;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
+import data.scripts.campaign.rulecmd.nca.NA_StargazerLunarFleetCMD;
 import data.scripts.world.nightcross.NA_BlackcatGen;
 import data.scripts.world.nightcross.NA_StargazerFleets;
 import org.lwjgl.util.vector.Vector2f;
@@ -102,9 +104,9 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
     }
 
     public boolean isRedundant() {
-        MemoryAPI mem = Global.getSector().getMemoryWithoutUpdate();
+        MemoryAPI mem = Global.getSector().getPlayerMemoryWithoutUpdate();
 
-        return mem.contains("SDFStargazerLunarFleetDefeated");
+        return mem.contains("$defeatedLunarFleet");
     }
 
     @Override
@@ -140,30 +142,36 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
         //m.triggerSetFleetMemoryValue(MemFlags.MEMORY_KEY_SOURCE_MARKET, NA_Elevator);
         m.triggerSetFleetMemoryValue("$SDFStargazerLunarFleet", true);
         m.triggerFleetSetNoFactionInName();
-        m.triggerSetFleetFaction(Factions.INDEPENDENT);
+        m.triggerSetFleetFaction(NightcrossID.FACTION_STARGAZER);
         m.triggerFleetSetName("Existential Threat");
         m.triggerPatrolAllowTransponderOff();
-        m.triggerFleetSetPatrolActionText("Holding open the gate to freedom");
-        m.triggerOrderFleetPatrol(NA_BlackcatGen.lunargravitywell);
+        m.triggerFleetSetPatrolActionText("are you there?");
+        m.triggerOrderFleetPatrol(NA_BlackcatGen.lunargravitywell, NA_BlackcatGen.blackcatstation);
 
 
 
         CampaignFleetAPI fleet = m.createFleet();
 
-        FactionAPI faction = Global.getSector().getFaction(Factions.INDEPENDENT);
+        FactionAPI faction = Global.getSector().getFaction(NightcrossID.FACTION_STARGAZER);
 
         FactionAPI.ShipPickParams p = new FactionAPI.ShipPickParams(FactionAPI.ShipPickMode.PRIORITY_THEN_ALL);
         p.blockFallback = true;
         p.maxFP = (int) (fleet.getFleetPoints() * 0.8f);
 
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 6; i++) {
             List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_MEDIUM, p, null, random);
             for (ShipRolePick pick : picks) {
                 fleet.getFleetData().addFleetMember(pick.variantId);
             }
         }
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 7; i++) {
             List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_LARGE, p, null, random);
+            for (ShipRolePick pick : picks) {
+                fleet.getFleetData().addFleetMember(pick.variantId);
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_CAPITAL, p, null, random);
             for (ShipRolePick pick : picks) {
                 fleet.getFleetData().addFleetMember(pick.variantId);
             }
@@ -176,7 +184,15 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
 
         fleet.getMemoryWithoutUpdate().set("$combatMusicSetId","na_silence_dummy");
         fleet.getMemoryWithoutUpdate().set("$na_customCombatMusic1","na_shootthemoon");
-        fleet.getMemoryWithoutUpdate().set("$na_customMusicPhases",1);
+        fleet.getMemoryWithoutUpdate().set("$na_customCombatMusic2","na_earth_battle");
+        fleet.getMemoryWithoutUpdate().set("$na_bossfightInsert","mek_killswitch");
+        fleet.getMemoryWithoutUpdate().set("$na_customCombatMusicException_mek_killswitch.ogg", true);
+        fleet.getMemoryWithoutUpdate().set("$na_customMusicPhases",2);
+        fleet.getMemoryWithoutUpdate().set("$na_maculafight", true);
+
+
+        fleet.getMemoryWithoutUpdate().set(MemFlags.FLEET_INTERACTION_DIALOG_CONFIG_OVERRIDE_GEN,
+                new NA_StargazerLunarFleetCMD.LunarFleetFID());
 
         fleet.removeScriptsOfClass(MissionFleetAutoDespawn.class);
         NA_Elevator.getContainingLocation().addEntity(fleet);

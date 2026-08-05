@@ -1,0 +1,38 @@
+{
+	"id":"na_massinflation",
+	"type":"STAT_MOD",
+	"aiType":"TEMPORAL_SHELL",
+	
+	"statsScript":"data.scripts.NA_MassInflation",
+	#"aiScript":"data.scripts.ai.NA_FlickerfieldAI",
+	
+	"jitterUnderColor":[60,165,255,155],
+	"jitterUnderCopies":25,
+	"jitterUnderMinRange":0,
+	"jitterUnderRange":7,
+	"jitterUnderRangeRadiusFraction":0,
+	
+	"jitterColor":[90,165,255,55],
+	"jitterCopies":4,
+	"jitterMinRange":0,
+	"jitterRange":25,
+	"jitterRangeRadiusFraction":0,
+	
+	#"weaponGlowColor":[255,165,90,0],
+	#"weaponTypes":[ENERGY, BALLISTIC, MISSILE],
+	
+	#"engineGlowColor":[255,90,255,255],
+	
+
+	"fadeActivationSoundOnChargedown":true,
+	"useSound":"na_massinflation",
+	#"loopSound":"system_damper_loop",
+	#"deactivateSound":"system_damper_off",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"aiHints":{
+	}
+}
+
+
+

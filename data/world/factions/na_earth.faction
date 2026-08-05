@@ -1,9 +1,9 @@
 {
     id:"na_earth",
-	"displayName":"Earth",
-	"displayNameWithArticle":"the Earth",
-	"displayNameLong":"Earth",
-	"displayNameLongWithArticle":"the Earth",
+	"displayName":"Native Sphere",
+	"displayNameWithArticle":"the Native Sphere",
+	"displayNameLong":"Native Sphere",
+	"displayNameLongWithArticle":"the Native Sphere",
 	"entityNamePrefix":"",
 	"personNamePrefix":"",
 	"personNamePrefixAOrAn":"is",
@@ -64,13 +64,10 @@
 		],
 	},
 	"knownWeapons":{
-        "tags":["nightcross_bp_restricted", "nightcross_bp_rare", "nightcross_bp_fast"],
+        "tags":["nightcross_bp_restricted", "nightcross_bp_rare"],
         "weapons":[
 			"amblaster",
-									
-			"na_wavefront",
-			
-			"sabotpod",
+								
 			"sabot",
 			"reaper",
 			

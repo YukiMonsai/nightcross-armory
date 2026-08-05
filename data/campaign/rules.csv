@@ -391,6 +391,8 @@ INTERRUPT
 scanning tidal information. query. wait for processing. conclusion: entity hostile""
 
 The console dissolves into static. Your sensors officer reports energy signatures as the swarm powers up weapons.",cutCommLinkNoText:Continue,
+,,,,,,
+SDFStargazerLunarFleetDefeated,SDFStargazerLunarFleetDefeated,,$player.defeatedLunarFleet = true,,,
 #END HWBM Prototypes,,,,,,
 ,,,,,,
 #Abyssal encounter stargazer victims,,,,,,

@@ -17,7 +17,8 @@
     "delicate",
     "high_maintenance",
     "na_tidalgrid",
-    "nightcrossengines"
+    "nightcrossengines",
+    "na_gravitydrag"
   ],
   "builtInWeapons": {
     "CENTER": "na_sop_proto_deco",

@@ -16,7 +16,8 @@
     "na_rcs",
     "delicate",
     "high_maintenance",
-    "na_tidalgrid"
+    "na_tidalgrid",
+    "na_gravitydrag"
   ],
   "builtInWeapons": {
     "CENTER": "na_mare_deco",

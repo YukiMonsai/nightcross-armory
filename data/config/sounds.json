@@ -97,13 +97,24 @@
 			{"file":"na_shrouded_enc.ogg","source":"sounds/music","volume":0.37}, 
 		],
 		"na_shootthemoon":[
-			{"file":"na_shootthemoon.ogg","source":"sounds/music","volume":0.37}, 
+			{"file":"na_shootthemoon.ogg","source":"sounds/music","volume":0.42}, 
 		],
+		"na_blackcatsystem":[
+			{"file":"na_blackcatsystem.ogg","source":"sounds/music","volume":0.40}, 
+		],
+		"mek_killswitch":[
+			{"file":"mek_killswitch.ogg","source":"sounds/music","volume":0.42}, 
+		],
+		"mek_killswitch_vocal":[
+			{"file":"mek_killswitch_vocal.ogg","source":"sounds/music","volume":0.45}, 
+		],
+		
 		"na_silence_dummy":[
 			{"file":"na_silence_dummy.ogg","source":"sounds/music","volume":0.37}, 
 		],
 		
 	},
+
 
 #collapseopen WEAPONS	
 	
@@ -148,6 +159,10 @@
 	"na_flickerfield":
 	[
 		{"file":"sounds/system/na_flickerfield.ogg","pitch":1.0,"volume":1.3},
+	],
+	"na_massinflation":
+	[
+		{"file":"sounds/system/na_massinflation.ogg","pitch":1.0,"volume":1.3},
 	],
 	
 	"naai_megablaster_fire":

@@ -67,7 +67,7 @@ public class NA_TidalGrid extends BaseHullMod {
 
 
 
-	private String ID = "NightcrossTidalGrid";
+	public static String ID = "NightcrossTidalGrid";
 
 	private static class NightcrossTargetingData {
 		IntervalUtil interval = new IntervalUtil(DURATION_MAX, DURATION_MAX);
@@ -98,7 +98,7 @@ public class NA_TidalGrid extends BaseHullMod {
 	private static class NightcrossTargetingChargeData {
 		SoundAPI sound = null;
 	}
-	private static class NightcrossTargetingLevelData {
+	public static class NightcrossTargetingLevelData {
 		float level = 1.0f;
 		float duration = 0.0f;
 	}

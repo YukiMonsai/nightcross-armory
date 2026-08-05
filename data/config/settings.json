@@ -21,6 +21,7 @@
 	"graphics":{
 		"icons": {
 			"na_icon_select":"graphics/icons/na_icon_select.png",
+			"na_gravity":"graphics/icons/na_gravity.png",
 		},
 			
 		"illustrations": {

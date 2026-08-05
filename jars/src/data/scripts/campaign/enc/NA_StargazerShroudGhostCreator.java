@@ -38,8 +38,8 @@ public class NA_StargazerShroudGhostCreator extends BaseSensorGhostCreator {
                 break;
             }
         }
-        if (!found) return (Math.min(1, Misc.getAbyssalDepth(Global.getSector().getPlayerFleet().getLocation()))/2)*(0.00f + NA_StargazerGhostManager.getAbyssInterest()*1.2f);
-        return 2.4f + NA_StargazerGhostManager.getAbyssInterest()*3.45f;
+        if (!found) return (Math.min(1, Misc.getAbyssalDepth(Global.getSector().getPlayerFleet().getLocation()))/2)*(0.15f + NA_StargazerGhostManager.getAbyssInterest()*1.2f);
+        return 3.7f + NA_StargazerGhostManager.getAbyssInterest()*3.45f;
     }
 
     @Override

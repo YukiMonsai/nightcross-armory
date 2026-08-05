@@ -1,0 +1,55 @@
+{
+  "variantId": "na_macula_proto_relic",
+  "hullId": "na_macula_proto",
+  "displayName": "Original Prototype",
+  "goalVariant": false,
+  "fluxCapacitors": 20,
+  "fluxVents": 9,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "phase_anchor",
+    "na_energizedarmor"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0017": "na_heavyparticlecannon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "amblaster",
+        "WS0004": "amblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0016": "na_novamote"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0010": "heavyneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "na_chirppd",
+        "WS0002": "na_chirppd"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

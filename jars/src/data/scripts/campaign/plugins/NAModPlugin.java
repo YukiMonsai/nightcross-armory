@@ -23,11 +23,9 @@ import data.scripts.campaign.fleets.NA_Stargazer_Lunar_Fleet;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
 import data.scripts.campaign.rulecmd.nca.NA_RelicDefenderPlugin;
+import data.scripts.combat.plugins.NA_CampaignEveryframe;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
-import data.scripts.weapons.ai.NA_HomingLaserAI;
-import data.scripts.weapons.ai.NA_RKKVAI;
-import data.scripts.weapons.ai.NA_RKKVAI_HE;
-import data.scripts.weapons.ai.NA_corrosionmoteai;
+import data.scripts.weapons.ai.*;
 import data.scripts.world.nightcross.*;
 import exerelin.campaign.SectorManager;
 import org.apache.log4j.Logger;
@@ -176,6 +174,9 @@ public class NAModPlugin extends BaseModPlugin {
         }else if ("naai_starkiller_missile".contentEquals(missile.getProjectileSpecId())) {
             return new PluginPick<MissileAIPlugin>(new NA_corrosionmoteai(missile, launchingShip),
                     CampaignPlugin.PickPriority.MOD_SET);
+        }else if ("na_novamote_mote".contentEquals(missile.getProjectileSpecId())) {
+            return new PluginPick<MissileAIPlugin>(new NA_NovaMoteAI(missile, launchingShip),
+                    CampaignPlugin.PickPriority.MOD_SET);
         }
 
         return null;
@@ -313,6 +314,10 @@ public class NAModPlugin extends BaseModPlugin {
         if (!plugins.hasPlugin(NA_InsanityManager.class)) {
             Global.getSector().addTransientScript(new NA_InsanityManager(false));
         }
+        if (!plugins.hasPlugin(NA_CampaignEveryframe.class)) {
+            Global.getSector().addTransientScript(new NA_CampaignEveryframe());
+        }
+
 
         if (hasSiC) {
             if(!Global.getSector().getListenerManager().hasListenerOfClass(addXO.class))

@@ -105,7 +105,7 @@ public class NA_BlackcatGen implements SectorGeneratorPlugin {
                 "Lunar Gravity Well",
                 "black_hole",  // id in planets.json
                 50f,
-                100, 9000, 5000);
+                100, 10000, 5000);
         setBlackHoleIfBlackHole(system, gravitywell, random);
         lunargravitywell = gravitywell;
         gravitywell.setCustomDescriptionId("na_lunargravitywell");
@@ -179,6 +179,7 @@ public class NA_BlackcatGen implements SectorGeneratorPlugin {
         system.addScript(activeFleets);
 
 
+        system.getMemoryWithoutUpdate().set("$musicSetId","na_blackcatsystem");
 
         //CargoAPI cargo = Global.getFactory().createCargo(true);
         //cargo.addCommodity(Commodities.RARE_METALS, 200f + random.nextInt(101));
