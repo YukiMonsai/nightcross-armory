@@ -16,6 +16,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lazywizard.lazylib.FastTrig;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class NAUtils {
@@ -175,8 +176,13 @@ public class NAUtils {
                 }
         }
         if (missiles) {
-            // This also includes missiles
-            for (DamagingProjectileAPI tmp : Global.getCombatEngine().getMissiles()) {
+
+
+            CollisionGridAPI grid = Global.getCombatEngine().getMissileGrid();
+            Iterator<Object> iter = grid.getCheckIterator(location, range * 2f, range * 2f);
+
+            while(iter.hasNext()) {
+                DamagingProjectileAPI tmp = (DamagingProjectileAPI) iter.next();
                 if (MathUtils.isWithinRange(tmp, location, range)) {
                     entities.add(tmp);
                 }
@@ -187,14 +193,44 @@ public class NAUtils {
     }
 
 
+    public static List<DamagingProjectileAPI> getProjectilesWithinRange(Vector2f location, float range, boolean missiles, int side) {
+        List<DamagingProjectileAPI> entities = new ArrayList<>();
+
+        // This also includes missiles
+        for (DamagingProjectileAPI tmp : Global.getCombatEngine().getProjectiles()) {
+            if (!(tmp instanceof MissileAPI))
+                if (tmp.getOwner() != side && MathUtils.isWithinRange(tmp, location, range)) {
+                    entities.add(tmp);
+                }
+        }
+        if (missiles) {
+            CollisionGridAPI grid = Global.getCombatEngine().getMissileGrid();
+            Iterator<Object> iter = grid.getCheckIterator(location, range * 2f, range * 2f);
+
+            while(iter.hasNext()) {
+                DamagingProjectileAPI tmp = (DamagingProjectileAPI) iter.next();
+                if (tmp.getOwner() != side && MathUtils.isWithinRange(tmp, location, range)) {
+                    entities.add(tmp);
+                }
+            }
+        }
+
+        return entities;
+    }
+
 
 
     public static List<ShipAPI> getShipsWithinRange(Vector2f location, float range) {
         List<ShipAPI> entities = new ArrayList<>();
 
-        for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
-            if (MathUtils.isWithinRange(tmp, location, range)) {
-                entities.add(tmp);
+
+        CollisionGridAPI grid = Global.getCombatEngine().getAiGridShips();
+        Iterator<Object> iter = grid.getCheckIterator(location, range * 2f, range * 2f);
+
+        while(iter.hasNext()) {
+            Object tmp = iter.next();
+            if (MathUtils.isWithinRange((ShipAPI) tmp, location, range)) {
+                entities.add((ShipAPI) tmp);
             }
         }
 
@@ -203,8 +239,11 @@ public class NAUtils {
     }
     public static List<ShipAPI> getFriendlyShipsWithinRange(ShipAPI ship, Vector2f location, float range, boolean allowFighters) {
         List<ShipAPI> entities = new ArrayList<>();
+        CollisionGridAPI grid = Global.getCombatEngine().getAiGridShips();
+        Iterator<Object> iter = grid.getCheckIterator(location, range * 2f, range * 2f);
 
-        for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
+        while(iter.hasNext()) {
+            ShipAPI tmp = (ShipAPI) iter.next();
             if (MathUtils.isWithinRange(tmp, location, range)
                     && tmp.isAlive()
                     && (allowFighters || !tmp.isFighter())
@@ -218,8 +257,11 @@ public class NAUtils {
     }
     public static List<ShipAPI> getEnemyShipsWithinRange(CombatEntityAPI ship, Vector2f location, float range, boolean allowFighters) {
         List<ShipAPI> entities = new ArrayList<>();
+        CollisionGridAPI grid = Global.getCombatEngine().getAiGridShips();
+        Iterator<Object> iter = grid.getCheckIterator(location, range * 2f, range * 2f);
 
-        for (ShipAPI tmp : Global.getCombatEngine().getShips()) {
+        while(iter.hasNext()) {
+            ShipAPI tmp = (ShipAPI) iter.next();
             if (MathUtils.isWithinRange(tmp, location, range)
                     && tmp.isAlive()
                     && (allowFighters || !tmp.isFighter())

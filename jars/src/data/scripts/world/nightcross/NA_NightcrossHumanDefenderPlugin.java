@@ -35,7 +35,7 @@ public class NA_NightcrossHumanDefenderPlugin extends BaseGenericPlugin implemen
 
     public void modifyFleet(SalvageGenFromSeed.SDMParams p, CampaignFleetAPI fleet, Random random, boolean withOverride) {
         fleet.setName("Defense Fleet");
-        NA_StargazerFleets.modifyStargazerFleet(fleet, random);
+        NA_StargazerFleets.modifyStargazerFleet(fleet, random, NA_StargazerFleets.StargazerFleetType.PURE);
 
         for (FleetMemberAPI m : fleet.getMembersWithFightersCopy()) {
             m.getRepairTracker().setCR(m.getRepairTracker().getMaxCR());

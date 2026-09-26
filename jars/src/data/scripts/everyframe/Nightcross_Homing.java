@@ -129,7 +129,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             testLoc.x + (proj.getVelocity().x) * vfactor,
                             testLoc.y + (proj.getVelocity().y) * vfactor);
 
-                if (homeMissiles) {
+                if (homeMissiles && tickTimer.intervalElapsed()) {
                     DamagingProjectileAPI selectedTarget = null;
                     float targetDist = 1000000000;
                     if (projtargets.containsKey(proj) && projtargets.get(proj) instanceof DamagingProjectileAPI) {
@@ -157,7 +157,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                             }
                         }
                         if (selectedTarget == null) {
-                            List<DamagingProjectileAPI> projes = NAUtils.getProjectilesWithinRange(testLoc, home_dist, true);
+                            List<DamagingProjectileAPI> projes = NAUtils.getProjectilesWithinRange(testLoc, home_dist, true, proj.getOwner());
                             targetscached = projes;
                         }
                     }
@@ -205,8 +205,8 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
                                 ZERO,
                                 home_amount*amount,
                                 (float) Math.toDegrees(Math.atan2(ttloc.y - prloc.y, ttloc.x - prloc.x)));
-                        proj.getVelocity().x += vecPush.x;
-                        proj.getVelocity().y += vecPush.y;
+                        proj.getVelocity().x += vecPush.x * 8;
+                        proj.getVelocity().y += vecPush.y * 8;
 
                         if (proj.getVelocity().length() > 5f)
                             proj.setFacing((float) Math.toDegrees(Math.atan2(proj.getVelocity().y, proj.getVelocity().x)));

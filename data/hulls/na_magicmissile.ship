@@ -14,6 +14,9 @@
   "builtInWeapons": {
     "WS0001": "blinker_na_red"
   },
+  "builtInMods": [
+    "no_weapon_flux",
+  ],
   "weaponSlots": [
     {
       "id": "WS 001",

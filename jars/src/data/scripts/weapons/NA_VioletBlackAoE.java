@@ -53,7 +53,7 @@ public class NA_VioletBlackAoE implements OnHitEffectPlugin {
                     float de = MathUtils.getDistance(e, point);
                     if (de >= dist && de <= ARC_RANGE && de <= dist + ARC_RANGE_INC) {
                         if (de <= ARC_RANGE_FRIENDLY ||
-                                !(projectile.getSource() != null
+                                (projectile.getSource() != null
                                         && e.getOwner() != projectile.getSource().getOwner())) {
                             if (!(e instanceof ShipAPI)
                                     || ((ShipAPI) e).getHullSize() == ShipAPI.HullSize.FIGHTER

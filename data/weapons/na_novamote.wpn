@@ -16,6 +16,7 @@
 	"barrelMode":"ALTERNATING",
 	#"renderHints":[RENDER_LOADED_MISSILES],
 	"interruptibleBurst":false,
+	"autocharge":true,
 	#"animationType":"NONE",
 	"animationType":"GLOW_AND_FLASH",
 	"glowColor":[255,15,45,255],	

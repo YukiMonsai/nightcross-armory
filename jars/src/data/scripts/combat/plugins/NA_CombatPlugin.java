@@ -107,7 +107,7 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
                             FleetDataAPI data = list.get(0).getFleetData();
                             if (data != null) {
                                 CampaignFleetAPI fleet = data.getFleet();
-                                BossFadeInPlugin plugin = new BossFadeInPlugin(bossfight, fleet, 0.25f, 3f, 180, "Existence", new Color(255, 55, 90, 70));
+                                BossFadeInPlugin plugin = new BossFadeInPlugin(bossfight, fleet, 0.25f, 3f, 270, "Existence", new Color(255, 55, 90, 70));
                                 Global.getCombatEngine().addPlugin(plugin);
                                 musicTimer = new IntervalUtil(5.0f, 5.0f);
                             }

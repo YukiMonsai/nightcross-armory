@@ -484,7 +484,7 @@ public class NA_StargazerShroudCMD extends BaseCommandPlugin {
         params.random = new Random(); //for easier testing
         params.modeOverride = FactionAPI.ShipPickMode.PRIORITY_ONLY;
 
-        CampaignFleetAPI sgf = createStargazerFleet(params, random);
+        CampaignFleetAPI sgf = createStargazerFleet(params, random, NA_StargazerFleets.StargazerFleetType.PURE);
 
         // add shrouded hullmods builtin to all the stargazers, and change their name
         for (FleetMemberAPI m : sgf.getFleetData().getMembersListCopy()) {
@@ -519,7 +519,7 @@ public class NA_StargazerShroudCMD extends BaseCommandPlugin {
             m.setShipName("Taken");
         }
 
-        NA_StargazerFleets.modifyStargazerFleet(f, random);
+        NA_StargazerFleets.modifyStargazerFleet(f, random, NA_StargazerFleets.StargazerFleetType.PURE);
 
         f.getFleetData().sort();
 

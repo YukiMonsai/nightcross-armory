@@ -23,6 +23,7 @@ import data.scripts.campaign.plugins.NAModPlugin;
 import data.scripts.campaign.plugins.NA_SettingsListener;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.world.nightcross.NA_StargazerBehavior;
+import data.scripts.world.nightcross.NA_StargazerFleets;
 import data.scripts.world.nightcross.NA_StargazerWandererManager;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
@@ -572,7 +573,7 @@ public class NA_StargazerBH extends AbyssalRogueStellarObjectEPEC {
                     params.random = new Random(); //for easier testing
                     params.modeOverride = FactionAPI.ShipPickMode.PRIORITY_ONLY;
 
-                    CampaignFleetAPI f = createStargazerFleet(params, null);
+                    CampaignFleetAPI f = createStargazerFleet(params, null, NA_StargazerFleets.StargazerFleetType.MIXED);
 
                     system.addEntity(f);
                     if (system.getStar() != null && system.getStar().isBlackHole())

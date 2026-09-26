@@ -1,7 +1,9 @@
 {
 	"id":"na_gravitymine",
 	"type":"STAT_MOD",
-	"aiType":"MINE_STRIKE",
+	
+	"aiType":"CUSTOM",
+	"aiScript":"data.scripts.ai.NA_MINESTRIKEAI",
 	
 	"statsScript":"data.scripts.NA_GravityMine",
 

@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.TimeoutTracker;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.world.nightcross.NA_BlackcatGen;
 
 import java.util.*;
 
@@ -261,7 +262,16 @@ public class NA_StargazerGhostManager extends SensorGhostManager implements Ever
 		return Misc.isInAbyss(Global.getSector().getPlayerFleet()) ? ABYSS_INTEREST_DECAY : ABYSS_INTEREST_DECAY_NOTABYSS;
 	}
 	public static float getAbyssInterest() {
-		return ManagerWithAbyssInterest.getAdjustedAbyssInterest(ABYSS_MANAGERID);
+		float distbonus = 0f;
+
+		// nix system
+		if (Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_blackcatstation") != null) {
+			float distFromNix = Misc.getDistance(
+					Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_blackcatstation").getLocationInHyperspace(),
+					Global.getSector().getPlayerFleet().getLocationInHyperspace());
+			distbonus += 4f * Math.max(0f, Math.min(1f, distFromNix / 3500));
+		}
+		return distbonus + ManagerWithAbyssInterest.getAdjustedAbyssInterest(ABYSS_MANAGERID);
 	}
 
 	public static void addAbyssInterest(float amount) {

@@ -241,12 +241,12 @@ public class NA_NovaMoteAI implements MissileAIPlugin {
         if (elapsed >= 0.5f) {
 
             boolean wantToFlock = !isTargetValid();
-            if (data.attractorLock != null) {
+            /*if (data.attractorLock != null) {
                 float dist = Misc.getDistance(missile.getLocation(), data.attractorLock.getLocation());
                 if (dist > data.attractorLock.getCollisionRadius() + ATTRACTOR_LOCK_STOP_FLOCKING_ADD) {
                     wantToFlock = true;
                 }
-            }
+            }*/
 
             if (wantToFlock) {
                 doFlocking();

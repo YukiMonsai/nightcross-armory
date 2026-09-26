@@ -86,8 +86,8 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
             if (this.systemTime.intervalElapsed() ) {
                 this.systemTime.randomize();
                 if (Global.getSector().getPlayerFleet() != null && fleet.getStarSystem() != Global.getSector().getPlayerFleet().getStarSystem()) {
-                    if (despawnAbyss && NA_BlackcatGen.lunargravitywell != null) {
-                        fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, NA_BlackcatGen.lunargravitywell, 10f, "leaving");
+                    if (despawnAbyss && Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_gravitywell") != null) {
+                        fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_gravitywell"), 10f, "everting");
                     } else {
                         fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, fleet.getStarSystem().getCenter(), 300f, "vanishing");
                     }

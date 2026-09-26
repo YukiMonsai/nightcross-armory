@@ -3,7 +3,7 @@
   "hullId": "na_macula_proto",
   "hullSize": "DESTROYER",
   "spriteName": "graphics/ships/na/macula/na_macula_proto.png",
-  "style": "NIGHTCROSSHULL",
+  "style": "NIGHTCROSSHULL_MACULA",
   "height": 172,
   "width": 172,
   "center": [86, 79],

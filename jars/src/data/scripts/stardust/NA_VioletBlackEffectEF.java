@@ -15,6 +15,7 @@ import java.awt.*;
 public class NA_VioletBlackEffectEF implements NA_StardustWeapon, OnFireEffectPlugin, EveryFrameWeaponEffectPlugin {
     public static float CHARGE_TICK = 0.2f;
     public IntervalUtil chargeTimer = new IntervalUtil(CHARGE_TICK, CHARGE_TICK);
+    public IntervalUtil beamTimer = new IntervalUtil(0.025f, 0.025f);
 
     public static float BASE_RANGE = 1200f;
     public void onFire(DamagingProjectileAPI projectile, WeaponAPI weapon, CombatEngineAPI engine) {
@@ -105,13 +106,15 @@ public class NA_VioletBlackEffectEF implements NA_StardustWeapon, OnFireEffectPl
         showNoFragmentSwarmWarning(weapon, weapon.getShip());
 
 
+
         if (weapon.getChargeLevel() > 0 && weapon.getCooldownRemaining() == 0) {
+            beamTimer.advance(amount);
+            if (beamTimer.intervalElapsed())
+                MagicFakeBeam.spawnFakeBeam(Global.getCombatEngine(), weapon.getFirePoint(0), weapon.getRange(), weapon.getCurrAngle(),
+                        3f, 0,
+                        0.05f, 40f, new Color(155, 90, 200), new Color(159, 31, 117, 200), 0, DamageType.FRAGMENTATION, 0, weapon.getShip() != null ? weapon.getShip() : null);
             if (chargeTimer.intervalElapsed()) {
                 chargeTimer = new IntervalUtil(0.5f * CHARGE_TICK, CHARGE_TICK);
-
-                if (weapon.getShip() != null)
-                    MagicFakeBeam.spawnFakeBeam(Global.getCombatEngine(), weapon.getFirePoint(0), weapon.getRange(), weapon.getCurrAngle(),
-                            3f, CHARGE_TICK, CHARGE_TICK, 40f, new Color(155, 40, 200), new Color(159, 31, 117, 158), 0, DamageType.FRAGMENTATION, 0, weapon.getShip());
 
                 RippleDistortion ripple = new RippleDistortion(weapon.getFirePoint(0), Misc.ZERO);
                 ripple.setSize(15f + 75 * weapon.getChargeLevel());

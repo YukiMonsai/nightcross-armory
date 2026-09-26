@@ -14,15 +14,13 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.SectorThemeGenerator;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.loading.LoadingUtils;
-import data.scripts.campaign.enc.NA_StargazerBH;
-import data.scripts.campaign.enc.NA_StargazerDrifter;
-import data.scripts.campaign.enc.NA_StargazerGhostManager;
-import data.scripts.campaign.enc.NA_StargazerShroudGhostCreator;
+import data.scripts.campaign.enc.*;
 import data.scripts.campaign.fleets.NA_SDF_Nightcross;
 import data.scripts.campaign.fleets.NA_Stargazer_Lunar_Fleet;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.ids.NightcrossPeople;
 import data.scripts.campaign.rulecmd.nca.NA_RelicDefenderPlugin;
+import data.scripts.campaign.rulecmd.nca.NA_ZGRTurnIn;
 import data.scripts.combat.plugins.NA_CampaignEveryframe;
 import data.scripts.weapons.NA_PyrowispAutofireAI;
 import data.scripts.weapons.ai.*;
@@ -301,6 +299,7 @@ public class NAModPlugin extends BaseModPlugin {
 
     private void syncScripts() {
 
+
         GenericPluginManagerAPI plugins = Global.getSector().getGenericPlugins();
         if (!plugins.hasPlugin(NA_NightcrossDefenderPlugin.class)) {
             plugins.addPlugin(new NA_NightcrossDefenderPlugin(), true);
@@ -329,6 +328,9 @@ public class NAModPlugin extends BaseModPlugin {
         SectorAPI sector = Global.getSector();
         if (!sector.hasScript(NA_StargazerGhostManager.class)) {
             sector.addScript(new NA_StargazerGhostManager());
+        }
+        if (!sector.hasScript(NA_StargazerSpawner.class)) {
+            sector.addScript(new NA_StargazerSpawner());
         }
 
         if (!hasLunaLib || NA_SettingsListener.na_pascal_system) {

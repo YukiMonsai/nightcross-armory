@@ -16,7 +16,7 @@
       "autofire": false,
       "mode": "LINKED",
       "weapons": {
-        "WS0017": "na_heavyparticlecannon"
+        "WS0017": "na_gatlinglaser"
       }
     },
     {

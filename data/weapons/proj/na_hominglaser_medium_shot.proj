@@ -5,6 +5,7 @@
 	"collisionClassByFighter":"MISSILE_NO_FF",
 	
 	"onHitEffect":"data.scripts.weapons.NA_AriaHit",
+	"onFireEffect":"data.scripts.weapons.NA_AriaHit",
 	
 	
 	"glowColor":[205,75,255,150],

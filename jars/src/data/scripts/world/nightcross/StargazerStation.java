@@ -148,7 +148,7 @@ public class StargazerStation extends SourceBasedFleetManager {
         fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_ALLOW_LONG_PURSUIT, false);
 
 
-        NA_StargazerFleets.modifyStargazerFleet(fleet, random);
+        NA_StargazerFleets.modifyStargazerFleet(fleet, random, NA_StargazerFleets.StargazerFleetType.PURE);
         fleet.setName(NA_StargazerFleets.STARGAZER_DEFENDER_NAMES1.pick() + " " + NA_StargazerFleets.STARGAZER_DEFENDER_NAMES2.pick());
 
         fleet.getMemoryWithoutUpdate().set("$sourceId", source.getId());

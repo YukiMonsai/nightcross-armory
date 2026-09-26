@@ -4,24 +4,40 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
 
 public class NA_SlowMissiles extends BaseHullMod {
 	public static final float ROF_PENALTY = 0.65f;
 
 	private String ID = "NA_SlowMissiles";
 
-	private float rof_cached = 0;
 
 	ShipAPI thisship = null;
 
+
+	private static class RofCacheData {
+		public float rof_cached = 0;
+	}
+
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return "35%";
-		if (index == 1) return (int) (100 * (1 - GetRofPenalty(thisship, true))) + "%";
+		float rof = GetRofPenalty(thisship, false);
+		if (index == 1) return "\n\nCurrent Penalty: " + (int) (100 * (1-rof)) + "%";
 		return null;
 	}
 
 	private float GetRofPenalty(CombatEntityAPI entity, boolean forceUpdate) {
-		if (rof_cached == 0 || forceUpdate) {
+		if (entity == null && !forceUpdate) return 0;
+		RofCacheData data = null;
+		if (entity != null) {
+			data = entity.getCustomData().containsKey(ID + "data") ? (RofCacheData) entity.getCustomData().get(ID + "data") : null;
+			if (data == null) {
+				entity.setCustomData(ID + "data", new RofCacheData());
+				data = (RofCacheData) entity.getCustomData().get(ID + "data");
+			}
+		}
+		if (data == null) data = new RofCacheData();
+		if ((data != null && data.rof_cached == 0) || (forceUpdate && entity != null)) {
 			float amount = 1f;
 			if (entity instanceof ShipAPI) {
 				thisship = (ShipAPI) entity;
@@ -79,10 +95,10 @@ public class NA_SlowMissiles extends BaseHullMod {
 				}
 			}
 
-			rof_cached = (ROF_PENALTY + (1f - ROF_PENALTY) * amount);
+			data.rof_cached = (ROF_PENALTY + (1f - ROF_PENALTY) * amount);
 		}
 
-		return rof_cached;
+		return data.rof_cached;
 	}
 
 	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -90,6 +106,13 @@ public class NA_SlowMissiles extends BaseHullMod {
 		//stats.getEnergyWeaponRangeBonus().modifyPercent(id, (Float) mag.get(hullSize));
 		stats.getMissileRoFMult().modifyMult(ID, GetRofPenalty(stats.getEntity(), true));
 	}
+
+	@Override
+	public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
+		super.applyEffectsAfterShipCreation(ship, id);
+		ship.getMutableStats().getMissileRoFMult().modifyMult(ID, GetRofPenalty(ship.getMutableStats().getEntity(), true));
+	}
+
 
 	@Override
 	public void advanceInCombat(ShipAPI ship, float amount) {

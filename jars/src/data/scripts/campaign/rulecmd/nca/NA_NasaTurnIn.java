@@ -202,6 +202,7 @@ public class NA_NasaTurnIn extends BaseCommandPlugin {
         boolean match = false;
         match |= stack.isWeaponStack() && stack.getWeaponSpecIfWeapon().hasTag("stargazer");
         match |= stack.isSpecialStack() && stack.getSpecialItemSpecIfSpecial().hasTag("stargazer");
+        match |= stack.isCommodityStack() && NA_ZGRTurnIn.stargazerCores.containsKey(stack.getCommodityId());
         return match;
     }
 

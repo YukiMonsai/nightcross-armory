@@ -178,6 +178,8 @@
 	"na_gatlinglaser":
 	[
 		{"file":"sounds/wpn/na_gatlinglaser.ogg","pitch":1.0,"volume":1},
+		{"file":"sounds/wpn/na_gatlinglaser2.ogg","pitch":1.0,"volume":1},
+		{"file":"sounds/wpn/na_gatlinglaser3.ogg","pitch":1.0,"volume":1},
 	],
 	
 	"na_rift_explosion":

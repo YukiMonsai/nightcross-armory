@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.AICoreOfficerPlugin;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
+import com.fs.starfarer.api.characters.FullName;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.util.Misc;
@@ -29,6 +30,7 @@ public class NA_NightcrossWIPStargazerXO extends BaseCommandPlugin {
             AICoreOfficerPlugin plugin = new NAGhostCorePlugin();
             //PersonAPI person = OfficerManagerEvent.createOfficer(fleet.getFaction(), 20, true, SkillPickPreference.NON_CARRIER, random);
             PersonAPI person = plugin.createPerson(NightcrossID.GHOST_CORE_ID, NightcrossID.FACTION_STARGAZER, new Random());
+            person.setName(new FullName("Singularity", "Apocalypse", FullName.Gender.ANY));
             SCOfficer officer = new SCOfficer(person, "sc_stargazer");
             officer.increaseLevel(2);
 

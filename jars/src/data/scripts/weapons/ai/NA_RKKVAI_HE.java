@@ -28,8 +28,9 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
     private final IntervalUtil launchTimer = new IntervalUtil(0.2f, 0.4f);
     private final IntervalUtil deathTimer = new IntervalUtil(0.05f, 0.4f);
 
-    private final float BEAM_TIME = 0.5f;
     private final float TARGETTIME = 0.5f;
+    private final float BEAM_TIME = 0.025f;
+    private final IntervalUtil reassignTimer = new IntervalUtil(0.5f, 0.5f);
     private final IntervalUtil beamTimer = new IntervalUtil(BEAM_TIME, BEAM_TIME);
     private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME);
     // data
@@ -278,8 +279,71 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
             }
 
 
-            if (stage == 2 && beamTimer.intervalElapsed()) {
-                float dist = MathUtils.getDistance(missile.getLocation(),target.getLocation());
+            float dist = MathUtils.getDistance(missile.getLocation(),target.getLocation());
+            reassignTimer.advance(amount);
+            beamTimer.advance(amount);
+            if (beamTimer.intervalElapsed() && Global.getCombatEngine().isUIShowingHUD())
+                MagicFakeBeam.spawnFakeBeam(
+                        Global.getCombatEngine(),
+                        missile.getLocation(),
+                        Math.min(dist + 1000f, 5000f),
+                        VectorUtils.getFacing(missile.getVelocity()),
+                        6f,
+                        0f,
+                        0.05f,
+                        0f,
+                        new Color(201, 0, 0, 175),
+                        new Color(255, 0, 0, 200),
+                        0f,
+                        DamageType.ENERGY,
+                        0f,
+                        missile.getSource()
+                );
+
+            if (target != null && MathUtils.getDistance(missile, target) <= TRIGGER_DIST) {
+                missile.setHitpoints(0); // boom
+
+                for (float ang = -TRIGGER_ANGLE; ang <= TRIGGER_ANGLE; ang += (2 * TRIGGER_ANGLE / TRIGGER_SUBS)) {
+                    var scale = MathUtils.getRandomNumberInRange(0.3f- 0.07f * (Math.abs(ang) / TRIGGER_ANGLE), 0.6f);
+                    CombatEntityAPI proj = Global.getCombatEngine().spawnProjectile(missile.getSource(), null,
+                            TRIGGER_WPN,
+                            missile.getLocation(),
+                            Misc.getAngleInDegrees(Misc.ZERO, missile.getVelocity()) + ang,
+                            new Vector2f(missile.getVelocity().x * scale, missile.getVelocity().y * scale));
+                    if (proj instanceof MissileAPI) ((MissileAPI) proj).setEmpResistance(4);
+                    Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(missile.getSource(),
+                            WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
+                    proj.setMass(250f);
+                    engine.addSmoothParticle(missile.getLocation(),
+                            Misc.ZERO,
+                            420, //60-75
+                            0.1f,
+                            0.2f,
+                            0.27f,
+                            new Color(255, 255, 255, 55));
+                    engine.addSwirlyNebulaParticle(missile.getLocation(),
+                            MathUtils.getPointOnCircumference(Misc.ZERO, 75, VectorUtils.getFacing(missile.getVelocity())),
+                            220, //60-75
+                            3.5f,
+                            0.5f,
+                            0.7f,
+                            4.5f,
+                            new Color(40, 54, 64, 55), true);
+
+                    MagicLensFlare.createSharpFlare(engine, missile.getSource(), missile.getLocation(), 1, 250, 0, new Color(255, 255, 255, 200), new Color(255, 55, 55, 255));
+                    RippleDistortion ripple2 = new RippleDistortion(missile.getLocation(), Misc.ZERO);
+                    ripple2.setSize(300);
+                    ripple2.setIntensity(25.0F);
+                    ripple2.setFrameRate(15);
+                    ripple2.setCurrentFrame(0);
+                    ripple2.fadeOutIntensity(1.5f);
+                    DistortionShader.addDistortion(ripple2);
+
+                    Global.getSoundPlayer().playSound("dragonfire_payload_fire", 1.0f, 0.7f, missile.getLocation(), Misc.ZERO);
+                }
+            }
+
+            if (stage == 2 && reassignTimer.intervalElapsed()) {
 
                 // we also blow up asteroids in front if they are further than our target
 
@@ -298,69 +362,11 @@ public class NA_RKKVAI_HE implements MissileAIPlugin, GuidedMissileAI {
 
 
                 // render a beam to help the player dodge
-                MagicFakeBeam.spawnFakeBeam(
-                        Global.getCombatEngine(),
-                        missile.getLocation(),
-                        Math.min(dist + 1000f, 5000f),
-                        VectorUtils.getFacing(missile.getVelocity()),
-                        6f,
-                        0f,
-                        0.05f,
-                        0f,
-                        new Color(201, 0, 0, 175),
-                        new Color(255, 0, 0, 200),
-                        0f,
-                        DamageType.ENERGY,
-                        0f,
-                        missile.getSource()
-                );
 
-                if (target != null && MathUtils.getDistance(missile, target) <= TRIGGER_DIST) {
-                    missile.setHitpoints(0); // boom
 
-                    for (float ang = -TRIGGER_ANGLE; ang <= TRIGGER_ANGLE; ang += (2 * TRIGGER_ANGLE / TRIGGER_SUBS)) {
-                        var scale = MathUtils.getRandomNumberInRange(0.3f- 0.07f * (Math.abs(ang) / TRIGGER_ANGLE), 0.6f);
-                        CombatEntityAPI proj = Global.getCombatEngine().spawnProjectile(missile.getSource(), null,
-                                TRIGGER_WPN,
-                                missile.getLocation(),
-                                Misc.getAngleInDegrees(Misc.ZERO, missile.getVelocity()) + ang,
-                                new Vector2f(missile.getVelocity().x * scale, missile.getVelocity().y * scale));
-                        if (proj instanceof MissileAPI) ((MissileAPI) proj).setEmpResistance(4);
-                        Global.getCombatEngine().applyDamageModifiersToSpawnedProjectileWithNullWeapon(missile.getSource(),
-                                WeaponAPI.WeaponType.MISSILE, false, ((DamagingProjectileAPI) proj).getDamage());
-                        proj.setMass(250f);
-                        engine.addSmoothParticle(missile.getLocation(),
-                                Misc.ZERO,
-                                420, //60-75
-                                0.1f,
-                                0.2f,
-                                0.27f,
-                                new Color(255, 255, 255, 55));
-                        engine.addSwirlyNebulaParticle(missile.getLocation(),
-                                MathUtils.getPointOnCircumference(Misc.ZERO, 75, VectorUtils.getFacing(missile.getVelocity())),
-                                220, //60-75
-                                3.5f,
-                                0.5f,
-                                0.7f,
-                                4.5f,
-                                new Color(40, 54, 64, 55), true);
 
-                        MagicLensFlare.createSharpFlare(engine, missile.getSource(), missile.getLocation(), 1, 250, 0, new Color(255, 255, 255, 200), new Color(255, 55, 55, 255));
-                        RippleDistortion ripple2 = new RippleDistortion(missile.getLocation(), Misc.ZERO);
-                        ripple2.setSize(300);
-                        ripple2.setIntensity(25.0F);
-                        ripple2.setFrameRate(15);
-                        ripple2.setCurrentFrame(0);
-                        ripple2.fadeOutIntensity(1.5f);
-                        DistortionShader.addDistortion(ripple2);
 
-                        Global.getSoundPlayer().playSound("dragonfire_payload_fire", 1.0f, 0.7f, missile.getLocation(), Misc.ZERO);
-                    }
-                }
 
-                beamTimer.setElapsed(0);
-            } else {
-                beamTimer.advance(amount);
             }
         }
     }

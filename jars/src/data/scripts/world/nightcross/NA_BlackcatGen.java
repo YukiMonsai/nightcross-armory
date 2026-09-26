@@ -108,6 +108,7 @@ public class NA_BlackcatGen implements SectorGeneratorPlugin {
                 100, 10000, 5000);
         setBlackHoleIfBlackHole(system, gravitywell, random);
         lunargravitywell = gravitywell;
+        Global.getSector().getMemoryWithoutUpdate().set("$na_entity_gravitywell", gravitywell);
         gravitywell.setCustomDescriptionId("na_lunargravitywell");
         gravitywell.setDiscoverable(true);
         gravitywell.setDiscoveryXP(10000f);
@@ -159,6 +160,7 @@ public class NA_BlackcatGen implements SectorGeneratorPlugin {
         //added.entity.getMemoryWithoutUpdate().set(MemFlags.SALVAGE_SPEC_ID_OVERRIDE, "na_blackcatstation");
         added.entity.setName("Research Complex");
         added.entity.getMemoryWithoutUpdate().set("$na_blackcatstation", true);
+        Global.getSector().getMemoryWithoutUpdate().set("$na_entity_blackcatstation", added.entity);
         added.entity.setCustomDescriptionId("na_blackcatstation");
 
         // add the links if they werent generated already

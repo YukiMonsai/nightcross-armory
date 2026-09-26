@@ -118,7 +118,7 @@ public class NA_StargazerGhost extends BaseSensorGhost implements Script {
 			fleet.addScript(new AutoDespawnScript(fleet));
 
 			fleet.addScript(new NA_StargazerNebulaScript(fleet, 0.12f));
-			NA_StargazerFleets.modifyStargazerFleet(fleet, random);
+			NA_StargazerFleets.modifyStargazerFleet(fleet, random, NA_StargazerFleets.StargazerFleetType.MIXED);
 
 
 			fleet.addTag(NightcrossTags.NEBULA_GHOST);

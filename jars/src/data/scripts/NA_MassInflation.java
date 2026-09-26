@@ -52,6 +52,7 @@ public class NA_MassInflation extends BaseShipSystemScript {
 
         if (lastLevel < 0.1 && effectLevel >= 0.1) {
             Global.getCombatEngine().addNegativeParticle(ship.getLocation(), ship.getVelocity(), NA_GravityDrag.RANGE * 1.4f, 0.25f, 1f, new Color(0, 255, 255, 50));
+            Global.getCombatEngine().addSmoothParticle(ship.getLocation(), ship.getVelocity(), NA_GravityDrag.RANGE * 1.4f, 0.25f, 1f, new Color(237, 16, 74, 50));
         }
         lastLevel = effectLevel;
 
@@ -69,6 +70,9 @@ public class NA_MassInflation extends BaseShipSystemScript {
                 float mult = Math.min(1, Math.max(0, 1.2f - dist/NA_GravityDrag.RANGE));
                 if (mult < 0) continue;
                 proj.getVelocity().set(proj.getVelocity().x * (float) (1f - .9f * mult), proj.getVelocity().y * (float) (1f - .9f * mult));
+                if (proj instanceof MissileAPI) {
+                    Global.getCombatEngine().applyDamage(proj, proj.getLocation(), proj.getMaxHitpoints() * (proj.getOwner() == ship.getOwner() ? 0.2f : 0.75f) * mult, DamageType.ENERGY, 0, false, false, this, false);
+                }
             }
             List<ShipAPI> enemies = NAUtils.getEnemyShipsWithinRange(ship, ship.getLocation(), NA_GravityDrag.RANGE, true);
 
@@ -76,8 +80,14 @@ public class NA_MassInflation extends BaseShipSystemScript {
                 float dist = MathUtils.getDistance(ship, target);
                 float mult = Math.min(1, Math.max(0, 1.2f - dist/NA_GravityDrag.RANGE));
 
+                if (target.isPhased()) mult *= 0.5f;
+
                 if (mult < 0) continue;
 
+
+                if (target.isFighter() && target.getOwner() != ship.getOwner() && !target.isPhased()) {
+                    Global.getCombatEngine().applyDamage(target, target.getLocation(), 200f * mult, DamageType.ENERGY, 200, false, false, this, false);
+                }
 
                 final String targetDataKey = target.getId() + "_massinflation_target_data";
 

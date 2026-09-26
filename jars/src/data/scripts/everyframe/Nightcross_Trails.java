@@ -12,10 +12,8 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.plugins.NAModPlugin;
 import java.awt.Color;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lwjgl.opengl.GL11;
@@ -34,7 +32,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
     private static final Color LASER_TRAIL_COLOR_START = new Color(125, 50, 250);
     private static final Color LASER_TRAIL_COLOR_END = new Color(75, 25, 175);
     private static final String GATLINGLASER_PROJ_ID = "na_gatlinglaser_shot";
-    private static final Color GATLINGLASER_TRAIL_COLOR_START = new Color(133, 124, 255);
+    private static final Color GATLINGLASER_TRAIL_COLOR_START = new Color(255, 255, 255);
     private static final Color GATLINGLASER_TRAIL_COLOR_END = new Color(108, 25, 175);
 
 
@@ -585,6 +583,7 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                         spawnPosition.x += offsetPoint.x;
                         spawnPosition.y += offsetPoint.y;
 
+
                         MagicTrailPlugin.addTrailMemberAdvanced(
                                 proj, /* linkedEntity */
                                 data.id, /* ID */
@@ -592,23 +591,23 @@ public class Nightcross_Trails extends BaseEveryFrameCombatPlugin {
                                 spawnPosition, /* position */
                                 0f, /* startSpeed */
                                 0f, /* endSpeed */
-                                proj.getFacing() - 180f, /* angle */
-                                (float) Math.random() * -15f, /* startAngularVelocity */
+                                proj.getFacing(), /* angle */
+                                0, /* startAngularVelocity */
                                 (float) Math.random() * 15f, /* endAngularVelocity */
-                                powermult * 10f + 8f, /* startSize */
+                                powermult * 15f + 18f, /* startSize */
                                 powermult * 10f + 8f, /* endSize */
-                                GATLINGLASER_TRAIL_COLOR_START, /* startColor */
+                                new Color(175, 225, 255), /* startColor */
                                 GATLINGLASER_TRAIL_COLOR_END, /* endColor */
                                 fade, /* opacity */
                                 0f, /* inDuration */
-                                0.2f * powermult + 0.1f, /* mainDuration */
-                                0.2f * powermult + 0.3f, /* outDuration */
+                                0.1f * powermult + 0.25f, /* mainDuration */
+                                0.2f * powermult + 0.5f, /* outDuration */
                                 GL11.GL_SRC_ALPHA, /* blendModeSRC */
                                 GL11.GL_ONE_MINUS_SRC_ALPHA, /* blendModeDEST */
                                 256f, /* textureLoopLength */
                                 0f, /* textureScrollSpeed */
                                 -1, /* textureOffset */
-                                MathUtils.getPointOnCircumference(sidewaysVel, 2f, (float) Math.random() * 360f), /* offsetVelocity */
+                                MathUtils.getPointOnCircumference(sidewaysVel, 35f, (float) Math.random() * 360f), /* offsetVelocity */
                                 null, /* advancedOptions */
                                 CombatEngineLayers.CONTRAILS_LAYER, /* layerToRenderOn */
                                 1f /* frameOffsetMult */

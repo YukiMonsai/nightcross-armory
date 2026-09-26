@@ -41,6 +41,47 @@
 		"dHullOverlayHeavy":"graphics/damage/dmod_overlay_hightech_heavy.png",	
 	},
 	
+	
+	
+	"NIGHTCROSSHULL_MACULA":{
+		"hyperspaceJitterColor":[80,210,255,255],
+		"baseCampaignExplosionColor":[80,255,210,255],
+		"baseCombatExplosionColor":[80,255,210,255],
+		"fighterRepairFlickerColor":[80,210,255,255],
+		"fighterChipIconColor":[80,210,255,255],
+		"weaponDisabledExplosionColor":[60,210,255,255],
+		"shieldRingColor":[255,255,255,255],
+		"shieldInnerColor":[80,255,135,75],
+		"fluxVentCoreColor":[75,175,255,255],
+		"fluxVentFringeColor":[0,155,125,255],
+		"engineLoopSet":"engine_loop", 					# id of entry in sounds.json
+		"engineAccelerateSet":"engine_accelerate",		# id of entry in sounds.json
+		"empLoopSet":"emp_loop",						# id of entry in sounds.json
+		"fluxLoopSet":"flux_loop",						# id of entry in sounds.json
+		"ventFluxSet":"vent_flux",						# id of entry in sounds.json
+		"shieldBurnoutSet":"shield_burnout",			# id of entry in sounds.json
+		"shieldLowerSet":"shield_lower",				# id of entry in sounds.json
+		"shieldRaiseSet":"shield_raise",				# id of entry in sounds.json
+		"explosionShipSet":"explosion_ship",			# id of entry in sounds.json
+		"damageDecalSheet":"graphics/damage/damage_decal_sheet_base.png",
+		"damageDecalGlowSheet":"graphics/damage/damage_decal_sheet_glow.png",
+		
+		#"colorShiftCovers":true,
+		"coversColorShiftAmount":1,  # 0 to 1
+		"coversMatchShipBrightness":true,
+		"slotCoverSmallTurret":"graphics/weapons/covers/cover_turret_nightcross_small.png",
+		"slotCoverSmallHardpoint":"graphics/weapons/covers/cover_hardpoint_nightcross_small.png",
+		"slotCoverMediumTurret":"graphics/weapons/covers/cover_turret_nightcross_medium.png",
+		"slotCoverMediumHardpoint":"graphics/weapons/covers/cover_hardpoint_nightcross_medium.png",
+		"slotCoverLargeTurret":"graphics/weapons/covers/cover_turret_nightcross_large.png",
+		"slotCoverLargeHardpoint":"graphics/weapons/covers/cover_hardpoint_nightcross_large.png",
+		
+		"dHullOverlayLight":"graphics/damage/dmod_overlay_hightech_light.png",
+		"dHullOverlayMedium":"graphics/damage/dmod_overlay_hightech_medium.png",
+		"dHullOverlayHeavy":"graphics/damage/dmod_overlay_hightech_heavy.png",	
+	},
+	
+	
 	"NIGHTCROSSAIHULL":{
 		"hyperspaceJitterColor":[255,125,80,255],
 		"baseCampaignExplosionColor":[170,25,225,255],

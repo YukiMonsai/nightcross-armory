@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class NA_PlasmaAggregator extends BaseHullMod {
-	public static final float ROF_BOOST = 0.25f;
+	public static final float ROF_BOOST = 0.4f;
 	public static final float SMOD_REGEN_BONUS = 30f;
 	public static final float FLUX_RED = 20f;
 
@@ -33,7 +33,7 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return Math.round(100*ROF_BOOST) + "%";
-		if (index == 1) return FLUX_RED + "%";
+		if (index == 1) return (int) FLUX_RED + "%";
 		return null;
 	}
 
@@ -51,9 +51,9 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 
 
 		boolean sMod = isSMod(stats);
-		if (sMod) {
+		/*if (sMod) {
 			stats.getEnergyAmmoRegenMult().modifyPercent(id, SMOD_REGEN_BONUS);
-		}
+		}*/
 	}
 
 	@Override
@@ -71,10 +71,18 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 					w.setRemainingCooldownTo(Math.max(0.00000001f, w.getCooldownRemaining() - amount * ROF_BOOST));
 				}
 			}
-			if (w.getAmmoTracker() != null && w.getAmmoTracker().getReloadProgress() > 0) {
-				w.getAmmoTracker().setReloadProgress(w.getAmmoTracker().getReloadProgress()+amount * ROF_BOOST);
+		}
+		boolean sMod = isSMod(ship.getMutableStats());
+		if (sMod) {
+			for (WeaponAPI w: getSynergyOrEnergy(ship)) {
+				if (w.getAmmoTracker() != null && w.getAmmoTracker().getReloadProgress() > 0) {
+					float ProgressPerSecond = w.getAmmoTracker().getAmmoPerSecond()/w.getAmmoTracker().getReloadSize();
+					if (ProgressPerSecond > 0)
+						w.getAmmoTracker().setReloadProgress(w.getAmmoTracker().getReloadProgress() + amount*ProgressPerSecond * SMOD_REGEN_BONUS/100f);
+				}
 			}
 		}
+
 
 
 		// Code based on Knights of Ludd, thanks selkie and co.
@@ -150,12 +158,41 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 		return result;
 	}
 
-	public static List<WeaponAPI> getEnergyInSynergy(ShipAPI carrier) {
+	public static List<WeaponAPI> getSynergyOrEnergy(ShipAPI carrier) {
 		List<WeaponAPI> result = new ArrayList<WeaponAPI>();
 
 		for (WeaponAPI weapon : carrier.getAllWeapons()) {
 			if (
-					weaponIsEnergyInSynergy(weapon)
+					weaponIsSynergy(weapon)
+							|| weaponIsEnergy(weapon)
+			) {
+				result.add(weapon);
+			}
+		}
+
+		return result;
+	}
+	public static List<WeaponAPI> getMissileOrEnergy(ShipAPI carrier) {
+		List<WeaponAPI> result = new ArrayList<WeaponAPI>();
+
+		for (WeaponAPI weapon : carrier.getAllWeapons()) {
+			if (
+					weaponIsMissile(weapon)
+							|| weaponIsEnergy(weapon)
+			) {
+				result.add(weapon);
+			}
+		}
+
+		return result;
+	}
+
+	public static List<WeaponAPI> getInSynergyOrIsSynergy(ShipAPI carrier) {
+		List<WeaponAPI> result = new ArrayList<WeaponAPI>();
+
+		for (WeaponAPI weapon : carrier.getAllWeapons()) {
+			if (
+					weaponInSynergyOrIsSynergy(weapon)
 			) {
 				result.add(weapon);
 			}
@@ -174,10 +211,31 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 		return weapon != null
 				&& weapon.getSlot().getWeaponType() == WeaponAPI.WeaponType.SYNERGY
 				&& (weapon.getSpec().getType() == WeaponAPI.WeaponType.ENERGY
-					|| weapon.getType() == WeaponAPI.WeaponType.ENERGY)
+				|| weapon.getType() == WeaponAPI.WeaponType.ENERGY)
 				&& !(weapon.getSpec().getType() == WeaponAPI.WeaponType.SYNERGY
-					|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
-					|| weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY);
+				|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
+				|| weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY);
+	}
+	public static boolean weaponInSynergyOrIsSynergy(WeaponAPI weapon) {
+		return weapon != null
+				&& (weapon.getSlot().getWeaponType() == WeaponAPI.WeaponType.SYNERGY
+					|| (weapon.getSpec().getType() == WeaponAPI.WeaponType.SYNERGY
+						|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
+						|| weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY));
+	}
+	public static boolean weaponIsEnergy(WeaponAPI weapon) {
+		return weapon != null
+				&& (weapon.getSpec().getType() == WeaponAPI.WeaponType.ENERGY
+				|| weapon.getType() == WeaponAPI.WeaponType.ENERGY)
+				&& !(weapon.getSpec().getType() == WeaponAPI.WeaponType.SYNERGY
+				|| weapon.getType() == WeaponAPI.WeaponType.SYNERGY
+				|| weapon.getSpec().getMountType() == WeaponAPI.WeaponType.SYNERGY);
+	}
+
+	public static boolean weaponIsMissile(WeaponAPI weapon) {
+		return weapon != null
+				&& (weapon.getSpec().getType() == WeaponAPI.WeaponType.MISSILE
+				|| weapon.getType() == WeaponAPI.WeaponType.MISSILE);
 	}
 
 
@@ -185,7 +243,7 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 
 	private void init(ShipAPI ship){
 		if (inited) return;
-		for(WeaponAPI weapon : getEnergyInSynergy(ship)){
+		for(WeaponAPI weapon : getInSynergyOrIsSynergy(ship)){
 			if(!weapon.isDecorative()){
 				if (weapon.isBeam() && !weapon.isBurstBeam()){
 					beams.add(weapon);

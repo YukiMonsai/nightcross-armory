@@ -1,10 +1,10 @@
 {
 	"id":"na_massinflation",
 	"type":"STAT_MOD",
-	"aiType":"TEMPORAL_SHELL",
+	"aiType":"CUSTOM",
 	
 	"statsScript":"data.scripts.NA_MassInflation",
-	#"aiScript":"data.scripts.ai.NA_FlickerfieldAI",
+	"aiScript":"data.scripts.ai.NA_MassInflationAI",
 	
 	"jitterUnderColor":[60,165,255,155],
 	"jitterUnderCopies":25,
@@ -31,6 +31,8 @@
 	"outOfUsesSound":"gun_out_of_ammo",
 	
 	"aiHints":{
+		"activeSpeedIncrease":40,  # Makes you faster than nearby ships
+		"burstMovementPotential":50,
 	}
 }
 

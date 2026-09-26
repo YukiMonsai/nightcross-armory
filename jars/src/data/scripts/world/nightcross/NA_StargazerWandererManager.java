@@ -71,7 +71,7 @@ public class NA_StargazerWandererManager extends DisposableFleetManager implemen
 
     @Override
     protected CampaignFleetAPI spawnFleetImpl() {
-        CampaignFleetAPI f = NA_StargazerFleets.createStargazerFleet(new StargazerFleetParams(), null);
+        CampaignFleetAPI f = NA_StargazerFleets.createStargazerFleet(new StargazerFleetParams(), null, NA_StargazerFleets.StargazerFleetType.MIXED);
 
         f.getStats().getDetectedRangeMod().modifyMult("na_stargazer_hidden", 0.5f);
 

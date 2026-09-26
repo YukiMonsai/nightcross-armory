@@ -28,8 +28,8 @@ public class NA_GravityDrag extends BaseHullMod {
 
 	public String getDescriptionParam(int index, HullSize hullSize) {
 		if (index == 0) return Math.round(RANGE) + "";
-		if (index == 1) return TIMEFLOW + "%";
-		if (index == 2) return BEAMRESIST + "%";
+		if (index == 1) return (int) TIMEFLOW + "%";
+		if (index == 2) return (int) BEAMRESIST + "%";
 		return null;
 	}
 

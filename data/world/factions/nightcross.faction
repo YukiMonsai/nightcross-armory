@@ -118,7 +118,7 @@
     },
     # listing ships here will make the faction mostly use them even if other hulls become available
     "priorityShips":{
-        "tags":["nightcross_bp_fast", "nightcross_bp_heavy"],
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy", "nightcross"],
         "hulls":[
 			"na_echo",
 			"na_elyurias",
@@ -142,7 +142,7 @@
         ],
     },
     "priorityFighters":{
-        "tags":["nightcross_bp_fast", "nightcross_bp_heavy"],
+        "tags":["nightcross_bp_fast", "nightcross_bp_heavy", "nightcross"],
         "fighters":[
         ],
     },

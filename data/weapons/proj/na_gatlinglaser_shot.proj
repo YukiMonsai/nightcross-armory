@@ -2,7 +2,7 @@
 	"id":"na_gatlinglaser_shot",
 	"specClass":"projectile",
 	"onHitEffect":"data.scripts.weapons.NA_Gatlinglaser_Effect",
-	"onFireEffect":"data.scripts.weapons.NA_TrailWeapon",
+	"onFireEffect":"data.scripts.weapons.NA_Gatlinglaser_Effect",
 	"spawnType":"BALLISTIC_AS_BEAM",
 	"collisionClass":"RAY",
 	"collisionClassByFighter":"RAY_FIGHTER",
@@ -15,7 +15,7 @@
 	#"fringeColor":[120,110,185,255],
 	#"coreColor":[255,255,255,200],
 	"fringeColor":[120,110,185,0],
-	"coreColor":[255,255,255,0],
+	"coreColor":[255,255,255,200],
 	"textureType":"SMOOTH",  # only needed for BEAM spawnType
 	"textureScrollSpeed":-256.0,
 	"pixelsPerTexel":1.0	

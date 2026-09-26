@@ -38,12 +38,18 @@
 		"tags":[],
 		"hulls":[
 			"na_autonomousunit",
+			"na_sop",
+			"na_mare",
+			"na_macula",
 		],
 	},
 	"knownShips":{
 		"tags":[],
 		"hulls":[
 			"na_autonomousunit",
+			"na_sop",
+			"na_mare",
+			"na_macula",
 		],
 	},
 	# listing ships here will make the faction mostly use them even if other hulls become available

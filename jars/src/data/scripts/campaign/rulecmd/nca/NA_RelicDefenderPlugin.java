@@ -73,6 +73,8 @@ public class NA_RelicDefenderPlugin extends BaseGenericPlugin implements Salvage
         v.setSource(VariantSource.REFIT);
         v.addTag(Tags.TAG_AUTOMATED_NO_PENALTY);
         v.addTag(Tags.UNRECOVERABLE);
+        v.addPermaMod("na_fulldive");
+        v.addPermaMod(HullMods.AUTOMATED);
         member.setVariant(v, false, true);
         fleet.setCommander(person);
 

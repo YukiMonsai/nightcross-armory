@@ -280,6 +280,8 @@ public class NA_NovaMote implements EveryFrameWeaponEffectPlugin {
     protected void spawnAttractorParticles(ShipAPI ship) {
         SharedMoteAIData data = getSharedData(ship);
 
+        if (data.targets.isEmpty()) return;
+
         if (data.attractorTarget == null) return;
 
         CombatEngineAPI engine = Global.getCombatEngine();
@@ -405,6 +407,13 @@ public class NA_NovaMote implements EveryFrameWeaponEffectPlugin {
                 data.availableMotes.add(mote);
             }
         }
+        HashMap<MissileAPI, CombatEntityAPI> targets = new HashMap<>();
+        for (MissileAPI mote : data.targets.keySet()) {
+            if (Global.getCombatEngine().isMissileAlive(mote) ) {
+                targets.put(mote, data.targets.get(mote));
+            }
+        }
+        data.targets = targets;
     }
 }
 

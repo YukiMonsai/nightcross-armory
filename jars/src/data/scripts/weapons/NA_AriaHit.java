@@ -4,6 +4,8 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.AsteroidAPI;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
+import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
+import com.fs.starfarer.api.impl.combat.threat.VoidblasterEffect;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
 import com.fs.starfarer.api.util.IntervalUtil;
@@ -13,7 +15,7 @@ import org.lwjgl.util.vector.Vector2f;
 import java.awt.*;
 import java.util.List;
 
-public class NA_AriaHit implements OnHitEffectPlugin {
+public class NA_AriaHit implements OnHitEffectPlugin, OnFireEffectPlugin, DamageDealtModifier {
 
     private static final float SCRAMBLE_MULT = 0.8f;
     private static final float SCRAMBLE_DURATION = 4f;
@@ -24,6 +26,8 @@ public class NA_AriaHit implements OnHitEffectPlugin {
 
     public static Color TEXT_COLOR = new Color(55,175,255,255);
 
+
+    protected String weaponId;
 
     public static class TargetData {
         public ShipAPI target;
@@ -38,6 +42,29 @@ public class NA_AriaHit implements OnHitEffectPlugin {
     }
 
     @Override
+    public void onFire(DamagingProjectileAPI projectile, WeaponAPI weapon, CombatEngineAPI engine) {
+        ShipAPI ship = weapon.getShip();
+        if (!ship.hasListenerOfClass(NA_Gatlinglaser_Effect.class)) {
+            ship.addListener(this);
+            weaponId = weapon.getId();
+        }
+    }
+    public String modifyDamageDealt(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
+        if (param instanceof DamagingProjectileAPI) {
+            DamagingProjectileAPI p = (DamagingProjectileAPI) param;
+            if (p.getWeapon() != null && p.getWeapon().getId().equals(weaponId)) {
+                if (target instanceof ShipAPI) {
+                    ((ShipAPI)target).setSkipNextDamagedExplosion(true);
+                    if (shieldHit) {
+                        if (Math.random() < 0.5f) damage.setSoftFlux(true);
+                    }
+                }
+                return "na_gatlinglaser";
+            }
+        }
+        return null;
+    }
+    @Override
     public void onHit(DamagingProjectileAPI proj, CombatEntityAPI targett, Vector2f point, boolean shieldHit, ApplyDamageResultAPI resultAPI, CombatEngineAPI engineAPI) {
         if (point == null || shieldHit) {
             return;
@@ -48,17 +75,6 @@ public class NA_AriaHit implements OnHitEffectPlugin {
             final ShipAPI target = (ShipAPI) targett;
 
             if (dmg > 0) {
-                if (shieldHit) {
-                    // reduced damage to shields unless hardflux
-                    float hflux_max = 0.8f;
-                    float hflux_level = ((ShipAPI) targett).getHardFluxLevel();
-                    float factor = Math.max(0, Math.min(1f, hflux_level / hflux_max));
-                    float mult = 0.6f;
-                    float mmult = 0.4f;
-                    resultAPI.setDamageToShields(resultAPI.getDamageToShields() * (mmult + mult * factor));
-                }
-
-
                 // apply the debuff
                 ShipAPI ship = proj.getSource();
 

@@ -6,6 +6,7 @@ import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.combat.listeners.DamageDealtModifier;
 import com.fs.starfarer.api.impl.combat.BreachOnHitEffect;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.everyframe.Nightcross_Trails;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
@@ -25,8 +26,9 @@ public class NA_Gatlinglaser_Effect implements OnHitEffectPlugin, OnFireEffectPl
 
     @Override
     public void onFire(DamagingProjectileAPI projectile, WeaponAPI weapon, CombatEngineAPI engine) {
+        Nightcross_Trails.createIfNeeded();
         ShipAPI ship = weapon.getShip();
-        if (!ship.hasListenerOfClass(com.fs.starfarer.api.impl.combat.threat.VoidblasterEffect.class)) {
+        if (!ship.hasListenerOfClass(NA_Gatlinglaser_Effect.class)) {
             ship.addListener(this);
             weaponId = weapon.getId();
         }

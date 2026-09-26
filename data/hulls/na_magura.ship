@@ -11,6 +11,9 @@
   "shieldCenter": [0, -0],
   "shieldRadius": 15,
   "viewOffset": 0,
+  "builtInMods": [
+    "no_weapon_flux",
+  ],
   "builtInWeapons": {
     "WS0002": "blinker_na_cyan",
     "WS0003": "blinker_na_cyan"

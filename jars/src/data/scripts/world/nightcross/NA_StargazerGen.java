@@ -1,6 +1,8 @@
 package data.scripts.world.nightcross;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.fleet.FleetAPI;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.ids.Entities;
@@ -71,6 +73,8 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
 
     // number to generate at start
     public static final int INIT_STARGAZER_WANDERERS = 16;
+    // number to generate up to
+    public static final int MIN_STARGAZER_WANDERERS = 30;
 
     // frequency with which they spawn until max number, in cycles, one at a time
     public static final float PERIOD_STARGAZER_WANDERERS = 30;
@@ -81,9 +85,20 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
 
         StargazerGenerated = true;
     }
-    public void createWanderers(SectorAPI sector) {
+    public static void createWanderers(SectorAPI sector) {
         List<StarSystemAPI> availableSystems = getStargazerOrigins(sector);
-        for (int i = 0; i < 10*INIT_STARGAZER_WANDERERS; i++) {
+        for (int i = 0; i < INIT_STARGAZER_WANDERERS; i++) {
+
+            int index = MathUtils.getRandomNumberInRange(0, availableSystems.size() - 1);
+            if (availableSystems.size() > 0) {
+                StarSystemAPI system = availableSystems.get(index);
+                i += place_stargazer(sector, system); // soft retry
+            }
+        }
+    }
+    public static void createWanderers(SectorAPI sector, int num) {
+        List<StarSystemAPI> availableSystems = getStargazerOrigins(sector);
+        for (int i = 0; i < num; i++) {
 
             int index = MathUtils.getRandomNumberInRange(0, availableSystems.size() - 1);
             if (availableSystems.size() > 0) {
@@ -93,14 +108,18 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
         }
     }
 
+    public static int countWanderers(SectorAPI sector) {
+        List<SectorEntityToken> fleets = sector.getEntitiesWithTag("na_generatedStargazer");
+        return fleets.size();
+    }
 
-    public List<StarSystemAPI> getStargazerOrigins(SectorAPI sector) {
+    public static List<StarSystemAPI> getStargazerOrigins(SectorAPI sector) {
         List<LocationAPI> locations = sector.getAllLocations();
         List<StarSystemAPI> blackholes = new ArrayList<>();
         for (LocationAPI loc : locations) {
             if (loc instanceof StarSystemAPI && ((StarSystemAPI) loc).getStar() != null) {
                 if (((StarSystemAPI) loc).getStar().getSpec() != null && ((StarSystemAPI) loc).getStar().getSpec().isBlackHole()) {
-                    if (((StarSystemAPI) loc).isProcgen() && !loc.isDeepSpace()) {
+                    if (((StarSystemAPI) loc).isProcgen() && !loc.isDeepSpace() && !loc.getFleets().contains(Global.getSector().getPlayerFleet())) {
                         boolean filtered = false;
                         for (String tag : BLACKLISTED_SYSTEM_TAGS) {
                             if (loc.getTags().contains(tag)) {
@@ -125,7 +144,7 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
         return blackholes;
     }
 
-    public int place_stargazer(SectorAPI sector, StarSystemAPI system) {
+    public static int place_stargazer(SectorAPI sector, StarSystemAPI system) {
 
             // get the star
             PlanetAPI star = system.getStar();
@@ -140,7 +159,7 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                         NightcrossID.FACTION_STARGAZER,
                         -1.5f, // quality override
                         FleetTypes.PATROL_SMALL,
-                        MathUtils.getRandomNumberInRange(size*Math.min(size, 4)*5+4, size*Math.min(size, 4)*10 + 5), // combatPts
+                        MathUtils.getRandomNumberInRange(size*Math.min(size, 4)*4+4, size*Math.min(size, 4)*8 + 5), // combatPts
                         0, // freighterPts
                         0, // tankerPts
                         0f, // transportPts
@@ -153,7 +172,9 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                 params.random = new Random(); //for easier testing
                 params.modeOverride = FactionAPI.ShipPickMode.PRIORITY_ONLY;
 
-                CampaignFleetAPI f = createStargazerFleet(params, null);
+                CampaignFleetAPI f = createStargazerFleet(params, null, params.random.nextFloat() < 0.6f ? (
+                        params.random.nextFloat() < 0.3f ? NA_StargazerFleets.StargazerFleetType.NIGHTCROSS : NA_StargazerFleets.StargazerFleetType.MIXED
+                        ) : NA_StargazerFleets.StargazerFleetType.LOST_ONES);
 
                 system.addEntity(f);
 
@@ -162,6 +183,8 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
                 f.setLocation(loc.x, loc.y);
 
                 f.getMemoryWithoutUpdate().set("$combatMusicSetId","na_stargazer_battle");
+                f.getMemoryWithoutUpdate().set("$na_generatedStargazer",true);
+                f.addTag("na_generatedStargazer");
 
 
                 NA_StargazerBehavior behavior = new NA_StargazerBehavior(f, system, star, true, true, false, false);

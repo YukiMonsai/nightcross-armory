@@ -13,6 +13,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.ids.NightcrossID;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +24,13 @@ import java.util.Map;
  *
  */
 public class NA_ZGRTurnIn extends BaseCommandPlugin {
+
+    public static Map<String, Boolean> stargazerCores = new HashMap();
+    static {
+        stargazerCores.put( "na_ghost_core", true);
+        stargazerCores.put( "na_ghost_matrix", true);
+        stargazerCores.put( "na_ghost_grid", true);
+    }
 
     public static float VALUE_MULT = 3f;
     public static float REP_MULT = 0.2f;
@@ -226,6 +234,7 @@ public class NA_ZGRTurnIn extends BaseCommandPlugin {
         boolean match = false;
         match |= stack.isWeaponStack() && stack.getWeaponSpecIfWeapon().hasTag("stargazer");
         match |= stack.isSpecialStack() && stack.getSpecialItemSpecIfSpecial().hasTag("stargazer");
+        match |= stack.isCommodityStack() && stargazerCores.containsKey(stack.getCommodityId());
         return match;
     }
 

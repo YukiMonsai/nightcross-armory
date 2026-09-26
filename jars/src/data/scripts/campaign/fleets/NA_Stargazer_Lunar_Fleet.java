@@ -100,7 +100,8 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
 
     @Override
     public boolean canSpawnFleetNow() {
-        return !isRedundant() && NA_BlackcatGen.blackcatstation != null && NA_BlackcatGen.lunargravitywell != null;
+        return !isRedundant() && (Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_blackcatstation") != null
+                    || Global.getSector().getEntityById("naai_blackcatstation") != null);
     }
 
     public boolean isRedundant() {
@@ -112,7 +113,9 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
     @Override
     public CampaignFleetAPI spawnFleet() {
 
-        SectorEntityToken NA_Elevator = NA_BlackcatGen.blackcatstation;
+        SectorEntityToken NA_Elevator = Global.getSector().getEntityById("naai_blackcatstation") != null
+                ? Global.getSector().getEntityById("naai_blackcatstation")
+                : Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_blackcatstation");
 
         FleetCreatorMission m = new FleetCreatorMission(random);
         m.beginFleet();
@@ -146,7 +149,7 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
         m.triggerFleetSetName("Existential Threat");
         m.triggerPatrolAllowTransponderOff();
         m.triggerFleetSetPatrolActionText("are you there?");
-        m.triggerOrderFleetPatrol(NA_BlackcatGen.lunargravitywell, NA_BlackcatGen.blackcatstation);
+        m.triggerOrderFleetPatrol(Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_gravitywell"), NA_Elevator);
 
 
 
@@ -158,13 +161,7 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
         p.blockFallback = true;
         p.maxFP = (int) (fleet.getFleetPoints() * 0.8f);
 
-        for (int i = 0; i < 6; i++) {
-            List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_MEDIUM, p, null, random);
-            for (ShipRolePick pick : picks) {
-                fleet.getFleetData().addFleetMember(pick.variantId);
-            }
-        }
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 3; i++) {
             List<ShipRolePick> picks = faction.pickShip(ShipRoles.COMBAT_LARGE, p, null, random);
             for (ShipRolePick pick : picks) {
                 fleet.getFleetData().addFleetMember(pick.variantId);
@@ -199,7 +196,7 @@ public class NA_Stargazer_Lunar_Fleet extends SDFBase {
         fleet.setLocation(NA_Elevator.getLocation().x, NA_Elevator.getLocation().y);
         fleet.setFacing((float) random.nextFloat() * 360f);
 
-        NA_StargazerFleets.modifyStargazerFleet(fleet, random);
+        NA_StargazerFleets.modifyStargazerFleet(fleet, random, NA_StargazerFleets.StargazerFleetType.PURE);
 
 
         return fleet;

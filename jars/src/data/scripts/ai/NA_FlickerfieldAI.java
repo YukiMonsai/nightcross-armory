@@ -145,7 +145,7 @@ public class NA_FlickerfieldAI implements ShipSystemAIScript {
                     weight += b.getDamageAmount() * 0.005f;
                 }
             }
-            List<DamagingProjectileAPI> bullets = NAUtils.getProjectilesWithinRange(ship.getLocation(), 500f, false);
+            List<DamagingProjectileAPI> bullets = NAUtils.getProjectilesWithinRange(ship.getLocation(), 500f, false, ship.getOwner());
             for (DamagingProjectileAPI b : bullets) {
                 if (b.getSource() == ship) continue;
                 if (ship.isPointInBounds(MathUtils.getPointOnCircumference(b.getLocation(), 450, b.getFacing()))

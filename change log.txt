@@ -1,8 +1,26 @@
+V2.1.5
+- Magura shield reduced to 700 from 1000
+- Magic Missile now has a 360 shield with 350 hp, 
+- Magic missile now has 2 charges instead of 1
+
+V2.1.4
+- Plasma Aggregator: Increased Synergy RoF boost to 40%, removed (hidden) recharge rate boost to synergy weapons. Flux cost reduction affects all synergy weapons in addittion to energy in synergy slot
+- Synergy Conduits is now called Superconducting Conduits
+- Superconducting Conduits: Missile and Synergy weapons fire and regain charges 60% faster. Bonus is reduced based on the amount of OP spent on weapons affected by this buff
+- Fixed a bug that made plasma aggregator and superconducting conduits significantly stronger for weapons with long reload time, and weak for weapons with short
+- Heavy Pyrowisp System ammo/sec .4 -> .67
+- HPF EMP increased 150 -> 400 (small), 300 -> 600 (med)
+- HPF hp 75 -> 60, 225 -> 120 (light, medium)
+- Light pyrowisp hp 65 -> 50
+- Stargazer fleets in the sector are now mixed in with regular ships to simulate derelict hulls they have gathered in their travels
+
+
 V2.1.3
 - Pyrorifle OP reduced to 6, efficiency improved to 1.0 (I think it was overnerfed)
 - Pyrorifle and pyrokinetic streamer now have 40 EMP damage component
 - Small pyrowisp has smaller mag, rebalanced synergy wep missile hp
 - Krun Macula ship system effect increased by flat 10% to all size classes
+- Krun Macula +5 OP
 - Treble CIWS damage increased to 60 per shot from 40 (160 from 120 per burst)
 - Atomic driver OP 20 -> 16
 - Hardlight rifle RoF .38 -> .28

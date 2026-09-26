@@ -77,11 +77,21 @@
 		"na_tempus_brawler":3,
 		"na_tempus_dual":2,
 		"na_ister_elite":0.5,
-		"na_ister_skirmish":0.5,
-		"na_ister_support":0.5,
 		"na_ister_assault":1,
 		
 	},
+	
+	
+	"phaseMedium":{
+		"na_xanthe_standard":3,
+	},
+	"phaseLarge":{
+		"na_ister_elite":0.5,
+		"na_ister_assault":1,
+		"na_ister_skirmish":0.5,
+		"na_ister_support":0.5,
+	},
+	
 	"combatCapital":{
 		"na_losulci_offense":4,
 		"na_losulci_defense":8,

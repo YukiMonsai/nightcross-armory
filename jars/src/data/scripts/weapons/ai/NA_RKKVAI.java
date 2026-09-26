@@ -26,8 +26,9 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     private final IntervalUtil launchTimer = new IntervalUtil(0.2f, 0.4f);
     private final IntervalUtil deathTimer = new IntervalUtil(0.05f, 0.4f);
 
-    private final float BEAM_TIME = 0.5f;
     private final float TARGETTIME = 0.5f;
+    private final float BEAM_TIME = 0.025f;
+    private final IntervalUtil reassignTimer = new IntervalUtil(0.5f, 0.5f);
     private final IntervalUtil beamTimer = new IntervalUtil(BEAM_TIME, BEAM_TIME);
     private final IntervalUtil targetTimer = new IntervalUtil(TARGETTIME, TARGETTIME);
     // data
@@ -269,26 +270,11 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             }
 
 
-            if (stage == 2 && beamTimer.intervalElapsed()) {
-                float dist = MathUtils.getDistance(missile.getLocation(),target.getLocation());
-
-                // we also blow up asteroids in front if they are further than our target
-
-                List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), Math.min(350f, dist));
-
-                for (CombatEntityAPI e : asteroids) {
-                    if (e instanceof CombatAsteroidAPI) {
-                        float ang = MathUtils.getShortestRotation(
-                                VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
-                        if (Math.abs(ang) < 25) {
-                            e.setHitpoints(0); // blow up the asteroid
-                        }
-                    }
-
-                }
-
-
-                // render a beam to help the player dodge
+            float dist = MathUtils.getDistance(missile.getLocation(),target.getLocation());
+            reassignTimer.advance(amount);
+            beamTimer.advance(amount);
+            // render a beam to help the player dodge
+            if (beamTimer.intervalElapsed())
                 MagicFakeBeam.spawnFakeBeam(
                         Global.getCombatEngine(),
                         missile.getLocation(),
@@ -306,9 +292,25 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                         missile.getSource()
                 );
 
-                beamTimer.setElapsed(0);
-            } else {
-                beamTimer.advance(amount);
+            if (stage == 2 && reassignTimer.intervalElapsed()) {
+
+                // we also blow up asteroids in front if they are further than our target
+
+                List<CombatEntityAPI> asteroids = NAUtils.getEntitiesWithinRange(missile.getLocation(), Math.min(350f, dist));
+
+                for (CombatEntityAPI e : asteroids) {
+                    if (e instanceof CombatAsteroidAPI) {
+                        float ang = MathUtils.getShortestRotation(
+                                VectorUtils.getAngle(Misc.ZERO, missile.getVelocity()), VectorUtils.getAngle(missile.getLocation(), e.getLocation()));
+                        if (Math.abs(ang) < 25) {
+                            e.setHitpoints(0); // blow up the asteroid
+                        }
+                    }
+
+                }
+
+
+
             }
         }
     }

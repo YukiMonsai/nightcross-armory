@@ -279,7 +279,8 @@ public class NCACBStargazer extends BaseCustomBountyCreator {
                 params.qualityOverride = qualityOverride + params.qualityMod;;
             }
 
-            context.fleet = NA_StargazerFleets.createStargazerFleet(params, random);
+            context.fleet = NA_StargazerFleets.createStargazerFleet(params, random, random.nextFloat() < 0.2f ? NA_StargazerFleets.StargazerFleetType.PURE : (
+                    random.nextFloat() < 0.5f ? NA_StargazerFleets.StargazerFleetType.MIXED : NA_StargazerFleets.StargazerFleetType.LOST_ONES));
             context.fleet.setFacing(random.nextFloat() * 360f);
 
             if (this.faction != null) {
