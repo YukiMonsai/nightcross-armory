@@ -326,10 +326,11 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
             return;
         }
 
-        if (Global.getCombatEngine() != null) {
-            if (!Global.getCombatEngine().getCustomData().containsKey(DATA_KEY)) {
-                Global.getCombatEngine().addPlugin(new Nightcross_Homing());
-            }
+        CombatEngineAPI combatEngine = Global.getCombatEngine();
+        if (combatEngine != null && !combatEngine.getCustomData().containsKey(DATA_KEY)) {
+            combatEngine.addPlugin(new Nightcross_Homing());
+            // Registration belongs to this battle; do not mark a failed add as successful.
+            combatEngine.getCustomData().put(DATA_KEY, Boolean.TRUE);
         }
     }
 
