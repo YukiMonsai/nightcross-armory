@@ -132,11 +132,17 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
                 float angle = MathUtils.getShortestRotation(
                         missile.getFacing(), target_angle);
+                float decel_dist = Math.signum(missile.getAngularVelocity()) * (missile.getAngularVelocity() * missile.getAngularVelocity()) / (2 * missile.getTurnAcceleration());
 
-                if (angle < -10f) {
+                if (angle + decel_dist * .9 < -10f) {
                     missile.giveCommand(ShipCommand.TURN_RIGHT);
-                } else if (angle > 10f) {
+                } else if (angle + decel_dist * .9 > 10f) {
                     missile.giveCommand(ShipCommand.TURN_LEFT);
+                }
+
+                float DAMPING = 0.1f;
+                if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
+                    missile.setAngularVelocity(angle / DAMPING);
                 }
             }
 
@@ -208,6 +214,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
             float vmult = 0.4f;
             float pvmult = 0.4f;
+            float msmult = 0.65f;
             if (MathUtils.getDistance(target.getLocation(), missile.getLocation()) > (1.4f * missile.getVelocity().length())) {
                 vmult = 0.75f;
                 pvmult = 0.5f;
@@ -215,8 +222,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
             lead = leadPoint(
                     new Vector2f(target.getLocation()),
-                    new Vector2f(vmult*target.getVelocity().x - pvmult * missile.getVelocity().x, vmult*target.getVelocity().y - pvmult * missile.getVelocity().y),
-                    new Vector2f(missile.getLocation()), Math.max(1, missile.getVelocity().length()*pvmult));
+                    new Vector2f(target.getVelocity().x * vmult - pvmult * missile.getVelocity().x,
+                            target.getVelocity().y * vmult - pvmult * missile.getVelocity().y),
+                    new Vector2f(missile.getLocation()),
+                    Math.max(missile.getMaxSpeed() * msmult, pvmult * missile.getVelocity().length()));
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     lead.y - missile.getLocation().y,
                     lead.x - missile.getLocation().x
@@ -226,25 +235,30 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
             float angle = MathUtils.getShortestRotation(
                     missile.getFacing(), target_angle);
+            float decel_dist = Math.signum(missile.getAngularVelocity()) * (missile.getAngularVelocity() * missile.getAngularVelocity()) / (2 * missile.getTurnAcceleration());
+            float noovershootFactor = stage == 1 ? 0.5f : .9f;
 
-            if (angle < 0) {
+            if (angle + decel_dist * noovershootFactor < 0) {
                 missile.giveCommand(ShipCommand.TURN_RIGHT);
-            } else {
+            } else if (angle + decel_dist * noovershootFactor > 0) {
                 missile.giveCommand(ShipCommand.TURN_LEFT);
             }
 
-            float DAMPING = stage == 1 ? 0.03f : 0.2f;
+            float DAMPING = stage == 1 ? 0.1f : 0.2f;
+            float velAngle = MathUtils.getShortestRotation(
+                    VectorUtils.getFacing(missile.getVelocity()), target_angle);
             if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
                 missile.setAngularVelocity(angle / DAMPING);
                 missile.giveCommand(ShipCommand.ACCELERATE);
             } else if (stage == 1) {
                 // decelerate
                 missile.giveCommand(ShipCommand.DECELERATE);
+            } else if (stage == 2 && Math.abs(velAngle) < 20) {
+                missile.giveCommand(ShipCommand.ACCELERATE);
             }
 
+
             if (stage == 1) {
-                float velAngle = MathUtils.getShortestRotation(
-                        VectorUtils.getFacing(missile.getVelocity()), target_angle);
                 if (Math.abs(angle) < 20 && Math.abs(velAngle) < 20)
                     stage = 2;
                 else {
@@ -355,8 +369,7 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             Vector2f targetPoint, Vector2f targetVel, Vector2f projPoint, float projSpeed) {
         float time =
                 (targetPoint.x - projPoint.x) * (targetPoint.x - projPoint.x)
-                        + (targetPoint.y - projPoint.y)
-                        + (targetPoint.y - projPoint.y); // distance squared
+                        + (targetPoint.y - projPoint.y) * (targetPoint.y - projPoint.y); // distance squared
         time = (float) Math.sqrt(time); // distance
         time /= projSpeed; // divided by proj speed
 

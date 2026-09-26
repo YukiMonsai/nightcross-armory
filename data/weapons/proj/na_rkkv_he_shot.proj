@@ -16,7 +16,7 @@
 	"flameoutTime":15,
 	"engineSpec":{"turnAcc":2850,
 				  "turnRate":1250,
-				  "acc":270,
+				  "acc":160,
 				  "dec":200},
 	"engineSlots":[{"id":"ES1",
 					"loc":[-10, 0],

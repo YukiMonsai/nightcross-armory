@@ -328,6 +328,7 @@ public class Nightcross_Homing extends BaseEveryFrameCombatPlugin {
 
         if (Global.getCombatEngine() != null) {
             if (!Global.getCombatEngine().getCustomData().containsKey(DATA_KEY)) {
+                Global.getCombatEngine().getCustomData().put(DATA_KEY, Boolean.TRUE);
                 Global.getCombatEngine().addPlugin(new Nightcross_Homing());
             }
         }
