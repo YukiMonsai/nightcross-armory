@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+"""Compile and exercise Nightcross combat fixes using a local JDK and game libraries.
+
+Requires Python 3.9+ and JDK 17+. Never modifies the supplied installation or JARs.
+"""
+import argparse
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+
+REPO = Path(__file__).resolve().parent.parent
+SOURCES = [
+    "data/scripts/everyframe/Nightcross_Homing.java",
+    "data/scripts/weapons/ai/NA_RKKVAI.java",
+    "data/scripts/weapons/ai/NA_RKKVAI_HE.java",
+]
+
+
+def run(command, cwd=REPO):
+    return subprocess.run([str(x) for x in command], cwd=cwd, text=True,
+                          encoding="utf-8", errors="replace", capture_output=True)
+
+
+def require(result, label):
+    if result.returncode:
+        raise RuntimeError(label + " failed:\n" + result.stdout + result.stderr)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--lib-dir", type=Path, action="append", required=True,
+                        help="Directory of game/dependency JARs; repeat as needed (not recursive).")
+    parser.add_argument("--java-home", type=Path, help="JDK directory; otherwise use PATH.")
+    parser.add_argument("--baseline-ref", help="Optional Git revision to compile and compare.")
+    parser.add_argument("--output-dir", type=Path,
+                        help="Keep classes/results in this new or empty directory.")
+    args = parser.parse_args()
+    suffix = ".exe" if os.name == "nt" else ""
+    java = str(args.java_home / "bin" / ("java" + suffix)) if args.java_home else shutil.which("java")
+    javac = str(args.java_home / "bin" / ("javac" + suffix)) if args.java_home else shutil.which("javac")
+    if not java or not javac:
+        parser.error("A JDK with both java and javac is required (17 or newer).")
+    dependency_jars = []
+    for directory in args.lib_dir:
+        jars = sorted(directory.resolve().glob("*.jar"))
+        if not jars:
+            parser.error("No JARs in " + str(directory))
+        dependency_jars.extend(jars)
+    mod_jar = REPO / "jars/nightcross.jar"
+    if not mod_jar.is_file():
+        parser.error("Missing repository baseline jars/nightcross.jar")
+    # The repository's own support classes take precedence over installed mod copies.
+    libraries = os.pathsep.join(str(p) for p in [mod_jar] + dependency_jars)
+    temporary = None
+    if args.output_dir:
+        output = args.output_dir.resolve()
+        if output.exists() and any(output.iterdir()):
+            parser.error("Output directory must be new or empty: " + str(output))
+        output.mkdir(parents=True, exist_ok=True)
+    else:
+        temporary = tempfile.TemporaryDirectory(prefix="nightcross-regressions-")
+        output = Path(temporary.name)
+    report = {}
+    try:
+        version = run([java, "-version"])
+        require(version, "java -version")
+        report["java_version"] = version.stdout + version.stderr
+        empty_source = output / "empty-source"
+        empty_source.mkdir()
+        def compile_java(files, destination):
+            destination.mkdir(exist_ok=True)
+            result = run([javac, "--release", "17", "-encoding", "UTF-8",
+                          "-sourcepath", empty_source, "-implicit:none", "-cp", libraries,
+                          "-d", destination] + files)
+            require(result, "Compilation")
+        homing_tests = output / "homing-tests"
+        guidance_tests = output / "guidance-tests"
+        compile_java([REPO / "tests/HomingRegression.java",
+                      REPO / "tests/homing-support/data/scripts/campaign/plugins/NAModPlugin.java"],
+                     homing_tests)
+        compile_java([REPO / "tests/RkkvGuidanceRegression.java"], guidance_tests)
+        versions = [("patched", [REPO / "jars/src" / f for f in SOURCES])]
+        if args.baseline_ref:
+            files = []
+            for relative in SOURCES:
+                source = run(["git", "show", args.baseline_ref + ":jars/src/" + relative])
+                require(source, "Read baseline source")
+                target = output / "baseline-source" / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(source.stdout, encoding="utf-8")
+                files.append(target)
+            versions.insert(0, ("baseline", files))
+        failed = False
+        for label, files in versions:
+            classes = output / (label + "-classes")
+            compile_java(files, classes)
+            report[label] = {}
+            for suite, main_class, tests in [
+                ("homing", "HomingRegression", homing_tests),
+                ("guidance", "RkkvGuidanceRegression", guidance_tests),
+            ]:
+                classpath = os.pathsep.join([str(tests), str(classes), libraries])
+                result = run([java, "-Xverify:all", "-cp", classpath, main_class])
+                report[label][suite] = {"exit_code": result.returncode,
+                                        "stdout": result.stdout, "stderr": result.stderr}
+                print(label + " / " + suite + ": " + result.stdout.strip().split("\n")[-1])
+                if label == "patched" and result.returncode:
+                    print(result.stdout + result.stderr)
+                    failed = True
+            if label == "baseline":
+                # A comparison is evidence, not a requirement that an arbitrary revision fails.
+                print("Baseline failures (if any) are reported for comparison.")
+        (output / "results.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+        if args.output_dir:
+            print("Results: " + str(output / "results.json"))
+        return 1 if failed else 0
+    finally:
+        if temporary:
+            temporary.cleanup()
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
