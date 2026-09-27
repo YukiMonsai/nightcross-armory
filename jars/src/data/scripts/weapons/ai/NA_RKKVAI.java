@@ -92,9 +92,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
         updateTarget();
 
         // if the missile has no target, pick the nearest one
-        if (!isValidTarget(target)) {
-            // Clear stale references before inheriting a target or running the fallback search.
-            setTarget(null);
+        if (target == null
+                || (target instanceof ShipAPI && !((ShipAPI) target).isAlive())
+                || !engine.isEntityInPlay(target)
+                || target.getCollisionClass() == CollisionClass.NONE) {
             missile.giveCommand(stage < 2 ? ShipCommand.DECELERATE : ShipCommand.ACCELERATE);
             if (stage < 2 && missile.getSource() != null) {
                 if (stage < 1 || missile.getSource() == engine.getPlayerShip()) {
@@ -169,6 +170,12 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             if (clampTarget() || target == null) {
                 return;
             }
+            float DAMPING = 0.1f;
+            if (angle < -0.1f) {
+                missile.giveCommand(ShipCommand.TURN_RIGHT);
+            } else if (angle > 0.1f) {
+                missile.giveCommand(ShipCommand.TURN_LEFT);
+            }
 
             boolean allowAccel = true;
             if (!launchTimer.intervalElapsed()) {
@@ -180,7 +187,8 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
 
             // Damp angular velocity if the missile aim is getting close to the targeted angle
 
-            if (steer(angle, 0.1f, amount)) {
+            if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
+                missile.setAngularVelocity(angle / DAMPING);
                 if (allowAccel)
                     missile.giveCommand(ShipCommand.ACCELERATE);
             }
@@ -204,12 +212,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
                 pvmult = 0.5f;
             }
 
-            // leadPoint returns a world position: use target world velocity and the
-            // missile's available speed, not relative velocity or launch speed.
             lead = leadPoint(
                     new Vector2f(target.getLocation()),
-                    new Vector2f(vmult * target.getVelocity().x, vmult * target.getVelocity().y),
-                    new Vector2f(missile.getLocation()), Math.max(1f, missile.getMaxSpeed() * pvmult));
+                    new Vector2f(vmult*target.getVelocity().x - pvmult * missile.getVelocity().x, vmult*target.getVelocity().y - pvmult * missile.getVelocity().y),
+                    new Vector2f(missile.getLocation()), Math.max(1, missile.getVelocity().length()*pvmult));
             target_angle = (float) (180f / Math.PI * Math.atan2(
                     lead.y - missile.getLocation().y,
                     lead.x - missile.getLocation().x
@@ -220,8 +226,15 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             float angle = MathUtils.getShortestRotation(
                     missile.getFacing(), target_angle);
 
+            if (angle < 0) {
+                missile.giveCommand(ShipCommand.TURN_RIGHT);
+            } else {
+                missile.giveCommand(ShipCommand.TURN_LEFT);
+            }
+
             float DAMPING = stage == 1 ? 0.03f : 0.2f;
-            if (steer(angle, DAMPING, amount)) {
+            if (Math.abs(angle) < Math.abs(missile.getAngularVelocity()) * DAMPING) {
+                missile.setAngularVelocity(angle / DAMPING);
                 missile.giveCommand(ShipCommand.ACCELERATE);
             } else if (stage == 1) {
                 // decelerate
@@ -309,38 +322,10 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
     public void setTarget(CombatEntityAPI target) {
         // RKKVs are not affected by flares
         if (!(target instanceof MissileAPI)) {
-            this.target = isValidTarget(target) ? target : null;
+            this.target = target;
             updateTarget();
 
         }
-    }
-
-    private boolean isValidTarget(CombatEntityAPI candidate) {
-        return candidate != null
-                && !(candidate instanceof MissileAPI)
-                && (!(candidate instanceof ShipAPI) || ((ShipAPI) candidate).isAlive())
-                && Global.getCombatEngine().isEntityInPlay(candidate)
-                && candidate.getCollisionClass() != CollisionClass.NONE;
-    }
-
-    /** Apply a turn without stepping past the heading during a slow update. */
-    private boolean steer(float angle, float damping, float amount) {
-        float step = Math.max(0f, amount);
-        float horizon = Math.max(damping, step);
-        // The engine applies turn acceleration after the AI's commands, so include it
-        // when deciding whether a turn would overshoot, even when angular speed is zero.
-        float possibleRate = Math.min(missile.getMaxTurnRate(),
-                Math.abs(missile.getAngularVelocity()) + missile.getTurnAcceleration() * step);
-        if (Math.abs(angle) <= possibleRate * horizon) {
-            float desiredRate = angle / horizon;
-            // With no turn command the engine brakes automatically. Compensate for
-            // that braking so its final rate is desiredRate, without queuing a turn.
-            float braking = missile.getEngineController().getTurnDeceleration() * step;
-            missile.setAngularVelocity(desiredRate + Math.signum(desiredRate) * braking);
-            return true;
-        }
-        missile.giveCommand(angle < 0f ? ShipCommand.TURN_RIGHT : ShipCommand.TURN_LEFT);
-        return false;
     }
 
     private boolean clampTarget() {
@@ -368,7 +353,8 @@ public class NA_RKKVAI implements MissileAIPlugin, GuidedMissileAI {
             Vector2f targetPoint, Vector2f targetVel, Vector2f projPoint, float projSpeed) {
         float time =
                 (targetPoint.x - projPoint.x) * (targetPoint.x - projPoint.x)
-                        + (targetPoint.y - projPoint.y) * (targetPoint.y - projPoint.y); // distance squared
+                        + (targetPoint.y - projPoint.y)
+                        + (targetPoint.y - projPoint.y); // distance squared
         time = (float) Math.sqrt(time); // distance
         time /= projSpeed; // divided by proj speed
 
