@@ -2,6 +2,7 @@ V2.1.5
 - Magura shield reduced to 700 from 1000
 - Magic Missile now has a 360 shield with 350 hp, 
 - Magic missile now has 2 charges instead of 1
+- Fixed a memory leak involving RKKVs and NSCBs
 
 V2.1.4
 - Plasma Aggregator: Increased Synergy RoF boost to 40%, removed (hidden) recharge rate boost to synergy weapons. Flux cost reduction affects all synergy weapons in addittion to energy in synergy slot
