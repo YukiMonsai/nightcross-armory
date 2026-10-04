@@ -31,6 +31,13 @@ public class NAFulldiveOfficer {
     public static class Level1 implements ShipSkillEffect {
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
             FleetMemberAPI member = stats.getFleetMember();
+            if (member == null) {
+                // Ship.setCaptain() (e.g. from other mods during combat deployment) applies
+                // personal skills to ships that have no fleet member attached; the variant-based
+                // logic below is meaningless there and the campaign-side apply() has already
+                // set up these stats.
+                return;
+            }
             boolean isGhost = member.getVariant().hasHullMod(NA_ProjectGhost.ID);
             if (!isGhost) {
                 stats.getMaxCombatReadiness().modifyFlat(id, CR_PENALTY * 0.01f, "Project: GHOST");
@@ -77,6 +84,9 @@ public class NAFulldiveOfficer {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getMaxCombatReadiness().unmodify(id);
             FleetMemberAPI member = stats.getFleetMember();
+            if (member == null) {
+                return;
+            }
             if (member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
                 member.getVariant().removeTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY);
             }
