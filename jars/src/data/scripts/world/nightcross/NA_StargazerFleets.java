@@ -324,11 +324,13 @@ public class NA_StargazerFleets {
 
         if (numMidShips > 0 && !type.equals(StargazerFleetType.PURE)) {
 
-            var factions = type.equals(StargazerFleetType.NIGHTCROSS) ? new WeightedRandomPicker<String>() : SalvageSpecialAssigner.getNearbyFactions(random, MathUtils.getPointOnCircumference(Misc.ZERO, 15f, random.nextFloat() * 360),
+            var factions = type.equals(StargazerFleetType.NIGHTCROSS) ? new WeightedRandomPicker<String>() : SalvageSpecialAssigner.getNearbyFactions(random, MathUtils.getPointOnCircumference(Misc.ZERO, 10f, random.nextFloat() * 360),
                     15f, 10f, 0f);
 
+            factions.add("nightcross", 5f);
+            factions.add("derelict", 5f);
             if (type.equals(StargazerFleetType.NIGHTCROSS)) {
-                factions.add("nightcross", 1.0f);
+                factions.add("nightcross", 10.0f);
             }
             int i = 0;
             while(i < numMidShips) {
