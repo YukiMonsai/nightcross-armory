@@ -51,7 +51,7 @@
 					 "useDetailedExplosion":true
 					 },
 	
-    "renderTargetIndicator":true,
+    "renderTargetIndicator":false,
 	"engineSlots":[
 			{"id":"ES1",
                 "loc":[0, 0],

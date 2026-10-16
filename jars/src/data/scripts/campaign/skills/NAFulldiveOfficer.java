@@ -77,10 +77,10 @@ public class NAFulldiveOfficer {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getMaxCombatReadiness().unmodify(id);
             FleetMemberAPI member = stats.getFleetMember();
-            if (member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
+            if (member != null && member.getVariant().hasTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY)) {
                 member.getVariant().removeTag(NA_ProjectGhost.TAG_IMMUNE_TO_PENALTY);
             }
-            if (member.getVariant().hasTag(NA_ProjectGhost.TAG_NOPENALTY_SET)) {
+            if (member != null && member.getVariant().hasTag(NA_ProjectGhost.TAG_NOPENALTY_SET)) {
                 member.getVariant().removeTag(NA_ProjectGhost.TAG_NOPENALTY_SET);
                 member.getVariant().removeTag(Tags.TAG_AUTOMATED_NO_PENALTY);
 

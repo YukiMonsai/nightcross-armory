@@ -93,7 +93,7 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 		boolean firing = false;
 		for(WeaponAPI weapon : beams){
 			if(weapon.isFiring()) {
-				dissipationBuff += weapon.getFluxCostToFire() * (100f - FLUX_RED)/100f;
+				dissipationBuff += weapon.getFluxCostToFire() * (FLUX_RED)/100f;
 				firing = true;
 				if (particleTimer.intervalElapsed()) {
 					Global.getCombatEngine().addSmoothParticle(
@@ -113,7 +113,7 @@ public class NA_PlasmaAggregator extends BaseHullMod {
 				if(!fluxRefunded.get(weapon)){
 					fluxRefunded.put(weapon, true);
 					firing = true;
-					flatFluxRefund += weapon.getFluxCostToFire() * (100f - FLUX_RED)/100f;
+					flatFluxRefund += weapon.getFluxCostToFire() * (FLUX_RED)/100f;
 					if (particleTimer.intervalElapsed()) {
 						Global.getCombatEngine().addSmoothParticle(
 								weapon.getFirePoint(0),

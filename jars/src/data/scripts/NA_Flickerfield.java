@@ -26,13 +26,13 @@ public class NA_Flickerfield extends BaseShipSystemScript {
     //public static final float INCOMING_DAMAGE_CAPITAL = 0.5f;
 
     public void apply(MutableShipStatsAPI stats, String id, State state, float effectLevel) {
-        effectLevel = 1f;
+        var effect = 1f;
 
         float mult = MAGNITUDE;
-        stats.getHullDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effectLevel);
-        stats.getArmorDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effectLevel);
-        stats.getEmpDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effectLevel);
-        stats.getDynamic().getStat(TIDAL_PAUSE).modifyFlat(id, 1f - (1f - mult) * effectLevel);
+        stats.getHullDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
+        stats.getArmorDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
+        stats.getEmpDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
+        stats.getDynamic().getStat(TIDAL_PAUSE).modifyFlat(id, 1f - (1f - mult) * effect);
 
 
         ShipAPI ship = null;
@@ -44,7 +44,7 @@ public class NA_Flickerfield extends BaseShipSystemScript {
         if (player) {
             ShipSystemAPI system = getDamper(ship);
             if (system != null) {
-                float percent = (1f - mult) * effectLevel * 100;
+                float percent = (1f - mult) * effect * 100;
                 Global.getCombatEngine().maintainStatusForPlayerShip(STATUSKEY1,
                         system.getSpecAPI().getIconSpriteName(), system.getDisplayName(),
                         (int) Math.round(percent) + "% less damage taken", false);

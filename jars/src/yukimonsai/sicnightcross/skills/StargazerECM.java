@@ -90,8 +90,8 @@ public class StargazerECM extends SCBaseSkillPlugin {
 
                         if (mag == 0) continue;
 
-                        ship.getMutableStats().getWeaponMalfunctionChance().modifyFlat(ID, mag * 0.01f * ecmdmgnerf * MALFUNCTIONMOD);
-                        ship.getMutableStats().getEngineDamageTakenMult().modifyMult(ID, mag * 1f - 0.01f * ecmdmgnerf * ENGINE_MALFUNCTIONMOD);
+                        ship.getMutableStats().getWeaponMalfunctionChance().modifyFlat(ID, mag * ecmdmgnerf * MALFUNCTIONMOD);
+                        ship.getMutableStats().getEngineDamageTakenMult().modifyFlat(ID, 1f + mag * ecmdmgnerf * ENGINE_MALFUNCTIONMOD);
 
                         String icon = Global.getSettings().getSpriteName("ui", "icon_tactical_electronic_warfare");
                         if (ship == Global.getCombatEngine().getPlayerShip())

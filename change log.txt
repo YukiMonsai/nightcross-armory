@@ -1,3 +1,6 @@
+V2.1.6
+- Fixed a crash
+
 V2.1.5
 - Magura shield reduced to 700 from 1000
 - Magic Missile now has a 360 shield with 350 hp, 

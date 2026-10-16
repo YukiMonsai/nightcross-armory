@@ -57,7 +57,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getMaxCombatReadiness().unmodify(id);
             FleetMemberAPI member = stats.getFleetMember();
-            if (member.getFleetData() != null && member.getFleetData().getFleet() != null
+            if (member != null && member.getFleetData() != null && member.getFleetData().getFleet() != null
                     && member.getFleetData().getFleet().isPlayerFleet()) {
                 var dp = member.getDeploymentPointsCost();
                 for (FleetMemberAPI fm : member.getFleetData().getFleet().getFleetData().getMembersListCopy()) {
@@ -202,7 +202,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
         }
 
         public void apply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id, float level) {
-            stats.getOverloadTimeMod().modifyPercent(BONUS_ID, OVERLOAD_DUR);
+            //stats.getOverloadTimeMod().modifyPercent(BONUS_ID, OVERLOAD_DUR);
         }
 
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
@@ -296,7 +296,7 @@ public class NAFulldiveOfficer_Ghost extends NAFulldiveOfficer  {
                                 rand ? ship.getLocation() : fragment.loc, ship,
                                 rand ? fragment.loc : ship.getLocation(),
                                 ship, 15f,
-                                ship.getShield().getInnerColor(),
+                                ship.getShield() != null ? ship.getShield().getInnerColor() : ship.getVentCoreColor(),
                                 new Color(255, 222, 234, 150), params
                         );
                         arc.setSingleFlickerMode(true);

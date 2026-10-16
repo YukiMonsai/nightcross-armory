@@ -55,7 +55,7 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getMaxCombatReadiness().unmodify(id);
             FleetMemberAPI member = stats.getFleetMember();
-            if (member.getFleetData() != null && member.getFleetData().getFleet() != null
+            if (member != null && member.getFleetData() != null && member.getFleetData().getFleet() != null
                     && member.getFleetData().getFleet().isPlayerFleet()) {
                 var dp = member.getDeploymentPointsCost();
                 for (FleetMemberAPI fm : member.getFleetData().getFleet().getFleetData().getMembersListCopy()) {
@@ -259,8 +259,9 @@ public class NAFulldiveOfficer_Matrix extends NAFulldiveOfficer {
                                 );
                                 arc.setSingleFlickerMode(true);
                                 float current = ship.getFluxTracker().getHardFlux();
+                                float currents = ship.getFluxTracker().getCurrFlux();
                                 ship.getFluxTracker().setHardFlux(current * (1f - HARDFLUX_DISS));
-                                ship.getFluxTracker().setCurrFlux(current);
+                                ship.getFluxTracker().setCurrFlux(currents);
                             }
                         }
                     }

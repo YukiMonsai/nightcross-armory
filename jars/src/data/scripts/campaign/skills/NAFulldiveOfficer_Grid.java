@@ -62,7 +62,7 @@ public class NAFulldiveOfficer_Grid extends NAFulldiveOfficer  {
         public void unapply(MutableShipStatsAPI stats, ShipAPI.HullSize hullSize, String id) {
             stats.getMaxCombatReadiness().unmodify(id);
             FleetMemberAPI member = stats.getFleetMember();
-            if (member.getFleetData() != null && member.getFleetData().getFleet() != null
+            if (member != null && member.getFleetData() != null && member.getFleetData().getFleet() != null
                     && member.getFleetData().getFleet().isPlayerFleet()) {
                 var dp = member.getDeploymentPointsCost();
                 for (FleetMemberAPI fm : member.getFleetData().getFleet().getFleetData().getMembersListCopy()) {

@@ -114,7 +114,7 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
                 boolean firing = false;
                 for(WeaponAPI weapon : beams){
                     if(weapon.isFiring()) {
-                        dissipationBuff += weapon.getFluxCostToFire() * (100f - SHIELD_MISSILE_FLUX)/100f;
+                        dissipationBuff += weapon.getFluxCostToFire() * (SHIELD_MISSILE_FLUX)/100f;
                         firing = true;
 
                     }
@@ -124,7 +124,7 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
                         if(!fluxRefunded.get(weapon)){
                             fluxRefunded.put(weapon, true);
                             firing = true;
-                            flatFluxRefund += weapon.getFluxCostToFire() * (100f - SHIELD_MISSILE_FLUX)/100f;
+                            flatFluxRefund += weapon.getFluxCostToFire() * (SHIELD_MISSILE_FLUX)/100f;
                         }
                     } else if(!weapon.isInBurst()){
                         fluxRefunded.put(weapon, false);
@@ -178,7 +178,7 @@ public class StargazerMissiles extends SCBaseSkillPlugin {
 
         stats.getMissileHealthBonus().modifyPercent(ID, SHIELD_MISSILE_HP);
         stats.getMissileRoFMult().modifyPercent(ID, MISSILE_ROF);
-        stats.getMissileWeaponFluxCostMod().modifyPercent(ID, MISSILE_ROF);
+        stats.getMissileWeaponFluxCostMod().modifyPercent(ID, -SHIELD_MISSILE_FLUX);
     }
 
 
