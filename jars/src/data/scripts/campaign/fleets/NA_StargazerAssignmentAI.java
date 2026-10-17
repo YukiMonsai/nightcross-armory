@@ -87,8 +87,10 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
                 this.systemTime.randomize();
                 if (Global.getSector().getPlayerFleet() != null && fleet.getStarSystem() != Global.getSector().getPlayerFleet().getStarSystem()) {
                     if (despawnAbyss && Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_gravitywell") != null) {
+                        fleet.clearAssignments();
                         fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, Global.getSector().getMemoryWithoutUpdate().getEntity("$na_entity_gravitywell"), 10f, "everting");
                     } else {
+                        fleet.clearAssignments();
                         fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, fleet.getStarSystem().getCenter(), 300f, "vanishing");
                     }
                 }
@@ -132,10 +134,13 @@ public class NA_StargazerAssignmentAI implements EveryFrameScript {
                  fleet.getCurrentAssignment().setActionText(text);
              }
         } else if (wanderSystem && fleet.getStarSystem() != systemtarget) {
-             if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() != FleetAssignment.PATROL_SYSTEM)
-                 fleet.getCurrentAssignment().expire();
-             if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.GO_TO_LOCATION)
+             if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.PATROL_SYSTEM)
+                 fleet.clearAssignments();
+             if (fleet.getCurrentAssignment() == null || fleet.getCurrentAssignment().getAssignment() != FleetAssignment.GO_TO_LOCATION) {
+
+                 fleet.clearAssignments();
                  fleet.addAssignment(FleetAssignment.GO_TO_LOCATION, systemtarget.getStar(), 300f, "wandering");
+             }
              else if (fleet.getCurrentAssignment() != null && fleet.getCurrentAssignment().getAssignment() == FleetAssignment.GO_TO_LOCATION) {
 
                  if (

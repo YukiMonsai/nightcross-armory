@@ -29,10 +29,17 @@ public class NA_Flickerfield extends BaseShipSystemScript {
         var effect = 1f;
 
         float mult = MAGNITUDE;
-        stats.getHullDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
-        stats.getArmorDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
-        stats.getEmpDamageTakenMult().modifyMult(id, 1f - (1f - mult) * effect);
-        stats.getDynamic().getStat(TIDAL_PAUSE).modifyFlat(id, 1f - (1f - mult) * effect);
+        if (effectLevel > 0) {
+            stats.getHullDamageTakenMult().modifyMult(id, 1f - (mult) * effect);
+            stats.getArmorDamageTakenMult().modifyMult(id, 1f - (mult) * effect);
+            stats.getEmpDamageTakenMult().modifyMult(id, 1f - (mult) * effect);
+            stats.getDynamic().getStat(TIDAL_PAUSE).modifyFlat(id, 1f - (mult) * effect);
+        } else {
+            stats.getHullDamageTakenMult().unmodify(id);
+            stats.getArmorDamageTakenMult().unmodify(id);
+            stats.getEmpDamageTakenMult().unmodify(id);
+            stats.getDynamic().getStat(TIDAL_PAUSE).unmodify(id);
+        }
 
 
         ShipAPI ship = null;
@@ -44,7 +51,7 @@ public class NA_Flickerfield extends BaseShipSystemScript {
         if (player) {
             ShipSystemAPI system = getDamper(ship);
             if (system != null) {
-                float percent = (1f - mult) * effect * 100;
+                float percent = (mult) * effect * 100;
                 Global.getCombatEngine().maintainStatusForPlayerShip(STATUSKEY1,
                         system.getSpecAPI().getIconSpriteName(), system.getDisplayName(),
                         (int) Math.round(percent) + "% less damage taken", false);
