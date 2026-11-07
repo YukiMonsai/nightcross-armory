@@ -1,3 +1,7 @@
+V2.1.7
+- Fixed a memory leak
+- Fixed Reactive Targeting (SiC skill) giving bonuses 100x too small
+
 V2.1.6
 - Fixed a crash
 

@@ -40,12 +40,12 @@ public class CR extends SCBaseSkillPlugin {
 
     @Override
     public void applyEffectsBeforeShipCreation(SCData data, MutableShipStatsAPI stats, ShipVariantAPI variant, ShipAPI.HullSize hullSize, String id) {
-        stats.getEnergyWeaponRangeBonus().modifyPercent(ID, ENERGY_RANGE);
-        stats.getBallisticWeaponDamageMult().modifyPercent(ID, BALLISTIC_DMG);
-        stats.getRecoilPerShotMult().modifyPercent(ID, -BALLISTIC_RECOIL);
-        stats.getRecoilDecayMult().modifyPercent(ID, BALLISTIC_RECOIL);
-        stats.getEnergyProjectileSpeedMult().modifyPercent(ID, PROJSPEED);
-        stats.getBallisticProjectileSpeedMult().modifyPercent(ID, PROJSPEED);
+        stats.getEnergyWeaponRangeBonus().modifyPercent(ID, ENERGY_RANGE*100);
+        stats.getBallisticWeaponDamageMult().modifyPercent(ID, BALLISTIC_DMG*100);
+        stats.getRecoilPerShotMult().modifyPercent(ID, -BALLISTIC_RECOIL*100);
+        stats.getRecoilDecayMult().modifyPercent(ID, BALLISTIC_RECOIL*100);
+        stats.getEnergyProjectileSpeedMult().modifyPercent(ID, PROJSPEED*100);
+        stats.getBallisticProjectileSpeedMult().modifyPercent(ID, PROJSPEED*100);
 
 
 
