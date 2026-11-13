@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.TimeoutTracker;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.campaign.plugins.NA_SettingsListener;
 import data.scripts.world.nightcross.NA_StargazerFleets;
 import data.scripts.world.nightcross.NA_StargazerGen;
 
@@ -40,6 +41,7 @@ public class NA_StargazerSpawner implements EveryFrameScript {
 		if (amount == 0) return;
 		if (Global.getSector() == null) return;
 		if (Global.getSector().getClock() == null) return;
+		if (!NA_SettingsListener.na_stargazer_spawn) return;
 
 		timeoutRemaining -= amount * Global.getSector().getClock().convertToDays(amount);
 

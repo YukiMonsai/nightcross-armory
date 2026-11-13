@@ -32,7 +32,6 @@ import com.fs.starfarer.api.loading.MissileSpecAPI;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.magiclib.util.MagicLensFlare;
 
-import static com.fs.starfarer.title.String.picker;
 
 /**
  * IMPORTANT: will be multiple instances of this, one for the the OnFire (per weapon) and one for the OnHit (per missile) effects.

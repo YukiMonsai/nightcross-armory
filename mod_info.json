@@ -2,9 +2,9 @@
     "id":"Nightcross",
 	"name":"Nightcross Armory",
 	"author":"YukiM",
-	"version":"2.1.6",
+	"version":"2.2.0",
 	"description":"Contains the remnants of the Nightcross Armory Corporation. LazyLib, GraphicsLib and MagicLib Required. Music Credits: Mekaloton, @prodkomba (YT or IG), and kocaeli.",
-	"gameVersion":"0.98a",
+	"gameVersion":"0.98.5a",
 	"jars":["jars/nightcross.jar"],
     "modPlugin":"data.scripts.campaign.plugins.NAModPlugin",
 }

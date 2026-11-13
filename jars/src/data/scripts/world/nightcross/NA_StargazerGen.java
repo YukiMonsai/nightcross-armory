@@ -81,6 +81,8 @@ public class NA_StargazerGen implements SectorGeneratorPlugin {
 
     public void generate_stargazer(SectorAPI sector) {
         initFactionRelationships(sector);
+
+
         createWanderers(sector);
 
         StargazerGenerated = true;

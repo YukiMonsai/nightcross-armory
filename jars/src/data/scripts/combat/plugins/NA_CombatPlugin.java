@@ -17,7 +17,6 @@ import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import com.fs.starfarer.combat.ai.system.V;
 import data.scripts.campaign.ids.NightcrossID;
 import data.scripts.campaign.plugins.NAModPlugin;
 import data.scripts.campaign.plugins.NAUtils;
@@ -43,6 +42,9 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
+        if (!inited) {
+            init();
+        }
          if (musicPhases > 0) {
              Global.getSoundPlayer().setSuspendDefaultMusicPlayback(true);
              musicalOverrideDone = true;
@@ -67,8 +69,11 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
     public static IntervalUtil musicTimer = new IntervalUtil(.1f, .1f);
     public static float adjustVolRate = 0.4f; // in fractions of second
 
+    public boolean inited = false;
 
     public void doMusic(float amount) {
+
+
         musicTimer.advance(amount);
 
         if (musicPhase == -1) {
@@ -183,6 +188,11 @@ public class NA_CombatPlugin implements EveryFrameCombatPlugin {
 
     @Override
     public void init(CombatEngineAPI engine) {
+
+    }
+
+    public void init() {
+        inited = true;
         musicPhases = 0;
         customBattleMusic = null;
 

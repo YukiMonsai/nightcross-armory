@@ -7,7 +7,6 @@ import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import com.fs.starfarer.combat.C;
 import com.fs.starfarer.combat.entities.Ship;
 import data.scripts.stardust.NA_StargazerStardust;
 import org.dark.shaders.distortion.DistortionShader;
